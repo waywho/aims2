@@ -5,18 +5,33 @@ h1, h2, h3, h4, h5 {
 	font-weight: bold;
 	} 
 
-.navbar {
+.navbar-main {
 	border-radius: 0;
-	background-color: red;
+	background-color: #A21D21;
+	color: white;
+	border: 0;
+}
+
+.navbar-main a {
+	color: black;
+}
+
+.navbar-secondary {
+	padding-right: 25px;
 }
 
 .brand {
 	font-family: 'Cinzel', 'Georgia', 'Times New Roman', serif;
 	font-weight: bold;
 	font-size: 2.5em;
-	padding-top: 50px;
 	padding-left: 25px;
 	padding-bottom: 0px;
-	min-height: 100px;
+	padding-right: 25px;
+	min-height: 50px;
 	vertical-align: bottom;
+}
+
+a {
+	text-decoration: none;
+	color: black;
 }
