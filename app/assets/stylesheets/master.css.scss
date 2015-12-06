@@ -5,6 +5,10 @@ h1, h2, h3, h4, h5 {
 	font-weight: bold;
 	} 
 
+.container-fluid {
+	padding-left: 45px;
+}
+
 .navbar-main {
 	border-radius: 0;
 	background-color: #A21D21;
@@ -12,12 +16,23 @@ h1, h2, h3, h4, h5 {
 	border: 0;
 }
 
-.navbar-main a {
-	color: black;
+.navbar-default .navbar-nav > li > a {
+	color: white;
+	font-weight: bold;
+}
+
+.navbar-default .navbar-nav > .active > a {
+	background-color: #8C0F13;
+	color: white;
+	font-weight: bold;
 }
 
 .navbar-secondary {
 	padding-right: 25px;
+}
+
+.icon-bar {
+	color: white;
 }
 
 .brand {
