@@ -27,6 +27,10 @@ gem 'bootstrap-sass', '>= 3.3.3'
 
 gem 'casein', '~>5.1.1'
 
+gem 'simple_form'
+
+gem 'country_select'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
