@@ -10,6 +10,12 @@ h1, h2, h3, h4, h5 {
 	color: #A21D21;
 	} 
 
+h1 > a, h2 > a, h3 > a, h4 > a, h5 > a {
+	font-family: 'Cinzel', 'Georgia', 'Times New Roman', serif;
+	font-weight: bold;
+	color: #A21D21;
+	} 
+
 .container-fluid {
 	padding-left: 45px;
 }
@@ -28,6 +34,12 @@ h1, h2, h3, h4, h5 {
 .navbar-default .navbar-nav > .active > a {
 	background-color: #8C0F13;
 	color: white;
+	font-weight: bold;
+}
+
+.navbar-default .navbar-nav > .active > a:hover {
+	background-color: #8C0F13;
+	color: black;
 	font-weight: bold;
 }
 

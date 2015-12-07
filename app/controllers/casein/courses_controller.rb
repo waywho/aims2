@@ -59,7 +59,7 @@ module Casein
     private
       
       def course_params
-        params.require(:course).permit(:name, :description, :text)
+        params.require(:course).permit(:name, :description)
       end
 
   end

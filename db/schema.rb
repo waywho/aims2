@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151207112259) do
+ActiveRecord::Schema.define(version: 20151207222114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,10 @@ ActiveRecord::Schema.define(version: 20151207112259) do
     t.string   "photo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "slug"
   end
+
+  add_index "accompanists", ["slug"], name: "index_accompanists_on_slug", using: :btree
 
   create_table "casein_admin_users", force: :cascade do |t|
     t.string   "login",                           null: false
@@ -51,7 +54,10 @@ ActiveRecord::Schema.define(version: 20151207112259) do
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "slug"
   end
+
+  add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
 
   create_table "klasses", force: :cascade do |t|
     t.string   "name"
@@ -72,7 +78,10 @@ ActiveRecord::Schema.define(version: 20151207112259) do
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "slug"
   end
+
+  add_index "pages", ["slug"], name: "index_pages_on_slug", using: :btree
 
   create_table "tutors", force: :cascade do |t|
     t.string   "name"
@@ -80,6 +89,9 @@ ActiveRecord::Schema.define(version: 20151207112259) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "photo"
+    t.string   "slug"
   end
+
+  add_index "tutors", ["slug"], name: "index_tutors_on_slug", using: :btree
 
 end

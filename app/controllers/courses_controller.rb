@@ -6,13 +6,17 @@ class CoursesController < ApplicationController
   end
 
   def show
-  	@course = Course.find(params[:id])
+  	@course = Course.friendly.find(params[:id])
   end
 
   private
 
   def set_courses
   	@courses = Course.all
+  end
+
+  def course_params
+    params.require(:course).permit(:name, :description)
   end
 
 end
