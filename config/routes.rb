@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 		resources :courses
 	end
 
+  resources :courses
+
 
   root 'courses#index'
   # The priority is based upon order of creation: first created -> highest priority.

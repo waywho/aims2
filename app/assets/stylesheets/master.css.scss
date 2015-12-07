@@ -1,8 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Cinzel);
 
+body {
+	font-family: 'Helvetica Neue', Helvetica, sans-serif;
+}
+
 h1, h2, h3, h4, h5 {
 	font-family: 'Cinzel', 'Georgia', 'Times New Roman', serif;
 	font-weight: bold;
+	color: #A21D21;
 	} 
 
 .container-fluid {
@@ -18,7 +23,6 @@ h1, h2, h3, h4, h5 {
 
 .navbar-default .navbar-nav > li > a {
 	color: white;
-	font-weight: bold;
 }
 
 .navbar-default .navbar-nav > .active > a {
@@ -29,6 +33,24 @@ h1, h2, h3, h4, h5 {
 
 .navbar-secondary {
 	padding-right: 25px;
+}
+
+.navbar-third {
+	padding-left: 50px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	border-radius: 0;
+	background-color: grey;
+	border: 0;
+	margin: 0;
+	min-height: 24px;
+}
+
+.navbar-third li a {
+	padding-top: 4px;
+	padding-bottom: 4px;
+	min-height: 20px;
+	font-weight: normal;
 }
 
 .icon-bar {
@@ -58,4 +80,13 @@ a {
 a:hover {
 	text-decoration: none;
 	color: black;
+}
+
+.class-name {
+	display: inline;
+}
+
+.red-divider {
+	border-width: 5px;
+	border-color: #A21D21;
 }

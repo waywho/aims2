@@ -1,0 +1,23 @@
+<h1><%= @course.name %></h1>
+
+<p><%= @course.description %></p>
+
+<% if @course.klasses.present? %>
+	<h2>Classes</h2>
+	<hr class = 'red-divider' />
+<% end %>
+
+<ul>
+<% @course.klasses.each do |klass| %>
+	<li><h4 class = 'class-name'><%= klass.name %> </h4>
+		<% if klass.number_of_sessions.present? %>
+			(<%= klass.number_of_sessions %> sessions)
+		<% end %>
+		<p><%= klass.description %></p>
+		<% if klass.repertoire.present? %>
+			<i>Repertoire:</i> 
+		<p><%= klass.repertoire %></p>
+		<% end %>
+	</li>
+<% end %>
+</ul>
