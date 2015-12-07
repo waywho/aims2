@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151206215916) do
+ActiveRecord::Schema.define(version: 20151207112259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accompanists", force: :cascade do |t|
+    t.string   "name"
+    t.text     "biography"
+    t.string   "photo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "casein_admin_users", force: :cascade do |t|
     t.string   "login",                           null: false
@@ -45,6 +53,19 @@ ActiveRecord::Schema.define(version: 20151206215916) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "klasses", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.text     "repertoire"
+    t.integer  "number_of_sessions"
+    t.string   "session_of_day"
+    t.integer  "course_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "klasses", ["course_id"], name: "index_klasses_on_course_id", using: :btree
+
   create_table "pages", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
@@ -58,6 +79,7 @@ ActiveRecord::Schema.define(version: 20151206215916) do
     t.text     "biography"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "photo"
   end
 
 end
