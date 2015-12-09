@@ -17,6 +17,15 @@
 
 <% end %>
 
+
+	<div class = 'row'>
+		<% @photos.each do |photo| %>
+		<div class = 'col-xs-6 col-md-4'>
+		<%= image_tag photo.image, :class => 'thumbnail img-responsive' %>
+		</div>
+		<% end %>
+	</div>
+
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "th-list"}Back to list".html_safe, casein_courses_path %></li>
 <% end %>

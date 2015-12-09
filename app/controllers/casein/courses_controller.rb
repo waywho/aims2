@@ -16,6 +16,7 @@ module Casein
       @casein_page_title = 'View course'
       @course = Course.friendly.find params[:id]
       @imageable = @course
+      @photos = @imageable.photos
       @imageable.photos.build
     end
   
