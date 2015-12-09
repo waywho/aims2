@@ -4,9 +4,7 @@ Rails.application.routes.draw do
 	namespace :casein do
 		resources :photos
 		resources :klasses
-		resources :courses do
-      resources :photos
-    end
+		resources :courses
 	end
 
   resources :formats do

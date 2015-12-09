@@ -16,12 +16,13 @@ module Casein
       @casein_page_title = 'View course'
       @course = Course.friendly.find params[:id]
       @imageable = @course
-      @photos = @imageable.photos
+      @imageable.photos.build
     end
   
     def new
       @casein_page_title = 'Add a new course'
     	@course = Course.new
+      @photos = @course.photos.build
     end
 
     def create
@@ -61,7 +62,7 @@ module Casein
     private
       
       def course_params
-        params.require(:course).permit(:name, :description, photo_attributes: [:id, :caption, :image, :imageable_id, :imageable_type])
+        params.require(:course).permit(:name, :description, :imageable, photos_attributes: [:id, :caption, :image])
       end
 
   end

@@ -2,6 +2,7 @@
 
 module Casein
   class PhotosController < Casein::CaseinController
+    # before_filter :current_imageable
   
     ## optional filters for defining usage according to Casein::AdminUser access_levels
     # before_filter :needs_admin, :except => [:action1, :action2]
@@ -59,12 +60,13 @@ module Casein
     private
       
       def photo_params
-        params.require(:photo).permit(:caption, :image, :imageable_id, :imageable_type)
+        params.require(:photo).permit(:caption, :image, :imageable_id, :imageable_type, :course_id)
       end
 
     def current_imageable
-      resource, id = request.path.split('/')[2, 3]
-      @imageable = resource.singularize.classify.constantize.friendly.find(id)
+      resource = request.path.split('/')[2]
+      id = params[:id]
+      @imageable = resource.singularize.classify.constantize.find(id)
     end
 
   end
