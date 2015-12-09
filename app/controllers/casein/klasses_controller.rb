@@ -14,7 +14,7 @@ module Casein
   
     def show
       @casein_page_title = 'View klass'
-      @klass = Klass.find params[:id]
+      @klass = Klass.friendly.find params[:id]
     end
   
     def new
@@ -37,7 +37,7 @@ module Casein
     def update
       @casein_page_title = 'Update klass'
       
-      @klass = Klass.find params[:id]
+      @klass = Klass.friendly.find params[:id]
     
       if @klass.update_attributes klass_params
         flash[:notice] = 'Klass has been updated'
@@ -49,7 +49,7 @@ module Casein
     end
  
     def destroy
-      @klass = Klass.find params[:id]
+      @klass = Klass.friendly.find params[:id]
 
       @klass.destroy
       flash[:notice] = 'Klass has been deleted'

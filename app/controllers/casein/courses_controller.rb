@@ -14,7 +14,9 @@ module Casein
   
     def show
       @casein_page_title = 'View course'
-      @course = Course.find params[:id]
+      @course = Course.friendly.find params[:id]
+      @imageable = @course
+      @photos = @imageable.photos
     end
   
     def new
@@ -37,7 +39,7 @@ module Casein
     def update
       @casein_page_title = 'Update course'
       
-      @course = Course.find params[:id]
+      @course = Course.friendly.find params[:id]
     
       if @course.update_attributes course_params
         flash[:notice] = 'Course has been updated'
@@ -49,7 +51,7 @@ module Casein
     end
  
     def destroy
-      @course = Course.find params[:id]
+      @course = Course.friendly.find params[:id]
 
       @course.destroy
       flash[:notice] = 'Course has been deleted'
@@ -59,7 +61,7 @@ module Casein
     private
       
       def course_params
-        params.require(:course).permit(:name, :description)
+        params.require(:course).permit(:name, :description, photo_attributes: [:id, :caption, :image, :imageable_id, :imageable_type])
       end
 
   end

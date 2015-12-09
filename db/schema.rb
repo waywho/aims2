@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151207222114) do
+ActiveRecord::Schema.define(version: 20151208205651) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,9 +55,18 @@ ActiveRecord::Schema.define(version: 20151207222114) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "slug"
+    t.integer  "format_id"
   end
 
+  add_index "courses", ["format_id"], name: "index_courses_on_format_id", using: :btree
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
+
+  create_table "formats", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "klasses", force: :cascade do |t|
     t.string   "name"
@@ -82,6 +91,18 @@ ActiveRecord::Schema.define(version: 20151207222114) do
   end
 
   add_index "pages", ["slug"], name: "index_pages_on_slug", using: :btree
+
+  create_table "photos", force: :cascade do |t|
+    t.text     "caption"
+    t.integer  "imageable_id"
+    t.string   "imageable_type"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "image"
+  end
+
+  add_index "photos", ["imageable_id"], name: "index_photos_on_imageable_id", using: :btree
+  add_index "photos", ["imageable_type"], name: "index_photos_on_imageable_type", using: :btree
 
   create_table "tutors", force: :cascade do |t|
     t.string   "name"

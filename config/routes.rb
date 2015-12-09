@@ -2,11 +2,23 @@ Rails.application.routes.draw do
 
 	#Casein routes
 	namespace :casein do
+		resources :photos
 		resources :klasses
-		resources :courses
+		resources :courses do
+      resources :photos
+    end
 	end
 
-  resources :courses
+  resources :formats do
+      resources :photos
+  end
+
+  resources :courses do
+      resources :photos
+  end
+
+
+
 
 
   root 'courses#index'
