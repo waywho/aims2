@@ -7,7 +7,7 @@
 	<%= render :partial => 'casein/courses/form', :locals => { :f => f } %>
 
 		<%= f.fields_for :photos do |builder| %>
-			<%= render 'casein/photos/form', f: builder %>
+			<%= render 'casein/photos/photo_fields', f: builder %>
 		<% end %>
 	
 	<p class="submits">

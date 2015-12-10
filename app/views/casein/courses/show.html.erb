@@ -2,12 +2,12 @@
 
 <h2>View course</h2>
 
-<%= form_for @course, :url => casein_course_path(@course) do |f| %>
+<%= form_for @course, :url => casein_course_path(@course), html: {multipart: true} do |f| %>
 
 	<%= render :partial => 'casein/courses/form', :locals => { :f => f } %>
 			
-				<%= f.fields_for :photos do |builder| %>
-				<%= render 'casein/photos/form', f: builder %>
+				<%= f.fields_for :photos, @imageable.photos.build do |builder| %>
+					<%= render 'casein/photos/photo_fields', f: builder %>
 				<% end %>
 	
 	<p class="submits">
@@ -17,14 +17,16 @@
 
 <% end %>
 
-
+	<div class = '.container-fluid'>
 	<div class = 'row'>
 		<% @photos.each do |photo| %>
-		<div class = 'col-xs-6 col-md-4'>
-		<%= image_tag photo.image, :class => 'thumbnail img-responsive' %>
+		<div class = 'col-xs-6 col-md-3'>
+		<%= image_tag photo.image_url(:thumb).to_s, :class => 'img-responsive' %>
 		</div>
 		<% end %>
 	</div>
+	</div>
+
 
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "th-list"}Back to list".html_safe, casein_courses_path %></li>
