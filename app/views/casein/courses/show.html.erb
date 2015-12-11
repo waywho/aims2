@@ -5,10 +5,6 @@
 <%= form_for @course, :url => casein_course_path(@course), html: {multipart: true} do |f| %>
 
 	<%= render :partial => 'casein/courses/form', :locals => { :f => f } %>
-			
-				<%= f.fields_for :photos, @imageable.photos.build do |builder| %>
-					<%= render 'casein/photos/photo_fields', f: builder %>
-				<% end %>
 	
 	<p class="submits">
 	  	<%= link_to 'Cancel', casein_courses_path, :class => 'btn btn-mini btn-danger' %>
@@ -30,4 +26,10 @@
 
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "th-list"}Back to list".html_safe, casein_courses_path %></li>
+	<br >
+	<h3>Upload photos</h3>
+	<%= form_for @photo, :url => casein_photos_path do |f| %>
+		<%= render 'casein/photos/photo_fields', f: f %>
+		<%= f.submit "Upload", :class => "btn btn-mini btn-primary" %>
+	<% end %>
 <% end %>

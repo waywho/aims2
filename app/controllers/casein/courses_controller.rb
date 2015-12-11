@@ -15,9 +15,8 @@ module Casein
     def show
       @casein_page_title = 'View course'
       @course = Course.friendly.find params[:id]
-      @imageable = @course
-      @photos = @imageable.photos
-
+      @photos = @course.photos
+      @photo = @course.photos.build
     end
   
     def new
@@ -44,8 +43,8 @@ module Casein
       @course = Course.friendly.find params[:id]
     
       if @course.update_attributes course_params
-        # params[:photo_attributes]['image'].each do |a|
-        #   @photo = @course.photos.create!(:image => a)
+        # params[:images].each do |image|
+        #   @photo = Photo.create(:image => image)
         # end
         flash[:notice] = 'Course has been updated'
         redirect_to casein_courses_path
@@ -66,7 +65,7 @@ module Casein
     private
       
       def course_params
-        params.require(:course).permit(:name, :description, :imageable,photos_attributes: [:id, :caption, :image])
+        params.require(:course).permit(:name, :description, :imageable, photos_attributes: [:id, :caption, :image])
       end
 
   end

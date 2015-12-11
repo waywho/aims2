@@ -24,11 +24,15 @@ module Casein
     end
 
     def create
-      @photo = Photo.new photo_params
-    
+      # @photo = Photo.new photo_params
+      photo_params[:images].each do |image|
+        @photo = Photo.create(image: image, imageable_id: photo_params[:imageable_id], imageable_type: photo_params[:imageable_type])
+        @photo.save
+      end
+ 
       if @photo.save
         flash[:notice] = 'Photo created'
-        redirect_to casein_photos_path
+        redirect_to current_imageable_path
       else
         flash.now[:warning] = 'There were problems when trying to create a new photo'
         render :action => :new
@@ -60,13 +64,19 @@ module Casein
     private
       
       def photo_params
-        params.require(:photo).permit(:caption, :image, :imageable_id, :imageable_type, :course_id)
+        params.require(:photo).permit(:caption, {:images => [] }, :image, :imageable_id, :imageable_type, :course_id)
       end
 
-    def current_imageable
-      resource = request.path.split('/')[2]
-      id = params[:id]
-      @imageable = resource.singularize.classify.constantize.find(id)
+    def current_imageable_path
+      current_page = request.fullpath.split('/')[1]
+      
+      if current_page != 'photos'
+        resource = photo_params[:imageable_type].pluralize.downcase
+        id = photo_params[:imageable_id]
+        "/casein/#{resource}/#{id}"
+      else
+        return casein_photos_path
+      end
     end
 
   end
