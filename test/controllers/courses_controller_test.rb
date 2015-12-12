@@ -6,7 +6,7 @@ class CoursesControllerTest < ActionController::TestCase
   # end
 
   setup do
-  	@course = Course.create(:name => 'Solo', :description => 'This is a great course.')
+  	@course = courses(:one)
   end
 
   test "should get index" do
