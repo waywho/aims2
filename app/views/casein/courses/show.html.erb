@@ -27,13 +27,49 @@
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "th-list"}Back to list".html_safe, casein_courses_path %></li>
 	<br >
-	<h3>Upload photos</h3>
+	<h4>Upload new photos</h4>
 	<%= form_for @photo, :url => casein_photos_path, html: { :class => 'dropzone', :id => 'my-awesome-dropzone'} do |f| %>
 		<%= casein_hidden_field f, f.object, :imageable_id %>
 		<%= casein_hidden_field f, f.object, :imageable_type %>
 	<% end %>
-
+	<br />
+	<hr />
+	<button type="button" class="btn btn-mini btn-primary" data-toggle="modal" data-target="#myModal">
+		  Add photos from gallery
+	</button>
 <% end %>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add photos from the gallery</h4>
+      </div>
+
+      <div class="modal-body">
+      	<br />
+		<b>Select from the gallery</b>
+		Click a photo to select...
+		<div class = 'row'>
+		<% @unassigned_photos.each do |photo| %>
+			<div class = 'col-xs-6 col-md-4 container'>
+				<%= radio_button_tag 'course[photo_attributes][image]', photo.image, false, :class => 'rbutton' %>
+				<%= image_tag photo.image_url(:thumb).to_s, :class => 'thumbnail image-select' %>
+			</div>
+			<% end %>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <script>
 	$(document).ready(function() {

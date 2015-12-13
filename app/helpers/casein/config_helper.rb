@@ -3,12 +3,12 @@ module Casein
     
     # Name of website or client — used throughout Casein.
     def casein_config_website_name
-      'Casein'
+      'AIMS International Music School'
     end
 
     # Filename of logo image. Ideally, it should be a transparent PNG around 140x30px
     def casein_config_logo
-      'casein/casein.png'
+      'AIMS_red-sm.jpg'
     end
 
     # The server hostname where Casein will run
