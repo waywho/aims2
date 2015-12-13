@@ -1,7 +1,5 @@
 <fieldset>
-		<%= casein_file_field f, f.object, :photo, :images,  multiple: true %>
-		<!-- name: 'course[photos_attributes][image][]', multiple: true -->
-		<%= casein_hidden_field f, f.object, :caption %>
-		<%= casein_hidden_field f, f.object, :imageable_id %>
-		<%= casein_hidden_field f, f.object, :imageable_type %>
+	<div class="col-lg-6">
+		<%= casein_file_field f, f.object, :photos, :images, name: 'photos_attributes[image][]', multiple: true %>
+	</div>
 </fieldset>

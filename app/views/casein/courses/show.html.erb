@@ -39,7 +39,9 @@
 	$(document).ready(function() {
 		Dropzone.options.myAwesomeDropzone = {
 			paramName: 'photo[images][]',
-			uploadMultiple: false
+			uploadMultiple: false,
+			clickable: true,
+			acceptedFiles: 'image/*'
 		};
 	})
 </script>

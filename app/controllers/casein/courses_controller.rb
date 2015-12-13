@@ -22,13 +22,16 @@ module Casein
     def new
       @casein_page_title = 'Add a new course'
     	@course = Course.new
-      @photos = @course.photos.build
+      @photo = @course.photos.build
     end
 
     def create
       @course = Course.new course_params
     
       if @course.save
+        params[:photos_attributes]['image'].each do |image|
+          @photo = @course.photos.create(image: image)
+        end
         flash[:notice] = 'Course created'
         redirect_to casein_courses_path
       else
@@ -54,6 +57,9 @@ module Casein
     def destroy
       @course = Course.friendly.find params[:id]
 
+      @course.photos.each do |photo|
+        photo.update_attributes(imageable_id: nil, imageable_type: nil)
+      end
       @course.destroy
       flash[:notice] = 'Course has been deleted'
       redirect_to casein_courses_path
@@ -62,7 +68,7 @@ module Casein
     private
       
       def course_params
-        params.require(:course).permit(:name, :description, :imageable, photos_attributes: [:id, :caption, :images])
+        params.require(:course).permit(:name, :description, photos_attributes: [:id, :caption, :course_id, :image])
       end
 
   end
