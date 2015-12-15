@@ -15,9 +15,8 @@ module Casein
     def show
       @casein_page_title = 'View course'
       @course = Course.friendly.find params[:id]
-      @photos = @course.photos
-      @unassigned_photos = @photos.where(imageable_id: nil)
-      @photo = @course.photos.build
+      @photos = Photo.all
+      @photo = Photo.new
     end
   
     def new
@@ -30,8 +29,10 @@ module Casein
       @course = Course.new course_params
     
       if @course.save
-        params[:photos_attributes]['image'].each do |image|
-          @photo = @course.photos.create(image: image)
+        if params[:photos_attributes]
+          params[:photos_attributes]['image'].each do |image|
+            @photo = @course.photos.create(image: image)
+          end
         end
         flash[:notice] = 'Course created'
         redirect_to casein_courses_path

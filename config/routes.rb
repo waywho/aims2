@@ -4,7 +4,13 @@ Rails.application.routes.draw do
 
 	#Casein routes
 	namespace :casein do
-		resources :photos
+		resources :photos do
+      collection do
+        get :edit_multiple
+        post :update_multiple
+        post :imageable_create
+      end
+    end
 		resources :klasses
 		resources :courses
 	end

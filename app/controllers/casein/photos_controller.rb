@@ -24,6 +24,18 @@ module Casein
     end
 
     def create
+      @photo = Photo.new photo_params
+     
+      if @photo.save
+        flash[:notice] = "Photo(s) added"
+        redirect_to casein_photos_path
+      else
+        flash.now[:warning] = 'There were problems when trying to add a new photo'
+        render :action => :new
+      end
+    end
+
+    def imageable_create
       # @photo = Photo.new photo_params
       photo_params[:images].each do |image|
         @photo = Photo.new(image: image, imageable_id: photo_params[:imageable_id], imageable_type: photo_params[:imageable_type])
@@ -61,22 +73,36 @@ module Casein
       flash[:notice] = 'Photo has been deleted'
       redirect_to casein_photos_path
     end
+
+    def update_multiple
+      @photos = Photo.where(id: photo_params[:photo_ids]).update_all(params[:imageable])
+
+      redirect_to current_imageable_path
+    end
   
     private
       
       def photo_params
-        params.require(:photo).permit(:caption, {:images => [] }, :image, :imageable_id, :imageable_type, :course_id)
+        params.require(:photo).permit(:caption, {:photo_ids => []}, {:images => [] }, :image, :imageable_id, :imageable_type)
       end
 
-    def current_imageable_path
-        resource = photo_params[:imageable_type].pluralize.downcase
-        id = photo_params[:imageable_id]
-        if resource == ""
-          casein_photos_path
-        else
-          "/casein/#{resource}/#{id}"
-        end
-    end
+      def current_imageable_path
+          if params[:origin].present?
+            origin = params[:origin]
+            resource = origin['origin_type'].pluralize.downcase
+            id = origin['origin_id']
+            "/casein/#{resource}/#{id}"
+          else
+            imageable = params[:imageable]
+            resource = imageable['imageable_type'].pluralize.downcase
+            id = imageable['imageable_id']
+            if resource == ""
+              casein_photos_path
+            else
+              "/casein/#{resource}/#{id}"
+            end
+          end
+      end
 
   end
 end
