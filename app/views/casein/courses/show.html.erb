@@ -16,7 +16,7 @@
 	<div class = '.container-fluid'>
 		<%= form_tag update_multiple_casein_photos_path do %>
 		<label class = 'control-label'>Current <%= @course.name %> photos </label>
-		<%= submit_tag 'Remove photos', :class => 'btn btn-mini btn-danger pull-right' %>
+		<%= submit_tag 'Remove photos', :class => 'btn btn-mini btn-danger pull-right sub-btn' %>
 		<br class = 'clr' />
 		<br class = 'clr' />
 			<div class = 'row'>
@@ -78,7 +78,7 @@
 	    	</div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        <%= submit_tag 'Add photos', :class => 'btn btn-mini btn-primary' %>
+	        <%= submit_tag 'Add photos', :class => 'btn btn-mini btn-primary sub-btn' %>
 	      </div>
       <% end %>
     </div>
@@ -99,6 +99,11 @@
 			var $checkbox = $(this).parent().find('.cbox');
 			$(this).toggleClass('selected');
 			$checkbox.prop('checked', !$checkbox.prop('checked'));
+			$('.sub-btn').prop('disabled', !$(':checkbox:checked').length);
 		});
+		$(':checkbox').on('change', function () {
+    		$('.sub-btn').prop('disabled', !$(':checkbox:checked').length);
+		}).change();
+
 	})
 </script>
