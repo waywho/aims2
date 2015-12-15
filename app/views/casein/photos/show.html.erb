@@ -4,7 +4,16 @@
 
 <%= form_for @photo, :url => casein_photo_path(@photo) do |f| %>
 
-	<%= render :partial => 'casein/photos/form', :locals => { :f => f } %>
+	<div class="row">
+		<div class="col-lg-6">
+			<%= image_tag @photo.image, :class => 'img-responsive' %>
+		</div>
+		<div class="col-lg-6">
+			<%= casein_text_area f, f.object, :caption %>
+			<%= casein_text_field f, f.object, :imageable_id %>
+			<%= casein_text_field f, f.object, :imageable_type %>
+		</div>
+	</div>
 	
 	<p class="submits">
 	  	<%= link_to 'Cancel', casein_photos_path, :class => 'btn btn-mini btn-danger' %>

@@ -15,22 +15,30 @@
 
 	<div class = '.container-fluid'>
 		<%= form_tag update_multiple_casein_photos_path do %>
+
 		<label class = 'control-label'>Current <%= @course.name %> photos </label>
-		<%= submit_tag 'Remove photos', :class => 'btn btn-mini btn-danger pull-right sub-btn' %>
-		<br class = 'clr' />
-		<br class = 'clr' />
-			<div class = 'row'>
-				<% @course.photos.each do |photo| %>
-					<div class = 'col-xs-6 col-md-3 container thumb'>
-						<%= check_box_tag "photo[photo_ids][]", photo.id, checked = false, {:class => 'cbox', id: dom_id(photo)} %>
-						<%= image_tag photo.image_url(:thumb).to_s, :class => 'thumbnail img-responsive image-select' %>
+			<% if @course.photos.present? %>
+				<%= submit_tag 'Remove photos', :class => 'btn btn-mini btn-danger pull-right sub-btn' %>
+				<br class = 'clr' />
+				<i>click on the photos to select</i>
+				<br />
+				<br class = 'clr' />
+					<div class = 'row'>
+						<% @course.photos.each do |photo| %>
+							<div class = 'col-xs-6 col-md-3 container thumb'>
+								<%= check_box_tag "photo[photo_ids][]", photo.id, checked = false, {:class => 'cbox', id: dom_id(photo)} %>
+								<%= image_tag photo.image_url(:thumb).to_s, :class => 'thumbnail image-select' %>
+							</div>
+						<% end %>
+						<%= hidden_field_tag 'imageable[imageable_id]', nil %>
+						<%= hidden_field_tag 'imageable[imageable_type]', nil %>
+						<%= hidden_field_tag 'origin[origin_type]', @course.class_name %>
+						<%= hidden_field_tag 'origin[origin_id]', @course.id %>
 					</div>
-				<% end %>
-				<%= hidden_field_tag 'imageable[imageable_id]', nil %>
-				<%= hidden_field_tag 'imageable[imageable_type]', nil %>
-				<%= hidden_field_tag 'origin[origin_type]', @course.class_name %>
-				<%= hidden_field_tag 'origin[origin_id]', @course.id %>
-			</div>
+			<% else %>
+				<br />
+				<i>There are currently no photos for <%= @course.name %></i>
+			<% end %>
 		<% end %>
 	</div>
 
@@ -61,13 +69,11 @@
       </div>
       <%= form_tag update_multiple_casein_photos_path do %>
       <div class="modal-body">
-      	<br />
-		<b>Select from the gallery</b><br />
 		<i>Click a photo to select...</i><br />
-		<b>Available Photos from the Gallery: </b>
+			<br class = 'clr' />
 			<div class = 'row'>
 				<% @photos.where(imageable_id: nil).each do |photo| %>
-					<div class = 'col-xs-6 col-md-4 container'>
+					<div class = 'col-xs-6 col-md-4 container thumb'>
 						<%= check_box_tag "photo[photo_ids[]", photo.id, checked = false, {:class => 'cbox', id: dom_id(photo)} %>
 						<%= image_tag photo.image_url(:thumb).to_s, :class => 'thumbnail image-select' %>
 					</div>
@@ -75,11 +81,11 @@
 			</div>
 				<%= hidden_field_tag 'imageable[imageable_id]', @course.id %>
 				<%= hidden_field_tag 'imageable[imageable_type]', @course.class_name %>
-	    	</div>
-	      <div class="modal-footer">
+	   </div>
+	   <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	        <%= submit_tag 'Add photos', :class => 'btn btn-mini btn-primary sub-btn' %>
-	      </div>
+	   </div>
       <% end %>
     </div>
   </div>
