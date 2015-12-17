@@ -7,8 +7,7 @@
 	<%= image_tag @photo.image, :class => 'img-responsive' %>
 	<br />
 	<%= f.input :caption %>
-	<%= f.input :imageable_type, label: 'Assigned to...' %>
-	<%= f.input :imageable_id, label: false %>
+	<%= f.input :imageable_id, collection: [Format, Course], label: 'Assign to...', as: :grouped_select, group_method: :all %>
 
 	<%= f.button :submit, :class => "btn btn-mini btn-primary" %>
 
