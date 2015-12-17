@@ -1,7 +1,7 @@
 class Course < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :name, use: :slugged
-	GlobalID::Identification
+
 
 	belongs_to :format
 	has_many :klasses

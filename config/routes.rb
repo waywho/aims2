@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
 	#Casein routes
 	namespace :casein do
+		resources :formats
 		resources :photos do
       collection do
         get :edit_multiple
