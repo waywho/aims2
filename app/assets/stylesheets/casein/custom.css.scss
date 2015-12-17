@@ -1,2 +1,18 @@
 /* CASEIN CUSTOM */
 /* Use this file for your project-specific Casein CSS */
+
+.description-box {
+	min-height: 300px;
+}
+
+.thumb {
+  margin-bottom: 10px;
+}
+
+.clr {
+	clear: both;
+}
+
+.image-select.selected {
+	opacity: 0.5;
+}

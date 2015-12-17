@@ -2,8 +2,12 @@
 
 one:
   caption: MyText
-  : 
+  image: image1.jpg 
+  imageable_id: 1
+  imageable_type: course
 
 two:
   caption: MyText
-  : 
+  image: image2.jpg 
+  imageable_id: 1
+  imageable_type: course

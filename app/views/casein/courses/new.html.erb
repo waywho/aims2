@@ -2,10 +2,18 @@
 
 <h2>Add a new course</h2>
 
+<%= form_for @photo, :url => imageable_create_casein_photos_path, html: { :class => 'dropzone', :id => 'my-awesome-dropzone'} do |f| %>
+
+<% end %>
+
 <%= form_for @course, :url => casein_courses_path do |f| %>
 	
 	<%= render :partial => 'casein/courses/form', :locals => { :f => f } %>
-	
+
+		<%= f.fields_for :photos do |builder| %>
+			<%= render 'casein/photos/photo_fields', f: builder %>
+		<% end %>
+	<br />
 	<p class="submits">
 		<%= link_to 'Cancel', casein_courses_path, :class => 'btn btn-mini btn-danger' %>
 		<%= f.submit "Add new course", :class => "btn btn-mini btn-primary" %>

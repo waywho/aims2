@@ -2,6 +2,7 @@
 
 module Casein
   class PhotosController < Casein::CaseinController
+    # before_filter :current_imageable
   
     ## optional filters for defining usage according to Casein::AdminUser access_levels
     # before_filter :needs_admin, :except => [:action1, :action2]
@@ -10,11 +11,16 @@ module Casein
     def index
       @casein_page_title = 'Photos'
   		@photos = Photo.order(sort_order(:caption)).paginate :page => params[:page]
+      @photo = Photo.new
     end
   
     def show
       @casein_page_title = 'View photo'
       @photo = Photo.find params[:id]
+
+      respond_to do |format|
+        format.js
+      end
     end
   
     def new
@@ -24,13 +30,28 @@ module Casein
 
     def create
       @photo = Photo.new photo_params
-    
+     
       if @photo.save
-        flash[:notice] = 'Photo created'
-        redirect_to casein_photos_path
+        render json: @photo
       else
-        flash.now[:warning] = 'There were problems when trying to create a new photo'
+        flash.now[:warning] = 'There were problems when trying to add a new photo'
         render :action => :new
+      end
+    end
+
+    def imageable_create
+      # @photo = Photo.new photo_params
+      photo_params[:images].each do |image|
+        @photo = Photo.new(image: image, imageable_id: photo_params[:imageable_id], imageable_type: photo_params[:imageable_type])
+      
+          if @photo.save
+            flash[:notice] = "Photo(s) added"
+            redirect_to current_imageable_path
+          else
+            flash.now[:warning] = 'There were problems when trying to add a new photo'
+            render :action => :new
+          end
+
       end
     end
   
@@ -55,17 +76,36 @@ module Casein
       flash[:notice] = 'Photo has been deleted'
       redirect_to casein_photos_path
     end
+
+    def update_multiple
+      @photos = Photo.where(id: photo_params[:photo_ids]).update_all(params[:imageable])
+
+      redirect_to current_imageable_path
+    end
   
     private
       
       def photo_params
-        params.require(:photo).permit(:caption, :image, :imageable_id, :imageable_type)
+        params.require(:photo).permit(:caption, {:photo_ids => []}, {:images => [] }, :image, :imageable_id, :imageable_type)
       end
 
-    def current_imageable
-      resource, id = request.path.split('/')[2, 3]
-      @imageable = resource.singularize.classify.constantize.friendly.find(id)
-    end
+      def current_imageable_path
+          if params[:origin].present?
+            origin = params[:origin]
+            resource = origin['origin_type'].pluralize.downcase
+            id = origin['origin_id']
+            "/casein/#{resource}/#{id}"
+          else
+            imageable = params[:imageable]
+            resource = imageable['imageable_type'].pluralize.downcase
+            id = imageable['imageable_id']
+            if resource == ""
+              casein_photos_path
+            else
+              "/casein/#{resource}/#{id}"
+            end
+          end
+      end
 
   end
 end

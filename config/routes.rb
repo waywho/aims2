@@ -1,27 +1,28 @@
 Rails.application.routes.draw do
+  
+  root 'courses#index'
 
 	#Casein routes
 	namespace :casein do
-		resources :photos
-		resources :klasses
-		resources :courses do
-      resources :photos
+		resources :photos do
+      collection do
+        get :edit_multiple
+        post :update_multiple
+        post :imageable_create
+      end
     end
+		resources :klasses
+		resources :courses
 	end
 
-  resources :formats do
-      resources :photos
+  resources :formats, :only => [:index, :show] do
+      resource :photos, :only => [:index, :show]
   end
 
-  resources :courses do
-      resources :photos
+  resources :courses, :only => [:index, :show] do
+      resource :photos, :only => [:index, :show]
   end
 
-
-
-
-
-  root 'courses#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
