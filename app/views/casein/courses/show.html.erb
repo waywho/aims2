@@ -18,7 +18,7 @@
 
 		<label class = 'control-label'>Current <%= @course.name %> photos </label>
 			<% if @course.photos.present? %>
-				<%= submit_tag 'Remove photos', :class => 'btn btn-mini btn-danger pull-right sub-btn' %>
+				<%= submit_tag 'Remove photos', :class => 'btn btn-mini btn-danger pull-right sub-btn', :data => { :confirm => "This will only remove photos from this record. You can still find the photo(s) in the gallery" } %>
 				<br class = 'clr' />
 				<i>click on the photos to select</i>
 				<br />
@@ -47,15 +47,14 @@
 	<li><%= link_to "#{casein_show_icon "th-list"}Back to list".html_safe, casein_courses_path %></li>
 	<br >
 	<h4>Upload new photos</h4>
-	<%= form_for @photo, :url => imageable_create_casein_photos_path, html: { :class => 'dropzone', :id => 'my-awesome-dropzone'} do |f| %>
+	<%= form_for @photo, :url => casein_photos_path, html: { :class => 'dropzone-imageable dropzone', :id => 'my-awesome-dropzone'} do |f| %>
 		<%= casein_hidden_field f, f.object, :imageable_id, value: @course.id %>
 		<%= casein_hidden_field f, f.object, :imageable_type, value: @course.class_name %>
 	<% end %>
 	<br />
 	<hr />
-	<button type="button" class="btn btn-mini btn-primary" data-toggle="modal" data-target="#myModal">
-		  Add Photos from Gallery
-	</button>
+
+	<li><%= link_to "#{casein_show_icon "plus-sign"}Add Photos from Gallery".html_safe, '#', data: { toggle: 'modal', target: '#myModal'} %></li>
 <% end %>
 
 
@@ -94,10 +93,18 @@
 <script>
 	$(document).ready(function() {
 		Dropzone.options.myAwesomeDropzone = {
-			paramName: 'photo[images][]',
+			init: function() {
+				this.on("thumbnail", function (file) {
+					$(".dz-image img").addClass("img-responsive");
+				});
+			},
+			paramName: 'photo[image]',
 			uploadMultiple: false,
 			clickable: true,
-			acceptedFiles: 'image/*'
+			acceptedFiles: 'image/*',
+			thumbnailWidth: '160',
+			thumbnailHeight: '160'
+
 		};
 
 		$(".container .cbox").hide();

@@ -11,11 +11,16 @@ module Casein
     def index
       @casein_page_title = 'Photos'
   		@photos = Photo.order(sort_order(:caption)).paginate :page => params[:page]
+      @photo = Photo.new
     end
   
     def show
       @casein_page_title = 'View photo'
       @photo = Photo.find params[:id]
+
+      respond_to do |format|
+        format.js
+      end
     end
   
     def new
@@ -27,8 +32,7 @@ module Casein
       @photo = Photo.new photo_params
      
       if @photo.save
-        flash[:notice] = "Photo(s) added"
-        redirect_to casein_photos_path
+        render json: @photo
       else
         flash.now[:warning] = 'There were problems when trying to add a new photo'
         render :action => :new
@@ -42,8 +46,7 @@ module Casein
       
           if @photo.save
             flash[:notice] = "Photo(s) added"
-            render json: @photo
-            # redirect_to current_imageable_path
+            redirect_to current_imageable_path
           else
             flash.now[:warning] = 'There were problems when trying to add a new photo'
             render :action => :new

@@ -2,6 +2,10 @@
 
 <h2>Add a new course</h2>
 
+<%= form_for @photo, :url => imageable_create_casein_photos_path, html: { :class => 'dropzone', :id => 'my-awesome-dropzone'} do |f| %>
+
+<% end %>
+
 <%= form_for @course, :url => casein_courses_path do |f| %>
 	
 	<%= render :partial => 'casein/courses/form', :locals => { :f => f } %>

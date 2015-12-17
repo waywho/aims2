@@ -6,4 +6,8 @@ class Photo < ActiveRecord::Base
 	def class_name
 		self.class.name
 	end
+
+	# def imageable_collection
+	# 	Photo.reflect_on_all_associations(:belongs_to)
+	# end
 end
