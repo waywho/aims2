@@ -1,9 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  description: MyText
+  name: Solo
+  description: This is one good course.
+  slug: solo
+  format_id: 1
 
 two:
-  name: MyString
-  description: MyText
+  name: Choral
+  description: This is not bad either.
+  slug: choral
+  format_id: 2

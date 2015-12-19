@@ -2,7 +2,6 @@ class PhotosController < ApplicationController
 	# before_action :current_imageable
 
 	def index
-		@photos = @imageable.photos
 	end
 
 	private
