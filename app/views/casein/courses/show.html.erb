@@ -63,10 +63,11 @@
 			var $checkbox = $(this).parent().find('.cbox');
 			$(this).toggleClass('selected');
 			$checkbox.prop('checked', !$checkbox.prop('checked'));
+			$('.sub-btn').prop('disabled', !$('.cbox:checked').length);
 		});
-		// $(':checkbox').on('change', function () {
-  //   		$('.sub-btn').prop('disabled', !$(':checkbox:checked').length);
-		// }).change();
+		$('.box').on('change', function () {
+    		$('.sub-btn').prop('disabled', !$('.cbox:checked').length);
+		}).change();
 
 	})
 </script>
