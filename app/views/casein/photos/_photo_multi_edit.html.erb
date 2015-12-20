@@ -1,0 +1,18 @@
+<%= submit_tag 'Remove photos', :class => 'btn btn-mini btn-danger pull-right sub-btn', :data => { :confirm => "This will only remove photos from this record. You can still find the photo(s) in the gallery" } %>
+<br class = 'clr' />
+
+<i>(to remove photos, click on the photos to select.)</i>
+<br />
+<br class = 'clr' />
+	<div class = 'row'>
+		<% imageable.photos.each do |photo| %>
+			<div class = 'col-xs-6 col-md-3 container thumb'>
+				<%= check_box_tag "photo[photo_ids][]", photo.id, checked = false, {:class => 'cbox', id: dom_id(photo)} %>
+				<%= image_tag photo.image_url(:thumb).to_s, :class => 'thumbnail image-select' %>
+			</div>
+		<% end %>
+		<%= hidden_field_tag 'imageable[imageable_id]', nil %>
+		<%= hidden_field_tag 'imageable[imageable_type]', nil %>
+		<%= hidden_field_tag 'origin[origin_type]', imageable.class_name %>
+		<%= hidden_field_tag 'origin[origin_id]', imageable.id %>
+	</div>

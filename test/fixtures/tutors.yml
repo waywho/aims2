@@ -3,7 +3,9 @@
 one:
   name: MyString
   biography: MyText
+  slug: mystring
 
 two:
   name: MyString
   biography: MyText
+  slug: mystring

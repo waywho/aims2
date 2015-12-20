@@ -36,6 +36,9 @@ gem 'friendly_id', '~>5.1.0'
 gem 'carrierwave-aws'
 
 gem 'rmagick', '~> 2.15.3'
+
+gem 'bootstrap-wysihtml5-rails', github: 'nerian/bootstrap-wysihtml5-rails'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
