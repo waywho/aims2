@@ -13,7 +13,9 @@ Rails.application.routes.draw do
       end
     end
 		resources :klasses
-		resources :courses
+		resources :courses do
+      post :publish
+    end
 	end
 
   resources :formats, :only => [:index, :show] do

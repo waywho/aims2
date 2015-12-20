@@ -28,7 +28,7 @@ module Casein
     def create
       @course = Course.new course_params
     
-      if @course.save
+      if @course.draft_creation
         if params[:photos_attributes]
           params[:photos_attributes]['image'].each do |image|
             @photo = @course.photos.create(image: image)
@@ -41,13 +41,21 @@ module Casein
         render :action => :new
       end
     end
-  
+
+    def publish
+       @course = Course.friendly.find params[:id]
+
+      @course.publish!
+      flash[:notice] = 'Course has been published'
+      redirect_to @course
+    end
+
     def update
       @casein_page_title = 'Update course'
       
       @course = Course.friendly.find params[:id]
     
-      if @course.update_attributes course_params
+      if @course.draft_update course_params
         flash[:notice] = 'Course has been updated'
         redirect_to casein_courses_path
       else
@@ -62,7 +70,7 @@ module Casein
       @course.photos.each do |photo|
         photo.update_attributes(imageable_id: nil, imageable_type: nil)
       end
-      @course.destroy
+      @course.draft_destroy
       flash[:notice] = 'Course has been deleted'
       redirect_to casein_courses_path
     end

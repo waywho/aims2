@@ -96,6 +96,8 @@ GEM
       sort_alphabetical (~> 1.0)
     currencies (0.4.2)
     debug_inspector (0.0.2)
+    draftsman (0.3.7)
+      activerecord (>= 3.0, < 5.0)
     erubis (2.7.0)
     execjs (2.6.0)
     ffi (1.9.10)
@@ -215,6 +217,7 @@ DEPENDENCIES
   casein (~> 5.1.1)
   coffee-rails (~> 4.1.0)
   country_select
+  draftsman
   friendly_id (~> 5.1.0)
   jbuilder (~> 2.0)
   jquery-rails

@@ -39,6 +39,8 @@ gem 'rmagick', '~> 2.15.3'
 
 gem 'bootstrap-wysihtml5-rails', github: 'nerian/bootstrap-wysihtml5-rails'
 
+gem 'draftsman'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
