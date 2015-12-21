@@ -2,16 +2,23 @@
 
 <h2>View course</h2>
 
-<%= form_for @course, :url => casein_course_path(@course), html: {multipart: true} do |f| %>
+<div class='row'>
+	<div class = 'col-lg-10'>
+		<%= form_for @course, :url => casein_course_path(@course), html: {multipart: true} do |f| %>
 
-	<%= render :partial => 'casein/courses/form', :locals => { :f => f } %>
+			<%= render :partial => 'casein/courses/form', :locals => { :f => f } %>
 	
-	<p class="submits">
-	  	<%= link_to 'Cancel', casein_courses_path, :class => 'btn btn-mini btn-danger' %>
-		<%= f.submit "Save changes", :class => "btn btn-mini btn-primary" %>
-	</p>
+			<p class="submits">
+	  		<%= link_to 'Cancel', casein_courses_path, :class => 'btn btn-mini btn-danger' %>
+			<%= f.submit "Save changes", :class => "btn btn-mini btn-primary" %>
+			</p>
 
-<% end %>
+		<% end %>
+	</div>
+	<div class = 'col-lg-2'>
+		<%= render partial: 'casein/photos/photo_upload', object: @course, as: :imageable %>
+	</div>
+</div>
 
 	<div class = '.container-fluid'>
 		<%= form_tag update_multiple_casein_photos_path do %>
@@ -30,11 +37,6 @@
 
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "th-list"}Back to list".html_safe, casein_courses_path %></li>
-	<br >
-	
-	<%= render partial: 'casein/photos/photo_upload', object: @course, as: :imageable %>
-	<hr />
-
 	<li><%= link_to "#{casein_show_icon "plus-sign"}Add Photos from Gallery".html_safe, '#', data: { toggle: 'modal', target: '#myModal'} %></li>
 <% end %>
 
