@@ -127,6 +127,10 @@ GEM
     multi_json (1.11.2)
     nokogiri (1.6.7)
       mini_portile2 (~> 2.0.0.rc2)
+    paper_trail (4.0.1)
+      activerecord (>= 3.0, < 6.0)
+      activesupport (>= 3.0, < 6.0)
+      request_store (~> 1.1)
     pg (0.18.4)
     rack (1.6.4)
     rack-test (0.6.3)
@@ -218,6 +222,7 @@ DEPENDENCIES
   friendly_id (~> 5.1.0)
   jbuilder (~> 2.0)
   jquery-rails
+  paper_trail (~> 4.0.0)
   pg (~> 0.15)
   rails (= 4.2.5)
   rmagick (~> 2.15.3)

@@ -1,6 +1,7 @@
 class Course < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :name, use: :slugged
+	has_paper_trail
 
 
 	belongs_to :format
