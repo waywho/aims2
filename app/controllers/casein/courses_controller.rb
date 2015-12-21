@@ -13,9 +13,9 @@ module Casein
       @casein_page_title = 'Courses'
   		@courses_all = Course.includes(:draft).order(sort_order(:name))
 
-      @courses_all.map { |course| course.draft.reify if course.draft? }
+      @courses = @courses_all.map! { |course| course.draft.reify if course.draft? }
 
-      @courses = @courses_all.paginate :page => params[:page]
+      @courses.paginate :page => params[:page]
     end
   
     def show
@@ -53,12 +53,19 @@ module Casein
       
       @course.attributes = course_params
       
+      if params[:publish]
+        @course.draft_update
+        @course.draft.publish!
+        flash[:notice] = 'Course has been published'
+        redirect_to casein_courses_path
+      else
       if @course.draft_update
         flash[:notice] = 'Course has been updated'
         redirect_to casein_courses_path
       else
         flash.now[:warning] = 'There were problems when trying to update this course'
         render :action => :show
+      end
       end
     end
  

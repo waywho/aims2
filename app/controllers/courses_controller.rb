@@ -2,11 +2,11 @@ class CoursesController < ApplicationController
 	before_action :set_courses
 
   def index
-    @courses = Course.all
+    @courses = Course.published
   end
 
   def show
-  	@course = Course.friendly.find(params[:id])
+  	@course = Course.published.friendly.find(params[:id])
   end
 
   private
