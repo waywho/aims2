@@ -2,19 +2,25 @@
 
 module Casein
   class CoursesController < Casein::CaseinController
-  
+     before_filter :find_course,  :only => [:show]
+     before_filter :reify_course, :only => [:show]
+
     ## optional filters for defining usage according to Casein::AdminUser access_levels
     # before_filter :needs_admin, :except => [:action1, :action2]
     # before_filter :needs_admin_or_current_user, :only => [:action1, :action2]
   
     def index
       @casein_page_title = 'Courses'
-  		@courses = Course.order(sort_order(:name)).paginate :page => params[:page]
+  		@courses_all = Course.includes(:draft).order(sort_order(:name))
+
+      @courses_all.map { |course| course.draft.reify if course.draft? }
+
+      @courses = @courses_all.paginate :page => params[:page]
     end
   
     def show
       @casein_page_title = 'View course'
-      @course = Course.friendly.find params[:id]
+      # @course = Course.friendly.find params[:id]
       @photos = Photo.all
       @photo = Photo.new
     end
@@ -54,8 +60,9 @@ module Casein
       @casein_page_title = 'Update course'
       
       @course = Course.friendly.find params[:id]
+      @course.attributes = course_params
     
-      if @course.draft_update course_params
+      if @course.draft_update
         flash[:notice] = 'Course has been updated'
         redirect_to casein_courses_path
       else
@@ -76,6 +83,14 @@ module Casein
     end
   
     private
+
+      def find_course
+        @course = Course.friendly.find(params[:id])
+      end
+
+      def reify_course
+        @course = @course.draft.reify if @course.draft?
+      end
       
       def course_params
         params.require(:course).permit(:name, :description, photos_attributes: [:id, :caption, :course_id, :image])
