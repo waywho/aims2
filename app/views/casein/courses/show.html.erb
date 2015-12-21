@@ -8,7 +8,8 @@
 	
 	<p class="submits">
 	  	<%= link_to 'Cancel', casein_courses_path, :class => 'btn btn-mini btn-danger' %>
-		<%= f.submit "Save as draft", :class => "btn btn-mini btn-primary" %>
+		<%= f.submit "Save as draft", name: 'draft', :class => "btn btn-mini btn-primary" %>
+		<%= f.submit "Publish", name: 'publish', :class => 'btn btn-mini btn-success' %>
 	</p>
 
 <% end %>

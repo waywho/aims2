@@ -2,7 +2,7 @@
 
 module Casein
   class CoursesController < Casein::CaseinController
-     before_filter :find_course,  :only => [:show]
+     before_filter :find_course,  :only => [:show, :update]
      before_filter :reify_course, :only => [:show]
 
     ## optional filters for defining usage according to Casein::AdminUser access_levels
@@ -48,20 +48,11 @@ module Casein
       end
     end
 
-    def publish
-       @course = Course.friendly.find params[:id]
-
-      @course.publish!
-      flash[:notice] = 'Course has been published'
-      redirect_to @course
-    end
-
     def update
       @casein_page_title = 'Update course'
       
-      @course = Course.friendly.find params[:id]
       @course.attributes = course_params
-    
+      
       if @course.draft_update
         flash[:notice] = 'Course has been updated'
         redirect_to casein_courses_path
