@@ -12,4 +12,8 @@ class Course < ActiveRecord::Base
 	def class_name
 		self.class.name
 	end
+
+	def find_drafts
+		draft.reify if self.draft?
+	end
 end

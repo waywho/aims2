@@ -11,11 +11,9 @@ module Casein
   
     def index
       @casein_page_title = 'Courses'
-  		@courses_all = Course.includes(:draft).order(sort_order(:name))
+  		@courses = Course.includes(:draft).order(sort_order(:name)).paginate :page => params[:page]
 
-      @courses = @courses_all.map! { |course| course.draft.reify if course.draft? }
-
-      @courses.paginate :page => params[:page]
+      # @courses.map!(&:find_drafts)
     end
   
     def show

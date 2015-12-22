@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-	before_action :set_courses
+
 
   def index
     @courses = Course.published
