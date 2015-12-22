@@ -4,6 +4,7 @@
 	<thead>
 		<tr>
 			<th><%= casein_sort_link "Name", :name %></th>
+			<th><%= casein_sort_link "Status", :status %></th>
 			<th><%= casein_sort_link "Updated at", :updated_at %></th>
 			<th><%= casein_sort_link "Published at", :published_at %></th>
 			<th>&nbsp;</th>
@@ -13,6 +14,15 @@
 	<% courses.each do |course| %>
 		<tr>
 			<td><%= casein_table_cell_link course.name, casein_course_path(course) %></td>
+			<td>
+				<% if course.draft? && !course.published? %>
+				draft
+				<% elsif course.draft? && course.published? %>
+				published but has a draft
+				<% elsif course.published? %>
+				published
+				<% end %>
+			</td>
 			<td><%= casein_table_cell_link course.updated_at, casein_course_path(course) %></td>
 			<td><%= casein_table_cell_link course.published_at, casein_course_path(course) %></td>
 			<td class="delete">
