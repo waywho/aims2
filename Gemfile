@@ -41,6 +41,7 @@ gem 'bootstrap-wysihtml5-rails', github: 'nerian/bootstrap-wysihtml5-rails'
 
 gem 'paper_trail', '~> 4.0.0'
 
+gem 'workflow'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

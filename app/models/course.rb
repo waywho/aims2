@@ -2,6 +2,7 @@ class Course < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :name, use: :slugged
 	has_paper_trail
+	include Workflow
 
 
 	belongs_to :format
@@ -11,5 +12,19 @@ class Course < ActiveRecord::Base
 
 	def class_name
 		self.class.name
+	end
+
+	workflow do
+		state :draft do
+			event :submit, transition_to: :pending_review
+			event :approve, transition_to: :published
+		end
+
+		state :pending_review do
+			event :approve, transition_to: :published
+			event :reject, transition_to: :submit
+		end
+
+		state :published
 	end
 end
