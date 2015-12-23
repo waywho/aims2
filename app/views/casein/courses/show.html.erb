@@ -3,19 +3,34 @@
 <h2>View course</h2>
 
 <div class='row'>
-	<div class = 'col-lg-10'>
+	<div class = 'col-lg-9'>
 		<%= form_for @course, :url => casein_course_path(@course), html: {multipart: true} do |f| %>
 
 			<%= render :partial => 'casein/courses/form', :locals => { :f => f } %>
 	
 			<p class="submits">
 	  		<%= link_to 'Cancel', casein_courses_path, :class => 'btn btn-mini btn-danger' %>
-			<%= f.submit "Save changes", :class => "btn btn-mini btn-primary" %>
+			<%= f.submit "Save as draft", name: 'draft', :class => "btn btn-mini btn-info draft" %>
+			<%= f.submit "Submit for approval", name: 'submit', :class => 'btn btn-mini btn-success submit' %>
+			<%= f.submit "Approve", name: 'approve', :class => 'btn btn-mini btn-success approve' %>
+			<%= f.submit "Reject", name: 'reject', :class => 'btn btn-mini btn-danger reject' %>
+			<%= f.submit "Publish", name: 'publish', :class => 'btn btn-mini btn-primary publish' %>
+			<%= f.submit "Update", name: 'update', :class => 'btn btn-mini btn-primary update' %>
 			</p>
 
 		<% end %>
 	</div>
-	<div class = 'col-lg-2'>
+	<div class = 'col-lg-3'>
+		<b>Status:</b><br /><br />		
+			<div id = 'state-status'>
+				<span id= 'current-state'><%= @course.current_state %></span> (<%= link_to 'edit', '#', id: 'edit-state' %>)
+			</div>
+			<%= simple_form_for @course, :url => casein_course_path(@course), html: {:id => 'stateform'}, remote: true do |f| %>
+
+				<%= f.input :workflow_state, label: false, as: :select, :collection => Course.states  %>
+
+			<% end %>
+		<br />
 		<%= render partial: 'casein/photos/photo_upload', object: @course, as: :imageable %>
 	</div>
 </div>

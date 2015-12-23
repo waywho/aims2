@@ -1,0 +1,2 @@
+module Casein::VersionsHelper
+end

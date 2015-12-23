@@ -25,7 +25,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'bootstrap-sass', '>= 3.3.3'
 
-gem 'casein', '~>5.1.1'
+gem 'casein', github: 'waywho/casein'
 
 gem 'simple_form'
 
@@ -39,6 +39,9 @@ gem 'rmagick', '~> 2.15.3'
 
 gem 'bootstrap-wysihtml5-rails', github: 'nerian/bootstrap-wysihtml5-rails'
 
+gem 'paper_trail', '~> 4.0.0'
+
+gem 'workflow'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

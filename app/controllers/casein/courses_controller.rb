@@ -46,14 +46,26 @@ module Casein
       @casein_page_title = 'Update course'
       
       @course = Course.friendly.find params[:id]
-    
-      if @course.update_attributes course_params
-        flash[:notice] = 'Course has been updated'
-        redirect_to casein_courses_path
-      else
-        flash.now[:warning] = 'There were problems when trying to update this course'
-        render :action => :show
-      end
+      
+      respond_to do |format|
+        if @course.update_attributes course_params
+          if params[:submit]
+            @course.submit!
+          elsif params[:approve]
+            @course.approve!
+          elsif params[:reject]
+            @course.reject!
+          elsif params[:publish]
+            @course.publish!
+          end
+        
+          format.html { redirect_to casein_course_path(@course), notice: "Course has been updated. #{undo_link}" }
+          format.js
+        else
+          flash.now[:warning] = 'There were problems when trying to update this course'
+          render :action => :show
+        end
+     end
     end
  
     def destroy
@@ -63,14 +75,18 @@ module Casein
         photo.update_attributes(imageable_id: nil, imageable_type: nil)
       end
       @course.destroy
-      flash[:notice] = 'Course has been deleted'
+      flash[:notice] = "Course has been deleted. #{undo_link}"
       redirect_to casein_courses_path
     end
   
     private
       
       def course_params
-        params.require(:course).permit(:name, :description, photos_attributes: [:id, :caption, :course_id, :image])
+        params.require(:course).permit(:name, :workflow_state, :description, photos_attributes: [:id, :caption, :course_id, :image])
+      end
+
+      def undo_link
+        view_context.link_to("undo", revert_version_path(@course.versions.last), :method => :post).html_safe
       end
 
   end
