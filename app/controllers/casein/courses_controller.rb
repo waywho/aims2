@@ -59,7 +59,7 @@ module Casein
             @course.publish!
           end
         
-          format.html { redirect_to casein_course_path(@course), notice: 'Course has been updated' }
+          format.html { redirect_to casein_course_path(@course), notice: "Course has been updated. #{undo_link}" }
           format.js
         else
           flash.now[:warning] = 'There were problems when trying to update this course'
@@ -75,7 +75,7 @@ module Casein
         photo.update_attributes(imageable_id: nil, imageable_type: nil)
       end
       @course.destroy
-      flash[:notice] = 'Course has been deleted'
+      flash[:notice] = "Course has been deleted. #{undo_link}"
       redirect_to casein_courses_path
     end
   
@@ -83,6 +83,10 @@ module Casein
       
       def course_params
         params.require(:course).permit(:name, :workflow_state, :description, photos_attributes: [:id, :caption, :course_id, :image])
+      end
+
+      def undo_link
+        view_context.link_to("undo", revert_version_path(@course.versions.last), :method => :post).html_safe
       end
 
   end
