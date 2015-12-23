@@ -16,7 +16,7 @@
 			<td><%= casein_table_cell_link course.workflow_state, casein_course_path(course) %></td>
 			<td><%= casein_table_cell_link course.updated_at, casein_course_path(course) %></td>
 			<td class="delete">
-				<%= link_to(casein_show_row_icon("trash"), casein_course_path(course), :method => :delete, :data => { :confirm => "Are you sure you want to delete this course?" }) %>
+				<%= link_to(casein_show_row_icon("trash"), casein_course_path(course), :method => :delete ) %>
 			</td>
 		</tr>
 	<% end %>

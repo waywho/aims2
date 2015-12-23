@@ -25,7 +25,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'bootstrap-sass', '>= 3.3.3'
 
-gem 'casein', '~>5.1.1'
+gem 'casein', github: 'waywho/casein'
 
 gem 'simple_form'
 

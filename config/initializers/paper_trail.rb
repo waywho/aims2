@@ -1,1 +1,1 @@
-PaperTrail.config.version_limit = 2
+PaperTrail.config.version_limit = 3

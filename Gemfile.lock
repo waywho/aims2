@@ -5,6 +5,18 @@ GIT
     bootstrap-wysihtml5-rails (0.3.3.7)
       railties (>= 3.0)
 
+GIT
+  remote: git://github.com/waywho/casein.git
+  revision: 73871b32699ac8c58df76a9045dd2b1c753464ee
+  specs:
+    casein (5.1.1.5)
+      authlogic (= 3.4.4)
+      bootstrap-sass (= 3.3.3)
+      jquery-rails
+      sass-rails
+      scrypt (= 1.2.1)
+      will_paginate (= 3.0.7)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -73,13 +85,6 @@ GEM
     carrierwave-aws (1.0.0)
       aws-sdk (~> 2.0)
       carrierwave (~> 0.7)
-    casein (5.1.1.5)
-      authlogic (= 3.4.4)
-      bootstrap-sass (= 3.3.3)
-      jquery-rails
-      sass-rails
-      scrypt (= 1.2.1)
-      will_paginate (= 3.0.7)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -217,7 +222,7 @@ DEPENDENCIES
   bootstrap-wysihtml5-rails!
   byebug
   carrierwave-aws
-  casein (~> 5.1.1)
+  casein!
   coffee-rails (~> 4.1.0)
   country_select
   friendly_id (~> 5.1.0)
