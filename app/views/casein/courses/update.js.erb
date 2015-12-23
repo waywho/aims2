@@ -1,0 +1,4 @@
+$('#stateform').hide();
+$('#state-status').show();
+$('#current-state').html('<%= j @course.current_state.to_s %>');
+buttonChange();

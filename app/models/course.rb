@@ -29,8 +29,13 @@ class Course < ActiveRecord::Base
 
 		state :approved do
 			event :publish, transition_to: :published
+			event :reject, transition_to: :draft
 		end
 
 		state :published
+	end
+
+	def self.states
+		workflow_spec.state_names
 	end
 end

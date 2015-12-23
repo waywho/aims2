@@ -47,28 +47,25 @@ module Casein
       
       @course = Course.friendly.find params[:id]
       
-      if params[:state]
-        @course.persist_workflow_state(params[:workflow_state])
-      elsif params[:draft]
-        @course.update_attributes course_params
-      elsif params[:submit]
-        @course.update_attributes course_params
-        @course.submit!
-      elsif params[:approve]
-        @course.update_attributes course_params
-        @course.approve!
-      elsif params[:publish]
-        @course.update_attributes course_params
-        @course.publish!
-      end
-
-      if @course.update_attributes course_params
-        flash[:notice] = 'Course has been updated'
-        redirect_to casein_courses_path
-      else
-        flash.now[:warning] = 'There were problems when trying to update this course'
-        render :action => :show
-      end
+      respond_to do |format|
+        if @course.update_attributes course_params
+          if params[:submit]
+            @course.submit!
+          elsif params[:approve]
+            @course.approve!
+          elsif params[:reject]
+            @course.reject!
+          elsif params[:publish]
+            @course.publish!
+          end
+        
+          format.html { redirect_to casein_course_path(@course), notice: 'Course has been updated' }
+          format.js
+        else
+          flash.now[:warning] = 'There were problems when trying to update this course'
+          render :action => :show
+        end
+     end
     end
  
     def destroy
