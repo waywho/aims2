@@ -46,7 +46,22 @@ module Casein
       @casein_page_title = 'Update course'
       
       @course = Course.friendly.find params[:id]
-    
+      
+      if params[:state]
+        @course.persist_workflow_state(params[:workflow_state])
+      elsif params[:draft]
+        @course.update_attributes course_params
+      elsif params[:submit]
+        @course.update_attributes course_params
+        @course.submit!
+      elsif params[:approve]
+        @course.update_attributes course_params
+        @course.approve!
+      elsif params[:publish]
+        @course.update_attributes course_params
+        @course.publish!
+      end
+
       if @course.update_attributes course_params
         flash[:notice] = 'Course has been updated'
         redirect_to casein_courses_path
@@ -70,7 +85,7 @@ module Casein
     private
       
       def course_params
-        params.require(:course).permit(:name, :description, photos_attributes: [:id, :caption, :course_id, :image])
+        params.require(:course).permit(:name, :workflow_state, :description, photos_attributes: [:id, :caption, :course_id, :image])
       end
 
   end
