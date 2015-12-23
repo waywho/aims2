@@ -1,7 +1,7 @@
 class Course < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :name, use: :slugged
-	has_paper_trail
+	has_paper_trail :on => [:update, :destroy]
 	include Workflow
 
 
