@@ -1,4 +1,15 @@
-FactoryGirl.define do
+FactoryGirl.define do  
+
+  factory :staff do
+    name "MyString"
+    biography "MyText"
+    role "MyString"
+    photo "MyString"
+    slug "MyString"
+    published_at "2015-12-24 08:53:20"
+    workflow_state "MyString"
+  end
+
   factory :admin, class: Casein::AdminUser do
   	login "admin"
   	name "admin person"

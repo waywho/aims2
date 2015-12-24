@@ -1,4 +1,4 @@
-class Tutor < ActiveRecord::Base
+class Staff < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :name, use: :slugged
 
