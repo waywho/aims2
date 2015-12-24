@@ -10,8 +10,8 @@ module Casein
   
     def index
       @casein_page_title = 'Photos'
-  		@photos = Photo.order(sort_order(:caption)).paginate :page => params[:page]
-      @photo = Photo.new
+  		@photo = Photo.new
+      @photos = Photo.order(sort_order(:caption)).paginate :page => params[:page]
     end
   
     def show

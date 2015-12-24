@@ -7,6 +7,7 @@ class CoursesControllerTest < ActionController::TestCase
 
   setup do
   	@course = courses(:one)
+    :activate_authlogic
   end
 
   test "should get index" do

@@ -6,13 +6,15 @@ class Casein::PhotosControllerTest < ActionController::TestCase
   # end
  
   	
-  	setup do
-  		@admin_user = {username: 'admin', email: 'admin@example.com', password: 'Pottycode1'}
-	end	
+  setup do
+    @course = courses(:one)
+  end
 
-	test "should get index" do
+  setup  :activate_authlogic
 
-	   	session[:casein_admin_user_id] = @admin_user
+  test "should get index" do
+    user = FactoryGirl.create(:admin)
+    Casein::AdminUserSession.create(user)
 
 	  	get :index
 	  	assert_response :success
