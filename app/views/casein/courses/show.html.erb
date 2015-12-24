@@ -8,28 +8,13 @@
 
 			<%= render :partial => 'casein/courses/form', :locals => { :f => f } %>
 	
-			<p class="submits">
-	  		<%= link_to 'Cancel', casein_courses_path, :class => 'btn btn-mini btn-danger' %>
-			<%= f.submit "Save as draft", name: 'draft', :class => "btn btn-mini btn-info draft" %>
-			<%= f.submit "Submit for approval", name: 'submit', :class => 'btn btn-mini btn-success submit' %>
-			<%= f.submit "Approve", name: 'approve', :class => 'btn btn-mini btn-success approve' %>
-			<%= f.submit "Reject", name: 'reject', :class => 'btn btn-mini btn-danger reject' %>
-			<%= f.submit "Publish", name: 'publish', :class => 'btn btn-mini btn-primary publish' %>
-			<%= f.submit "Update", name: 'update', :class => 'btn btn-mini btn-primary update' %>
-			</p>
+			<%= render :partial => 'casein/layouts/approval_q_buttons', :locals => { :f => f } %>
 
 		<% end %>
 	</div>
 	<div class = 'col-lg-3'>
-		<b>Status:</b><br /><br />		
-			<div id = 'state-status'>
-				<span id= 'current-state'><%= @course.current_state %></span> (<%= link_to 'edit', '#', id: 'edit-state' %>)
-			</div>
-			<%= simple_form_for @course, :url => casein_course_path(@course), html: {:id => 'stateform'}, remote: true do |f| %>
+		<%= render partial: 'casein/layouts/state_form', object: @course, as: record %>
 
-				<%= f.input :workflow_state, label: false, as: :select, :collection => Course.states  %>
-
-			<% end %>
 		<br />
 		<%= render partial: 'casein/photos/photo_upload', object: @course, as: :imageable %>
 	</div>
@@ -37,14 +22,14 @@
 
 	<div class = '.container-fluid'>
 		<%= form_tag update_multiple_casein_photos_path do %>
-		<label class = 'control-label'>Current <%= @course.name %> photos </label>
+		<label class = 'control-label'>Current <%= @course.title %> photos </label>
 			<% if @course.photos.present? %>
 
 				<%= render partial: 'casein/photos/photo_multi_edit', object: @course, as: :imageable %>
 			
 			<% else %>
 				<br />
-				<i>There are currently no photos for <%= @course.name %></i>
+				<i>There are currently no photos for <%= @course.title %></i>
 			<% end %>
 		<% end %>
 	</div>
@@ -56,35 +41,3 @@
 <% end %>
 
 <%= render partial: 'casein/photos/photo_modal_gallary', object: @course, as: :imageable %>
-
-<script>
-	$(document).ready(function() {
-		Dropzone.options.myAwesomeDropzone = {
-			init: function() {
-				this.on("thumbnail", function (file) {
-					$(".dz-image img").addClass("img-responsive");
-				});
-			},
-			paramName: 'photo[image]',
-			uploadMultiple: false,
-			clickable: true,
-			acceptedFiles: 'image/*',
-			thumbnailWidth: '160',
-			thumbnailHeight: '160'
-		};
-
-    
-		$('.sub-btn').prop('disabled', true);
-		$(".container .cbox").hide();
-		$('.image-select').click(function() {
-			var $checkbox = $(this).parent().find('.cbox');
-			$(this).toggleClass('selected');
-			$checkbox.prop('checked', !$checkbox.prop('checked'));
-			$('.sub-btn').prop('disabled', !$('.cbox:checked').length);
-		});
-		$('.box').on('change', function () {
-    		$('.sub-btn').prop('disabled', !$('.cbox:checked').length);
-		}).change();
-
-	})
-</script>

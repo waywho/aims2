@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: Solo
+  title: Solo
   description: This is one good course.
   slug: solo
   format_id: 1
 
 two:
-  name: Choral
+  title: Choral
   description: This is not bad either.
   slug: choral
   format_id: 2

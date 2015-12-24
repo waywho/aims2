@@ -10,9 +10,6 @@ class Course < ActiveRecord::Base
 	has_many :photos, as: :imageable
 	accepts_nested_attributes_for :photos, allow_destroy: true
 
-	def class_name
-		self.class.name
-	end
 
 	workflow do
 		state :draft do

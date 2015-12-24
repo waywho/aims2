@@ -13,6 +13,6 @@
 		<% end %>
 		<%= hidden_field_tag 'imageable[imageable_id]', nil %>
 		<%= hidden_field_tag 'imageable[imageable_type]', nil %>
-		<%= hidden_field_tag 'origin[origin_type]', imageable.class_name %>
+		<%= hidden_field_tag 'origin[origin_type]', imageable.class.name %>
 		<%= hidden_field_tag 'origin[origin_id]', imageable.id %>
 	</div>

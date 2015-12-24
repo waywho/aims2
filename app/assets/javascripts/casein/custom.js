@@ -46,6 +46,33 @@ $(document).ready(function() {
 	      $(elem).wysihtml5();
 	 });
 
+	Dropzone.options.myAwesomeDropzone = {
+	init: function() {
+		this.on("thumbnail", function (file) {
+			$(".dz-image img").addClass("img-responsive");
+		});
+	},
+	paramName: 'photo[image]',
+	uploadMultiple: false,
+	clickable: true,
+	acceptedFiles: 'image/*',
+	thumbnailWidth: '160',
+	thumbnailHeight: '160'
+	};
+
+
+	$('.sub-btn').prop('disabled', true);
+	$(".container .cbox").hide();
+	$('.image-select').click(function() {
+		var $checkbox = $(this).parent().find('.cbox');
+		$(this).toggleClass('selected');
+		$checkbox.prop('checked', !$checkbox.prop('checked'));
+		$('.sub-btn').prop('disabled', !$('.cbox:checked').length);
+	});
+	$('.cbox').on('change', function () {
+		$('.sub-btn').prop('disabled', !$('.cbox:checked').length);
+	}).change();
+
 	$('#stateform').hide();
 	$('#edit-state').click(function() {
 		event.preventDefault();

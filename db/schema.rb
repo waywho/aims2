@@ -11,21 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151223213955) do
+ActiveRecord::Schema.define(version: 20151224105343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "accompanists", force: :cascade do |t|
-    t.string   "name"
-    t.text     "biography"
-    t.string   "photo"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "slug"
-  end
-
-  add_index "accompanists", ["slug"], name: "index_accompanists_on_slug", using: :btree
 
   create_table "casein_admin_users", force: :cascade do |t|
     t.string   "login",                           null: false
@@ -50,7 +39,7 @@ ActiveRecord::Schema.define(version: 20151223213955) do
   end
 
   create_table "courses", force: :cascade do |t|
-    t.string   "name"
+    t.string   "title"
     t.text     "description"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
@@ -66,15 +55,27 @@ ActiveRecord::Schema.define(version: 20151223213955) do
   create_table "formats", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "slug"
+    t.datetime "published_at"
+    t.string   "workflow_state"
+    t.text     "whats_new"
+    t.datetime "when_from"
+    t.datetime "when_to"
+    t.string   "venue"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "county"
+    t.string   "country"
+    t.string   "post_code"
   end
 
   add_index "formats", ["slug"], name: "index_formats_on_slug", using: :btree
 
   create_table "klasses", force: :cascade do |t|
-    t.string   "name"
+    t.string   "title"
     t.text     "description"
     t.text     "repertoire"
     t.integer  "number_of_sessions"
@@ -82,6 +83,8 @@ ActiveRecord::Schema.define(version: 20151223213955) do
     t.integer  "course_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.datetime "published_at"
+    t.string   "workflow_state"
   end
 
   add_index "klasses", ["course_id"], name: "index_klasses_on_course_id", using: :btree
@@ -90,11 +93,17 @@ ActiveRecord::Schema.define(version: 20151223213955) do
     t.string   "title"
     t.text     "content"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "slug"
+    t.datetime "published_at"
+    t.string   "workflow_state"
+    t.integer  "leader_id"
+    t.integer  "leader_type"
   end
 
+  add_index "pages", ["leader_id"], name: "index_pages_on_leader_id", using: :btree
+  add_index "pages", ["leader_type"], name: "index_pages_on_leader_type", using: :btree
   add_index "pages", ["slug"], name: "index_pages_on_slug", using: :btree
 
   create_table "photos", force: :cascade do |t|
@@ -109,16 +118,17 @@ ActiveRecord::Schema.define(version: 20151223213955) do
   add_index "photos", ["imageable_id"], name: "index_photos_on_imageable_id", using: :btree
   add_index "photos", ["imageable_type"], name: "index_photos_on_imageable_type", using: :btree
 
-  create_table "tutors", force: :cascade do |t|
+  create_table "staffs", force: :cascade do |t|
     t.string   "name"
     t.text     "biography"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "role"
     t.string   "photo"
     t.string   "slug"
+    t.datetime "published_at"
+    t.string   "workflow_state"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
-
-  add_index "tutors", ["slug"], name: "index_tutors_on_slug", using: :btree
 
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",  null: false
