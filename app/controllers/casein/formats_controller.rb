@@ -14,7 +14,8 @@ module Casein
   
     def show
       @casein_page_title = 'View format'
-      
+      @photos = Photo.all
+      @photo = Photo.new
     end
   
     def new

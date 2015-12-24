@@ -1,7 +1,7 @@
-<b>Status:</b><br /><br />		
-	<div id = 'state-status'>
+<b>Status: </b>
+	<span id = 'state-status'>
 		<span id= 'current-state'><%= record.current_state %></span> (<%= link_to 'edit', '#', id: 'edit-state' %>)
-	</div>
+	</span>
 	<%= simple_form_for record, :url => casein_course_path(record), html: {:id => 'stateform'}, remote: true do |f| %>
 
 		<%= f.input :workflow_state, label: false, as: :select, :collection => Course.states  %>

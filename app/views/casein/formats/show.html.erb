@@ -7,12 +7,23 @@
 	<%= render :partial => 'casein/formats/form', :locals => { :f => f } %>
 	
 	<p class="submits">
-	  	<%= link_to 'Cancel', casein_formats_path, :class => 'btn btn-mini btn-danger' %>
-		<%= f.submit "Save changes", :class => "btn btn-mini btn-primary" %>
+	  	<%= render :partial => 'casein/layouts/approval_q_buttons', :locals => { :f => f } %>
 	</p>
 
 <% end %>
 
+<div class="row">
+	<div class='col-lg-12 col-md-12'>
+			<%= render partial: 'casein/photos/photo_upload', object: @format, as: :imageable %>
+	</div>
+</div>
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "th-list"}Back to list".html_safe, casein_formats_path %></li>
+
+
+	<%= render partial: 'casein/layouts/state_form', object: @format, as: :record %>
+		<br />
+		<br />
+	<b>Pubished at:</b>
+		<%= date_time_year(@format.published_at) %>
 <% end %>

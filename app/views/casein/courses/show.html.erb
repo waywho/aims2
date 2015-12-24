@@ -3,17 +3,18 @@
 <h2>View course</h2>
 
 <div class='row'>
-	<div class = 'col-lg-9'>
+	<div class = 'col-lg-9 col-md-9'>
 		<%= form_for @course, :url => casein_course_path(@course), html: {multipart: true} do |f| %>
 
 			<%= render :partial => 'casein/courses/form', :locals => { :f => f } %>
-	
+			<p class="submits">
 			<%= render :partial => 'casein/layouts/approval_q_buttons', :locals => { :f => f } %>
+			</p>
 
 		<% end %>
 	</div>
-	<div class = 'col-lg-3'>
-		<%= render partial: 'casein/layouts/state_form', object: @course, as: record %>
+	<div class = 'col-lg-3 col-md-3'>
+		<%= render partial: 'casein/layouts/state_form', object: @course, as: :record %>
 
 		<br />
 		<%= render partial: 'casein/photos/photo_upload', object: @course, as: :imageable %>

@@ -17,7 +17,7 @@
 			<td><%= casein_table_cell_link format.title, casein_format_path(format) %></td>
 			<td><%= casein_table_cell_link format.published_at, casein_format_path(format) %></td>
 			<td><%= casein_table_cell_link format.workflow_state, casein_format_path(format) %></td>
-			<td><%= casein_table_cell_link format.when_from, casein_format_path(format) %>-<%= casein_table_cell_link format.when_to, casein_format_path(format) %></td>
+			<td><%= casein_table_cell_link from_to(format.when_from, format.when_to), casein_format_path(format) %></td>
 			<td><%= casein_table_cell_link format.venue, casein_format_path(format) %></td>
 			<td class="delete">
 				<%= link_to(casein_show_row_icon("trash"), casein_format_path(format), :method => :delete, :data => { :confirm => "Are you sure you want to delete this format?" }) %>

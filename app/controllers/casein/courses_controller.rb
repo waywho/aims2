@@ -9,7 +9,7 @@ module Casein
   
     def index
       @casein_page_title = 'Courses'
-  		@courses = Course.order(sort_order(:name)).paginate :page => params[:page]
+  		@courses = Course.order(sort_order(:title)).paginate :page => params[:page]
     end
   
     def show
