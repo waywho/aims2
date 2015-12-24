@@ -1,7 +1,10 @@
 class Format < ActiveRecord::Base
+	extend FriendlyId
+	friendly_id :title, use: :slugged
+	
 	has_many :courses
 	has_many :photos, as: :imageable
-	friendly_id :name, use: :slugged
+	
 	has_paper_trail :on => [:update, :create, :destroy]
 	include Workflow
 
