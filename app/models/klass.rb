@@ -4,6 +4,8 @@ class Klass < ActiveRecord::Base
 
 	include Workflow
 
+	SESSIONS = ["Session 1", "Session 2", "Session 3", "Session 4"]
+
 	workflow do
 		state :draft do
 			event :submit, transition_to: :pending_review
