@@ -13,7 +13,10 @@
 	<% courses.each do |course| %>
 		<tr>
 			<td><%= casein_table_cell_link course.title, casein_course_path(course) %></td>
-			<td><%= casein_table_cell_link course.workflow_state, casein_course_path(course) %></td>
+			<td><%= link_to casein_course_path(course) do %>
+				<%= image_tag state_icon(course.workflow_state) %>
+				<% end %>
+			</td>
 			<td><%= casein_table_cell_link course.updated_at, casein_course_path(course) %></td>
 			<td class="delete">
 				<%= link_to(casein_show_row_icon("trash"), casein_course_path(course), :method => :delete ) %>

@@ -18,4 +18,8 @@ module ApplicationHelper
 	def date_time_year(datetime)
 		datetime.to_s(:dmy) if datetime.present?
 	end
+
+	def state_icon(state)
+		"#{state}.png"
+	end
 end

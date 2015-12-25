@@ -38,13 +38,25 @@ module Casein
     def update
       @casein_page_title = 'Update format'
     
-      if @format.update_attributes format_params
-        flash[:notice] = 'Format has been updated'
-        redirect_to casein_formats_path
-      else
-        flash.now[:warning] = 'There were problems when trying to update this format'
-        render :action => :show
-      end
+      respond_to do |form|
+        if @format.update_attributes format_params
+          if params[:submit]
+            @format.submit!
+          elsif params[:approve]
+            @format.approve!
+          elsif params[:reject]
+            @format.reject!
+          elsif params[:publish]
+            @format.publish!
+          end
+        
+          form.html { redirect_to casein_course_path(@format), notice: "Course has been updated. #{undo_link}" }
+          form.js
+        else
+          flash.now[:warning] = 'There were problems when trying to update this course'
+          render :action => :show
+        end
+     end
     end
  
     def destroy
@@ -57,7 +69,7 @@ module Casein
     private
       
       def format_params
-        params.require(:format).permit(:title, :description, :published_at, :workflow_state, :whats_new, :when_from, :when_to, :venue, :address1, :address2, :city, :county, :country, :post_code)
+        params.require(:format).permit(:title, :workflow_state, :description, :published_at, :workflow_state, :whats_new, :when_from, :when_to, :venue, :address1, :address2, :city, :county, :country, :post_code)
       end
 
       def load_format

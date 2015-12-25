@@ -11,6 +11,7 @@ class Course < ActiveRecord::Base
 	accepts_nested_attributes_for :photos, allow_destroy: true
 
 
+
 	workflow do
 		state :draft do
 			event :submit, transition_to: :pending_review

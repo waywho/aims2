@@ -16,7 +16,9 @@
 		<tr>
 			<td><%= casein_table_cell_link format.title, casein_format_path(format) %></td>
 			<td><%= casein_table_cell_link format.published_at, casein_format_path(format) %></td>
-			<td><%= casein_table_cell_link format.workflow_state, casein_format_path(format) %></td>
+			<td><%= link_to casein_format_path(format) do %>
+				<%= image_tag state_icon(format.workflow_state) %>
+				<% end %></td>
 			<td><%= casein_table_cell_link from_to(format.when_from, format.when_to), casein_format_path(format) %></td>
 			<td><%= casein_table_cell_link format.venue, casein_format_path(format) %></td>
 			<td class="delete">
