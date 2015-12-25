@@ -36,4 +36,8 @@ class Course < ActiveRecord::Base
 	def self.states
 		workflow_spec.state_names
 	end
+
+	def publish
+		update_attribute(:published_at, Time.now)
+	end
 end

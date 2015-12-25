@@ -15,8 +15,8 @@ module ApplicationHelper
 		end
 	end
 
-	def date_time_year(datetime)
-		datetime.to_s(:dmy) if datetime.present?
+	def d_m_y(datetime)
+		datetime.strftime("%d/%m/%y") if datetime.present?
 	end
 
 	def state_icon(state)
