@@ -37,7 +37,7 @@ module Casein
     def update
       @casein_page_title = 'Update klass'
       
-      @klass = Klassx.find params[:id]
+      @klass = Klass.find params[:id]
     
       if @klass.update_attributes klass_params
         flash[:notice] = 'Klass has been updated'
