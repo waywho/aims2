@@ -21,12 +21,20 @@ module Casein
     def new
       @casein_page_title = 'Add a new format'
       @format = Format.new
+      @photo = @course.photos.build
     end
 
     def create
       @format = Format.new format_params
     
       if @format.save
+
+        if params[:photos_attributes]
+            params[:photos_attributes]['image'].each do |image|
+            @photo = @format.photos.create(image: image)
+          end
+        end
+
         flash[:notice] = 'Format created'
         redirect_to casein_formats_path
       else

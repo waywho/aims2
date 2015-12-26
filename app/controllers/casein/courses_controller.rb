@@ -28,8 +28,8 @@ module Casein
       @course = Course.new course_params
     
       if @course.save
-        if params[:photos_attributes]
-          params[:photos_attributes]['image'].each do |image|
+          if params[:photos_attributes]
+            params[:photos_attributes]['image'].each do |image|
             @photo = @course.photos.create(image: image)
           end
         end
