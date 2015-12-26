@@ -4,11 +4,12 @@
 	<thead>
 		<tr>
 			<th><%= casein_sort_link "Title", :title %></th>
-			<th><%= casein_sort_link "Description", :description %></th>
-			<th><%= casein_sort_link "Repertoire", :repertoire %></th>
-			<th><%= casein_sort_link "Number of sessions", :number_of_sessions %></th>
+			<th><%= casein_sort_link "# of sessions", :number_of_sessions %></th>
 			<th><%= casein_sort_link "Session of day", :session_of_day %></th>
-			<th><%= casein_sort_link "Course", :course_id %></th>
+			<th><%= casein_sort_link "Course", :course_title %></th>
+			<th><%= casein_sort_link "Published at", :published_at %></th>
+			<th><%= casein_sort_link "Updated at", :updated_at %></th>
+			<th><%= casein_sort_link "Status", :status %></th>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>
@@ -16,11 +17,15 @@
 	<% klasses.each do |klass| %>
 		<tr>
 			<td><%= casein_table_cell_link klass.title, casein_klass_path(klass) %></td>
-			<td><%= casein_table_cell_link klass.description, casein_klass_path(klass) %></td>
-			<td><%= casein_table_cell_link klass.repertoire, casein_klass_path(klass) %></td>
 			<td><%= casein_table_cell_link klass.number_of_sessions, casein_klass_path(klass) %></td>
 			<td><%= casein_table_cell_link klass.session_of_day, casein_klass_path(klass) %></td>
-			<td><%= casein_table_cell_link klass.course_id, casein_klass_path(klass) %></td>
+			<td><%= casein_table_cell_link klass.course.title, casein_klass_path(klass) %></td>
+			<td><%= casein_table_cell_link d_m_y(klass.published_at), casein_klass_path(klass) %></td>
+			<td><%= casein_table_cell_link d_m_y(klass.updated_at), casein_klass_path(klass) %></td>
+			<td><%= link_to casein_klass_path(klass) do %>
+				<%= image_tag state_icon(klass.workflow_state) %>
+				<% end %>
+			</td>
 			<td class="delete">
 				<%= link_to(casein_show_row_icon("trash"), casein_klass_path(klass), :method => :delete, :data => { :confirm => "Are you sure you want to delete this klass?" }) %>
 			</td>

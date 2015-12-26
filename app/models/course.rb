@@ -1,6 +1,6 @@
 class Course < ActiveRecord::Base
 	extend FriendlyId
-	friendly_id :name, use: :slugged
+	friendly_id :title, use: :slugged
 	has_paper_trail :on => [:update, :create, :destroy]
 	include Workflow
 
@@ -9,6 +9,7 @@ class Course < ActiveRecord::Base
 	has_many :klasses
 	has_many :photos, as: :imageable
 	accepts_nested_attributes_for :photos, allow_destroy: true
+
 
 
 	workflow do
@@ -34,5 +35,9 @@ class Course < ActiveRecord::Base
 
 	def self.states
 		workflow_spec.state_names
+	end
+
+	def publish
+		update_attribute(:published_at, Time.now)
 	end
 end

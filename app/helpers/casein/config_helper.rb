@@ -40,6 +40,5 @@ module Casein
     def casein_config_javascript_includes
       %w[casein/casein casein/custom casein/dropzone bootstrap-wysihtml5 bootstrap-wysihtml5/locales]
     end
-    
   end
 end

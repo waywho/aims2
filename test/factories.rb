@@ -22,4 +22,17 @@ FactoryGirl.define do
     single_access_token "<%= Authlogic::Random.friendly_token %>"
     perishable_token "<%= Authlogic::Random.friendly_token %>"
   end
+
+  factory :format do
+    title "Mini-Aims" 
+    description "MyText" 
+    whats_new "2016 is very new" 
+    when_from "2016-04-09 08:53:20" 
+    when_to "2016-04-10 21:53:20" 
+    venue "St Gabriel's Halls" 
+    address1 "Pimlico" 
+    city "London" 
+    county "Greater London" 
+    post_code "SW1V 2TC"
+  end
 end

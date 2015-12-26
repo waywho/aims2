@@ -1,6 +1,6 @@
 class Staff < ActiveRecord::Base
 	extend FriendlyId
-	friendly_id :name, use: :slugged
+	friendly_id :title, use: :slugged
 	scope :tutor, -> { where(role: "tutor") }
 	scope :accompanist, -> { where(role: "accompanist") }
 	scope :admin, -> { where(role: "admin") }

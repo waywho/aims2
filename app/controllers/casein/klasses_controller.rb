@@ -9,12 +9,12 @@ module Casein
   
     def index
       @casein_page_title = 'Klasses'
-  		@klasses = Klass.order(sort_order(:name)).paginate :page => params[:page]
+  		@klasses = Klass.order(sort_order(:title)).paginate :page => params[:page]
     end
   
     def show
       @casein_page_title = 'View klass'
-      @klass = Klass.friendly.find params[:id]
+      @klass = Klass.find params[:id]
     end
   
     def new
@@ -37,7 +37,7 @@ module Casein
     def update
       @casein_page_title = 'Update klass'
       
-      @klass = Klass.friendly.find params[:id]
+      @klass = Klass.find params[:id]
     
       if @klass.update_attributes klass_params
         flash[:notice] = 'Klass has been updated'
@@ -49,7 +49,7 @@ module Casein
     end
  
     def destroy
-      @klass = Klass.friendly.find params[:id]
+      @klass = Klass.find params[:id]
 
       @klass.destroy
       flash[:notice] = 'Klass has been deleted'
@@ -59,7 +59,7 @@ module Casein
     private
       
       def klass_params
-        params.require(:klass).permit(:name, :description, :repertoire, :number_of_sessions, :session_of_day, :course_id)
+        params.require(:klass).permit(:title, :description, :repertoire, :number_of_sessions, :session_of_day, :course_id)
       end
 
   end

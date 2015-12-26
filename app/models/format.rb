@@ -1,7 +1,10 @@
 class Format < ActiveRecord::Base
+	extend FriendlyId
+	friendly_id :title, use: :slugged
+	
 	has_many :courses
 	has_many :photos, as: :imageable
-	friendly_id :name, use: :slugged
+	
 	has_paper_trail :on => [:update, :create, :destroy]
 	include Workflow
 
@@ -24,6 +27,10 @@ class Format < ActiveRecord::Base
 		end
 
 		state :published
+	end
+	
+	def publish
+		update_attribute(:published_at, Time.now)
 	end
 
 end

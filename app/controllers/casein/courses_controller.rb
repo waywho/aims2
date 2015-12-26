@@ -2,19 +2,18 @@
 
 module Casein
   class CoursesController < Casein::CaseinController
-  
+    before_filter :load_course, :only => [:show, :update, :destroy]
     ## optional filters for defining usage according to Casein::AdminUser access_levels
     # before_filter :needs_admin, :except => [:action1, :action2]
     # before_filter :needs_admin_or_current_user, :only => [:action1, :action2]
   
     def index
       @casein_page_title = 'Courses'
-  		@courses = Course.order(sort_order(:name)).paginate :page => params[:page]
+  		@courses = Course.order(sort_order(:title)).paginate :page => params[:page]
     end
   
     def show
       @casein_page_title = 'View course'
-      @course = Course.friendly.find params[:id]
       @photos = Photo.all
       @photo = Photo.new
     end
@@ -29,11 +28,11 @@ module Casein
       @course = Course.new course_params
     
       if @course.save
-        if params[:photos_attributes]
-          params[:photos_attributes]['image'].each do |image|
-            @photo = @course.photos.create(image: image)
+          if params[:photos_attributes]
+            params[:photos_attributes]['image'].each do |image|
+              @course.photos.create(image: image)
+            end
           end
-        end
         flash[:notice] = 'Course created'
         redirect_to casein_courses_path
       else
@@ -44,9 +43,7 @@ module Casein
   
     def update
       @casein_page_title = 'Update course'
-      
-      @course = Course.friendly.find params[:id]
-      
+            
       respond_to do |format|
         if @course.update_attributes course_params
           if params[:submit]
@@ -69,8 +66,6 @@ module Casein
     end
  
     def destroy
-      @course = Course.friendly.find params[:id]
-
       @course.photos.each do |photo|
         photo.update_attributes(imageable_id: nil, imageable_type: nil)
       end
@@ -82,11 +77,15 @@ module Casein
     private
       
       def course_params
-        params.require(:course).permit(:name, :workflow_state, :description, photos_attributes: [:id, :caption, :course_id, :image])
+        params.require(:course).permit(:title, :workflow_state, :description, photos_attributes: [:id, :caption, :course_id, :image])
       end
 
       def undo_link
         view_context.link_to("undo", revert_version_path(@course.versions.last), :method => :post).html_safe
+      end
+
+      def load_course
+        @course = Course.friendly.find params[:id]      
       end
 
   end
