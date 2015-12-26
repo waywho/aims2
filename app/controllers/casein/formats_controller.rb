@@ -31,7 +31,7 @@ module Casein
 
         if params[:photos_attributes]
             params[:photos_attributes]['image'].each do |image|
-            @photo = @format.photos.create(image: image)
+            @format.photos.create(image: image)
           end
         end
 
@@ -58,10 +58,10 @@ module Casein
             @format.publish!
           end
         
-          form.html { redirect_to casein_course_path(@format), notice: "Course has been updated. #{undo_link}" }
+          form.html { redirect_to casein_format_path(@format), notice: "Format has been updated. #{undo_link}" }
           form.js
         else
-          flash.now[:warning] = 'There were problems when trying to update this course'
+          flash.now[:warning] = 'There were problems when trying to update this format'
           render :action => :show
         end
      end
@@ -82,6 +82,10 @@ module Casein
 
       def load_format
         @format = Format.friendly.find params[:id]
+      end
+
+      def undo_link
+        view_context.link_to("undo", revert_version_path(@format.versions.last), :method => :post).html_safe
       end
   
   end

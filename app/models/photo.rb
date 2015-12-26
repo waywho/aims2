@@ -8,4 +8,10 @@ class Photo < ActiveRecord::Base
 		self.class.name
 	end
 
+	def self.multiple_save(object, photo_attribute_params)
+    	photo_attribute_params['image'].each do |image|
+      		object.photos.create(image: image)
+    	end
+  	end
+
 end

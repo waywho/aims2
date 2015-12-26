@@ -30,9 +30,9 @@ module Casein
       if @course.save
           if params[:photos_attributes]
             params[:photos_attributes]['image'].each do |image|
-            @photo = @course.photos.create(image: image)
+              @course.photos.create(image: image)
+            end
           end
-        end
         flash[:notice] = 'Course created'
         redirect_to casein_courses_path
       else
@@ -77,7 +77,7 @@ module Casein
     private
       
       def course_params
-        params.require(:course).permit(:name, :workflow_state, :description, photos_attributes: [:id, :caption, :course_id, :image])
+        params.require(:course).permit(:title, :workflow_state, :description, photos_attributes: [:id, :caption, :course_id, :image])
       end
 
       def undo_link
