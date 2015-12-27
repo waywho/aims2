@@ -30,3 +30,13 @@ Format.delete_all
 format_summer = Format.create({title: "Summer School", description: "The Summer School is a week-long residential course at the beautiful seaside of East Bourne. The You will be joining around 200 enthusiastic students, along with 70 staff made up of tutors and house pianists. There four main teaching sessions per day, with lots of performance opportunities.", whats_new: "2016 is very new", when_from: "2016-08-21 08:53:20", when_to: "2016-08-28 21:53:20", venue: "EastBourne College", address1: "Old Wish Road", city: "EastBourne", county: "East Sussex", post_code: "BN21 4JY"})
 format_mini = Format.create({title: "Mini-Aims", description: "Mini-Aims is our non-residential 'taster' version of the main singing summer school.", whats_new: "2016 is very new", when_from: "2016-04-09 08:53:20", when_to: "2016-04-10 21:53:20", venue: "St Gabriel's Halls", address1: "Pimlico", city: "London", county: "Greater London", post_code: "SW1V 3AA"})
 
+Staff.delete_all
+staff_tutor = Staff.create({name: "John Ramster", biography: "Opera Director at the Royal Academy of Music", role: "tutor"})
+staff_tutor2 = Staff.create({name: "Ameral Gunson", biography: "Mezzo and vocal coach....", role: "tutor"})
+staff_tutor3 = Staff.create({name: "Eugene Asti", biography: "Song coach and pianist....", role: "tutor"})
+staff_tutor4 = Staff.create({name: "Terence Allbright", biography: "Pianist and cabarat...", role: "tutor"})
+staff_tutor5 = Staff.create({name: "Robert Dean", biography: "Vocal coach...", role: "tutor"})
+staff_tutor6 = Staff.create({name: "Hilary Fisher", biography: "Cabarat specialist...", role: "tutor"})
+staff_gm = Staff.create({name: "Antonia Hyatt", biography: "General manager experience...", role: "General Manager"})
+staff_ad = Staff.create({name: "Neil Jenkins", biography: "Experienced conductor, singer, and run AIMS for many years....", role: "Artistic Director"})
+staff_pianist = Staff.create({name: "Louisa Lam", biography: "GSMD fellow....", role: "house pianist"})
