@@ -29,4 +29,14 @@ class Casein::CoursesControllerTest < ActionController::TestCase
   	get :show, :id => @course.id
   	assert_response :success
   end
+
+
+   test "should create course" do
+    user = FactoryGirl.create(:admin)
+    Casein::AdminUserSession.create(user)
+
+    assert_difference('Course.count') do
+      post :create, course: { title: "MyTitle", description: "MyDescription", photos_attributes: { image: ["image1.jpg", "image2.jpg"] }  }
+    end
+  end
 end
