@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       collection do
         get :edit_multiple
         post :update_multiple
-        post :imageable_create
+        # post :imageable_create
       end
     end
 		resources :klasses

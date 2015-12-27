@@ -35,4 +35,30 @@ FactoryGirl.define do
     county "Greater London" 
     post_code "SW1V 2TC"
   end
+
+  factory :klass do
+    title "MyString"
+    description "Mytext"
+    repertoire "Mytext"
+    number_of_sessions "6"
+    session_of_day "Session 2"
+    course_id "21"
+  end
+
+  factory :photo do
+    caption "MyText"
+    image "image1.jpg"
+    imageable_id "1"
+    imageable_type "course"
+  end
+
+  factory :course do
+    title "Solo"
+    description "MyText"
+    slug "solo"
+    format_id "1"
+  end
+
+
+
 end

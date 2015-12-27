@@ -5,9 +5,8 @@ class Casein::PhotosControllerTest < ActionController::TestCase
   #   assert true
   # end
  
-  	
   setup do
-    @course = courses(:one)
+    @photo = FactoryGirl.create(:photo)
   end
 
   setup  :activate_authlogic
@@ -19,5 +18,23 @@ class Casein::PhotosControllerTest < ActionController::TestCase
 	  	get :index
 	  	assert_response :success
 	  	assert_not_nil assigns(:photos)
-  	end
+  end
+
+  test "show photo" do
+    user = FactoryGirl.create(:admin)
+    Casein::AdminUserSession.create(user)
+    
+    get :show, :id => @photo.id #unknown format error
+    assert_response :success
+  end
+
+  test "should create photo" do
+    user = FactoryGirl.create(:admin)
+    Casein::AdminUserSession.create(user)
+
+    assert_difference('Photo.count') do
+      post :create, photo: { caption: "MyCaption", image: "image1.jpg" }
+    end
+  end
+
 end

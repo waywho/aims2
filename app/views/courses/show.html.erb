@@ -1,4 +1,4 @@
-<h1><%= @course.name %></h1>
+<h1><%= @course.title %></h1>
 
 <p><%= @course.description %></p>
 
@@ -9,7 +9,7 @@
 
 <ul>
 <% @course.klasses.each do |klass| %>
-	<li><h4 class = 'class-name'><%= klass.name %> </h4>
+	<li><h4 class = 'class-title'><%= klass.title %> </h4>
 		<% if klass.number_of_sessions.present? %>
 			(<%= klass.number_of_sessions %> sessions)
 		<% end %>

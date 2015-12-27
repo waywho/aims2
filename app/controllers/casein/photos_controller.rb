@@ -39,21 +39,21 @@ module Casein
       end
     end
 
-    def imageable_create
-      # @photo = Photo.new photo_params
-      photo_params[:images].each do |image|
-        @photo = Photo.new(image: image, imageable_id: photo_params[:imageable_id], imageable_type: photo_params[:imageable_type])
+    # def imageable_create
+    #   # @photo = Photo.new photo_params
+    #   photo_params[:images].each do |image|
+    #     @photo = Photo.new(image: image, imageable_id: photo_params[:imageable_id], imageable_type: photo_params[:imageable_type])
       
-          if @photo.save
-            flash[:notice] = "Photo(s) added"
-            redirect_to current_imageable_path
-          else
-            flash.now[:warning] = 'There were problems when trying to add a new photo'
-            render :action => :new
-          end
+    #       if @photo.save
+    #         flash[:notice] = "Photo(s) added"
+    #         redirect_to current_imageable_path
+    #       else
+    #         flash.now[:warning] = 'There were problems when trying to add a new photo'
+    #         render :action => :new
+    #       end
 
-      end
-    end
+    #   end
+    # end
   
     def update
       @casein_page_title = 'Update photo'
