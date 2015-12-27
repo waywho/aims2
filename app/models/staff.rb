@@ -6,7 +6,7 @@ class Staff < ActiveRecord::Base
 	scope :admin, -> { where(role: "admin") }
 	has_paper_trail :on => [:update, :create, :destroy]
 
-	ROLES = ["tutor", "accompanist", "Artistic Director", "General Manager", "Admin"]
+	ROLES = ["tutor", "house pianist", "Artistic Director", "General Manager", "Admin"]
 
 	has_one :photo, as: :imageable
 
