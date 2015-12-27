@@ -85,7 +85,7 @@ module Casein
       end
 
       def load_course
-        @course = Course.friendly.find params[:id]      
+        @course ||= Course.friendly.find params[:id]      
       end
 
   end

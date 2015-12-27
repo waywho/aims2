@@ -77,11 +77,11 @@ module Casein
     private
       
       def format_params
-        params.require(:format).permit(:title, :workflow_state, :description, :published_at, :workflow_state, :whats_new, :when_from, :when_to, :venue, :address1, :address2, :city, :county, :country, :post_code)
+        params.require(:format).permit(:title, :workflow_state, :description, :published_at, :workflow_state, :whats_new, :when_from, :when_to, :venue, :address1, :address2, :city, :county, :country, :post_code, photos_attributes: [:id, :caption, :course_id, :image])
       end
 
       def load_format
-        @format = Format.friendly.find params[:id]
+        @format ||= Format.friendly.find params[:id]
       end
 
       def undo_link

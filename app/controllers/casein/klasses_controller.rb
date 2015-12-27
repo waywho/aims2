@@ -2,7 +2,7 @@
 
 module Casein
   class KlassesController < Casein::CaseinController
-  
+    before_filter :load_klass, :only => [:show, :update, :destroy]
     ## optional filters for defining usage according to Casein::AdminUser access_levels
     # before_filter :needs_admin, :except => [:action1, :action2]
     # before_filter :needs_admin_or_current_user, :only => [:action1, :action2]
@@ -14,7 +14,6 @@ module Casein
   
     def show
       @casein_page_title = 'View klass'
-      @klass = Klass.find params[:id]
     end
   
     def new
@@ -37,19 +36,28 @@ module Casein
     def update
       @casein_page_title = 'Update klass'
       
-      @klass = Klass.find params[:id]
-    
-      if @klass.update_attributes klass_params
-        flash[:notice] = 'Klass has been updated'
-        redirect_to casein_klasses_path
-      else
-        flash.now[:warning] = 'There were problems when trying to update this klass'
-        render :action => :show
-      end
+      respond_to do |format|
+        if @klass.update_attributes klass_params
+          if params[:submit]
+            @klass.submit!
+          elsif params[:approve]
+            @klass.approve!
+          elsif params[:reject]
+            @klass.reject!
+          elsif params[:publish]
+            @klass.publish!
+          end
+        
+          format.html { redirect_to casein_klass_path(@klass), notice: "Klass has been updated. #{undo_link}" }
+          format.js
+        else
+          flash.now[:warning] = 'There were problems when trying to update this klass'
+          render :action => :show
+        end
+     end    
     end
  
     def destroy
-      @klass = Klass.find params[:id]
 
       @klass.destroy
       flash[:notice] = 'Klass has been deleted'
@@ -60,6 +68,14 @@ module Casein
       
       def klass_params
         params.require(:klass).permit(:title, :description, :repertoire, :number_of_sessions, :session_of_day, :course_id)
+      end
+
+      def load_klass
+        @klass ||= Klass.find params[:id]
+      end
+
+      def undo_link
+        view_context.link_to("undo", revert_version_path(@format.versions.last), :method => :post).html_safe
       end
 
   end
