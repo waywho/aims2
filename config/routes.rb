@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
 	#Casein routes
 	namespace :casein do
+		resources :staffs
 		resources :formats
 		resources :photos do
       collection do
