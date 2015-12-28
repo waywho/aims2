@@ -56,6 +56,17 @@ module Casein
         end
      end    
     end
+
+    def update_multiple
+      @klasses = Klass.where(id: klass_params[:klass_ids])
+
+      if params[:publish]
+        @klasses.each do |klass|
+            klass.publish!
+          end
+          
+      end
+    end
  
     def destroy
 
@@ -67,7 +78,7 @@ module Casein
     private
       
       def klass_params
-        params.require(:klass).permit(:title, :description, :repertoire, :number_of_sessions, :session_of_day, :course_id)
+        params.require(:klass).permit(:title, {:klass_ids => []}, :description, :repertoire, :number_of_sessions, :session_of_day, :course_id)
       end
 
       def load_klass

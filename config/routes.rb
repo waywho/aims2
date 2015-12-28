@@ -18,7 +18,11 @@ Rails.application.routes.draw do
         # post :imageable_create
       end
     end
-		resources :klasses
+		resources :klasses do
+      collection do
+        post :update_multiple
+      end
+    end
 		resources :courses
 	end
 
