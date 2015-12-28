@@ -28,3 +28,11 @@
 .state-icon {
 	margin: 0px 10px 0px 10px;
 }
+
+.staff-list {
+	list-style-type: none;
+}
+
+.staff-list > .list-group-item {
+	border: none;
+}

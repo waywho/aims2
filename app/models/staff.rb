@@ -2,7 +2,7 @@ class Staff < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :name, use: :slugged
 	scope :tutor, -> { where(role: "tutor") }
-	scope :accompanist, -> { where(role: "accompanist") }
+	scope :house_pianist, -> { where(role: "house pianist") }
 	scope :admin, -> { where(role: "admin") }
 	has_paper_trail :on => [:update, :create, :destroy]
 
@@ -32,5 +32,9 @@ class Staff < ActiveRecord::Base
 		end
 
 		state :published
+	end
+
+	def publish
+		update_attribute(:published_at, Time.now)
 	end
 end

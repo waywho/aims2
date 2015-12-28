@@ -1,5 +1,41 @@
-<h2>Staffs</h2>
+<h2>Manage Staff Publishing Queue</h2>
 
-<ul>
+<h5>Tutors</h5>
+<%= form_tag update_multiple_casein_staffs_path do %>
+	<ul class="list-group row staff-list">
+	<% @staffs.tutor.each do |staff| %>
+		<li class="list-group-item col-xs-6 col-md-4 col-lg-3"><%= check_box_tag 'staff[staff_ids][]', staff.id, checked = false, { id: dom_id(staff) } %><%= link_to casein_staff_path(staff) do %>
+			<%= staff.name %> <%= image_tag state_icon(staff.workflow_state) %>
+			<% end %></li>
+	<% end %>
 	</ul>
+	<p class="submits">
+	  	<%= submit_tag "Unpublish", name: 'draft', :class => "btn btn-mini btn-info draft" %>
+		<%= submit_tag "Publish", name: 'publish', :class => 'btn btn-mini btn-primary publish' %>
+	</p>
+<% end %>
+
+
+<h5>House Pianists</h5>
+<%= form_tag update_multiple_casein_staffs_path do %>
+	<ul class="list-group row staff-list">
+		<% @staffs.house_pianist.each do |staff| %>
+		<li class="list-group-item col-xs-6 col-md-4 col-lg-3"><%= check_box_tag 'staff[staff_ids][]', staff.id, checked = false, { id: dom_id(staff) } %><%= link_to casein_staff_path(staff) do %>
+		<%= staff.name %> <%= image_tag state_icon(staff.workflow_state) %>
+		<% end %></li>
+	<% end %>
+
+	</ul>
+		<p class="submits">
+	  	<%= submit_tag "Unpublish", name: 'draft', :class => "btn btn-mini btn-info draft" %>
+		<%= submit_tag "Publish", name: 'publish', :class => 'btn btn-mini btn-primary publish' %>
+	</p>
+<% end %>
+
+<%= content_for :sidebar do %>
+
+	<li><%= link_to "#{casein_show_icon "plus-sign"}Add a new staff".html_safe, new_casein_staff_path %></li>
+	<li><%= link_to "Manage Staff Publishing Queue", publish_index_casein_staffs_path %></li>
+
+<% end %>
 

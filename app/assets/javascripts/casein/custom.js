@@ -83,7 +83,10 @@ $(document).ready(function() {
 		$('#stateform').submit();
 	});
 
-	buttonChange();
+	if($('#current_state').length > 2) {
+		buttonChange();
+	};
+
 
 		
 })

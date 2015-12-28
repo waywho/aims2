@@ -6,7 +6,8 @@ Rails.application.routes.draw do
 	namespace :casein do
 		resources :staffs do
       collection do
-        get 'publish_index'
+        get :publish_index
+        post :update_multiple
       end
     end
 		resources :formats
