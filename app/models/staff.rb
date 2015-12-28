@@ -1,6 +1,6 @@
 class Staff < ActiveRecord::Base
 	extend FriendlyId
-	friendly_id :title, use: :slugged
+	friendly_id :name, use: :slugged
 	scope :tutor, -> { where(role: "tutor") }
 	scope :accompanist, -> { where(role: "accompanist") }
 	scope :admin, -> { where(role: "admin") }
@@ -9,6 +9,7 @@ class Staff < ActiveRecord::Base
 	ROLES = ["tutor", "house pianist", "Artistic Director", "General Manager", "Admin"]
 
 	has_one :photo, as: :imageable
+	accepts_nested_attributes_for :photo, allow_destroy: true
 
 	include Workflow
 

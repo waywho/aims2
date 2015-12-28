@@ -37,7 +37,6 @@ class Casein::CoursesControllerTest < ActionController::TestCase
 
     assert_difference('Course.count') do
       post :create, course: { title: "MyTitle", description: "MyDescription", photos_attributes: { image: ["image1.jpg", "image2.jpg"] }  }
-      assert_difference('Photo.count')
     end
 
   end

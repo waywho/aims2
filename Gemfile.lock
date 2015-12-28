@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/waywho/casein.git
-  revision: 73871b32699ac8c58df76a9045dd2b1c753464ee
+  revision: 06603c1400179c63001d4fc87fb832da6be8299f
   specs:
     casein (5.1.1.5)
       authlogic (= 3.4.4)

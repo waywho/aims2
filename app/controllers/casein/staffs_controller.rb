@@ -2,7 +2,7 @@
 
 module Casein
   class StaffsController < Casein::CaseinController
-  
+    before_filter :load_staff, :only => [:show, :update, :destroy]
     ## optional filters for defining usage according to Casein::AdminUser access_levels
     # before_filter :needs_admin, :except => [:action1, :action2]
     # before_filter :needs_admin_or_current_user, :only => [:action1, :action2]
@@ -14,12 +14,12 @@ module Casein
   
     def show
       @casein_page_title = 'View staff'
-      @staff = Staff.find params[:id]
     end
   
     def new
       @casein_page_title = 'Add a new staff'
       @staff = Staff.new
+      @photo = @staff.photo.build
     end
 
     def create
@@ -36,8 +36,6 @@ module Casein
   
     def update
       @casein_page_title = 'Update staff'
-      
-      @staff = Staff.find params[:id]
     
       if @staff.update_attributes staff_params
         flash[:notice] = 'Staff has been updated'
@@ -49,7 +47,6 @@ module Casein
     end
  
     def destroy
-      @staff = Staff.find params[:id]
 
       @staff.destroy
       flash[:notice] = 'Staff has been deleted'
@@ -59,7 +56,11 @@ module Casein
     private
       
       def staff_params
-        params.require(:staff).permit(:name, :biography, :role, :photo, :published_at, :workflow_state, :updated_at)
+        params.require(:staff).permit(:name, :biography, :role, :photo, :published_at, :workflow_state, photo_attributes: [:id, :caption, :image])
+      end
+
+      def load_staff
+        @staff = Staff.friendly.find params[:id]
       end
   
   end

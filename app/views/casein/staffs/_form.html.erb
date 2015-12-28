@@ -2,24 +2,21 @@
 
 
 <div class="row">
-	<div class="col-lg-12 col-md-12">
-		<%= casein_text_field f, f.object, :name %>
+	<div class="col-lg-6 col-md-6">
+		<% if @staff.photo.present? %>
+			<%= image_tag @staff.photo.image_url(:thumb).to_s, :class => 'thumbnail img-responsive' %>
+		<% else %>
+			<%= casein_file_field f, f.object, :staff, :image, name: 'staff[photo_attributes][image]' %>
+		<% end %>
+	</div>
+	<div class="col-lg-6 col-md-6">
+		<%= casein_text_field f, f.object, :name %>	
+		<%= casein_select f, f.object, :role, Staff::ROLES, include_blank: true %>
 	</div>
 </div>
 <div class="row">
 	<div class="col-lg-12 col-md-12">
 		<%= casein_text_area f, f.object, :biography, :class => 'description-box' %>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-lg-6 col-md-6">
-		<%= casein_select f, f.object, :role, Staff::ROLES, include_blank: true %>
-	</div>
-	<div class="col-lg-6 col-md-6">
-		<%= f.fields_for :photos do |builder| %>
-			<%= render 'casein/photos/photo_fields', f: builder %>
-		<% end %>
 	</div>
 </div>
 
