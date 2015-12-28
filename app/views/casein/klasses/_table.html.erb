@@ -15,7 +15,6 @@
 		</tr>
 	</thead>
 	
-	<%= form_tag '#' do %>
 		<% klasses.each do |klass| %>
 			<tr>
 				<td><%= check_box_tag 'klass[klass_ids][]', klass.id, checked = false, { id: dom_id(klass), :class => 'index-check' } %>
@@ -35,5 +34,4 @@
 				</td>
 			</tr>
 		<% end %>				
-	<% end %>
 </table>
