@@ -68,7 +68,9 @@ module Casein
     end
  
     def destroy
-
+      @format.photos.each do |photo|
+        photo.update_attributes(imageable_id: nil, imageable_type: nil)
+      end
       @format.destroy
       flash[:notice] = 'Format has been deleted'
       redirect_to casein_formats_path
@@ -77,7 +79,7 @@ module Casein
     private
       
       def format_params
-        params.require(:format).permit(:title, :workflow_state, :description, :published_at, :workflow_state, :whats_new, :when_from, :when_to, :venue, :address1, :address2, :city, :county, :country, :post_code, photos_attributes: [:id, :caption, :course_id, :image])
+        params.require(:format).permit(:title, :workflow_state, :description, :published_at, :workflow_state, :whats_new, :when_from, :when_to, :venue, :address1, :address2, :city, :county, :country, :post_code, photos_attributes: [:id, :caption, :image])
       end
 
       def load_format

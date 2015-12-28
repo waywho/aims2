@@ -7,7 +7,11 @@
 	<%= image_tag @photo.image, :class => 'img-responsive' %>
 	<br />
 	<%= f.input :caption %>
-	<%= f.input :imageable_id, collection: [Format, Course], label: 'Assign to...', as: :grouped_select, group_method: :all %>
+	<% if @photo.imageable_type == 'Staff' %>
+		<%= f.input :imageable_id, collection: Staff.all, label: 'Assign to...' %>
+	<% else %>
+		<%= f.input :imageable_id, collection: [Format, Course], label: 'Assign to...', as: :grouped_select, group_method: :all %>
+	<% end %>
 
 	<%= f.button :submit, :class => "btn btn-mini btn-primary" %>
 

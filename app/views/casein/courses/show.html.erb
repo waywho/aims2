@@ -35,12 +35,7 @@
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "th-list"}Back to list".html_safe, casein_courses_path %></li>
 	<li><%= link_to "#{casein_show_icon "plus-sign"}Add Photos from Gallery".html_safe, '#', data: { toggle: 'modal', target: '#myModal'} %></li>
-
-	<%= render partial: 'casein/layouts/state_form', object: @course, as: :record %>
-		<br />
-		<br />
-	<b>Pubished at:</b>
-		<%= d_m_y(@course.published_at) %>
+	<%= render partial: 'casein/layouts/status_form', object: @course, as: :record %>
 <% end %>
 
 <%= render partial: 'casein/photos/photo_modal_gallary', object: @course, as: :imageable %>

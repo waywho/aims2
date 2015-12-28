@@ -11,6 +11,11 @@ module Casein
       @casein_page_title = 'Staffs'
       @staffs = Staff.order(sort_order(:name)).paginate :page => params[:page]
     end
+
+    def publish_index
+      @casein_page_title = 'Staffs: Publish Index'
+      @staffs = Staff.order(sort_order(:name))
+    end
   
     def show
       @casein_page_title = 'View staff'
@@ -36,19 +41,31 @@ module Casein
   
     def update
       @casein_page_title = 'Update staff'
-    
-      if @staff.update_attributes staff_params
-        flash[:notice] = 'Staff has been updated'
-        redirect_to casein_staffs_path
-      else
-        flash.now[:warning] = 'There were problems when trying to update this staff'
-        render :action => :show
+      respond_to do |format|
+        if @staff.update_attributes staff_params
+          if params[:submit]
+            @staff.submit!
+          elsif params[:approve]
+            @staff.approve!
+          elsif params[:reject]
+            @staff.reject!
+          elsif params[:publish]
+            @staff.publish!
+          end
+        
+          format.html { redirect_to casein_staff_path(@staff), notice: "Staff has been updated. #{undo_link}" }
+          format.js
+        else
+          flash.now[:warning] = 'There were problems when trying to update this staff'
+          render :action => :show
+        end
       end
     end
  
     def destroy
 
       @staff.destroy
+      @staff.photo.destroy
       flash[:notice] = 'Staff has been deleted'
       redirect_to casein_staffs_path
     end
@@ -56,11 +73,15 @@ module Casein
     private
       
       def staff_params
-        params.require(:staff).permit(:name, :biography, :role, :photo, :published_at, :workflow_state, photo_attributes: [:id, :caption, :image])
+        params.require(:staff).permit(:name, :biography, :role, :photo, :published_at, :workflow_state, photo_attributes: [:id, :caption, :image, :_destroy])
       end
 
       def load_staff
-        @staff = Staff.friendly.find params[:id]
+        @staff ||= Staff.friendly.find params[:id]
+      end
+
+      def undo_link
+        view_context.link_to("undo", revert_version_path(@staff.versions.last), :method => :post).html_safe
       end
   
   end

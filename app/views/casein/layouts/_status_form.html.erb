@@ -1,4 +1,5 @@
-<b>Status: </b>
+<li><b>Status: </b>
+	<br />
 	<span id = 'state-status'>
 		<span id= 'current-state'><%= record.current_state %></span><%= image_tag state_icon(record.workflow_state), :class => 'state-icon' %>(<%= link_to 'edit', '#', id: 'edit-state' %>)
 	</span>
@@ -6,5 +7,9 @@
 
 		<%= f.input :workflow_state, label: false, as: :select, :collection => Course.states  %>
 
+	<% end %></li>
+	<br />
+<% if record.published_at %>
+	<li><b>Pubished at:</b>
+		<%= d_m_y(record.published_at) %></li>
 	<% end %>
-<br />

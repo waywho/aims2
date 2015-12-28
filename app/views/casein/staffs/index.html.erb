@@ -11,5 +11,6 @@
 <%= content_for :sidebar do %>
 
 	<li><%= link_to "#{casein_show_icon "plus-sign"}Add a new staff".html_safe, new_casein_staff_path %></li>
+	<li><%= link_to "Manage Staff Publishing Status", publish_index_casein_staffs_path %></li>
 
 <% end %>

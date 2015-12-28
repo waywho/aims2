@@ -2,7 +2,7 @@
 
 <h2>Photos<%= casein_pagination_details @photos %></h2>
 
-	<%= form_for @photo, :url => casein_photos_path, html: { :class => 'dropzone', :id => 'my-awesome-dropzone'} do |f| %>
+	<%= form_for @photo, :url => casein_photos_path, html: { :class => 'dropzone', :id => 'my-awesome-dropzone-index'} do |f| %>
 		<div class = 'row dropzone-previews'>
 		<% @photos.each do |photo| %>
 			<div class = 'col-xs-6 col-sm-4 col-md-3'>
@@ -14,13 +14,9 @@
 		</div>
 	<% end %>
 		
-
-
 <div class="text-center">
 	<%= will_paginate @photos %>
 </div>
-
-
 
 <%= content_for :sidebar do %>
 
@@ -31,7 +27,7 @@
 
 <script>
 	$(document).ready(function() {
-		Dropzone.options.myAwesomeDropzone = {
+		Dropzone.options.myAwesomeDropzoneIndex = {
 			init: function() {
 				this.on("thumbnail", function (file) {
 					$(".dz-preview").addClass("col-xs-6 col-sm-4 col-md-3");

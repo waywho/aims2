@@ -4,7 +4,11 @@ Rails.application.routes.draw do
 
 	#Casein routes
 	namespace :casein do
-		resources :staffs
+		resources :staffs do
+      collection do
+        get 'publish_index'
+      end
+    end
 		resources :formats
 		resources :photos do
       collection do
