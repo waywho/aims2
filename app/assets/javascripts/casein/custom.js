@@ -81,19 +81,15 @@ $(document).ready(function() {
 		$('.sub-btn').prop('disabled', !$('.cbox:checked').length);
 	}).change();
 
-	$('#course_workflow_state').hide();
+	$('#stateform select').hide();
 	$('#edit-state').click(function() {
 		event.preventDefault();
 		$('#state-status').hide();
 		$('.state-icon').remove();
-		$('#course_workflow_state').show();
+		$('#stateform select').show();
 	});
-	$('#course_workflow_state').change(function() {
+	$('#stateform select').change(function() {
 		$('#stateform').submit();
 	});
-
-
-
-
 		
 })

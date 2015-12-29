@@ -1,4 +1,4 @@
-$('#course_workflow_state').hide();
+$('#stateform select').hide();
 $('#state-status').show();
 $('#icon-span').append("<%= j image_tag state_icon(@course.workflow_state), :class => 'state-icon' %>");
 $('#current-state').html('<%= j @course.current_state.to_s %>');

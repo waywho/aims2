@@ -41,8 +41,8 @@ module Casein
   
     def update
       @casein_page_title = 'Update staff'
-      respond_to do |format|
-        if @staff.update_attributes staff_params
+       respond_to do |format|
+        
           if params[:submit]
             @staff.submit!
           elsif params[:approve]
@@ -52,8 +52,10 @@ module Casein
           elsif params[:publish]
             @staff.publish!
           elsif params[:unpublish]
-            @course.unpublish!
+            @staff.unpublish!
           end
+
+        if @staff.update_attributes staff_params
         
           format.html { redirect_to casein_staff_path(@staff), notice: "Staff has been updated. #{undo_link}" }
           format.js
@@ -61,7 +63,7 @@ module Casein
           flash.now[:warning] = 'There were problems when trying to update this staff'
           render :action => :show
         end
-      end
+     end
     end
 
     def update_multiple

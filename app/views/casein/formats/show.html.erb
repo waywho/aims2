@@ -38,5 +38,9 @@
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "th-list"}Back to list".html_safe, casein_formats_path %></li>
 	<li><%= link_to "#{casein_show_icon "plus-sign"}Add Photos from Gallery".html_safe, '#', data: { toggle: 'modal', target: '#myModal'} %></li>
-	<%= render partial: 'casein/layouts/status_form', object: @format, as: :record %>
+	<%= simple_form_for @format, :url => casein_format_path(@format), html: {:id => 'stateform'}, remote: true do |f| %>
+		<%= render partial: 'casein/layouts/status_form', :locals => {:f => f, :record => @format } %>
+	<% end %>
 <% end %>
+
+<%= render partial: 'casein/photos/photo_modal_gallary', object: @format, as: :imageable %>

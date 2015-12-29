@@ -45,9 +45,9 @@ module Casein
   
     def update
       @casein_page_title = 'Update format'
-    
+                
       respond_to do |form|
-        if @format.update_attributes format_params
+      
           if params[:submit]
             @format.submit!
           elsif params[:approve]
@@ -57,13 +57,15 @@ module Casein
           elsif params[:publish]
             @format.publish!
           elsif params[:unpublish]
-            @course.unpublish!            
+            @format.unpublish!
           end
+
+        if @format.update_attributes format_params
         
           form.html { redirect_to casein_format_path(@format), notice: "Format has been updated. #{undo_link}" }
           form.js
         else
-          flash.now[:warning] = 'There were problems when trying to update this format'
+          flash.now[:warning] = 'There were problems when trying to update this Format'
           render :action => :show
         end
      end

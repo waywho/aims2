@@ -35,8 +35,8 @@ class Staff < ActiveRecord::Base
 			event :unpublish, transition_to: :draft
 		end
 	end
-
-	def publish
-		update_attribute(:published_at, Time.now)
+	def self.states
+		workflow_spec.state_names
 	end
+
 end
