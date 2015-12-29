@@ -6,7 +6,7 @@
 
 	<%= render :partial => 'casein/courses/form', :locals => { :f => f } %>
 	<p class="submits">
-		<%= link_to 'Cancel', casein_courses_path, :class => 'btn btn-mini btn-danger' %>
+		<%= link_to 'Cancel', casein_courses_path, :class => 'btn btn-mini btn-default' %>
 		<%= render :partial => 'casein/layouts/approval_q_buttons', :locals => { :f => f } %>
 	</p>
 
@@ -36,7 +36,11 @@
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "th-list"}Back to list".html_safe, casein_courses_path %></li>
 	<li><%= link_to "#{casein_show_icon "plus-sign"}Add Photos from Gallery".html_safe, '#', data: { toggle: 'modal', target: '#myModal'} %></li>
-	<%= render partial: 'casein/layouts/status_form', object: @course, as: :record %>
+	
+	<%= simple_form_for @course, :url => casein_course_path(@course), html: {:id => 'stateform'}, remote: true do |f| %>
+		<%= render partial: 'casein/layouts/status_form', :locals => {:f => f, :record => @course } %>
+	<% end %>
+
 <% end %>
 
 <%= render partial: 'casein/photos/photo_modal_gallary', object: @course, as: :imageable %>

@@ -46,6 +46,8 @@ module Casein
             @klass.reject!
           elsif params[:publish]
             @klass.publish!
+          elsif params[:unpublish]
+            @course.unpublish!
           end
         
           format.html { redirect_to casein_klass_path(@klass), notice: "Klass has been updated. #{undo_link}" }
@@ -62,10 +64,13 @@ module Casein
 
       if params[:publish]
         @klasses.each do |klass|
-            klass.publish!
-          end
-          
+          klass.publish!
+        end
+      elsif params[:delete]
+          @klasses.destroy_all
       end
+
+      redirect_to casein_klasses_path
     end
  
     def destroy

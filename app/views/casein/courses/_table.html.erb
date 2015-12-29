@@ -4,7 +4,6 @@
 	<thead>
 		<tr>
 			<th><%= casein_sort_link "Title", :title %></th>
-			<th><%= casein_sort_link "Published at", :published_at %></th>
 			<th><%= casein_sort_link "Updated at", :updated_at %></th>
 			<th><%= casein_sort_link "Status", :status %></th>
 			<th>&nbsp;</th>
@@ -14,7 +13,6 @@
 	<% courses.each do |course| %>
 		<tr>
 			<td><%= casein_table_cell_link course.title, casein_course_path(course) %></td>
-			<td><%= casein_table_cell_link d_m_y(course.published_at), casein_course_path(course) %></td>
 			<td><%= casein_table_cell_link d_m_y(course.updated_at), casein_course_path(course) %></td>
 			<td><%= link_to casein_course_path(course) do %>
 				<%= image_tag state_icon(course.workflow_state) %>

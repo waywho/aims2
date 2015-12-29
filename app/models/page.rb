@@ -25,4 +25,8 @@ class Page < ActiveRecord::Base
 
 		state :published
 	end
+
+	def publish
+		update_attribute(:published_at, Time.now)
+	end
 end

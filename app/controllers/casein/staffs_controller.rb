@@ -51,6 +51,8 @@ module Casein
             @staff.reject!
           elsif params[:publish]
             @staff.publish!
+          elsif params[:unpublish]
+            @course.unpublish!
           end
         
           format.html { redirect_to casein_staff_path(@staff), notice: "Staff has been updated. #{undo_link}" }

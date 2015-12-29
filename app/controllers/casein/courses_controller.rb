@@ -45,7 +45,7 @@ module Casein
       @casein_page_title = 'Update course'
             
       respond_to do |format|
-        if @course.update_attributes course_params
+        
           if params[:submit]
             @course.submit!
           elsif params[:approve]
@@ -54,7 +54,11 @@ module Casein
             @course.reject!
           elsif params[:publish]
             @course.publish!
+          elsif params[:unpublish]
+            @course.unpublish!
           end
+
+        if @course.update_attributes course_params
         
           format.html { redirect_to casein_course_path(@course), notice: "Course has been updated. #{undo_link}" }
           format.js

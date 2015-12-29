@@ -11,20 +11,23 @@
 			$('.approve').hide();
 			$('.reject').hide();
 			$('.publish').show();
+			$('.unpublish').hide();
 			$('.update').hide();
 		} else if (state == 'pending_review') {
 			$('.draft').hide();
 			$('.submit').hide();
 			$('.approve').show();
-			$('.reject').hide();
+			$('.reject').show();
 			$('.publish').show();
+			$('.unpublish').hide();
 			$('.update').hide();
 		} else if (state == 'approved') {
 			$('.draft').hide();
 			$('.submit').hide();
 			$('.approve').hide();
-			$('.reject').show();
+			$('.reject').hide();
 			$('.publish').show();
+			$('.unpublish').hide();
 			$('.update').hide();
 		} else {
 			$('.draft').hide();
@@ -32,6 +35,7 @@
 			$('.approve').hide();
 			$('.reject').hide();
 			$('.publish').hide();
+			$('.unpublish').show();
 			$('.update').show();
 		}
 	};
@@ -60,6 +64,10 @@ $(document).ready(function() {
 	thumbnailHeight: '160'
 	};
 
+	var $currentState = $('#current-state')
+	if($currentState.length > 0) {
+		buttonChange();
+	};
 
 	$('.sub-btn').prop('disabled', true);
 	$(".container .cbox").hide();
@@ -73,19 +81,18 @@ $(document).ready(function() {
 		$('.sub-btn').prop('disabled', !$('.cbox:checked').length);
 	}).change();
 
-	$('#stateform').hide();
+	$('#course_workflow_state').hide();
 	$('#edit-state').click(function() {
 		event.preventDefault();
 		$('#state-status').hide();
-		$('#stateform').show();
+		$('.state-icon').remove();
+		$('#course_workflow_state').show();
 	});
 	$('#course_workflow_state').change(function() {
 		$('#stateform').submit();
 	});
 
-	if($('#current_state').length > 2) {
-		buttonChange();
-	};
+
 
 
 		

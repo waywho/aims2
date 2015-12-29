@@ -56,6 +56,8 @@ module Casein
             @format.reject!
           elsif params[:publish]
             @format.publish!
+          elsif params[:unpublish]
+            @course.unpublish!            
           end
         
           form.html { redirect_to casein_format_path(@format), notice: "Format has been updated. #{undo_link}" }

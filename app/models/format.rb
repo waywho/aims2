@@ -30,6 +30,9 @@ class Format < ActiveRecord::Base
 		state :published
 	end
 	
+	def self.states
+		workflow_spec.state_names
+	end
 	def publish
 		update_attribute(:published_at, Time.now)
 	end

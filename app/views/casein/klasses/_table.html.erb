@@ -22,7 +22,7 @@
 				<td><%= casein_table_cell_link klass.title, casein_klass_path(klass) %></td>
 				<td><%= casein_table_cell_link klass.number_of_sessions, casein_klass_path(klass) %></td>
 				<td><%= casein_table_cell_link klass.session_of_day, casein_klass_path(klass) %></td>
-				<td><%= casein_table_cell_link klass.course.title, casein_klass_path(klass) %></td>
+				<td><%= casein_table_cell_link klass.course.title, casein_klass_path(klass) if klass.course.present? %></td>
 				<td><%= casein_table_cell_link d_m_y(klass.published_at), casein_klass_path(klass) %></td>
 				<td><%= casein_table_cell_link d_m_y(klass.updated_at), casein_klass_path(klass) %></td>
 				<td><%= link_to casein_klass_path(klass) do %>
