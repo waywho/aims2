@@ -70,6 +70,7 @@ module Casein
         end
      end
     end
+
  
     def destroy
 
@@ -89,7 +90,7 @@ module Casein
       end
 
       def load_course_format
-        @course_format ||= CourseFormat.find params[:id]
+        @course_format ||= CourseFormat.friendly.find params[:id]
       end
 
       def undo_link

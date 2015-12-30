@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151230123723) do
+ActiveRecord::Schema.define(version: 20151230133403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,15 +62,13 @@ ActiveRecord::Schema.define(version: 20151230123723) do
   create_table "courses", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.string   "slug"
-    t.integer  "format_id"
-    t.datetime "published_at"
     t.string   "workflow_state"
+    t.integer  "course_format_id"
   end
 
-  add_index "courses", ["format_id"], name: "index_courses_on_format_id", using: :btree
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
 
   create_table "klasses", force: :cascade do |t|
@@ -82,7 +80,6 @@ ActiveRecord::Schema.define(version: 20151230123723) do
     t.integer  "course_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
-    t.datetime "published_at"
     t.string   "workflow_state"
   end
 
@@ -95,7 +92,6 @@ ActiveRecord::Schema.define(version: 20151230123723) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.string   "slug"
-    t.datetime "published_at"
     t.string   "workflow_state"
     t.integer  "leader_id"
     t.integer  "leader_type"
@@ -123,7 +119,6 @@ ActiveRecord::Schema.define(version: 20151230123723) do
     t.string   "role"
     t.string   "photo"
     t.string   "slug"
-    t.datetime "published_at"
     t.string   "workflow_state"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false

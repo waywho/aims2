@@ -23,7 +23,11 @@ Rails.application.routes.draw do
         post :update_multiple
       end
     end
-		resources :courses
+		resources :courses do
+      collection do
+        post :update_multiple
+      end
+    end
 	end
 
   post "casein/versions/:id/revert" => 'casein/versions#revert', :as => "revert_version"

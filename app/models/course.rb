@@ -5,7 +5,7 @@ class Course < ActiveRecord::Base
 	include Workflow
 
 
-	belongs_to :format
+	belongs_to :course_format
 	has_many :klasses
 	has_many :photos, as: :imageable
 	accepts_nested_attributes_for :photos, allow_destroy: true

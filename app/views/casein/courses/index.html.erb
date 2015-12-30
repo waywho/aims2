@@ -2,7 +2,12 @@
 
 <h2>Courses<%= casein_pagination_details @courses %></h2>
 
-<%= render :partial => 'casein/courses/table', :locals => { :courses => @courses } %>
+<%= form_tag update_multiple_casein_courses_path do %>
+	<%= render :partial => 'casein/courses/table', :locals => { :courses => @courses } %>
+
+	<%= submit_tag "Publish", name: 'publish', :class => 'btn btn-mini btn-primary btn-index pull-right' %>
+	<%= submit_tag "Delete", name: 'delete', :class => 'btn btn-mini btn-danger btn-index pull-right' %>
+<% end %>
 
 <div class="text-center">
 	<%= will_paginate @courses %>

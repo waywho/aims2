@@ -68,7 +68,21 @@ module Casein
         end
      end
     end
- 
+
+    def update_multiple
+      @courses = Course.where(id: course_params[:course_ids])
+
+      if params[:publish]
+        @courses.each do |course|
+          course.publish!
+        end
+      elsif params[:delete]
+          @courses.destroy_all
+      end
+
+      redirect_to casein_courses_path
+    end
+
     def destroy
       @course.photos.each do |photo|
         photo.update_attributes(imageable_id: nil, imageable_type: nil)
@@ -81,7 +95,7 @@ module Casein
     private
       
       def course_params
-        params.require(:course).permit(:title, :workflow_state, :description, photos_attributes: [:id, :caption, :course_id, :image])
+        params.require(:course).permit(:title, :workflow_state, {:course_ids => []}, :description, photos_attributes: [:id, :caption, :course_id, :image])
       end
 
       def undo_link
