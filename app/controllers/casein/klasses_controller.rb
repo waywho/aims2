@@ -83,7 +83,7 @@ module Casein
     private
       
       def klass_params
-        params.require(:klass).permit(:title, {:klass_ids => []}, :description, :repertoire, :number_of_sessions, :session_of_day, :course_id)
+        params.require(:klass).permit(:title, {:klass_ids => []}, :workflow_state, :description, :repertoire, :number_of_sessions, :session_of_day, :course_id)
       end
 
       def load_klass
