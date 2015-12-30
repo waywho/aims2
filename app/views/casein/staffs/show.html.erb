@@ -2,7 +2,7 @@
 
 <h2>View staff</h2>
 
-<%= form_for @staff, :url => casein_staff_path(@staff) do |f| %>
+<%= form_for @staff, :url => casein_staff_path(@staff), html: {multipart: true} do |f| %>
 
 	<%= render :partial => 'casein/staffs/form', :locals => { :f => f } %>
 	

@@ -1,4 +1,4 @@
-class Format < ActiveRecord::Base
+class CourseFormat < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :title, use: :slugged
 	
@@ -35,5 +35,4 @@ class Format < ActiveRecord::Base
 	def self.states
 		workflow_spec.state_names
 	end
-
 end
