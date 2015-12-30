@@ -59,6 +59,10 @@ module Casein
      end    
     end
 
+    def edit_multiple
+      @klasses = Klass.where(id: klass_params[:klass_ids])
+    end
+
     def update_multiple
       @klasses = Klass.where(id: klass_params[:klass_ids])
 

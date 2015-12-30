@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     end
 		resources :klasses do
       collection do
+        get :edit_multiple
         post :update_multiple
       end
     end
