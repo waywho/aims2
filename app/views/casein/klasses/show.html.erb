@@ -15,4 +15,7 @@
 
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "th-list"}Back to list".html_safe, casein_klasses_path %></li>
+	<%= simple_form_for @klass, :url => casein_klass_path(@klass), html: {:id => 'stateform'}, remote: true do |f| %>
+		<%= render partial: 'casein/layouts/status_form', :locals => {:f => f, :record => @klass } %>
+	<% end %>
 <% end %>
