@@ -66,24 +66,18 @@ module Casein
      end
     end
 
-    def update_multiple
-
+     def update_multiple
       @staffs = Staff.where(id: staff_params[:staff_ids])
 
-      @staffs.each do |staff|
-        if params[:submit]
-              staff.submit!
-            elsif params[:approve]
-              staff.approve!
-            elsif params[:reject]
-              staff.reject!
-            elsif params[:publish]
-              staff.publish!
+      if params[:publish]
+        @staffs.each do |staff|
+          staff.publish!
         end
+      elsif params[:delete]
+          @staffs.destroy_all
       end
 
-      flash[:notice] = "Staffs have been updated"
-      redirect_to publish_index_casein_staffs_path
+      redirect_to casein_staffs_path
     end
  
     def destroy

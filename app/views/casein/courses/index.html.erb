@@ -5,8 +5,8 @@
 <%= form_tag update_multiple_casein_courses_path do %>
 	<%= render :partial => 'casein/courses/table', :locals => { :courses => @courses } %>
 
-	<%= submit_tag "Publish", name: 'publish', :class => 'btn btn-mini btn-primary btn-index pull-right' %>
-	<%= submit_tag "Delete", name: 'delete', :class => 'btn btn-mini btn-danger btn-index pull-right' %>
+	<%= render :partial => 'casein/layouts/multi_btns' %>
+	
 <% end %>
 
 <div class="text-center">

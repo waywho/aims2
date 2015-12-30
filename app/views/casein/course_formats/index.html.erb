@@ -2,8 +2,12 @@
 
 <h2>Course formats<%= casein_pagination_details @course_formats %></h2>
 
-<%= render :partial => 'casein/course_formats/table', :locals => { :course_formats => @course_formats } %>
+<%= form_tag update_multiple_casein_course_formats_path %>
 
+	<%= render :partial => 'casein/course_formats/table', :locals => { :course_formats => @course_formats } %>
+	<%= render :partial => 'casein/layouts/multi_btns' %>
+
+<% end %>
 <div class="text-center">
 	<%= will_paginate @course_formats %>
 </div>
