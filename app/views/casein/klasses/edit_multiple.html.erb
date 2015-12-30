@@ -14,13 +14,13 @@
 		</thead>
 		
 			<% @klasses.each do |klass| %>
-			<%= form_for klass do |f| %>
+			<%= form_for klass, :url => casein_klass_path(klass)  do |f| %>
 				<tr>
 					<td><%= casein_table_cell_link klass.title, casein_klass_path(klass) %></td>
 					<td><%= casein_number_field f, f.object, :number_of_sessions %></td>
 					<td><%= casein_select f, f.object, :session_of_day, Klass::SESSIONS, include_blank: true %></td>
-					<td><%= casein_collection_select f, f.object, :imageable_id, Course.all, :id, :title %></td>
-					<td><%= casein_select f, f.object, Klass.states, include_blank: true %>
+					<td><%= casein_collection_select f, f.object, :title, :imageable_id, Course.all, :id, :title %></td>
+					<td><%= casein_select f, f.object, :workflow_state, Klass.states, include_blank: true %>
 					</td>
 					<td class="delete">
 						<%= link_to(casein_show_row_icon("trash"), casein_klass_path(klass), :method => :delete, :data => { :confirm => "Are you sure you want to delete this klass?" }) %>
