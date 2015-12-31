@@ -61,6 +61,18 @@ module Casein
 
     def edit_multiple
       @klasses = Klass.where(id: klass_params[:klass_ids])
+
+      if params[:edit]
+        format.html {render "klasses/edit_multiple" }
+      elsif params[:publish]
+        @klasses.each do |klass|
+          klass.publish!
+        end
+          redirect_to casein_klasses_path
+      elsif params[:delete]
+          @klasses.destroy_all
+          redirect_to casein_klasses_path
+      end
     end
 
     def update_multiple
