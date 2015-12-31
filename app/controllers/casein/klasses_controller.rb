@@ -76,17 +76,13 @@ module Casein
     end
 
     def update_multiple
-      @klasses = Klass.where(id: klass_params[:klass_ids])
-
-      if params[:publish]
-        @klasses.each do |klass|
-          klass.publish!
-        end
-      elsif params[:delete]
-          @klasses.destroy_all
+      @klasses = Klass.update(params[:klasses].keys, params[:klasses].values)
+      @klasses.reject! { |k| k.errors.empty? }
+      if @klasses.empty?
+        redirect_to casein_klasses_path
+      else
+        render "klasses/edit_multiple"
       end
-
-      redirect_to casein_klasses_path
     end
  
     def destroy
@@ -99,7 +95,7 @@ module Casein
     private
       
       def klass_params
-        params.require(:klass).permit(:title, {:klass_ids => []}, :workflow_state, :description, :repertoire, :number_of_sessions, :session_of_day, :course_id)
+        params.require(:klass).permit(:title, :klasses, {:klass_ids => []}, :workflow_state, :description, :repertoire, :number_of_sessions, :session_of_day, :course_id)
       end
 
       def load_klass

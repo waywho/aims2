@@ -66,22 +66,33 @@ module Casein
      end
     end
 
-     def update_multiple
+    def edit_multiple
       @staffs = Staff.where(id: staff_params[:staff_ids])
 
-      if params[:publish]
+      if params[:edit]
+        format.html {render "staffs/edit_multiple" }
+      elsif params[:publish]
         @staffs.each do |staff|
           staff.publish!
         end
+          redirect_to casein_staffs_path
       elsif params[:delete]
           @staffs.destroy_all
+          redirect_to casein_staffs_path
       end
+    end
 
-      redirect_to casein_staffs_path
+    def update_multiple
+      @staffs = Staff.friendly.update(params[:staffs].keys, params[:staffs].values)
+      @staffs.reject! { |s| s.errors.empty? }
+      if @staffs.empty?
+        redirect_to casein_staffs_path
+      else
+        render "staffs/edit_multiple"
+      end
     end
  
     def destroy
-
       @staff.destroy
       @staff.photo.destroy
       flash[:notice] = 'Staff has been deleted'
@@ -91,7 +102,7 @@ module Casein
     private
       
       def staff_params
-        params.require(:staff).permit(:name, { :staff_ids => [] }, :biography, :role, :photo, :published_at, :workflow_state, photo_attributes: [:id, :caption, :image, :_destroy])
+        params.require(:staff).permit(:name, :staffs, { :staff_ids => [] }, :biography, :role, :photo, :published_at, :workflow_state, photo_attributes: [:id, :caption, :image, :_destroy])
       end
 
       def load_staff

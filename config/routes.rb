@@ -6,12 +6,13 @@ Rails.application.routes.draw do
 	namespace :casein do
 		resources :course_formats do
       collection do
+        post :edit_multiple
         post :update_multiple
       end
     end
 		resources :staffs do
       collection do
-        get :publish_index
+        post :edit_multiple
         post :update_multiple
       end
     end
@@ -30,6 +31,7 @@ Rails.application.routes.draw do
     end
 		resources :courses do
       collection do
+        post :edit_multiple
         post :update_multiple
       end
     end
