@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
 	#Casein routes
 	namespace :casein do
+		resources :pages
 		resources :course_formats do
       collection do
         post :edit_multiple
