@@ -71,18 +71,35 @@ module Casein
      end
     end
 
-    def update_multiple
+    def edit_multiple
       @course_formats = CourseFormat.where(id: course_format_params[:course_format_ids])
 
-      if params[:publish]
+      if params[:edit]
+        render "course_formats/edit_multiple"
+      elsif params[:unpublish]
         @course_formats.each do |course_format|
-          course_format.publish!
+          course_format.unpublish! if course_format.published?
         end
+        redirect_to casein_course_formats_path
+      elsif params[:publish]
+        @course_formats.each do |course_format|
+          course_format.publish! if !course_format.published?
+        end
+          redirect_to casein_course_formats_path
       elsif params[:delete]
           @course_formats.destroy_all
+          redirect_to casein_course_formats_path
       end
+    end
 
-      redirect_to casein_course_formats_path
+    def update_multiple
+      @course_formats = CourseFormat.friendly.update(params[:course_formats].keys, params[:course_formats].values)
+      @course_formats.reject! { |course_format| course_format.errors.empty? }
+      if @course_formats.empty?
+        redirect_to casein_course_formats_path
+      else
+        render "course_formats/edit_multiple"
+      end
     end
  
     def destroy
@@ -99,7 +116,7 @@ module Casein
     private
       
       def course_format_params
-        params.require(:course_format).permit(:title, :description, :workflow_state, {:course_format_ids => []}, :workflow_state, :whats_new, :when_from, :when_to, :venue, :address1, :address2, :city, :county, :country, :post_code, photos_attributes: [:id, :caption, :image])
+        params.require(:course_format).permit(:title, :description, :course_formats, {:course_format_ids => []}, :workflow_state, :whats_new, :when_from, :when_to, :venue, :address1, :address2, :city, :county, :country, :post_code, photos_attributes: [:id, :caption, :image])
       end
 
       def load_course_format

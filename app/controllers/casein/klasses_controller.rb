@@ -63,7 +63,7 @@ module Casein
       @klasses = Klass.where(id: klass_params[:klass_ids])
 
       if params[:edit]
-        format.html {render "klasses/edit_multiple" }
+        render "klasses/edit_multiple"
       elsif params[:unpublish]
         @klasses.each do |klass|
           klass.unpublish! if klass.published?

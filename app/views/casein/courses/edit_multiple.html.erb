@@ -7,7 +7,6 @@
 		<tr>
 			<th><%= casein_sort_link "Title", :title %></th>
 			<th><%= casein_sort_link "Status", :status %></th>
-			<th>&nbsp;</th>
 		</tr>
 	</thead>
 	
@@ -16,9 +15,6 @@
 		<tr>			
 			<td><%= casein_table_cell_link course.title, casein_course_path(course) %></td>
 			<td><%= f.input :workflow_state, label: false, collection: Course.states %>
-			</td>
-			<td class="delete">
-				<%= link_to(casein_show_row_icon("trash"), casein_course_path(course), :method => :delete ) %>
 			</td>
 		</tr>
 		<% end %>

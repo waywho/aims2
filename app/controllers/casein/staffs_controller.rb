@@ -70,7 +70,7 @@ module Casein
       @staffs = Staff.where(id: staff_params[:staff_ids])
 
       if params[:edit]
-        format.html {render "staffs/edit_multiple" }
+        render "staffs/edit_multiple"
       elsif params[:unpublish]
         @staffs.each do |staff|
           staff.unpublish! if staff.published?

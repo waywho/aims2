@@ -73,7 +73,7 @@ module Casein
       @courses = Course.where(id: course_params[:course_ids])
 
       if params[:edit]
-        format.html {render "courses/edit_multiple" }
+        render "courses/edit_multiple"
       elsif params[:unpublish]
         @courses.each do |course|
           course.unpublish! if course.published?
