@@ -77,7 +77,7 @@ $(document).ready(function() {
 		$checkbox.prop('checked', !$checkbox.prop('checked'));
 		$('.sub-btn').prop('disabled', !$('.cbox:checked').length);
 	});
-	$('.cbox').on('change', function () {
+	$('.cbox').on('change', function() {
 		$('.sub-btn').prop('disabled', !$('.cbox:checked').length);
 	}).change();
 
@@ -91,5 +91,8 @@ $(document).ready(function() {
 	$('#stateform select').change(function() {
 		$('#stateform').submit();
 	});
+	$('#multi').on('change', function() {
+		$('.index-check').prop('checked', !$('.index-check').prop('checked'));
+	})
 		
 })
