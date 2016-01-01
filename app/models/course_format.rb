@@ -1,4 +1,4 @@
-class Format < ActiveRecord::Base
+class CourseFormat < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :title, use: :slugged
 	
@@ -27,11 +27,12 @@ class Format < ActiveRecord::Base
 			event :reject, transition_to: :draft
 		end
 
-		state :published
+		state :published do
+			event :unpublish, transition_to: :draft
+		end
 	end
 	
-	def publish
-		update_attribute(:published_at, Time.now)
+	def self.states
+		workflow_spec.state_names
 	end
-
 end

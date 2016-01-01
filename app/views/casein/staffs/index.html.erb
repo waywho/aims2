@@ -2,7 +2,11 @@
 
 <h2>Staffs<%= casein_pagination_details @staffs %></h2>
 
-<%= render :partial => 'casein/staffs/table', :locals => { :staffs => @staffs } %>
+<%= form_tag edit_multiple_casein_staffs_path, method: :post do %>
+	<%= render :partial => 'casein/staffs/table', :locals => { :staffs => @staffs } %>
+
+	<%= render :partial => 'casein/layouts/multi_btns' %>
+<% end %>
 
 <div class="text-center">
 	<%= will_paginate @staffs %>
@@ -11,6 +15,5 @@
 <%= content_for :sidebar do %>
 
 	<li><%= link_to "#{casein_show_icon "plus-sign"}Add a new staff".html_safe, new_casein_staff_path %></li>
-	<li><%= link_to "Manage Staff Publishing Queue", publish_index_casein_staffs_path %></li>
 
 <% end %>

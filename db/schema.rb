@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151224105343) do
+ActiveRecord::Schema.define(version: 20151230133403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,27 +38,10 @@ ActiveRecord::Schema.define(version: 20151224105343) do
     t.datetime "updated_at"
   end
 
-  create_table "courses", force: :cascade do |t|
+  create_table "course_formats", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
     t.string   "slug"
-    t.integer  "format_id"
-    t.datetime "published_at"
-    t.string   "workflow_state"
-  end
-
-  add_index "courses", ["format_id"], name: "index_courses_on_format_id", using: :btree
-  add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
-
-  create_table "formats", force: :cascade do |t|
-    t.string   "title"
-    t.text     "description"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.string   "slug"
-    t.datetime "published_at"
     t.string   "workflow_state"
     t.text     "whats_new"
     t.datetime "when_from"
@@ -70,9 +53,23 @@ ActiveRecord::Schema.define(version: 20151224105343) do
     t.string   "county"
     t.string   "country"
     t.string   "post_code"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
-  add_index "formats", ["slug"], name: "index_formats_on_slug", using: :btree
+  add_index "course_formats", ["slug"], name: "index_course_formats_on_slug", using: :btree
+
+  create_table "courses", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "slug"
+    t.string   "workflow_state"
+    t.integer  "course_format_id"
+  end
+
+  add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
 
   create_table "klasses", force: :cascade do |t|
     t.string   "title"
@@ -83,7 +80,6 @@ ActiveRecord::Schema.define(version: 20151224105343) do
     t.integer  "course_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
-    t.datetime "published_at"
     t.string   "workflow_state"
   end
 
@@ -96,7 +92,6 @@ ActiveRecord::Schema.define(version: 20151224105343) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.string   "slug"
-    t.datetime "published_at"
     t.string   "workflow_state"
     t.integer  "leader_id"
     t.integer  "leader_type"
@@ -124,7 +119,6 @@ ActiveRecord::Schema.define(version: 20151224105343) do
     t.string   "role"
     t.string   "photo"
     t.string   "slug"
-    t.datetime "published_at"
     t.string   "workflow_state"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false

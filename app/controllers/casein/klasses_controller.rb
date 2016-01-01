@@ -46,6 +46,8 @@ module Casein
             @klass.reject!
           elsif params[:publish]
             @klass.publish!
+          elsif params[:unpublish]
+            @course.unpublish!
           end
         
           format.html { redirect_to casein_klass_path(@klass), notice: "Klass has been updated. #{undo_link}" }
@@ -55,6 +57,37 @@ module Casein
           render :action => :show
         end
      end    
+    end
+
+    def edit_multiple
+      @klasses = Klass.where(id: klass_params[:klass_ids])
+
+      if params[:edit]
+        render "klasses/edit_multiple"
+      elsif params[:unpublish]
+        @klasses.each do |klass|
+          klass.unpublish! if klass.published?
+        end
+        redirect_to casein_klasses_path
+      elsif params[:publish]
+        @klasses.each do |klass|
+          klass.publish! if !klass.published?
+        end
+          redirect_to casein_klasses_path
+      elsif params[:delete]
+          @klasses.destroy_all
+          redirect_to casein_klasses_path
+      end
+    end
+
+    def update_multiple
+      @klasses = Klass.update(params[:klasses].keys, params[:klasses].values)
+      @klasses.reject! { |klass| klass.errors.empty? }
+      if @klasses.empty?
+        redirect_to casein_klasses_path
+      else
+        render "klasses/edit_multiple"
+      end
     end
  
     def destroy
@@ -67,7 +100,7 @@ module Casein
     private
       
       def klass_params
-        params.require(:klass).permit(:title, :description, :repertoire, :number_of_sessions, :session_of_day, :course_id)
+        params.require(:klass).permit(:title, :klasses, {:klass_ids => []}, :workflow_state, :description, :repertoire, :number_of_sessions, :session_of_day, :course_id)
       end
 
       def load_klass

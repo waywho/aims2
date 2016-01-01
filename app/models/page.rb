@@ -23,6 +23,12 @@ class Page < ActiveRecord::Base
 			event :reject, transition_to: :draft
 		end
 
-		state :published
+		state :published do
+			event :unpublish, transition_to: :draft
+		end
+	end
+
+	def publish
+		update_attribute(:published_at, Time.now)
 	end
 end

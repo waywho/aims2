@@ -41,8 +41,8 @@ module Casein
   
     def update
       @casein_page_title = 'Update staff'
-      respond_to do |format|
-        if @staff.update_attributes staff_params
+       respond_to do |format|
+        
           if params[:submit]
             @staff.submit!
           elsif params[:approve]
@@ -51,7 +51,11 @@ module Casein
             @staff.reject!
           elsif params[:publish]
             @staff.publish!
+          elsif params[:unpublish]
+            @staff.unpublish!
           end
+
+        if @staff.update_attributes staff_params
         
           format.html { redirect_to casein_staff_path(@staff), notice: "Staff has been updated. #{undo_link}" }
           format.js
@@ -59,31 +63,41 @@ module Casein
           flash.now[:warning] = 'There were problems when trying to update this staff'
           render :action => :show
         end
+     end
+    end
+
+    def edit_multiple
+      @staffs = Staff.where(id: staff_params[:staff_ids])
+
+      if params[:edit]
+        render "staffs/edit_multiple"
+      elsif params[:unpublish]
+        @staffs.each do |staff|
+          staff.unpublish! if staff.published?
+        end
+        redirect_to casein_staffs_path
+      elsif params[:publish]
+        @staffs.each do |staff|
+          staff.publish! if !staff.published?
+        end
+          redirect_to casein_staffs_path
+      elsif params[:delete]
+          @staffs.destroy_all
+          redirect_to casein_staffs_path
       end
     end
 
     def update_multiple
-
-      @staffs = Staff.where(id: staff_params[:staff_ids])
-
-      @staffs.each do |staff|
-        if params[:submit]
-              staff.submit!
-            elsif params[:approve]
-              staff.approve!
-            elsif params[:reject]
-              staff.reject!
-            elsif params[:publish]
-              staff.publish!
-        end
+      @staffs = Staff.friendly.update(params[:staffs].keys, params[:staffs].values)
+      @staffs.reject! { |staff| staff.errors.empty? }
+      if @staffs.empty?
+        redirect_to casein_staffs_path
+      else
+        render "staffs/edit_multiple"
       end
-
-      flash[:notice] = "Staffs have been updated"
-      redirect_to publish_index_casein_staffs_path
     end
  
     def destroy
-
       @staff.destroy
       @staff.photo.destroy
       flash[:notice] = 'Staff has been deleted'
@@ -93,7 +107,7 @@ module Casein
     private
       
       def staff_params
-        params.require(:staff).permit(:name, { :staff_ids => [] }, :biography, :role, :photo, :published_at, :workflow_state, photo_attributes: [:id, :caption, :image, :_destroy])
+        params.require(:staff).permit(:name, :staffs, { :staff_ids => [] }, :biography, :role, :photo, :published_at, :workflow_state, photo_attributes: [:id, :caption, :image, :_destroy])
       end
 
       def load_staff

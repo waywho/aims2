@@ -2,12 +2,12 @@
 
 <h2>View staff</h2>
 
-<%= form_for @staff, :url => casein_staff_path(@staff) do |f| %>
+<%= form_for @staff, :url => casein_staff_path(@staff), html: {multipart: true} do |f| %>
 
 	<%= render :partial => 'casein/staffs/form', :locals => { :f => f } %>
 	
 	<p class="submits">
-		<%= link_to 'Cancel', casein_staffs_path, :class => 'btn btn-mini btn-danger' %>
+		<%= link_to 'Cancel', casein_staffs_path, :class => 'btn btn-mini btn-default' %>
 		<%= render :partial => 'casein/layouts/approval_q_buttons', :locals => { :f => f } %>
 	</p>
 
@@ -15,5 +15,7 @@
 
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "th-list"}Back to list".html_safe, casein_staffs_path %></li>
-	<%= render partial: 'casein/layouts/status_form', object: @staff, as: :record %>
+	<%= simple_form_for @staff, :url => casein_staff_path(@staff), html: {:id => 'stateform'}, remote: true do |f| %>
+		<%= render partial: 'casein/layouts/status_form', :locals => {:f => f, :record => @staff } %>
+	<% end %>
 <% end %>

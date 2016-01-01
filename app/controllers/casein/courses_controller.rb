@@ -45,7 +45,7 @@ module Casein
       @casein_page_title = 'Update course'
             
       respond_to do |format|
-        if @course.update_attributes course_params
+        
           if params[:submit]
             @course.submit!
           elsif params[:approve]
@@ -54,7 +54,11 @@ module Casein
             @course.reject!
           elsif params[:publish]
             @course.publish!
+          elsif params[:unpublish]
+            @course.unpublish!
           end
+
+        if @course.update_attributes course_params
         
           format.html { redirect_to casein_course_path(@course), notice: "Course has been updated. #{undo_link}" }
           format.js
@@ -64,7 +68,38 @@ module Casein
         end
      end
     end
- 
+
+    def edit_multiple
+      @courses = Course.where(id: course_params[:course_ids])
+
+      if params[:edit]
+        render "courses/edit_multiple"
+      elsif params[:unpublish]
+        @courses.each do |course|
+          course.unpublish! if course.published?
+        end
+        redirect_to casein_courses_path
+      elsif params[:publish]
+        @courses.each do |course|
+          course.publish! if !course.published?
+        end
+          redirect_to casein_courses_path
+      elsif params[:delete]
+          @courses.destroy_all
+          redirect_to casein_courses_path
+      end
+    end
+
+    def update_multiple
+     @courses = Course.friendly.update(params[:courses].keys, params[:courses].values)
+      @courses.reject! { |course| course.errors.empty? }
+      if @courses.empty?
+        redirect_to casein_courses_path
+      else
+        render "courses/edit_multiple"
+      end
+    end
+
     def destroy
       @course.photos.each do |photo|
         photo.update_attributes(imageable_id: nil, imageable_type: nil)
@@ -77,7 +112,7 @@ module Casein
     private
       
       def course_params
-        params.require(:course).permit(:title, :workflow_state, :description, photos_attributes: [:id, :caption, :course_id, :image])
+        params.require(:course).permit(:title, :courses, :workflow_state, {:course_ids => []}, :description, photos_attributes: [:id, :caption, :course_id, :image])
       end
 
       def undo_link

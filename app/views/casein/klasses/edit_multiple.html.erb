@@ -1,0 +1,39 @@
+
+<h2>Edit Klasses</h2>
+
+<%= form_tag update_multiple_casein_klasses_path, defaults: { input_html: { :class => 'multiple-edit' } } do %>	
+	<table class="table table-striped table-hover table-condensed edit-mulitple">
+		<thead>
+			<tr>
+				<th><%= casein_sort_link "Title", :title %></th>
+				<th><%= casein_sort_link "# of sessions", :number_of_sessions %></th>
+				<th><%= casein_sort_link "Session of day", :session_of_day %></th>
+				<th><%= casein_sort_link "Course", :course_title %></th>
+				<th><%= casein_sort_link "Status", :workflow_state %></th>
+			</tr>
+		</thead>
+
+			<% @klasses.each do |klass| %>
+				<%= simple_fields_for "klasses[]", klass do |f| %> 
+				<tr>
+					<td><%= casein_table_cell_link klass.title, casein_klass_path(klass) %></td>
+					<td><%= f.input :number_of_sessions, label: false %></td>
+					<td><%= f.input :session_of_day, label: false, collection: Klass::SESSIONS, include_blank: true %></td>
+					<td><%= f.input :course_id, collection: Course.all, label: false,text_method: :title %></td>
+					<td><%= f.input :workflow_state, label: false, :collection => Klass.states %>
+					</td>
+				</tr>
+				<% end %>
+			<% end %>			
+	</table>
+	<p class="submits">
+		<%= link_to 'Cancel', casein_klasses_path, :class => 'btn btn-mini btn-default' %>
+	<%= submit_tag "Save changes", :class => "btn btn-mini btn-primary" %>
+	</p>
+<% end %>	
+
+<%= content_for :sidebar do %>
+
+	<li><%= link_to "#{casein_show_icon "plus-sign"}Add a new klass".html_safe, new_casein_klass_path %></li>
+
+<% end %>

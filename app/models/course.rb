@@ -5,7 +5,7 @@ class Course < ActiveRecord::Base
 	include Workflow
 
 
-	belongs_to :format
+	belongs_to :course_format
 	has_many :klasses
 	has_many :photos, as: :imageable
 	accepts_nested_attributes_for :photos, allow_destroy: true
@@ -27,17 +27,17 @@ class Course < ActiveRecord::Base
 
 		state :approved do
 			event :publish, transition_to: :published
+			event :submit, transition_to: :pending_review
 			event :reject, transition_to: :draft
 		end
 
-		state :published
+		state :published do
+			event :unpublish, transition_to: :draft
+		end
 	end
 
 	def self.states
 		workflow_spec.state_names
 	end
 
-	def publish
-		update_attribute(:published_at, Time.now)
-	end
 end

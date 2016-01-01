@@ -4,13 +4,18 @@ Rails.application.routes.draw do
 
 	#Casein routes
 	namespace :casein do
-		resources :staffs do
+		resources :course_formats do
       collection do
-        get :publish_index
+        post :edit_multiple
         post :update_multiple
       end
     end
-		resources :formats
+		resources :staffs do
+      collection do
+        post :edit_multiple
+        post :update_multiple
+      end
+    end
 		resources :photos do
       collection do
         get :edit_multiple
@@ -18,8 +23,18 @@ Rails.application.routes.draw do
         # post :imageable_create
       end
     end
-		resources :klasses
-		resources :courses
+		resources :klasses do
+      collection do
+        post :edit_multiple
+        post :update_multiple
+      end
+    end
+		resources :courses do
+      collection do
+        post :edit_multiple
+        post :update_multiple
+      end
+    end
 	end
 
   post "casein/versions/:id/revert" => 'casein/versions#revert', :as => "revert_version"
