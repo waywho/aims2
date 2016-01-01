@@ -28,7 +28,7 @@ class Page < ActiveRecord::Base
 		end
 	end
 
-	def publish
-		update_attribute(:published_at, Time.now)
+	def self.states
+		workflow_spec.state_names
 	end
 end
