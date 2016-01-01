@@ -1,18 +1,27 @@
-<%= submit_tag 'Remove photos', :class => 'btn btn-mini btn-danger sub-btn', :data => { :confirm => "This will only remove photos from this record. You can still find the photo(s) in the gallery" } %>
-<br class = 'clr' />
+<% if imageable.photos.present? %>
 
-<i>(click to select.)</i>
-<br />
-<br class = 'clr' />
-	<div class = 'row'>
-		<% imageable.photos.each do |photo| %>
-			<div class = 'col-xs-6 col-md-3 container thumb'>
-				<%= check_box_tag "photo[photo_ids][]", photo.id, checked = false, {:class => 'cbox', id: dom_id(photo)} %>
-				<%= image_tag photo.image_url(:thumb).to_s, :class => 'thumbnail image-select' %>
-			</div>
-		<% end %>
-		<%= hidden_field_tag 'imageable[imageable_id]', nil %>
-		<%= hidden_field_tag 'imageable[imageable_type]', nil %>
-		<%= hidden_field_tag 'origin[origin_type]', imageable.class.name %>
-		<%= hidden_field_tag 'origin[origin_id]', imageable.id %>
-	</div>
+	<%= submit_tag 'Remove photos', :class => 'btn btn-mini btn-danger sub-btn', :data => { :confirm => "This will only remove photos from this record. You can still find the photo(s) in the gallery" } %>
+	<br class = 'clr' />
+
+	<span class="instruction-text">(click photos to select.)</span>
+	<br />
+	<br class = 'clr' />
+		<div class = 'row'>
+			<% imageable.photos.each do |photo| %>
+				<div class = 'col-xs-6 col-md-3 container thumb'>
+					<%= check_box_tag "photo[photo_ids][]", photo.id, checked = false, {:class => 'cbox', id: dom_id(photo)} %>
+					<%= image_tag photo.image_url(:thumb).to_s, :class => 'thumbnail image-select' %>
+				</div>
+			<% end %>
+			<%= hidden_field_tag 'imageable[imageable_id]', nil %>
+			<%= hidden_field_tag 'imageable[imageable_type]', nil %>
+			<%= hidden_field_tag 'origin[origin_type]', imageable.class.name %>
+			<%= hidden_field_tag 'origin[origin_id]', imageable.id %>
+		</div>
+
+<% else %>
+
+	<br />
+	<span class="instruction-text">There are currently no photos for <%= imageable.title %></span>
+
+<% end %>

@@ -15,7 +15,7 @@
 
 <div class="row">
 	<div class='col-lg-12 col-md-12'>
-			<%= render partial: 'casein/photos/photo_upload', object: @course_format, as: :imageable %>
+		<%= render partial: 'casein/photos/photo_upload', object: @course_format, as: :imageable %>
 	</div>
 </div>
 
@@ -23,14 +23,7 @@
 	<div class = 'container-fluid'>
 		<%= form_tag update_multiple_casein_photos_path do %>
 		<label class = 'control-label'>Current <%= @course_format.title %> photos </label>
-			<% if @course_format.photos.present? %>
-
-				<%= render partial: 'casein/photos/photo_multi_edit', object: @course_format, as: :imageable %>
-			
-			<% else %>
-				<br />
-				<i>There are currently no photos for <%= @course_format.title %></i>
-			<% end %>
+			<%= render partial: 'casein/photos/photo_multi_edit', object: @course_format, as: :imageable %>
 		<% end %>
 	</div>
 </div>

@@ -2,7 +2,7 @@
 
 <h2>Courses<%= casein_pagination_details @courses %></h2>
 
-<%= form_tag update_multiple_casein_courses_path do %>
+<%= form_tag edit_multiple_casein_courses_path, method: :post do %>
 	<%= render :partial => 'casein/courses/table', :locals => { :courses => @courses } %>
 
 	<%= render :partial => 'casein/layouts/multi_btns' %>

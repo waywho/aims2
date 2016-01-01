@@ -69,18 +69,30 @@ module Casein
      end
     end
 
-    def update_multiple
+    def edit_multiple
       @courses = Course.where(id: course_params[:course_ids])
 
-      if params[:publish]
+      if params[:edit]
+        format.html {render "courses/edit_multiple" }
+      elsif params[:publish]
         @courses.each do |course|
           course.publish!
         end
+          redirect_to casein_courses_path
       elsif params[:delete]
           @courses.destroy_all
+          redirect_to casein_courses_path
       end
+    end
 
-      redirect_to casein_courses_path
+    def update_multiple
+     @courses = Course.friendly.update(params[:courses].keys, params[:courses].values)
+      @courses.reject! { |c| c.errors.empty? }
+      if @courses.empty?
+        redirect_to casein_courses_path
+      else
+        render "courses/edit_multiple"
+      end
     end
 
     def destroy
@@ -95,7 +107,7 @@ module Casein
     private
       
       def course_params
-        params.require(:course).permit(:title, :workflow_state, {:course_ids => []}, :description, photos_attributes: [:id, :caption, :course_id, :image])
+        params.require(:course).permit(:title, :courses, :workflow_state, {:course_ids => []}, :description, photos_attributes: [:id, :caption, :course_id, :image])
       end
 
       def undo_link
