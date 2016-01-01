@@ -74,9 +74,14 @@ module Casein
 
       if params[:edit]
         format.html {render "courses/edit_multiple" }
+      elsif params[:unpublish]
+        @courses.each do |course|
+          course.unpublish! if course.published?
+        end
+        redirect_to casein_courses_path
       elsif params[:publish]
         @courses.each do |course|
-          course.publish!
+          course.publish! if !course.published?
         end
           redirect_to casein_courses_path
       elsif params[:delete]
@@ -87,7 +92,7 @@ module Casein
 
     def update_multiple
      @courses = Course.friendly.update(params[:courses].keys, params[:courses].values)
-      @courses.reject! { |c| c.errors.empty? }
+      @courses.reject! { |course| course.errors.empty? }
       if @courses.empty?
         redirect_to casein_courses_path
       else

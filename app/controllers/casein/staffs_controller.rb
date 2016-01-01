@@ -71,9 +71,14 @@ module Casein
 
       if params[:edit]
         format.html {render "staffs/edit_multiple" }
+      elsif params[:unpublish]
+        @staffs.each do |staff|
+          staff.unpublish! if staff.published?
+        end
+        redirect_to casein_staffs_path
       elsif params[:publish]
         @staffs.each do |staff|
-          staff.publish!
+          staff.publish! if !staff.published?
         end
           redirect_to casein_staffs_path
       elsif params[:delete]
@@ -84,7 +89,7 @@ module Casein
 
     def update_multiple
       @staffs = Staff.friendly.update(params[:staffs].keys, params[:staffs].values)
-      @staffs.reject! { |s| s.errors.empty? }
+      @staffs.reject! { |staff| staff.errors.empty? }
       if @staffs.empty?
         redirect_to casein_staffs_path
       else

@@ -64,9 +64,14 @@ module Casein
 
       if params[:edit]
         format.html {render "klasses/edit_multiple" }
+      elsif params[:unpublish]
+        @klasses.each do |klass|
+          klass.unpublish! if klass.published?
+        end
+        redirect_to casein_klasses_path
       elsif params[:publish]
         @klasses.each do |klass|
-          klass.publish!
+          klass.publish! if !klass.published?
         end
           redirect_to casein_klasses_path
       elsif params[:delete]
@@ -77,7 +82,7 @@ module Casein
 
     def update_multiple
       @klasses = Klass.update(params[:klasses].keys, params[:klasses].values)
-      @klasses.reject! { |k| k.errors.empty? }
+      @klasses.reject! { |klass| klass.errors.empty? }
       if @klasses.empty?
         redirect_to casein_klasses_path
       else
