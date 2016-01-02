@@ -7,12 +7,15 @@
 	<%= render :partial => 'casein/pages/form', :locals => { :f => f } %>
 	
 	<p class="submits">
-	  	<%= link_to 'Cancel', casein_pages_path, :class => 'btn btn-mini btn-danger' %>
-		<%= f.submit "Save changes", :class => "btn btn-mini btn-primary" %>
+	  	<%= link_to 'Cancel', casein_courses_path, :class => 'btn btn-mini btn-default' %>
+		<%= render :partial => 'casein/layouts/approval_q_buttons', :locals => { :f => f } %>
 	</p>
 
 <% end %>
 
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "th-list"}Back to list".html_safe, casein_pages_path %></li>
+	<%= simple_form_for @course, :url => casein_course_path(@course), html: {:id => 'stateform'}, remote: true do |f| %>
+		<%= render partial: 'casein/layouts/status_form', :locals => {:f => f, :record => @course } %>
+	<% end %>
 <% end %>
