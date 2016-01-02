@@ -36,14 +36,30 @@ module Casein
   
     def update
       @casein_page_title = 'Update page'
-    
-      if @page.update_attributes page_params
-        flash[:notice] = 'Page has been updated'
-        redirect_to casein_pages_path
-      else
-        flash.now[:warning] = 'There were problems when trying to update this page'
-        render :action => :show
-      end
+      
+      respond_to do |format|
+        
+          if params[:submit]
+            @page.submit!
+          elsif params[:approve]
+            @page.approve!
+          elsif params[:reject]
+            @page.reject!
+          elsif params[:publish]
+            @page.publish!
+          elsif params[:unpublish]
+            @page.unpublish!
+          end
+
+        if @page.update_attributes page_params
+        
+          format.html { redirect_to casein_page_path(@page), notice: "Page has been updated. #{undo_link}" }
+          format.js
+        else
+          flash.now[:warning] = 'There were problems when trying to update this page'
+          render :action => :show
+        end
+     end  
     end
  
     def destroy
@@ -60,7 +76,11 @@ module Casein
       end
 
       def load_page
-        @page = Page.friendly.find params[:id]
+        @page ||= Page.friendly.find params[:id]
+      end
+
+      def undo_link
+        view_context.link_to("undo", revert_version_path(@course.versions.last), :method => :post).html_safe
       end
   
   end
