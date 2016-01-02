@@ -2,6 +2,7 @@
 
 module Casein
   class PagesController < Casein::CaseinController
+    before_filter load_page, :only => [:show, :update, :destory]
   
     ## optional filters for defining usage according to Casein::AdminUser access_levels
     # before_filter :needs_admin, :except => [:action1, :action2]
@@ -14,7 +15,6 @@ module Casein
   
     def show
       @casein_page_title = 'View page'
-      @page = Page.find params[:id]
     end
   
     def new
@@ -36,8 +36,6 @@ module Casein
   
     def update
       @casein_page_title = 'Update page'
-      
-      @page = Page.find params[:id]
     
       if @page.update_attributes page_params
         flash[:notice] = 'Page has been updated'
@@ -49,7 +47,6 @@ module Casein
     end
  
     def destroy
-      @page = Page.find params[:id]
 
       @page.destroy
       flash[:notice] = 'Page has been deleted'
@@ -60,6 +57,10 @@ module Casein
       
       def page_params
         params.require(:page).permit(:title, :content, :workflow_state)
+      end
+
+      def load_page
+        @page = Page.friendly.find params[:id]
       end
   
   end
