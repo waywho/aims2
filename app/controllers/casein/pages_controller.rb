@@ -61,6 +61,37 @@ module Casein
         end
      end  
     end
+
+    def edit_multiple
+       @pages = Page.where(id: page_params[:page_ids])
+
+      if params[:edit]
+        render "pages/edit_multiple"
+      elsif params[:unpublish]
+        @pages.each do |page|
+          page.unpublish! if page.published?
+        end
+        redirect_to casein_pages_path
+      elsif params[:publish]
+        @pages.each do |page|
+          page.publish! if !page.published?
+        end
+          redirect_to casein_pages_path
+      elsif params[:delete]
+          @pages.destroy_all
+          redirect_to casein_pages_path
+      end
+    end
+
+    def update_multiple
+      @pages = Page.update(params[:pages].keys, params[:pages].values)
+      @pages.reject! { |page| page.errors.empty? }
+      if @pages.empty?
+        redirect_to casein_pages_path
+      else
+        render "pages/edit_multiple"
+      end
+    end
  
     def destroy
 
