@@ -6,7 +6,7 @@ class CreateFees < ActiveRecord::Migration
       t.string :description
       t.integer :amount
       t.string :workflow_state
-      t.belongs_to :commentable, polymorphic: true
+      t.belongs_to :eventable, polymorphic: true
 
       t.timestamps null: false
     end

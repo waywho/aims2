@@ -96,10 +96,10 @@ ActiveRecord::Schema.define(version: 20160103213448) do
     t.string   "description"
     t.integer  "amount"
     t.string   "workflow_state"
-    t.integer  "commentable_id"
-    t.string   "commentable_type"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.integer  "eventable_id"
+    t.string   "eventable_type"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "klasses", force: :cascade do |t|
