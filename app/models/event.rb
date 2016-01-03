@@ -2,6 +2,8 @@ class Event < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :title, use: :slugged
 	has_paper_trail :on => [:update, :create, :destroy]
+	has_one :photo, as: :imageable
+	accepts_nested_attributes_for :photo, allow_destroy: true
 
 	include Workflow
 
