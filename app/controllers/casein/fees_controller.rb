@@ -104,7 +104,7 @@ module Casein
     private
       
       def fee_params
-        params.require(:fee).permit(:fee_type, :category, :description, :amount, :workflow_state, :eventable_id, :eventable_type, :updated_at)
+        params.require(:fee).permit(:fee_type, :category, :description, :fees, {:fee_ids => []}, :amount, :workflow_state, :eventable_id, :eventable_type, :updated_at)
       end
       
       def undo_link
