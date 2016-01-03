@@ -4,6 +4,7 @@ class Event < ActiveRecord::Base
 	has_paper_trail :on => [:update, :create, :destroy]
 	has_one :photo, as: :imageable
 	accepts_nested_attributes_for :photo, allow_destroy: true
+	has_one :fee, as: :eventable
 
 	include Workflow
 

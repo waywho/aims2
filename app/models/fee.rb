@@ -1,13 +1,7 @@
-class CourseFormat < ActiveRecord::Base
-	extend FriendlyId
-	friendly_id :title, use: :slugged
-	
-	has_many :courses
-	has_many :photos, as: :imageable
-	accepts_nested_attributes_for :photos, allow_destroy: true
-	has_many :fees, as: :eventable
-	
+class Fee < ActiveRecord::Base
+	belongs_to :eventable, polymorphic: true
 	has_paper_trail :on => [:update, :create, :destroy]
+	
 	include Workflow
 
 	workflow do

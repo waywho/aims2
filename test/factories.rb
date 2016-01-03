@@ -1,4 +1,12 @@
-FactoryGirl.define do  factory :event do
+FactoryGirl.define do  factory :fee do
+    fee_type "MyString"
+category "MyString"
+description "MyString"
+amount 1
+eventable_id 1
+eventable_type "MyString"
+  end
+  factory :event do
     title "MyString"
     description "MyText"
     programme "MyText"
