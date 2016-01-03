@@ -101,10 +101,11 @@ module Casein
     end
 
     def destroy
+      @course.destroy
       @course.photos.each do |photo|
         photo.update_attributes(imageable_id: nil, imageable_type: nil)
       end
-      @course.destroy
+      
       flash[:notice] = "Course has been deleted. #{undo_link}"
       redirect_to casein_courses_path
     end

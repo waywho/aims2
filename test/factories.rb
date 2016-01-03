@@ -1,18 +1,26 @@
-FactoryGirl.define do  factory :course_format do
+FactoryGirl.define do  factory :event do
     title "MyString"
-description "MyText"
-slug "MyString"
-workflow_state "MyString"
-whats_new "MyText"
-when_from "2015-12-30 10:54:46"
-when_to "2015-12-30 10:54:46"
-venue "MyString"
-address1 "MyString"
-address2 "MyString"
-city "MyString"
-county "MyString"
-country "MyString"
-post_code "MyString"
+    description "MyText"
+    programme "MyText"
+    performers "MyText"
+    date "2015-12-24 08:53:20"
+    slug "MyString"
+  end
+  factory :course_format do
+    title "MyString"
+    description "MyText"
+    slug "MyString"
+    workflow_state "MyString"
+    whats_new "MyText"
+    when_from "2015-12-30 10:54:46"
+    when_to "2015-12-30 10:54:46"
+    venue "MyString"
+    address1 "MyString"
+    address2 "MyString"
+    city "MyString"
+    county "MyString"
+    country "MyString"
+    post_code "MyString"
   end
   
 
