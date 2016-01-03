@@ -40,3 +40,26 @@ staff_tutor6 = Staff.create({name: "Hilary Fisher", biography: "Cabarat speciali
 staff_gm = Staff.create({name: "Antonia Hyatt", biography: "General manager experience...", role: "General Manager"})
 staff_ad = Staff.create({name: "Neil Jenkins", biography: "Experienced conductor, singer, and run AIMS for many years....", role: "Artistic Director"})
 staff_pianist = Staff.create({name: "Louisa Lam", biography: "GSMD fellow....", role: "house pianist"})
+
+Event.delete_all
+event1 = Event.create({title: "Choral Concert", description: "A selection of the chora pieces studied will be performed in a concert at the end of each day, alongside other solo items.", date: "2016-07-03 19:30:00", programme: "3 Shakespeare Songs Vaughan Williams", performers: "AIMS Choir. John Hancorn, conductor", venue: "St Gabriel's Halls", address1: "Pimlico", city: "London", county: "Greater London", post_code: "SW1V 3AA"})
+
+Page.delete_all
+page1 = Page.create({title: "Ticket Information", content: "You can buy tickets at the door"})
+
+Fee.delete_all
+fee_residential = format_summer.fees.create({fee_type: "Residential", category: "Shared Rooms", description: "Dormitory(3-5 beds)", amount: "665"})
+fee_residential2 = format_summer.fees.create({fee_type: "Residential", category: "Shared Rooms", description: "Twin(3-5 beds)", amount: "700"})
+fee_residential3 = format_summer.fees.create({fee_type: "Residential", category: "Single Rooms", description: "Basic Single", amount: "725"})
+fee_residential4 = format_summer.fees.create({fee_type: "Residential", category: "Single Rooms", description: "Single in Tenby Lodge/Pennell", amount: "745"})
+fee_non_resid = format_summer.fees.create({fee_type: "Non-Residential", category: "Solo A", description: "Includes lunch and supper, and entry to all concerts", amount: "530"})
+fee_non_resid2 = format_summer.fees.create({fee_type: "Non-Residential", category: "Choral A", description: "Includes lunch and supper, and entry to all concerts", amount: "530"})
+fee_non_resid3 = format_summer.fees.create({fee_type: "Non-Residential", category: "Choral B", description: "No meals or evening concerts. Includes entry to lunchtime concerts only", amount: "375"})
+fee_casual = format_summer.fees.create({fee_type: "Casual Visitors", category: "Observing", description: "Part day (morning or afternoon)", amount: "15"})
+fee_casual2 = format_summer.fees.create({fee_type: "Casual Visitors", category: "Observing", description: "Full day", amount: "30"})
+fee_mini = format_mini.fees.create({fee_type: "Mini-Aims", category: "Solo Singers", description: "Two days", amount: "190"})
+fee_mini2 = format_mini.fees.create({fee_type: "Mini-Aims", category: "Solo Singers", description: "One day", amount: "100"})
+fee_mini3 = format_mini.fees.create({fee_type: "Mini-Aims", category: "Choral Singers", description: "Two days", amount: "95"})
+fee_mini4 = format_mini.fees.create({fee_type: "Mini-Aims", category: "Solo Singers", description: "One day", amount: "50"})
+event_fee = event1.fees.create({fee_type: "Casual Visitors", category: "Concert", description: "Student Performance", amount: "10"})
+
