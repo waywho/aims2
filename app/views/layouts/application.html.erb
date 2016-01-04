@@ -8,15 +8,17 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<div class = 'header'>
-		<%= render "layouts/header" %>
-	</div>
-	<div class = 'wrapper'>
-		<div class = 'col-xs-offset-1 col-xs-10'>
 
-		<%= yield %>
+	<div class = 'wrapper'>
+		<div class = 'header'>
+		<%= render "layouts/header" %>
 		</div>
-		<div class = "push"></div>
+		<div class='main'>
+			<div class = 'col-xs-offset-1 col-xs-10'>
+
+			<%= yield %>
+			</div>
+		</div>
 	</div>
 
 

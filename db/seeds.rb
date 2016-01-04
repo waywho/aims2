@@ -66,3 +66,9 @@ Fee.create({fee_type: "Event", category: "Concert", description: "Gala Recital",
 Fee.create({fee_type: "Event", category: "Concert", description: "Tutor Concert", amount: "10"})
 Fee.create({fee_type: "Event", category: "Concert", description: "Celebrity Masterclass", amount: "10"})
 Fee.create({fee_type: "Event", category: "Concert", description: "Lunchtime Concerts", amount: "0"})
+
+Quote.delete_all
+Quote.create({saying: "Fabulous week at AIMS but then it always is! Lovely to see old friends and meet new ones, and share in this life-enhancing musical experience."})
+Quote.create({saying: "As the week progressed, it was nice to know we alls hared the same vocal issues."})
+
+

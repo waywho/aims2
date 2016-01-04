@@ -9,7 +9,6 @@
 			<th><%= casein_sort_link "Saying", :saying %></th>
 			<th><%= casein_sort_link "Author", :author %></th>
 			<th><%= casein_sort_link "Published at", :published_at %></th>
-			<th><%= casein_sort_link "Updated at", :updated_at %></th>
 			<th><%= casein_sort_link "Workflow state", :workflow_state %></th>
 		</tr>
 	</thead>
@@ -23,8 +22,6 @@
 			<td><%= f.input :author, label: false %></td>
 			
 			<td><%= f.input :published_at, label: false %></td>
-			
-			<td><%= f.input :updated_at, label: false %></td>
 			
 			<td><%= f.input :workflow_state, label: false, collection: Quote.states %></td>
 		</tr>

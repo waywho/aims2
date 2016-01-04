@@ -17,12 +17,12 @@
 		<tr>
 			<td><%= check_box_tag 'quote[quote_ids][]', quote.id, checked = false, { id: dom_id(quote), :class => 'index-check' } %>
 				</td>
-			<td><%= casein_table_cell_link quote.saying, casein_quote_path(quote) %></td>
+			<td><%= casein_table_cell_link truncated_description(quote.saying), casein_quote_path(quote) %></td>
 			<td><%= casein_table_cell_link quote.author, casein_quote_path(quote) %></td>
 			<td><%= casein_table_cell_link d_m_y(quote.published_at), casein_quote_path(quote) %></td>
 			<td><%= casein_table_cell_link d_m_y(quote.updated_at), casein_quote_path(quote) %></td>
-			<td><%= link_to casein_course_path(course) do %>
-				<%= image_tag state_icon(course.workflow_state) %>
+			<td><%= link_to casein_quote_path(quote) do %>
+				<%= image_tag state_icon(quote.workflow_state) %>
 				<% end %></td>
 			<td class="delete">
 				<%= link_to(casein_show_row_icon("trash"), casein_quote_path(quote), :method => :delete, :data => { :confirm => "Are you sure you want to delete this quote?" }) %>
