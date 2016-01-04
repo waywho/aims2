@@ -22,6 +22,7 @@ class Klass < ActiveRecord::Base
 
 		state :approved do
 			event :publish, transition_to: :published
+			event :submit, transition_to: :pending_review
 			event :reject, transition_to: :draft
 		end
 
@@ -35,6 +36,6 @@ class Klass < ActiveRecord::Base
 	end
 	
 	def publish
-		self.published_at ||= Time.zone.now
+		update_attribute(:published_at, Time.zone.now) if self.published_at.nil?
 	end
 end

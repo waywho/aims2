@@ -107,7 +107,7 @@ module Casein
     private
       
       def staff_params
-        params.require(:staff).permit(:name, :staffs, { :staff_ids => [] }, :biography, :role, :photo, :published_at, :workflow_state, photo_attributes: [:id, :caption, :image, :_destroy])
+        params.require(:staff).permit(:name, :staffs, { :staff_ids => [] }, :published_at, :biography, :role, :photo, :published_at, :workflow_state, photo_attributes: [:id, :caption, :image, :_destroy])
       end
 
       def load_staff

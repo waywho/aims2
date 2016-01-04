@@ -11,8 +11,6 @@ class Course < ActiveRecord::Base
 	has_many :photos, as: :imageable
 	accepts_nested_attributes_for :photos, allow_destroy: true
 
-
-
 	workflow do
 		state :draft do
 			event :submit, transition_to: :pending_review
@@ -42,7 +40,7 @@ class Course < ActiveRecord::Base
 	end
 
 	def publish
-		self.published_at ||= Time.zone.now
+		update_attribute(:published_at, Time.zone.now) if self.published_at.nil?
 	end
 
 end
