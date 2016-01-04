@@ -116,7 +116,7 @@ module Casein
     private
       
       def course_format_params
-        params.require(:course_format).permit(:title, :description, :course_formats, {:course_format_ids => []}, :workflow_state, :whats_new, :when_from, :when_to, :venue, :address1, :address2, :city, :county, :country, :post_code, photos_attributes: [:id, :caption, :image])
+        params.require(:course_format).permit(:title, :description, :course_formats, :published_at, {:course_format_ids => []}, :workflow_state, :whats_new, :when_from, :when_to, :venue, :address1, :address2, :city, :county, :country, :post_code, photos_attributes: [:id, :caption, :image])
       end
 
       def load_course_format

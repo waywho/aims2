@@ -1,6 +1,7 @@
 class CourseFormat < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :title, use: :slugged
+	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
 	
 	has_many :courses
 	has_many :photos, as: :imageable
@@ -35,5 +36,9 @@ class CourseFormat < ActiveRecord::Base
 	
 	def self.states
 		workflow_spec.state_names
+	end
+
+	def publish
+		self.published_at ||= Time.zone.now
 	end
 end
