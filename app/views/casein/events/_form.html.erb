@@ -5,8 +5,8 @@
 	<div class="col-lg-6 col-md-6">
 		<%= casein_text_field f, f.object, :title %>
 	</div>
-	<div class="col-lg-6 col-md-6">
-		<%= casein_collection_select f, f.object, 'event', :ticket_type, Fee.event, :full_description, :full_description, include_blank: true %>
+		<div class="col-lg-6 col-md-6">
+		<%= casein_date_field f, f.object, :published_at, casein_label: "Publish date" %>
 	</div>
 </div>
 <div class="row">
@@ -14,7 +14,12 @@
 		<%= casein_date_field f, f.object, :date %>
 	</div>
 	<div class="col-lg-6 col-md-6">
-		<%= casein_time_select f, f.object, :date, label: 'Time' %>
+		<%= casein_time_select f, f.object, :date, casein_label: 'Time' %>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-6 col-md-6">
+		<%= casein_collection_select f, f.object, 'event', :ticket_type, Fee.event, :full_description, :full_description, include_blank: true %>
 	</div>
 </div>
 

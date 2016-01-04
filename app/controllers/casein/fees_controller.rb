@@ -37,6 +37,7 @@ module Casein
       @casein_page_title = 'Update fee'
       
       respond_to do |format|
+        if @fee.update_attributes fee_params
           if params[:submit]
             @fee.submit!
           elsif params[:approve]
@@ -48,9 +49,6 @@ module Casein
           elsif params[:unpublish]
             @fee.unpublish!
           end
-
-        if @fee.update_attributes fee_params
-        
           format.html { redirect_to casein_fee_path(@fee), notice: "Fee has been updated. #{undo_link}" }
           format.js
         else
@@ -104,7 +102,7 @@ module Casein
     private
       
       def fee_params
-        params.require(:fee).permit(:fee_type, :category, :description, :fees, :amount, :workflow_state, :eventable_id, :eventable_type, :updated_at)
+        params.require(:fee).permit(:fee_type, :published_at, :category, :description, :fees, {:fee_ids => []}, :amount, :workflow_state, :eventable_id, :eventable_type, :updated_at)
       end
       
       def undo_link

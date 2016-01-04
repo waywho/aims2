@@ -38,6 +38,8 @@ module Casein
       @casein_page_title = 'Update event'
       
       respond_to do |format|
+       if @event.update_attributes event_params
+
           if params[:submit]
             @event.submit!
           elsif params[:approve]
@@ -50,8 +52,6 @@ module Casein
             @event.unpublish!
           end
 
-        if @event.update_attributes event_params
-        
           format.html { redirect_to casein_event_path(@event), notice: "Event has been updated. #{undo_link}" }
           format.js
         else
@@ -103,7 +103,7 @@ module Casein
     private
       
       def event_params
-        params.require(:event).permit(:title, :description, :programme, :performers, :date, :workflow_state, :events, :ticket_type, :venue, :address1, :address2, :city, :county, :country, :post_code, {:event_ids => []}, photo_attributes: [:id, :caption, :image, :_destroy])
+        params.require(:event).permit(:title, :published_at, :description, :programme, :performers, :date, :workflow_state, :events, :ticket_type, :venue, :address1, :address2, :city, :county, :country, :post_code, {:event_ids => []}, photo_attributes: [:id, :caption, :image, :_destroy])
       end
       
       def undo_link

@@ -3,14 +3,13 @@ class Course < ActiveRecord::Base
 	friendly_id :title, use: :slugged
 	has_paper_trail :on => [:update, :create, :destroy]
 	include Workflow
+	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
 
 
 	belongs_to :course_format
 	has_many :klasses
 	has_many :photos, as: :imageable
 	accepts_nested_attributes_for :photos, allow_destroy: true
-
-
 
 	workflow do
 		state :draft do
@@ -38,6 +37,10 @@ class Course < ActiveRecord::Base
 
 	def self.states
 		workflow_spec.state_names
+	end
+
+	def publish
+		update_attribute(:published_at, Time.zone.now) if self.published_at.nil?
 	end
 
 end

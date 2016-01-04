@@ -9,6 +9,7 @@
 			<th><%= casein_sort_link "Description", :description %></th>
 			<th><%= casein_sort_link "Amount", :amount %></th>
 			<th><%= casein_sort_link "Course Format", :course_format_id %></th>
+			<th><%= casein_sort_link "Publish Date", :published_at %></th>
 			<th><%= casein_sort_link "Updated at", :updated_at %></th>
 			<th><%= casein_sort_link "Status", :workflow_state %></th>
 			<th>&nbsp;</th>
@@ -24,6 +25,7 @@
 			<td><%= casein_table_cell_link truncated_description(fee.description), casein_fee_path(fee) %></td>
 			<td><%= casein_table_cell_link fee.amount, casein_fee_path(fee) %></td>
 			<td><%= casein_table_cell_link fee.course_format.title, casein_fee_path(fee) if fee.course_format.present? %></td>
+			<td><%= casein_table_cell_link d_m_y(fee.published_at), casein_fee_path(fee) %></td>
 			<td><%= casein_table_cell_link d_m_y(fee.updated_at), casein_fee_path(fee) %></td>
 			<td><%= link_to casein_fee_path(fee) do %>
 				<%= image_tag state_icon(fee.workflow_state) %>

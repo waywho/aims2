@@ -7,6 +7,7 @@
 			<th><%= casein_sort_link "Title", :title %></th>
 			<th><%= casein_sort_link "Date", :date %></th>
 			<th><%= casein_sort_link "Venue", :venue %></th>
+			<th><%= casein_sort_link "Publish Date", :published_at %></th>
 			<th><%= casein_sort_link "Updated at", :updated_at %></th>
 			<th><%= casein_sort_link "Status", :workflow_state %></th>
 			<th>&nbsp;</th>
@@ -20,6 +21,7 @@
 			<td><%= casein_table_cell_link course_format.title, casein_course_format_path(course_format) %></td>
 			<td><%= casein_table_cell_link from_to(course_format.when_from, course_format.when_to), casein_course_format_path(course_format) %></td>
 			<td><%= casein_table_cell_link course_format.venue, casein_course_format_path(course_format) %></td>
+			<td><%= casein_table_cell_link d_m_y(course_format.published_at), casein_course_format_path(course_format) %></td>
 			<td><%= casein_table_cell_link d_m_y(course_format.updated_at), casein_course_format_path(course_format) %></td>
 			<td><%= link_to casein_course_format_path(course_format) do %>
 				<%= image_tag state_icon(course_format.workflow_state) %>

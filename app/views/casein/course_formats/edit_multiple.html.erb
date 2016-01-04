@@ -9,6 +9,7 @@
 				<th><%= casein_sort_link "Date", :date %></th>
 				<th><%= casein_sort_link "Date to", :date %></th>
 				<th><%= casein_sort_link "Venue", :venue %></th>
+				<th><%= casein_sort_link "Publish Date", :published_at %></th>
 				<th><%= casein_sort_link "Status", :workflow_state %></th>
 			</tr>
 		</thead>
@@ -20,6 +21,7 @@
 				<td><%= f.input :when_from, label: false, as: :date, html5: true %></td>
 				<td><%= f.input :when_to, label: false, as: :date, html5: true %></td>
 				<td><%= f.input :venue, label: false %></td>
+				<td><%= f.input :published_at, as: :date, html5: true, label: false  %></td>
 				<td><%= f.input :workflow_state, label: false, collection: CourseFormat.states %></td>
 
 			</tr>
