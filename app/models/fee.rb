@@ -1,13 +1,10 @@
-class CourseFormat < ActiveRecord::Base
-	extend FriendlyId
-	friendly_id :title, use: :slugged
-	
-	has_many :courses
-	has_many :photos, as: :imageable
-	accepts_nested_attributes_for :photos, allow_destroy: true
-	has_many :fees
-	
+class Fee < ActiveRecord::Base
+	belongs_to :course_format
 	has_paper_trail :on => [:update, :create, :destroy]
+
+
+	scope :event, -> {where(fee_type: 'Event')}
+	
 	include Workflow
 
 	workflow do
@@ -33,6 +30,9 @@ class CourseFormat < ActiveRecord::Base
 		end
 	end
 	
+	def full_description
+		"#{self.description}, £#{self.amount}" 
+	end
 	def self.states
 		workflow_spec.state_names
 	end

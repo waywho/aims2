@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151230133403) do
+ActiveRecord::Schema.define(version: 20160104115755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,39 @@ ActiveRecord::Schema.define(version: 20151230133403) do
 
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
 
+  create_table "events", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.text     "programme"
+    t.text     "performers"
+    t.datetime "date"
+    t.string   "slug"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "workflow_state"
+    t.string   "venue"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "county"
+    t.string   "country"
+    t.string   "post_code"
+    t.string   "ticket_type"
+  end
+
+  create_table "fees", force: :cascade do |t|
+    t.string   "fee_type"
+    t.string   "category"
+    t.string   "description"
+    t.integer  "amount"
+    t.string   "workflow_state"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "course_format_id"
+  end
+
+  add_index "fees", ["course_format_id"], name: "index_fees_on_course_format_id", using: :btree
+
   create_table "klasses", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -117,7 +150,6 @@ ActiveRecord::Schema.define(version: 20151230133403) do
     t.string   "name"
     t.text     "biography"
     t.string   "role"
-    t.string   "photo"
     t.string   "slug"
     t.string   "workflow_state"
     t.datetime "created_at",     null: false

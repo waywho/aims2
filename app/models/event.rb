@@ -1,13 +1,10 @@
-class CourseFormat < ActiveRecord::Base
+class Event < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :title, use: :slugged
-	
-	has_many :courses
-	has_many :photos, as: :imageable
-	accepts_nested_attributes_for :photos, allow_destroy: true
-	has_many :fees
-	
 	has_paper_trail :on => [:update, :create, :destroy]
+	has_one :photo, as: :imageable
+	accepts_nested_attributes_for :photo, allow_destroy: true
+
 	include Workflow
 
 	workflow do
@@ -32,7 +29,7 @@ class CourseFormat < ActiveRecord::Base
 			event :unpublish, transition_to: :draft
 		end
 	end
-	
+
 	def self.states
 		workflow_spec.state_names
 	end
