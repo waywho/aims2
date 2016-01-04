@@ -17,7 +17,7 @@
 			<td><%= casein_table_cell_link course.title, casein_course_path(course) %></td>
 			<td><%= f.input :workflow_state, label: false, collection: Course.states %>
 			</td>
-			<td><%= f.input as: :date, html5: true, label: false  %></td>
+			<td><%= f.input :published_at, as: :date, html5: true, label: false  %></td>
 		</tr>
 		<% end %>
 	<% end %>

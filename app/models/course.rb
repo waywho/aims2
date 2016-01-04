@@ -42,7 +42,7 @@ class Course < ActiveRecord::Base
 	end
 
 	def publish
-		update_attribute(:published_at, Time.now)
+		self.published_at ||= Time.zone.now
 	end
 
 end
