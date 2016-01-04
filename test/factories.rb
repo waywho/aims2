@@ -1,4 +1,9 @@
-FactoryGirl.define do  factory :fee do
+FactoryGirl.define do  factory :quote do
+    author "MyString"
+saying "MyString"
+workflow_state "MyString"
+  end
+  factory :fee do
     fee_type "MyString"
 category "MyString"
 description "MyString"
