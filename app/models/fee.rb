@@ -1,8 +1,8 @@
 class Fee < ActiveRecord::Base
 	belongs_to :course_format
 	has_paper_trail :on => [:update, :create, :destroy]
-
-
+	
+	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
 	scope :event, -> {where(fee_type: 'Event')}
 	
 	include Workflow
@@ -33,7 +33,12 @@ class Fee < ActiveRecord::Base
 	def full_description
 		"#{self.description}, £#{self.amount}" 
 	end
+	
 	def self.states
 		workflow_spec.state_names
+	end
+
+	def publish
+		self.published_at ||= Time.zone.now
 	end
 end
