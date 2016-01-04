@@ -9,7 +9,7 @@ module Casein
   
     def index
       @casein_page_title = 'Fees'
-      @fees = Fee.order(sort_order(:fee_type)).paginate :page => params[:page]
+      @fees = Fee.order(sort_order(:course_format_id)).paginate :page => params[:page]
     end
   
     def show
@@ -82,7 +82,7 @@ module Casein
     end
 
     def update_multiple
-     @fees = Fee.friendly.update(params[:fees].keys, params[:fees].values)
+     @fees = Fee.update(params[:fees].keys, params[:fees].values)
       @fees.reject! { |fee| fee.errors.empty? }
       if @fees.empty?
         redirect_to casein_fees_path
@@ -104,7 +104,7 @@ module Casein
     private
       
       def fee_params
-        params.require(:fee).permit(:fee_type, :category, :description, :fees, {:fee_ids => []}, :amount, :workflow_state, :eventable_id, :eventable_type, :updated_at)
+        params.require(:fee).permit(:fee_type, :category, :description, :fees, :amount, :workflow_state, :eventable_id, :eventable_type, :updated_at)
       end
       
       def undo_link
@@ -112,7 +112,7 @@ module Casein
       end
       
       def load_fee
-        @fee = Fee.friendly.find params[:id]
+        @fee ||= Fee.find params[:id]
       end
   
   end

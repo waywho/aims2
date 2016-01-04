@@ -11,9 +11,7 @@
 			<th><%= casein_sort_link "Description", :description %></th>
 			<th><%= casein_sort_link "Amount", :amount %></th>
 			<th><%= casein_sort_link "Status", :workflow_state %></th>
-			<th><%= casein_sort_link "Eventable", :eventable_id %></th>
-			<th><%= casein_sort_link "Eventable type", :eventable_type %></th>
-			<th><%= casein_sort_link "Updated at", :updated_at %></th>
+			<th><%= casein_sort_link "Eventable type", :course_format_id %></th>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>
@@ -24,22 +22,16 @@
 			
 			<td><%= casein_table_cell_link fee.fee_type, casein_fee_path(fee) %></td>
 			
-			<td><%= casein_table_cell_link fee.category, casein_fee_path(fee) %></td>
+			<td><%= f.input :category, label: false%></td>
 			
-			<td><%= casein_table_cell_link fee.description, casein_fee_path(fee) %></td>
+			<td><%= f.input :description, label: false %></td>
 			
-			<td><%= casein_table_cell_link fee.amount, casein_fee_path(fee) %></td>
+			<td><%= f.input :amount, label: false %></td>
 			
-			<td><%= casein_table_cell_link fee.workflow_state, casein_fee_path(fee) %></td>
+			<td><%= f.input :workflow_state, label: false, collection: Fee.states %>
 			
-			<td><%= casein_table_cell_link fee.eventable_id, casein_fee_path(fee) %></td>
+			<td><%= f.input :course_format_id, collection: CourseFormat.all, label: false %></td>
 			
-			<td><%= casein_table_cell_link fee.eventable_type, casein_fee_path(fee) %></td>
-			
-			<td><%= casein_table_cell_link fee.updated_at, casein_fee_path(fee) %></td>
-			<td class="delete">
-				<%= link_to(casein_show_row_icon("trash"), casein_fee_path(fee), :method => :delete, :data => { :confirm => "Are you sure you want to delete this fee?" }) %>
-			</td>
 		</tr>
 		<% end %>
 	<% end %>

@@ -6,6 +6,8 @@
 			<th><%= check_box_tag 'multi' %></th>
 			<th><%= casein_sort_link "Title", :title %></th>
 			<th><%= casein_sort_link "Date", :date %></th>
+			<th><%= casein_sort_link "Time", :date %></th>
+			<th><%= casein_sort_link "Ticket Type", :ticket_type %></th>
 			<th><%= casein_sort_link "Updated at", :updated_at %></th>
 			<th><%= casein_sort_link "Status", :workflow_state %></th>
 			<th>&nbsp;</th>
@@ -17,7 +19,9 @@
 			<td><%= check_box_tag 'event[event_ids][]', event.id, checked = false, { id: dom_id(event), :class => 'index-check' } %>
 				</td>
 			<td><%= casein_table_cell_link event.title, casein_event_path(event) %></td>
-			<td><%= casein_table_cell_link event.date, casein_event_path(event) %></td>
+			<td><%= casein_table_cell_link d_m_y(event.date), casein_event_path(event) %></td>
+			<td><%= casein_table_cell_link time_of_date(event.date), casein_event_path(event) %></td>
+			<td><%= casein_table_cell_link event.ticket_type, casein_event_path(event) %></td>
 			<td><%= casein_table_cell_link d_m_y(event.updated_at), casein_event_path(event) %></td>
 			<td><%= link_to casein_event_path(event) do %>
 				<%= image_tag state_icon(event.workflow_state) %>

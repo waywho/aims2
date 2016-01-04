@@ -1,6 +1,9 @@
 class Fee < ActiveRecord::Base
-	belongs_to :eventable, polymorphic: true
+	belongs_to :course_format
 	has_paper_trail :on => [:update, :create, :destroy]
+
+
+	scope :event, -> {where(fee_type: 'Event')}
 	
 	include Workflow
 
@@ -27,6 +30,9 @@ class Fee < ActiveRecord::Base
 		end
 	end
 	
+	def full_description
+		"#{self.description}, £#{self.amount}" 
+	end
 	def self.states
 		workflow_spec.state_names
 	end

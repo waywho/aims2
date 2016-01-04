@@ -2,8 +2,12 @@
 
 <h2>Fees<%= casein_pagination_details @fees %></h2>
 
-<%= render :partial => 'casein/fees/table', :locals => { :fees => @fees } %>
-<%= render :partial => 'casein/layouts/multi_btns' %>
+<%= form_tag edit_multiple_casein_fees_path, method: :post do %>
+
+	<%= render :partial => 'casein/fees/table', :locals => { :fees => @fees } %>
+	<%= render :partial => 'casein/layouts/multi_btns' %>
+
+<% end %>
 
 <div class="text-center">
 	<%= will_paginate @fees %>

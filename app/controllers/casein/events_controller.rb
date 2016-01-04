@@ -19,6 +19,7 @@ module Casein
     def new
       @casein_page_title = 'Add a new event'
       @event = Event.new
+      @event.fees.build
     end
 
     def create
@@ -102,7 +103,7 @@ module Casein
     private
       
       def event_params
-        params.require(:event).permit(:title, :description, :programme, :performers, :date, :workflow_state, :events, {:event_ids => []}, photo_attributes: [:id, :caption, :image, :_destroy])
+        params.require(:event).permit(:title, :description, :programme, :performers, :date, :workflow_state, :events, :ticket_type, :venue, :address1, :address2, :city, :county, :country, :post_code, {:event_ids => []}, photo_attributes: [:id, :caption, :image, :_destroy])
       end
       
       def undo_link

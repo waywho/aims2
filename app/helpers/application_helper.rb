@@ -1,7 +1,7 @@
 module ApplicationHelper
 
 	def truncated_description(description)
-		output = truncate(description, length: 75, separator: " ")
+		output = truncate(description, length: 25, separator: " ")
 		output.html_safe
 	end
 
@@ -16,7 +16,11 @@ module ApplicationHelper
 	end
 
 	def d_m_y(datetime)
-		datetime.strftime("%d/%m/%y") if datetime.present?
+		datetime.strftime("%d-%m-%Y") if datetime.present?
+	end
+
+	def time_of_date(datetime)
+		datetime.strftime("%H:%M") if datetime.present?
 	end
 
 	def state_icon(state)

@@ -5,7 +5,7 @@ class CourseFormat < ActiveRecord::Base
 	has_many :courses
 	has_many :photos, as: :imageable
 	accepts_nested_attributes_for :photos, allow_destroy: true
-	has_many :fees, as: :eventable
+	has_many :fees
 	
 	has_paper_trail :on => [:update, :create, :destroy]
 	include Workflow

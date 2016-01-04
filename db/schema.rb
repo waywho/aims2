@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160103213448) do
+ActiveRecord::Schema.define(version: 20160104115755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20160103213448) do
     t.string   "county"
     t.string   "country"
     t.string   "post_code"
+    t.string   "ticket_type"
   end
 
   create_table "fees", force: :cascade do |t|
@@ -96,11 +97,12 @@ ActiveRecord::Schema.define(version: 20160103213448) do
     t.string   "description"
     t.integer  "amount"
     t.string   "workflow_state"
-    t.integer  "eventable_id"
-    t.string   "eventable_type"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "course_format_id"
   end
+
+  add_index "fees", ["course_format_id"], name: "index_fees_on_course_format_id", using: :btree
 
   create_table "klasses", force: :cascade do |t|
     t.string   "title"
