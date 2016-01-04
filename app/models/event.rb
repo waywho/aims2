@@ -4,6 +4,7 @@ class Event < ActiveRecord::Base
 	has_paper_trail :on => [:update, :create, :destroy]
 	has_one :photo, as: :imageable
 	accepts_nested_attributes_for :photo, allow_destroy: true
+	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
 
 	include Workflow
 
@@ -32,5 +33,9 @@ class Event < ActiveRecord::Base
 
 	def self.states
 		workflow_spec.state_names
+	end
+
+	def publish
+		self.published_at ||= Time.zone.now
 	end
 end
