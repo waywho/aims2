@@ -2,6 +2,7 @@ class Page < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :title, use: :slugged
 	has_paper_trail :on => [:update, :create, :destroy]
+	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
 
 	include Workflow
 
@@ -30,5 +31,9 @@ class Page < ActiveRecord::Base
 
 	def self.states
 		workflow_spec.state_names
+	end
+
+	def publish
+		self.published_at ||= Time.zone.now
 	end
 end

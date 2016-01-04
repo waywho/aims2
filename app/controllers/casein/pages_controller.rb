@@ -101,7 +101,7 @@ module Casein
     private
       
       def page_params
-        params.require(:page).permit(:title, :content, :workflow_state, :pages, {:page_ids => []})
+        params.require(:page).permit(:title, :content, :published_at, :workflow_state, :pages, {:page_ids => []})
       end
 
       def load_page

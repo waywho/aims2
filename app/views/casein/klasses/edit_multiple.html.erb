@@ -9,6 +9,7 @@
 				<th><%= casein_sort_link "# of sessions", :number_of_sessions %></th>
 				<th><%= casein_sort_link "Session of day", :session_of_day %></th>
 				<th><%= casein_sort_link "Course", :course_title %></th>
+				<th><%= casein_sort_link "Publish Date", :published_at %></th>
 				<th><%= casein_sort_link "Status", :workflow_state %></th>
 			</tr>
 		</thead>
@@ -20,8 +21,8 @@
 					<td><%= f.input :number_of_sessions, label: false %></td>
 					<td><%= f.input :session_of_day, label: false, collection: Klass::SESSIONS, include_blank: true %></td>
 					<td><%= f.input :course_id, collection: Course.all, label: false,text_method: :title %></td>
-					<td><%= f.input :workflow_state, label: false, :collection => Klass.states %>
-					</td>
+					<td><%= f.input :published_at, as: :date, html5: true, label: false  %></td>
+					<td><%= f.input :workflow_state, label: false, :collection => Klass.states %></td>
 				</tr>
 				<% end %>
 			<% end %>			
