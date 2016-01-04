@@ -47,6 +47,8 @@ module Casein
       
       respond_to do |format|
         
+        if @course_format.update_attributes course_format_params
+
           if params[:submit]
             @course.submit!
           elsif params[:approve]
@@ -58,8 +60,6 @@ module Casein
           elsif params[:unpublish]
             @course.unpublish!
           end
-
-          if @course_format.update_attributes course_format_params
         
             format.html { redirect_to casein_course_format_path(@format), notice: "Course format has been updated. #{undo_link}" }
           format.js

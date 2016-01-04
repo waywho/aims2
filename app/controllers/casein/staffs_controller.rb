@@ -42,7 +42,9 @@ module Casein
     def update
       @casein_page_title = 'Update staff'
        respond_to do |format|
-        
+
+        if @staff.update_attributes staff_params
+
           if params[:submit]
             @staff.submit!
           elsif params[:approve]
@@ -54,8 +56,6 @@ module Casein
           elsif params[:unpublish]
             @staff.unpublish!
           end
-
-        if @staff.update_attributes staff_params
         
           format.html { redirect_to casein_staff_path(@staff), notice: "Staff has been updated. #{undo_link}" }
           format.js

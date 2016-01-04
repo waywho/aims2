@@ -45,6 +45,8 @@ module Casein
       @casein_page_title = 'Update course'
             
       respond_to do |format|
+
+      if @course.update_attributes course_params
         
           if params[:submit]
             @course.submit!
@@ -57,8 +59,6 @@ module Casein
           elsif params[:unpublish]
             @course.unpublish!
           end
-
-        if @course.update_attributes course_params
         
           format.html { redirect_to casein_course_path(@course), notice: "Course has been updated. #{undo_link}" }
           format.js
@@ -113,7 +113,7 @@ module Casein
     private
       
       def course_params
-        params.require(:course).permit(:title, :courses, :workflow_state, {:course_ids => []}, :description, photos_attributes: [:id, :caption, :course_id, :image])
+        params.require(:course).permit(:title, :courses, :workflow_state, {:course_ids => []}, :description, :published_at, photos_attributes: [:id, :caption, :course_id, :image])
       end
 
       def undo_link

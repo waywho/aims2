@@ -38,6 +38,8 @@ module Casein
       @casein_page_title = 'Update event'
       
       respond_to do |format|
+       if @event.update_attributes event_params
+
           if params[:submit]
             @event.submit!
           elsif params[:approve]
@@ -49,9 +51,7 @@ module Casein
           elsif params[:unpublish]
             @event.unpublish!
           end
-
-        if @event.update_attributes event_params
-        
+          
           format.html { redirect_to casein_event_path(@event), notice: "Event has been updated. #{undo_link}" }
           format.js
         else

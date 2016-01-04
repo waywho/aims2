@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160104115755) do
+ActiveRecord::Schema.define(version: 20160104154711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20160104115755) do
     t.string   "post_code"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.datetime "published_at"
   end
 
   add_index "course_formats", ["slug"], name: "index_course_formats_on_slug", using: :btree
@@ -67,6 +68,7 @@ ActiveRecord::Schema.define(version: 20160104115755) do
     t.string   "slug"
     t.string   "workflow_state"
     t.integer  "course_format_id"
+    t.datetime "published_at"
   end
 
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
@@ -89,6 +91,7 @@ ActiveRecord::Schema.define(version: 20160104115755) do
     t.string   "country"
     t.string   "post_code"
     t.string   "ticket_type"
+    t.datetime "published_at"
   end
 
   create_table "fees", force: :cascade do |t|
@@ -100,6 +103,7 @@ ActiveRecord::Schema.define(version: 20160104115755) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.integer  "course_format_id"
+    t.datetime "published_at"
   end
 
   add_index "fees", ["course_format_id"], name: "index_fees_on_course_format_id", using: :btree
@@ -114,6 +118,7 @@ ActiveRecord::Schema.define(version: 20160104115755) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.string   "workflow_state"
+    t.datetime "published_at"
   end
 
   add_index "klasses", ["course_id"], name: "index_klasses_on_course_id", using: :btree
@@ -128,6 +133,7 @@ ActiveRecord::Schema.define(version: 20160104115755) do
     t.string   "workflow_state"
     t.integer  "leader_id"
     t.integer  "leader_type"
+    t.datetime "published_at"
   end
 
   add_index "pages", ["leader_id"], name: "index_pages_on_leader_id", using: :btree
@@ -146,6 +152,15 @@ ActiveRecord::Schema.define(version: 20160104115755) do
   add_index "photos", ["imageable_id"], name: "index_photos_on_imageable_id", using: :btree
   add_index "photos", ["imageable_type"], name: "index_photos_on_imageable_type", using: :btree
 
+  create_table "quotes", force: :cascade do |t|
+    t.string   "author"
+    t.string   "saying"
+    t.string   "workflow_state"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.datetime "published_at"
+  end
+
   create_table "staffs", force: :cascade do |t|
     t.string   "name"
     t.text     "biography"
@@ -154,6 +169,7 @@ ActiveRecord::Schema.define(version: 20160104115755) do
     t.string   "workflow_state"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.datetime "published_at"
   end
 
   create_table "versions", force: :cascade do |t|

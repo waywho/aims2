@@ -2,7 +2,7 @@ class CoursesController < ApplicationController
 	before_action :set_courses
 
   def index
-    @courses = Course.with_published_state
+    @courses = Course.published_now
   end
 
   def show

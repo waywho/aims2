@@ -38,7 +38,7 @@ module Casein
       @casein_page_title = 'Update page'
       
       respond_to do |format|
-        
+        if @page.update_attributes page_params
           if params[:submit]
             @page.submit!
           elsif params[:approve]
@@ -51,8 +51,6 @@ module Casein
             @page.unpublish!
           end
 
-        if @page.update_attributes page_params
-        
           format.html { redirect_to casein_page_path(@page), notice: "Page has been updated. #{undo_link}" }
           format.js
         else
