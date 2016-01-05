@@ -10,6 +10,7 @@ class Course < ActiveRecord::Base
 	has_many :klasses
 	has_many :photos, as: :imageable
 	accepts_nested_attributes_for :photos, allow_destroy: true
+	has_many :menus, as: :navigation
 
 	workflow do
 		state :draft do
@@ -41,6 +42,7 @@ class Course < ActiveRecord::Base
 
 	def publish
 		update_attribute(:published_at, Time.zone.now) if self.published_at.nil?
+		menus.create(name: self.title, parent_id: self.course_format.menus.id, menu_tye: 'main')
 	end
 
 end
