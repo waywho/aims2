@@ -38,4 +38,8 @@ class Page < ActiveRecord::Base
 	def publish
 		update_attribute(:published_at, Time.zone.now) if self.published_at.nil?
 	end
+
+	def unpublish
+		update_attribute(:published_at, nil)
+	end
 end

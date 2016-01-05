@@ -44,4 +44,8 @@ class CourseFormat < ActiveRecord::Base
 		update_attribute(:published_at, Time.zone.now) if self.published_at.nil?
 		# menus.create(name: self.title, menu_type: 'main')
 	end
+
+	def unpublish
+		update_attribute(:published_at, nil)
+	end
 end
