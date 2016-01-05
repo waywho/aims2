@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160104154711) do
+ActiveRecord::Schema.define(version: 20160105095727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,20 @@ ActiveRecord::Schema.define(version: 20160104154711) do
   end
 
   add_index "klasses", ["course_id"], name: "index_klasses_on_course_id", using: :btree
+
+  create_table "menus", force: :cascade do |t|
+    t.string   "name"
+    t.string   "ancestry"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "menu_type"
+    t.string   "navigation_type"
+    t.integer  "navigation_id"
+  end
+
+  add_index "menus", ["ancestry"], name: "index_menus_on_ancestry", using: :btree
+  add_index "menus", ["navigation_id"], name: "index_menus_on_navigation_id", using: :btree
+  add_index "menus", ["navigation_type"], name: "index_menus_on_navigation_type", using: :btree
 
   create_table "pages", force: :cascade do |t|
     t.string   "title"

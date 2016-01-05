@@ -42,10 +42,22 @@ Staff.create({name: "Neil Jenkins", biography: "Experienced conductor, singer, a
 Staff.create({name: "Louisa Lam", biography: "GSMD fellow....", role: "house pianist"})
 
 Event.delete_all
-event1 = Event.create({title: "Choral Concert", description: "A selection of the chora pieces studied will be performed in a concert at the end of each day, alongside other solo items.", date: "2016-07-03 19:30:00", programme: "3 Shakespeare Songs Vaughan Williams", performers: "AIMS Choir. John Hancorn, conductor", venue: "St Gabriel's Halls", address1: "Pimlico", city: "London", county: "Greater London", post_code: "SW1V 3AA"})
+Event.create({title: "Choral Concert", description: "A selection of the choral pieces studied will be performed in a concert at the end of each day, alongside other solo items.", date: "2016-07-03 19:30:00", programme: "3 Shakespeare Songs Vaughan Williams", performers: "AIMS Choir. John Hancorn, conductor", venue: "St Gabriel's Halls", address1: "Pimlico", city: "London", county: "Greater London", post_code: "SW1V 3AA"})
+Event.create({title: "Celebrity Masterclass ", description: "This year we have the Director of the National Opera Studio, Kathryn Harris", date: "2016-08-24 19:30:00", programme: "3 Shakespeare Songs Vaughan Williams", performers: "Kathryn Harris with students", venue: "St Gabriel's Halls", address1: "Pimlico", city: "London", county: "Greater London", post_code: "SW1V 3AA"})
+Event.create({title: "Tutors Concert", description: "A selection of the crowd favourites at the end of each day", date: "2016-08-23 19:30:00", programme: "3 Shakespeare Songs Vaughan Williams", performers: "Tutors", venue: "St Gabriel's Halls", address1: "Pimlico", city: "London", county: "Greater London", post_code: "SW1V 3AA"})
+Event.create({title: "Gala Recital", description: "Some amazing singer.", date: "2016-08-21 19:30:00", programme: "3 Shakespeare Songs Vaughan Williams", performers: "Grand old singer", venue: "St Gabriel's Halls", address1: "Pimlico", city: "London", county: "Greater London", post_code: "SW1V 3AA"})
 
 Page.delete_all
-page1 = Page.create({title: "Ticket Information", content: "You can buy tickets at the door"})
+Page.create({title: "Ticket Information", content: "You can buy tickets at the door"})
+Page.create({title: "Accommodation", content: "You will live here"})
+Page.create({title: "Contact Us", content: "I will call you"})
+Page.create({title: "About Us", content: "We are just brilliant"})
+Page.create({title: "Support Us", content: "Your support is very helpful"})
+Page.create({title: "What Happens Next?", content: "You will receive a booking confirmation"})
+Page.create({title: "Location", content: "The course takes place on the lovely campus of Eastbourne College"})
+Page.create({title: "Bursaries", content: "AIMS Bursary Fund offers financial help to singers of all ages. Eligible students can apply..."})
+Page.create({title: "Auditions", content: "This is how you audition"})
+Page.create({title: "A Typical Day", content: "This is the typical day"})
 
 Fee.delete_all
 format_summer.fees.create({fee_type: "Residential", category: "Shared Rooms", description: "Dormitory(3-5 beds)", amount: "665"})

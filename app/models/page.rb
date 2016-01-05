@@ -3,6 +3,7 @@ class Page < ActiveRecord::Base
 	friendly_id :title, use: :slugged
 	has_paper_trail :on => [:update, :create, :destroy]
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
+	has_one :menu, as: :navigation
 
 	include Workflow
 
