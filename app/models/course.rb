@@ -42,7 +42,7 @@ class Course < ActiveRecord::Base
 
 	def publish
 		update_attribute(:published_at, Time.zone.now) if self.published_at.nil?
-		menus.create(name: self.title, parent_id: self.course_format.menus.id, menu_tye: 'main')
+		# menus.create(name: self.title, parent_id: self.course_format.menus, menu_type: 'main')
 	end
 
 end
