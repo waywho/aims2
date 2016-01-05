@@ -69,7 +69,7 @@ Rails.application.routes.draw do
 
   post "casein/versions/:id/revert" => 'casein/versions#revert', :as => "revert_version"
 
-  resources :formats, :only => [:index, :show] do
+  resources :course_formats, :only => [:index, :show] do
       resource :photos, :only => [:index, :show]
   end
 
