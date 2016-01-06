@@ -82,7 +82,7 @@ module Casein
     end
 
     def update_multiple
-     @quotes = Quote.friendly.update(params[:quotes].keys, params[:quotes].values)
+     @quotes = Quote.update(params[:quotes].keys, params[:quotes].values)
       @quotes.reject! { |quote| quote.errors.empty? }
       if @quotes.empty?
         redirect_to casein_quotes_path
@@ -112,7 +112,7 @@ module Casein
       end
       
       def load_quote
-        @quote = Quote.friendly.find params[:id]
+        @quote = Quote.find params[:id]
       end
   
   end
