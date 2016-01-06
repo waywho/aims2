@@ -26,10 +26,11 @@ module Casein
 
     def create
       
-      @pages = Page.where(id: menu_params[:page_ids])
+      @pages = Page.where(id: params[:page_ids])
 
       @pages.each do |page|
-        @menu = Menu.create(name: page.title, menu_type: menu_params[:menu_type], navigation: page)
+        @menu = page.menus.create(menu_params)
+        @menu.update_attribute(:name, page.title)
       end
 
       flash[:notice] = 'Menu created'

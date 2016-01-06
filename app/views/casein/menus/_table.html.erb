@@ -77,3 +77,9 @@
 		<% end %>
 	</tbody>
 </table>
+
+<% @menus.each do |menu| %>
+	<ul>
+		<li><%= menu.name %></li>
+	</ul>
+<% end %>
