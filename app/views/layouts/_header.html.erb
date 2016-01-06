@@ -42,22 +42,29 @@
 			         	<span class="sr-only">(current)</span>
 	         	</li>
 	         <% end %>
-	         <% @menus.main.each do |menu| %>
-	         <li>
-	         	<%= link_to menu.name, '#' %>
-	         </li>
-	         <% end %>
+	         <% @menus.main.roots.each do |menu| %>
+		         <% if menu.has_children? %>
+			        <li>
+			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= menu.name %><span class="caret"></span></a>
+			          	<nav class='navbar navbar-third dropdown-menu'>
+				        	<div class = 'container-fluid'>
+					        	<ul>
+						          	<% menu.children.each do |child| %>
+						          	<li role="separator" class = 'divider'></li>
+						          	<li><%= link_to child.name, '#' %>
 
-	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Course Information <span class="caret"></span></a>
-	          <ul class="dropdown-menu">
-	            <li><a href="#">Audition</a></li>
-	            <li role="separator" class="divider"></li>
-	            <li><a href="#">Accommodation</a></li>
-	            <li role="separator" class="divider"></li>
-	            <li><a href="#">Fees</a></li>
-	          </ul>
-	        </li>
+						          	<% end %>
+					        	</ul>
+				     		 </div>
+			      		</nav>
+			        </li>
+			      <% else %>
+		         	<li>
+		         		<%= link_to menu.name, '#' %>
+		         	</li>
+		         <% end %>
+	         <% end %>
+	        <li><%= link_to 'Staff', staffs_path %></li>
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
 	        <li><a href="#">Booking</a></li>
@@ -65,15 +72,39 @@
 	      
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
-	<% if controller_name == 'courses' %>
-		<nav class = 'navbar navbar-third'>
-			<div class = 'container-fluid'>
-				<ul class = "nav navbar-nav">
-					<% @courses.each do |course| %>
-						<li class='hidden-xs hidden-sm'><%= link_to course.title, course_path(course) %></li>
-					<% end %>
-				</ul>
-			</div>
-		</nav>
-	<% end %>
+<% if controller_name == 'courses' %>
+	<nav class = 'navbar navbar-third'>
+		<div class = 'container-fluid'>
+			<ul class = "nav navbar-nav">
+				<% @courses.each do |course| %>
+					<li class='hidden-xs hidden-sm'><%= link_to course.title, course_path(course) %></li>
+				<% end %>
+			</ul>
+		</div>
+	</nav>
+<% end %>
+
+<% if controller_name == 'courses' %>
+	<nav class = 'navbar navbar-third'>
+		<div class = 'container-fluid'>
+			<ul class = "nav navbar-nav">
+				<% @courses.each do |course| %>
+					<li class='hidden-xs hidden-sm'><%= link_to course.title, course_path(course) %></li>
+				<% end %>
+			</ul>
+		</div>
+	</nav>
+<% end %>
 </nav>
+
+<ul>
+<% @menus.main.arrange.each do |menu, submenu| %>
+<li><%= menu.name %></li>
+<ul>
+	<% submenu.each do |sub| %>
+	<li><%= sub %>
+	</li>
+	<% end %>
+</ul>
+<% end %>
+</ul>

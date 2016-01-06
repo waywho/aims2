@@ -10,7 +10,35 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% menus.main.rank(:row_order).each do |menu| %>
+		<% menus.main.roots.rank(:row_order).each do |menu| %>
+			<tr data-update-url=<%= casein_menu_path(menu) %>>
+				<td><%= check_box_tag 'menu[menu_ids][]', menu.id, checked = false, { id: dom_id(menu), :class => 'index-check' } %>
+					</td>
+				<td><%= casein_table_cell_link menu.name, '#' %></td>
+				<td><%= casein_table_cell_link menu.menu_type, '#' %></td>
+				<td class="delete">
+					<%= link_to(casein_show_row_icon("trash"), casein_menu_path(menu), :method => :delete, :data => { :confirm => "Are you sure you want to delete this menu?" }) %>
+				</td>
+			</tr>
+			<% if menu.children? %>
+			<tbody class="nested-menu">
+			<% menu.children.rank(:row_order).each do |menu| %>
+				<tr data-update-url=<%= casein_menu_path(menu) %>>
+					<td><%= check_box_tag 'menu[menu_ids][]', menu.id, checked = false, { id: dom_id(menu), :class => 'index-check' } %>
+						</td>
+					<td><%= casein_table_cell_link menu.name, '#' %></td>
+					<td><%= casein_table_cell_link menu.menu_type, '#' %></td>
+					<td class="delete">
+						<%= link_to(casein_show_row_icon("trash"), casein_menu_path(menu), :method => :delete, :data => { :confirm => "Are you sure you want to delete this menu?" }) %>
+					</td>
+				</tr>
+			<% end %>
+			</tbody>
+			<% end %>
+		<% end %>
+	</tbody>
+	<tbody>
+		<% menus.secondary.roots.rank(:row_order).each do |menu| %>
 			<tr data-update-url=<%= casein_menu_path(menu) %>>
 				<td><%= check_box_tag 'menu[menu_ids][]', menu.id, checked = false, { id: dom_id(menu), :class => 'index-check' } %>
 					</td>
@@ -23,20 +51,7 @@
 		<% end %>
 	</tbody>
 	<tbody>
-		<% menus.secondary.rank(:row_order).each do |menu| %>
-			<tr data-update-url=<%= casein_menu_path(menu) %>>
-				<td><%= check_box_tag 'menu[menu_ids][]', menu.id, checked = false, { id: dom_id(menu), :class => 'index-check' } %>
-					</td>
-				<td><%= casein_table_cell_link menu.name, '#' %></td>
-				<td><%= casein_table_cell_link menu.menu_type, '#' %></td>
-				<td class="delete">
-					<%= link_to(casein_show_row_icon("trash"), casein_menu_path(menu), :method => :delete, :data => { :confirm => "Are you sure you want to delete this menu?" }) %>
-				</td>
-			</tr>
-		<% end %>
-	</tbody>
-	<tbody>
-		<% menus.footer.rank(:row_order).each do |menu| %>
+		<% menus.footer.roots.rank(:row_order).each do |menu| %>
 			<tr data-update-url=<%= casein_menu_path(menu) %>>
 				<td><%= check_box_tag 'menu[menu_ids][]', menu.id, checked = false, { id: dom_id(menu), :class => 'index-check' } %>
 					</td>
