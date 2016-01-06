@@ -51,17 +51,17 @@ $(document).ready(function() {
 	 });
 
 	Dropzone.options.myAwesomeDropzone = {
-	init: function() {
-		this.on("thumbnail", function (file) {
-			$(".dz-image img").addClass("img-responsive");
-		});
-	},
-	paramName: 'photo[image]',
-	uploadMultiple: false,
-	clickable: true,
-	acceptedFiles: 'image/*',
-	thumbnailWidth: '160',
-	thumbnailHeight: '160'
+		init: function() {
+			this.on("thumbnail", function (file) {
+				$(".dz-image img").addClass("img-responsive");
+			});
+		},
+		paramName: 'photo[image]',
+		uploadMultiple: false,
+		clickable: true,
+		acceptedFiles: 'image/*',
+		thumbnailWidth: '160',
+		thumbnailHeight: '160'
 	};
 
 	var $currentState = $('#current-state')

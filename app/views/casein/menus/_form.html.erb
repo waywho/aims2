@@ -2,19 +2,19 @@
 
 
 <div class="row">
-	<div class="col-lg-6 col-md-6">
+	<div class="col-lg-12 col-md-12">
 		<%= casein_collection_select f, f.object, 'menu', :parent_id, Page.published_now.order(:title), :id, :title, include_blank: true, casein_label: 'Parent menu item' %>
 	</div>
-	<div class="col-lg-6 col-md-6">
+	<div class="col-lg-12 col-md-12">
 		<%= casein_select f, f.object, :menu_type, Menu::TYPES, include_blank: true %>
 	</div>
 </div>
 <div class="row">
-	<b>Published pages</b>
+	<h5>Published pages</h5>
 	<br />
 	<p>
 	<% @pages.each do |page| %>
-	<div class="col-lg-6 col-md-6">
+	<div class="col-lg-12 col-md-12">
 		<p>
 		<%= check_box_tag 'menu[page_ids][]', page.id, checked = false, { id: dom_id(page) } %>
 		<%= page.title %>

@@ -2,7 +2,20 @@
 
 <h2>Menus<%= casein_pagination_details @menus %></h2>
 
-<div class='col-lg-6 col-md-6'>
+<div class='col-lg-9 col-md-9'>
+<h4>Existing Menu Items</h4>
+<p>
+<ul>
+<% @course_formats.each do |course_format| %>
+	<li><%= course_format.title %>
+<% end %>
+	<li>Staff</li>
+	<li>Booking</li>
+</ul>
+</p>
+<br />
+
+<h4>Additional Menu Items</h4>
 <%= form_tag edit_multiple_casein_menus_path, method: :post do %>
 	<%= render :partial => 'casein/menus/table', :locals => { :menus => @menus } %>
 		<span class="instruction-text">(Select muliple records to make changes.)</span>
@@ -15,8 +28,8 @@
 </div>
 
 
-<div class='col-lg-6 col-md-6'>
-<h2>Add a new menu</h2>
+<div class='col-lg-3 col-md-3'>
+<h4>Add a new menu</h4>
 
 <%= form_for [@page, @menu], :url => casein_menus_path do |f| %>
 	
@@ -28,3 +41,25 @@
 
 <% end %>
 </div>
+
+<script>
+	var fixHelper = function(e, ui) {
+		ui.children().each(function() {
+			$(this).width($(this).width());
+		});
+		return ui;
+	};
+	$(function() {
+		$('.table tbody').sortable({
+			helper: fixHelper,
+			update: function(event, ui) {
+				$.ajax({
+					type: 'PUT',
+					url: ui.item.data('update-url'),
+					dataType: 'json',
+					data: { menu: {row_order_position: ui.item.index()}}
+				});
+			}
+		});
+	});
+</script>

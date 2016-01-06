@@ -46,6 +46,10 @@ gem 'workflow'
 gem "factory_girl_rails", "~> 4.0"
 
 gem 'ancestry'
+
+gem 'ranked-model'
+
+gem 'jquery-ui-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

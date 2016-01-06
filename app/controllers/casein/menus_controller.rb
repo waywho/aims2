@@ -12,6 +12,7 @@ module Casein
       @menus = Menu.order(sort_order(:name)).paginate :page => params[:page]
       @menu = Menu.new
       @pages = Page.published_now.order(:title)
+      @course_formats = CourseFormat.published_now
     end
   
     def show
@@ -28,7 +29,7 @@ module Casein
       @pages = Page.where(id: menu_params[:page_ids])
 
       @pages.each do |page|
-        @menu = Menu.create(name: page.title, navigation: page)
+        @menu = Menu.create(name: page.title, menu_type: menu_params[:menu_type], navigation: page)
       end
 
       flash[:notice] = 'Menu created'
@@ -39,8 +40,7 @@ module Casein
       @casein_page_title = 'Update menu'
       
       if @menu.update_attributes menu_params    
-        flash[:notice] = 'Menu has been updated'
-        redirect_to casein_photos_path
+        render :text => 'Menu has been updated'
       else
         flash.now[:warning] = 'There were problems when trying to update this menu'
         render :action => :show
@@ -89,7 +89,7 @@ module Casein
     private
       
       def menu_params
-        params.require(:menu).permit(:name, :parent_id, :menus, {:page_ids =>[]}, {:menu_ids => []})
+        params.require(:menu).permit(:name, :parent_id, :menus, {:page_ids =>[]}, :menu_type, {:menu_ids => []}, :row_order_position)
       end
       
       def load_menu

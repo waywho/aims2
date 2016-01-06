@@ -8,4 +8,5 @@ Rails.application.config.assets.version = '1.0'
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += %w( casein/dropzone.css casein/dropzone.js bootstrap-wysihtml5/bootstrap3-wysihtml5.css bootstrap-wysihtml5/index.js bootstrap-wysihtml5/locales/index.js)
+Rails.application.config.assets.precompile += %w( casein/dropzone.css casein/dropzone.js bootstrap-wysihtml5/bootstrap3-wysihtml5.css 
+	bootstrap-wysihtml5/index.js bootstrap-wysihtml5/locales/index.js jquery-ui.css jquery-ui.js)
