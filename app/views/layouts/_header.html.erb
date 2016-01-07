@@ -44,8 +44,15 @@
 		         <% end %>
 		         <% @menus.main.roots.each do |menu| %>
 			        <% if menu.has_children? %>
-				    	<li>
+				    	<li class="dropdown">
 				         	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= menu.name %><span class="caret"></span></a>
+					        	<ul class="dropdown-menu">
+					        		<ul class='list-inline'>
+						          		<% menu.children.each do |child| %>
+						          		<li><%= link_to child.name, '#' %>
+						          		<% end %>
+						          	</ul>
+					        	</ul>
 				        </li>
 				    <% else %>
 			        	<li>
@@ -62,15 +69,15 @@
 	</div><!-- /.container-fluid -->
 
 
-	<nav class='navbar navbar-third'>
-    	<div class = 'container-fluid'>
-        	<ul class="nav navbar-nav">
-	          	<% @menus.find_by_name('Course Information').children.each do |child| %>
-	          	<li><%= link_to child.name, '#' %></li>
-	          	<% end %>
-        	</ul>
- 		 </div>
-	</nav>
+		<nav class = 'navbar navbar-third'>
+			<div class = 'container-fluid'>
+				<ul class = "nav navbar-nav">
+					<% @courses.each do |course| %>
+						<li class='hidden-xs hidden-sm'><%= link_to course.title, course_path(course) %></li>
+					<% end %>
+				</ul>
+			</div>
+		</nav>
 
 </nav>
 
@@ -95,8 +102,3 @@
 </ul>
 <% end %>
 </ul>
-
-<script>
-	$(function() {
-	});
-</script>
