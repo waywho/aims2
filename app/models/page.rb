@@ -3,6 +3,7 @@ class Page < ActiveRecord::Base
 	friendly_id :title, use: :slugged
 	has_paper_trail :on => [:update, :create, :destroy]
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
+	has_many :menus, as: :navigation
 
 	include Workflow
 
@@ -36,5 +37,9 @@ class Page < ActiveRecord::Base
 
 	def publish
 		update_attribute(:published_at, Time.zone.now) if self.published_at.nil?
+	end
+
+	def unpublish
+		update_attribute(:published_at, nil)
 	end
 end

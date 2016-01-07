@@ -1,4 +1,8 @@
-FactoryGirl.define do  factory :quote do
+FactoryGirl.define do  factory :menu do
+    name "MyString"
+ancestry "MyString"
+  end
+  factory :quote do
     author "MyString"
 saying "MyString"
 workflow_state "MyString"

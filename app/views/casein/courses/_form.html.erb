@@ -10,6 +10,9 @@
 	</div>
 </div>
 <div class="row">
+		<%= casein_collection_select f, f.object, 'course', :course_format_id, CourseFormat.all, :id, :title, casein_label: "Course Format" %>
+</div>
+<div class="row">
 	<div class="col-lg-12 col-md-12">
 		<%= casein_text_area f, f.object, :description, :class => "description-box" %>
 	</div>

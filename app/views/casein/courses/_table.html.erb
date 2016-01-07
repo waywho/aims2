@@ -5,6 +5,7 @@
 		<tr>
 			<th><%= check_box_tag 'multi' %></th>
 			<th><%= casein_sort_link "Title", :title %></th>
+			<th><%= casein_sort_link "Course Format", :course_format_id %></th>
 			<th><%= casein_sort_link "Publish Date", :published_at %></th>
 			<th><%= casein_sort_link "Updated at", :updated_at %></th>
 			<th><%= casein_sort_link "Status", :workflow_state %></th>
@@ -17,7 +18,8 @@
 			<td><%= check_box_tag 'course[course_ids][]', course.id, checked = false, { id: dom_id(course), :class => 'index-check' } %>
 			</td>			
 			<td><%= casein_table_cell_link course.title, casein_course_path(course) %></td>
-			<td><%= casein_table_cell_link d_m_y(course.published_at), casein_course_path(course) %></td>	
+			<td><%= casein_table_cell_link course.course_format.title, casein_course_path(course) if course.course_format_id.present? %></td>
+			<td><%= casein_table_cell_link d_m_y(course.published_at), casein_course_path(course) %></td>
 			<td><%= casein_table_cell_link d_m_y(course.updated_at), casein_course_path(course) %></td>
 			<td><%= link_to casein_course_path(course) do %>
 				<%= image_tag state_icon(course.workflow_state) %>
