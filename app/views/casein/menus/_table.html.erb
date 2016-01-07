@@ -10,7 +10,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% menus.main.roots.rank(:row_order).each do |menu| %>
+		<% menus.main.roots.each do |menu| %>
 			<tr data-update-url=<%= casein_menu_path(menu) %>>
 				<td><%= check_box_tag 'menu[menu_ids][]', menu.id, checked = false, { id: dom_id(menu), :class => 'index-check' } %>
 					</td>
