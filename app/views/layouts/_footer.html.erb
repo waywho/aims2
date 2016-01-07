@@ -11,7 +11,7 @@
 	</div>
 	<div class = 'col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-panel'>
 		<ul>	
-			<% @menus.main.roots.each do |menu| %>
+			<% @menus.main.roots.rank(:row_order).each do |menu| %>
 				<li class="footer-title"><%= menu.name %></li>
 					<% if menu.has_children? %>
 						<% menu.children.each do |sub| %>
@@ -31,7 +31,7 @@
 	</div>
 	<div class = 'col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-panel'>
 		<ul>	
-			<% @menus.secondary.roots.each do |menu| %>
+			<% @menus.secondary.roots.rank(:row_order).each do |menu| %>
 				<li class="footer-title"><%= menu.name %></li>
 					<% if menu.has_children? %>
 						<% menu.children.each do |sub| %>
