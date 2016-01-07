@@ -5,12 +5,12 @@
 <div class='col-lg-9 col-md-9'>
 <h4>Existing Menu Items</h4>
 <p>
-<ul>
+<ul class='exiting-menu-list'>
 <% @course_formats.each do |course_format| %>
-	<li><%= course_format.title %>
+	<li class='menu-item'><%= course_format.title %>
 <% end %>
-	<li>Staff</li>
-	<li>Booking</li>
+	<li class='menu-item'>Staff</li>
+	<li class='menu-item'>Booking</li>
 </ul>
 </p>
 <br />
