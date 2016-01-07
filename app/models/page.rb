@@ -4,6 +4,7 @@ class Page < ActiveRecord::Base
 	has_paper_trail :on => [:update, :create, :destroy]
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
 	has_many :menus, as: :navigation
+	has_many :recordifies
 
 	include Workflow
 

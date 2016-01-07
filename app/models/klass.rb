@@ -2,7 +2,9 @@ class Klass < ActiveRecord::Base
 	belongs_to :course
 	has_paper_trail :on => [:update, :create, :destroy]
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
-
+	has_many :recordifies, as: :entriable
+	has_many :pages, through: :recorify
+	
 	include Workflow
 
 	SESSIONS = ["Session 1", "Session 2", "Session 3", "Session 4"]

@@ -4,7 +4,9 @@ class Fee < ActiveRecord::Base
 	
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
 	scope :event, -> {where(fee_type: 'Event')}
-	
+	has_many :recordifies, as: :entriable
+	has_many :pages, through: :recorify
+
 	include Workflow
 
 	workflow do

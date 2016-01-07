@@ -11,6 +11,8 @@ class Course < ActiveRecord::Base
 	has_many :photos, as: :imageable
 	accepts_nested_attributes_for :photos, allow_destroy: true
 	has_many :menus, as: :navigation
+	has_many :recordifies, as: :entriable
+	has_many :pages, through: :recorify
 
 	workflow do
 		state :draft do
