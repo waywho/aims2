@@ -15,15 +15,15 @@
 </p>
 <br />
 
-<h4>Additional Menu Items</h4>
+<h4>Additional Menu Items</h4><span class="instruction-text">(drag to change the menu order.)</span>
 <%= form_tag edit_multiple_casein_menus_path, method: :post do %>
 	<%= render :partial => 'casein/menus/table', :locals => { :menus => @menus } %>
+
+		<br />
+		<hr />
 		<span class="instruction-text">(Select muliple records to make changes.)</span>
-		<%= submit_tag "Quick Edit", :class => 'btn btn-mini btn-primary btn-index pull-right' %>
-		<%= submit_tag "Delete", name: 'delete', :class => 'btn btn-mini btn-danger btn-index pull-right' %>
-	<div class="text-center">
-		<%= will_paginate @menus %>
-	</div>
+			<%= submit_tag "Quick Edit", :class => 'btn btn-mini btn-primary btn-index pull-right' %>
+			<%= submit_tag "Delete", name: 'delete', :class => 'btn btn-mini btn-danger btn-index pull-right' %>
 <% end %>
 </div>
 
@@ -50,7 +50,7 @@
 		return ui;
 	};
 	$(function() {
-		$('.table tbody').sortable({
+		$('.menu-list').sortable({
 			helper: fixHelper,
 			update: function(event, ui) {
 				$.ajax({
