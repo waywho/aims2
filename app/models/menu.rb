@@ -7,7 +7,7 @@ class Menu < ActiveRecord::Base
 	scope :main, -> {where(menu_type: "main")}
 	scope :secondary, -> {where(menu_type: "secondary")}
 	scope :footer, -> {where(menu_type: "footer")}
-	scope :unassigned, -> {where(menu_type: nil OR menu_type: "")}
+	scope :unassigned, -> {where(menu_type: [nil, ""])}
 
 	TYPES = ['main', 'secondary', 'footer']
 end
