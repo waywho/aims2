@@ -1,6 +1,6 @@
 class Photo < ActiveRecord::Base
 	belongs_to :imageable, polymorphic: true
-	scope :unassigned, -> { where(imageable: nil || "") }
+	scope :unassigned, -> { where(imageable: nil OR imageable: "") }
 
 	mount_uploader :image, ImageUploader
 
