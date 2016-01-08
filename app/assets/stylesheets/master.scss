@@ -9,8 +9,6 @@ body {
 	clear: both;
 }
 
-
-
 h1, h2, h3, h4, h5 {
 	font-family: 'Cinzel', 'Georgia', 'Times New Roman', serif;
 	font-weight: bold;
@@ -48,6 +46,7 @@ h1 > a, h2 > a, h3 > a, h4 > a, h5 > a {
 	border-bottom-width: 0px;
 	border-radius: 0px;
 	padding-left: 55px;
+	border-color: white;
 }
 
 .nav > li > .sub-menu {

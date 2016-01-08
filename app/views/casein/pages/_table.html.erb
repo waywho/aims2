@@ -18,7 +18,7 @@
 			<td><%= check_box_tag 'page[page_ids][]', page.id, checked = false, { id: dom_id(page), :class => 'index-check' } %>
 				</td>
 			<td><%= casein_table_cell_link page.title, casein_page_path(page) %></td>
-			<td><%= casein_table_cell_link page.content, casein_page_path(page) %></td>
+			<td><%= casein_table_cell_link page.content, casein_page_path(page), :casein_truncate => 150 %></td>
 			<td><%= casein_table_cell_link d_m_y(page.published_at), casein_page_path(page) %></td>	
 			<td><%= casein_table_cell_link d_m_y(page.updated_at), casein_page_path(page) %></td>
 			<td><%= link_to casein_page_path(page) do %>

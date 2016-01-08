@@ -4,7 +4,7 @@ class Course < ActiveRecord::Base
 	has_paper_trail :on => [:update, :create, :destroy]
 	include Workflow
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
-
+	scope :main_course, -> { where(title: ['Solo Course', 'Choral Course', 'CROSSOVER Course', 'Piano Accompanist Course'])}
 
 	belongs_to :course_format
 	has_many :klasses
