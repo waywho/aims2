@@ -3,8 +3,8 @@ class Quote < ActiveRecord::Base
 	include Workflow
 
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
-	has_many :recordifies, as: :entriable
-	has_many :pages, through: :recorify
+	has_many :recordfies, as: :entriable
+	has_many :pages, through: :recordfies
 	
 	workflow do
 		state :draft do

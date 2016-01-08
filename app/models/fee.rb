@@ -4,8 +4,8 @@ class Fee < ActiveRecord::Base
 	
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
 	scope :event, -> {where(fee_type: 'Event')}
-	has_many :recordifies, as: :entriable
-	has_many :pages, through: :recorify
+	has_many :recordfies, as: :entriable
+	has_many :pages, through: :recordfies
 
 	include Workflow
 
@@ -47,5 +47,9 @@ class Fee < ActiveRecord::Base
 
 	def unpublish
 		update_attribute(:published_at, nil)
+	end
+
+	def title
+		"#{self.fee_type}, #{self.category}"
 	end
 end

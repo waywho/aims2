@@ -85,9 +85,23 @@ td .form-group {
 	border-color: white;
 }
 
-
-
 .menu-list li {
 	list-style-type: none;
 	padding: 10px 10px;
+}
+
+.collection_check_boxes {
+	margin-left: 5px;
+	margin-right: 20px;
+	font-weight: normal;
+}
+
+.multi-record {
+	font-style: italic;
+	font-size: 12px
+}
+
+.record-title {
+	margin-right: 12px;
+	font-weight: bold;
 }

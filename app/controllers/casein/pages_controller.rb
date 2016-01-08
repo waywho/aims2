@@ -15,6 +15,12 @@ module Casein
   
     def show
       @casein_page_title = 'View page'
+      @courses = Course.published_now
+      @events = Event.published_now
+      @fees = Fee.published_now
+      @quotes = Quote.published_now
+      @staffs = Staff.published_now
+      @klasses = Klass.published_now
     end
   
     def new
@@ -101,7 +107,10 @@ module Casein
     private
       
       def page_params
-        params.require(:page).permit(:title, :content, :published_at, :workflow_state, :pages, {:page_ids => []})
+        params.require(:page).permit(:title, :content, :published_at, 
+          :workflow_state, :pages, {:page_ids => []}, {:course_ids =>[]}, 
+            {:event_ids =>[]}, {:fee_ids =>[]}, {:klass_ids =>[]}, 
+              {:quote_ids =>[]}, {:staff_ids =>[]})
       end
 
       def load_page
@@ -109,7 +118,7 @@ module Casein
       end
 
       def undo_link
-        view_context.link_to("undo", revert_version_path(@course.versions.last), :method => :post).html_safe
+        view_context.link_to("undo", revert_version_path(@page.versions.last), :method => :post).html_safe
       end
   
   end
