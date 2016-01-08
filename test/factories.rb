@@ -1,4 +1,9 @@
-FactoryGirl.define do  factory :menu do
+FactoryGirl.define do  factory :recordfy do
+    page_id 1
+entry ""
+row_order 1
+  end
+  factory :menu do
     name "MyString"
 ancestry "MyString"
   end

@@ -7,14 +7,58 @@
 	<%= render :partial => 'casein/pages/form', :locals => { :f => f } %>
 	
 	<p class="submits">
-	  	<%= link_to 'Cancel', casein_courses_path, :class => 'btn btn-mini btn-default' %>
+	  	<%= link_to 'Cancel', casein_events_path, :class => 'btn btn-mini btn-default' %>
 		<%= render :partial => 'casein/layouts/approval_q_buttons', :locals => { :f => f } %>
 	</p>
 
 <% end %>
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add Existing Records to Page</h4>
+      </div>
+      <%= simple_form_for @page, :url => casein_page_path(@page) do |f| %>
+	      <div class="modal-body">
+	      			<div class='record'>
+						<span class='record-title'>Courses</span>(<%= link_to 'select all', '#', :class => 'multi-record' %>)<br />
+						<%= f.collection_check_boxes :course_ids, @courses, :id, :title, {:class => 'record-checkboxes'} %>
+					</div>
+					<div class='record'>
+						<span class='record-title'>Fees</span>(<%= link_to 'select all', '#', :class => 'multi-record' %>)<br />
+						<%= f.collection_check_boxes :fee_ids, @fees, :id, :title %>
+					</div>
+					<div class='record'>
+						<span class='record-title'>Events</span>(<%= link_to 'select all', '#', :class => 'multi-record' %>)<br />
+						<%= f.collection_check_boxes :event_ids, @events, :id, :title %>
+					</div>
+					<div class='record'>
+						<span class='record-title'>Quotes</span>(<%= link_to 'select all', '#', :class => 'multi-record' %>)<br />
+						<%= f.collection_check_boxes :quote_ids, @quotes, :id, :saying %>
+					</div>
+					<div class='record'>
+						<span class='record-title'>Staffs</span>(<%= link_to 'select all', '#', :class => 'multi-record' %>)<br />
+						<%= f.collection_check_boxes :staff_ids, @staffs, :id, :name %>
+		  			</div>
+		   </div>
+		   <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <%= f.submit 'Edit records', :class => 'btn btn-mini btn-primary' %>
+		   </div>
+    	<% end %>
+    </div>
+  </div>
+</div>
+
+
+
+
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "th-list"}Back to list".html_safe, casein_pages_path %></li>
+	<li><%= link_to "#{casein_show_icon "plus-sign"}Add records".html_safe, '#', data: { toggle: 'modal', target: '#myModal'} %></li>
 	<%= simple_form_for @page, :url => casein_page_path(@page), html: {:id => 'stateform'}, remote: true do |f| %>
 		<%= render partial: 'casein/layouts/status_form', :locals => {:f => f, :record => @page } %>
 	<% end %>

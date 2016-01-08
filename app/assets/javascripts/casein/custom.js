@@ -93,6 +93,12 @@ $(document).ready(function() {
 	});
 	$('#multi').on('change', function() {
 		$('.index-check').prop('checked', !$('.index-check').prop('checked'));
-	})
+	});
+
+	$('.multi-record').click(function() {
+		event.preventDefault();
+		var $multicheckboxes = $(this).parent().find('input[type=checkbox]');
+		$multicheckboxes.prop('checked', !$multicheckboxes.prop('checked'));
+	});
 		
 })
