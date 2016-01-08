@@ -1,7 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Cinzel);
+@import url(https://fonts.googleapis.com/css?family=Raleway);
 
 body {
-	font-family: 'Helvetica Neue', Helvetica, sans-serif;
+	font-family: 'Raleway', 'Helvetica Neue', Helvetica, sans-serif;
 }
 
 .clr {
@@ -20,8 +21,65 @@ h1 > a, h2 > a, h3 > a, h4 > a, h5 > a {
 	color: #A21D21;
 	} 
 
-.container-fluid {
-	padding-left: 45px;
+.nav {
+	margin-bottom: 0;
+}
+
+.navbar {
+	margin-bottom: 0;
+}
+
+.nav > li.dropdown.open { 
+	position: static;
+	display: inline;
+}
+
+.nav > li.dropdown.open .dropdown-menu {
+	width: 100%; 
+	text-align: left; 
+	left:0; 
+	right:0;
+	background-color: grey;
+	border-top-width: 1px;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-radius: 0px;
+	padding-left: 55px;
+	border-color: white;
+}
+
+.nav > li > .sub-menu {
+	width: 100%; 
+	text-align: left; 
+	left:0; 
+	right:0;
+	background-color: grey;
+	border-top-width: 1px;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-radius: 0px;
+	padding-left: 55px;
+}
+
+.dropdown-menu>li { 
+	display: inline;
+	color: white;
+}
+
+.dropdown-menu > li > a { 
+	display: inline;
+	color: white;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left: 5px;
+	padding-right: 20px;
+}
+
+.dropdown-menu > li > a:hover { 
+	color: white;
+	background-color: #757575;
 }
 
 .navbar-main {
@@ -47,26 +105,48 @@ h1 > a, h2 > a, h3 > a, h4 > a, h5 > a {
 	font-weight: bold;
 }
 
+.navbar-default .navbar-nav > li > a:hover, 
+	.navbar-default .navbar-nav > li > a:focus, 
+		.navbar-default .navbar-nav > .open > a, 
+			.navbar-default .navbar-nav > .open > a:hover, 
+				.navbar-default .navbar-nav > .open > a:focus {
+		color: black;
+		background-color: #8C0F13;
+	}
+
 .navbar-secondary {
 	padding-right: 25px;
 }
 
-.navbar-third {
-	padding-left: 50px;
-	padding-top: 2px;
-	padding-bottom: 2px;
+nav.navbar.navbar-third {
+	padding-left: 55px;
 	border-radius: 0;
 	background-color: grey;
-	border: 0;
+	border-top: 1px;
+	border-left: 0px;
+	border-bottom: 0px;
+	border-right: 0px;
+	border-color: white;
+	border-style: solid;
 	margin: 0;
-	min-height: 24px;
+	min-height: 32px;
+	color: white;
 }
+
+nav.navbar.navbar-third li a:hover, 
+	nav.navbar.navbar-third li a:focus {
+					color: black;
+					background-color: #757575;
+				}
 
 .navbar-third li a {
 	padding-top: 4px;
-	padding-bottom: 4px;
+	padding-bottom: 4px; 
+	padding-left: 5px;
+	padding-right: 20px;
 	min-height: 20px;
 	font-weight: normal;
+	color: white;
 }
 
 .icon-bar {
@@ -84,6 +164,15 @@ h1 > a, h2 > a, h3 > a, h4 > a, h5 > a {
 	vertical-align: bottom;
 }
 
+
+.navbar-collapse .navbar-nav .open .dropdown-menu > li > a {
+	color: white;
+}
+
+.navbar-collapse#navbar-third {
+	padding-left: 0px;
+	padding-right: 0px;
+}
 .logo {
 	height: 75px;
 }

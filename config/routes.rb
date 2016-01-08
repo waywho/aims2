@@ -1,9 +1,15 @@
 Rails.application.routes.draw do
   
-  root 'courses#index'
+  root 'static_pages#home'
 
 	#Casein routes
 	namespace :casein do
+		resources :menus do
+      collection do
+        post :edit_multiple
+        post :update_multiple
+      end
+    end
 		resources :quotes do
       collection do
         post :edit_multiple
@@ -63,13 +69,17 @@ Rails.application.routes.draw do
 
   post "casein/versions/:id/revert" => 'casein/versions#revert', :as => "revert_version"
 
-  resources :formats, :only => [:index, :show] do
+  resources :course_formats, :only => [:index, :show] do
       resource :photos, :only => [:index, :show]
   end
 
   resources :courses, :only => [:index, :show] do
       resource :photos, :only => [:index, :show]
   end
+
+  resources :staffs, :only => [:index, :show]
+
+  resources :pages, :only => [:index, :show]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

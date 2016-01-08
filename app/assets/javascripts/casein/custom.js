@@ -51,17 +51,17 @@ $(document).ready(function() {
 	 });
 
 	Dropzone.options.myAwesomeDropzone = {
-	init: function() {
-		this.on("thumbnail", function (file) {
-			$(".dz-image img").addClass("img-responsive");
-		});
-	},
-	paramName: 'photo[image]',
-	uploadMultiple: false,
-	clickable: true,
-	acceptedFiles: 'image/*',
-	thumbnailWidth: '160',
-	thumbnailHeight: '160'
+		init: function() {
+			this.on("thumbnail", function (file) {
+				$(".dz-image img").addClass("img-responsive");
+			});
+		},
+		paramName: 'photo[image]',
+		uploadMultiple: false,
+		clickable: true,
+		acceptedFiles: 'image/*',
+		thumbnailWidth: '160',
+		thumbnailHeight: '160'
 	};
 
 	var $currentState = $('#current-state')
@@ -93,6 +93,12 @@ $(document).ready(function() {
 	});
 	$('#multi').on('change', function() {
 		$('.index-check').prop('checked', !$('.index-check').prop('checked'));
-	})
+	});
+
+	$('.multi-record').click(function() {
+		event.preventDefault();
+		var $multicheckboxes = $(this).parent().find('input[type=checkbox]');
+		$multicheckboxes.prop('checked', !$multicheckboxes.prop('checked'));
+	});
 		
 })

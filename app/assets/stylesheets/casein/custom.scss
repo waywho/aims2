@@ -58,3 +58,50 @@ td .form-group {
 	font-size: 0.8em;
 	color: grey;
 }
+
+.nested-menu td {
+	border-left: 30px solid transparent;
+}
+
+.menu-item {
+	border-top: 2px;
+	border-bottom: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	border-style: solid;
+	border-color: white;
+	background-color: #CCCCCC;
+}
+
+.exiting-menu-list li {
+	list-style-type: none;
+	padding: 10px 10px;
+	width: 200px;
+	background-color: #FFBABA;
+	color: #969696;
+	text-align: center;
+	border: 1px 1px;
+	border-style: solid;
+	border-color: white;
+}
+
+.menu-list li {
+	list-style-type: none;
+	padding: 10px 10px;
+}
+
+.collection_check_boxes {
+	margin-left: 5px;
+	margin-right: 20px;
+	font-weight: normal;
+}
+
+.multi-record {
+	font-style: italic;
+	font-size: 12px
+}
+
+.record-title {
+	margin-right: 12px;
+	font-weight: bold;
+}

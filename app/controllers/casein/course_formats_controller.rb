@@ -124,7 +124,7 @@ module Casein
       end
 
       def undo_link
-        view_context.link_to("undo", revert_version_path(@course.versions.last), :method => :post).html_safe
+        view_context.link_to("undo", revert_version_path(@course_format.versions.last), :method => :post).html_safe
       end
   
   end

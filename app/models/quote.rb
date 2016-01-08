@@ -3,7 +3,9 @@ class Quote < ActiveRecord::Base
 	include Workflow
 
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
-
+	has_many :recordfies, as: :entriable
+	has_many :pages, through: :recordfies
+	
 	workflow do
 		state :draft do
 			event :submit, transition_to: :pending_review
@@ -34,5 +36,9 @@ class Quote < ActiveRecord::Base
 
 	def publish
 		update_attribute(:published_at, Time.zone.now) if self.published_at.nil?
+	end
+
+	def unpublish
+		update_attribute(:published_at, nil)
 	end
 end

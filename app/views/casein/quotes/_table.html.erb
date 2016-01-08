@@ -17,7 +17,7 @@
 		<tr>
 			<td><%= check_box_tag 'quote[quote_ids][]', quote.id, checked = false, { id: dom_id(quote), :class => 'index-check' } %>
 				</td>
-			<td><%= casein_table_cell_link truncated_description(quote.saying), casein_quote_path(quote) %></td>
+			<td><%= casein_table_cell_link quote.saying, casein_quote_path(quote), :casein_truncate => 160 %></td>
 			<td><%= casein_table_cell_link quote.author, casein_quote_path(quote) %></td>
 			<td><%= casein_table_cell_link d_m_y(quote.published_at), casein_quote_path(quote) %></td>
 			<td><%= casein_table_cell_link d_m_y(quote.updated_at), casein_quote_path(quote) %></td>

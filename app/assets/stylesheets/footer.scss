@@ -2,21 +2,49 @@ html, body {
   height: 100%;
 }
 
-.wrap {
+.wrapper {
   min-height: 100%;
 }
 
 .main {
   overflow:auto;
-  padding-bottom:190px; /* this needs to be bigger than footer height*/
+  padding-bottom:200px; /* this needs to be bigger than footer height*/
 }
 
 .footer {
   position: relative;
   margin-top: -150px; /* negative value of footer height */
   height: 150px;
-  clear:both;
-  padding-top:20px;
-  background-color: black;
+  clear: both;
+  padding-top: 20px;
   color: white;
+  font-weight: 200;
+  font-size: 12px;
+  background-color: black;
 } 
+
+.footer-content {
+  background-color: black;
+}
+
+.footer ul li {
+  list-style-type: none;
+}
+
+.footer li a {
+  color: white;
+}
+
+.footer-title {
+  font-weight: bold;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.footer-topic {
+  margin-left: 12px;
+}
+
+.footer-panel {
+  margin-bottom: 5px;
+}

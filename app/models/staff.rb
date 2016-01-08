@@ -11,7 +11,9 @@ class Staff < ActiveRecord::Base
 
 	has_one :photo, as: :imageable
 	accepts_nested_attributes_for :photo, allow_destroy: true
-
+	has_many :recordfies, as: :entriable
+	has_many :pages, through: :recordfies
+	
 	include Workflow
 
 	workflow do
@@ -44,6 +46,10 @@ class Staff < ActiveRecord::Base
 	
 	def publish
 		update_attribute(:published_at, Time.zone.now) if self.published_at.nil?
+	end
+
+	def unpublish
+		update_attribute(:published_at, nil)
 	end
 
 end

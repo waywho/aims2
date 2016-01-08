@@ -1,4 +1,13 @@
-FactoryGirl.define do  factory :quote do
+FactoryGirl.define do  factory :recordfy do
+    page_id 1
+entry ""
+row_order 1
+  end
+  factory :menu do
+    name "MyString"
+ancestry "MyString"
+  end
+  factory :quote do
     author "MyString"
 saying "MyString"
 workflow_state "MyString"

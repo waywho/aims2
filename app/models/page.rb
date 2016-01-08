@@ -3,6 +3,15 @@ class Page < ActiveRecord::Base
 	friendly_id :title, use: :slugged
 	has_paper_trail :on => [:update, :create, :destroy]
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
+	has_many :menus, as: :navigation
+	has_many :recordfies
+	has_many :courses, through: :recordfies, source: :entriable, source_type: 'Course'
+	has_many :events, through: :recordfies, source: :entriable, source_type: 'Event'
+	has_many :fees, through: :recordfies, source: :entriable, source_type: 'Fee'
+	has_many :klasses, through: :recordfies, source: :entriable, source_type: 'Klass'
+	has_many :quotes, through: :recordfies, source: :entriable, source_type: 'Quote'
+	has_many :staffs, through: :recordfies, source: :entriable, source_type: 'Staff'
+
 
 	include Workflow
 
@@ -36,5 +45,9 @@ class Page < ActiveRecord::Base
 
 	def publish
 		update_attribute(:published_at, Time.zone.now) if self.published_at.nil?
+	end
+
+	def unpublish
+		update_attribute(:published_at, nil)
 	end
 end

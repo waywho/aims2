@@ -4,12 +4,15 @@ class Course < ActiveRecord::Base
 	has_paper_trail :on => [:update, :create, :destroy]
 	include Workflow
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
-
+	scope :main_course, -> { where(title: ['Solo Course', 'Choral Course', 'CROSSOVER Course', 'Piano Accompanist Course'])}
 
 	belongs_to :course_format
 	has_many :klasses
 	has_many :photos, as: :imageable
 	accepts_nested_attributes_for :photos, allow_destroy: true
+	has_many :menus, as: :navigation
+	has_many :recordfies, as: :entriable
+	has_many :pages, through: :recordfies
 
 	workflow do
 		state :draft do
@@ -41,6 +44,10 @@ class Course < ActiveRecord::Base
 
 	def publish
 		update_attribute(:published_at, Time.zone.now) if self.published_at.nil?
+		# menus.create(name: self.title, parent_id: self.course_format.menus, menu_type: 'main')
 	end
-
+	
+	def unpublish
+		update_attribute(:published_at, nil)
+	end
 end

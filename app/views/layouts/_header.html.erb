@@ -7,10 +7,23 @@
 	</div>
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	<ul class="nav navbar-nav navbar-right">
-		<li><a href="#">About</a></li>
-		<li><a href="#">Support Us</a></li>
-		<li><a href="#">FAQ</a></li>
-		<li><a href="#">Contact Us</a></li>
+		<% @menus.secondary.roots.rank(:row_order).each do |menu| %>
+	        <% if menu.has_children? %>
+		    	<li class="dropdown">
+		         	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= menu.name %>&nbsp;<span class="caret"></span></a>
+			        	<ul class="dropdown-menu">
+				          		<% menu.children.each do |child| %>
+				          		<li><%= link_to child.name, child.navigation %></li>
+				          		<% end %>
+
+			        	</ul>
+		        </li>
+		    <% else %>
+	        	<li>
+	         		<%= link_to menu.name, menu.navigation %>
+	         	</li>
+	         <% end %>
+        <% end %>
 	</ul>
 	</div>
 </nav>
@@ -22,57 +35,75 @@
 <% end %>
 
 <nav class="navbar navbar-default navbar-main">
-	  <div class="container-fluid">
+	<div class="container-fluid">
 	    <!-- Brand and toggle get grouped for better mobile display -->
 	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2" aria-expanded="false">
-	        <span class="sr-only">Toggle navigation</span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	      </button>
-	    </div>
+		    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2" aria-expanded="false">
+		    	<span class="sr-only">Toggle navigation</span>
+		    	<span class="icon-bar"></span>
+		    	<span class="icon-bar"></span>
+		    	<span class="icon-bar"></span>
+		    </button>
+	   	</div>
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-	      <ul class="nav navbar-nav">
-	      	<% if controller_name == 'courses' %>
-	        	<li class = 'active'>
-		         	<%= link_to courses_path do %>
-			         	Summer Courses
-			         	<span class="sr-only">(current)</span>
-		         	<% end %>
-	         	</li>
-	         <% else %>
-	         	<li><%= link_to 'Summer Courses', courses_path %></li>
-	         <% end %>
-	        <li><a href="#">Mini-AIMS</a></li>
-	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Course Information <span class="caret"></span></a>
-	          <ul class="dropdown-menu">
-	            <li><a href="#">Audition</a></li>
-	            <li role="separator" class="divider"></li>
-	            <li><a href="#">Accommodation</a></li>
-	            <li role="separator" class="divider"></li>
-	            <li><a href="#">Fees</a></li>
-	          </ul>
-	        </li>
-	      </ul>
-	      <ul class="nav navbar-nav navbar-right">
-	        <li><a href="#">Booking</a></li>
-	       </ul>
-	      
+		    <ul class="nav navbar-nav">
+		      	<% @course_formats.each do |course_format| %>
+		        	<li>
+			         	<%= link_to course_format.title, course_format %>
+				         	<span class="sr-only">(current)</span>
+		         	</li>
+		         <% end %>
+		         <% @menus.main.roots.rank(:row_order).each do |menu| %>
+			        <% if menu.has_children? %>
+				    	<li class="dropdown">
+				         	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= menu.name %>&nbsp;<span class="caret"></span></a>
+					        	<ul class="dropdown-menu">
+						          		<% menu.children.each do |child| %>
+						          		<li><%= link_to child.name, '#' %>
+						          		<% end %>
+
+					        	</ul>
+				        </li>
+				    <% else %>
+			        	<li>
+			         		<%= link_to menu.name, '#' %>
+			         	</li>
+			         <% end %>
+		         <% end %>
+		        <li><%= link_to 'Staff', staffs_path %></li>
+		    </ul>
+		    <ul class="nav navbar-nav navbar-right">
+		    	<li><a href="#">Booking</a></li>
+		    </ul>  
 	    </div><!-- /.navbar-collapse -->
-	  </div><!-- /.container-fluid -->
-	<% if controller_name == 'courses' %>
-		<nav class = 'navbar navbar-third'>
-			<div class = 'container-fluid'>
-				<ul class = "nav navbar-nav">
-					<% @courses.each do |course| %>
-						<li class='hidden-xs hidden-sm'><%= link_to course.title, course_path(course) %></li>
-					<% end %>
-				</ul>
-			</div>
-		</nav>
-	<% end %>
+	</div><!-- /.container-fluid -->
+
 </nav>
+<% if controller_name == "courses" || controller_name == 'course_formats' %>
+	<div class="collapse navbar-collapse" id="navbar-third">
+	<nav class = 'navbar navbar-third'>
+			<ul class = "nav navbar-nav">
+				<% @courses.each do |course| %>
+					<li class='hidden-xs hidden-sm'><%= link_to course.title, course_path(course) %></li>
+				<% end %>
+			</ul>
+	</nav>
+</div>
+<% end %>
+
+
+
+<!-- 
+<ul>
+<% @menus.main.arrange.each do |menu, submenu| %>
+<li><% menu.name %></li>
+<ul>
+	<% submenu.each do |sub| %>
+	<li><% sub %>
+	</li>
+	<% end %>
+</ul>
+<% end %>
+</ul> -->
