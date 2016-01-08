@@ -58,6 +58,8 @@ Page.create({title: "Location", content: "The course takes place on the lovely c
 Page.create({title: "Bursaries", content: "AIMS Bursary Fund offers financial help to singers of all ages. Eligible students can apply..."})
 Page.create({title: "Auditions", content: "This is how you audition"})
 Page.create({title: "A Typical Day", content: "This is the typical day"})
+Page.create({title: "Staff", content: "Here are our staff"})
+Page.create({title: "Course Information", content: "courses info"})
 
 Fee.delete_all
 format_summer.fees.create({fee_type: "Residential", category: "Shared Rooms", description: "Dormitory(3-5 beds)", amount: "665"})
