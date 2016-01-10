@@ -24,15 +24,36 @@
 	         	</li>
 	         <% end %>
         <% end %>
+        <li><%= image_tag 'facebook-icon.png', :class => 'header-social-icon social-icon' %></li>
+        <li><%= image_tag 'twitter-icon.png', :class => 'header-social-icon social-icon' %></li>
+        <li><%= image_tag 'email-icon.png', :class => 'header-social-icon social-icon' %></li>
 	</ul>
 	</div>
-</nav>
 
-<%= link_to root_path do %>
-	<div class = "brand">
-	<%= image_tag "AIMS_red.jpg", :alt => 'AIMS', :class => 'logo' %> International Music School
+</nav>
+<div class='container-fluid'>
+	<%= link_to root_path do %>
+		<div class = "brand col-xs-12 col-sm-12 col-md-9 col-lg-9">
+			<%= image_tag "AIMS_red.jpg", :alt => 'AIMS', :class => 'logo' %> International Music School
+		</div>
+	<% end %>
+<!-- Begin MailChimp Signup Form -->
+	<div id="mc_embed_signup" class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+		<form action="//logical-thinking.us9.list-manage.com/subscribe/post?u=cbb914b50f309ab1290bcd8ea&amp;id=487d141b33" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate form-inline" target="_blank" novalidate>
+		    <div id="mc_embed_signup_scroll form-group">
+				<input type="email" value="" name="EMAIL" class="email form-control" id="mce-EMAIL" placeholder="email address" required>
+			    
+			    	<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+				    <div style="position: absolute; left: -5000px;" aria-hidden="true">
+				    	<input type="text" name="b_cbb914b50f309ab1290bcd8ea_487d141b33" tabindex="-1" value="">
+				    </div>
+			    <button type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn btn-default mail-button button">Stay Informed</button>
+			</div>
+		</form>
 	</div>
-<% end %>
+</div>
+
+<!--End mc_embed_signup-->
 
 <nav class="navbar navbar-default navbar-main">
 	<div class="container-fluid">

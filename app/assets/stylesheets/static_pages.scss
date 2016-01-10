@@ -5,73 +5,139 @@
 
 .hero {
   background: url('magicflute-hero.jpg') no-repeat center center;
-  background-position: center center;
   background-size: cover;
-  height: 50vh;
-  &:before {
-    content: '';
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		opacity: .8; 
-  	}
-  .intro {
-    position: relative;
-    top: 25%;
-   	background-color: rgba(0,0,0,0.5);
-  }
-  h1 {
-    color: #fff;
-    font-size: 1.5rem;
-    line-height: 1.5em;
-    letter-spacing: -0.025em;
-    font-weight: 300;
-    text-align: center;
-  }
-  p {
-    color: #fff;
-    line-height: 1.75em;
-    font-weight: 200;
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-/*  .tech-img {
-    background: url('neilj.jpg') no-repeat center center;
-    background-size: cover;
-    height: 9rem;
-    width: 9rem;
-    border-radius: 50%;
-    display: block;
-    margin: 0 auto;
-  }*/
-  @media only screen and (min-width: 40.063em) {
-    h1 {
-      text-align: left;
-      font-size: 2.5rem;
-    }
-    p {
-      text-align: left;
-    }
-  }
+  height: 500px;
 }
 
-.row-attention {
-	padding-left: 50px;
+.intro {
+    position: relative;
+    top: 25%;
+    left: 5%;
+   	background-color: rgba(0,0,0,0.5);
+   	height:60%;
+   	width: 60%;
+    color: #fff;
+    text-align: left;
+    padding: 20px 50px;
+  }
+
+.intro h1 {
+  color: #fff;
+  letter-spacing: 2px;
 }
+
+.intro p {
+    color: #fff;
+    line-height: 1.8;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+  .hero {
+    height: 400px;
+  }
+
+  .intro {
+    position: relative;
+    top: 10%;
+    left: 0;
+    margin: auto;
+    background-color: rgba(0,0,0,0.5);
+    height: 90%;
+    width: 90%;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+  }
+
+.intro h1 {
+  color: #fff;
+  letter-spacing: 2px;
+}
+
+.intro p {
+    color: #fff;
+} }
 
 .course {
 	text-align: center;
 }
 
+.course-heading {
+	height: 80px;
+  display: table;
+  width: 100%;
+}
+
 .course-title {
-/*	background-color: #C7C7C7;
-	padding: 20px;*/
-	min-height: 80px;
-	vertical-align: middle;
+  display: table-cell;
+  vertical-align: middle;
+  margin: auto;
 }
 
 .course-title h3 {
 	font-size: 22px;
+  margin: 0;
+}
+
+.course-body {
+  line-height: 1.8;
+}
+
+.news-head {
+	background-color: #C7C7C7;
+	width: 140px;
+	text-align: center;
+	padding: 10px;
+  margin-top: 10px;
+}
+
+.news-head h2 {
+	margin: 0px;
+  color: #fff;
+}
+
+.news-window {
+	height: 275px;
+	padding: 20px;
+}
+
+section {
+  margin-bottom: 20px;
+}
+
+.highlight {
+  background-color: #D16468;
+  color: #fff;
+  padding: 10px;
+  background-position: center center;
+  min-height: 100px;
+  border: 2px solid #fff;
+}
+
+.highlight1 {
+  background: url('steven_loges.jpg') no-repeat center center;
+}
+
+
+.highlight2 {
+  background: url('kharris.jpg') no-repeat 0px -100px;
+  background-size: 100%;
+}
+
+.highlight hr {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-top: 3px solid white;
+  width: 50%;
+  left: 0;
+  margin-left: 0;
+}
+
+.highlight h4 {
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: 2px;
 }

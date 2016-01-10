@@ -5,7 +5,7 @@ class Event < ActiveRecord::Base
 	has_one :photo, as: :imageable
 	accepts_nested_attributes_for :photo, allow_destroy: true
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
-	scope :future, -> { published_now.where('date <= ?', Time.zone.now)}
+	scope :future, -> { published_now.where('date >= ?', Time.zone.now)}
 	has_many :recordfies, as: :entriable
 	has_many :pages, through: :recordfies
 

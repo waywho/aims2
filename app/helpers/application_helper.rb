@@ -1,7 +1,7 @@
 module ApplicationHelper
 
 	def truncated_description(description)
-		output = truncate(description, length: 200, separator: " ")
+		output = truncate(description, length: 150, separator: " ")
 		output.html_safe
 	end
 
