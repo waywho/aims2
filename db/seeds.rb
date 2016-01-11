@@ -67,6 +67,9 @@ Page.create({title: "Auditions", content: "This is how you audition"})
 Page.create({title: "A Typical Day", content: "This is the typical day"})
 Page.create({title: "Staff", content: "Here are our staff"})
 Page.create({title: "Course Information", content: "courses info"})
+News.create({title: "Great News", content: "There is a new news."})
+News.create({title: "Wonderful News", content: "My news is great."})
+News.create({title: "Expectations", content: "Another wonderful life."})
 
 Fee.delete_all
 format_summer.fees.create({fee_type: "Residential", category: "Shared Rooms", description: "Dormitory(3-5 beds)", amount: "665"})

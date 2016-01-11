@@ -25,6 +25,11 @@ h1 > a, h2 > a, h3 > a, h4 > a, h5 > a {
 	margin-bottom: 0;
 }
 
+
+.logo-title {
+	display: inline-block;
+}
+
 .navbar {
 	margin-bottom: 0;
 }
@@ -209,13 +214,22 @@ a:hover {
 }
 
 
-#mc_embed_signup{
+#mc_embed_signup {
 	padding-top: 20px;
+}
+
+#mc_embed_signup button {
+	font-size: 11px;
 }
 
 .mail-button {
 	background-color: #aaa;
-	color: #fff; 
+	color: #fff;
+}
+
+#mc_embed_signup_scroll {
+	margin-top: 5px;
+	margin-bottom: 10px;
 }
 
 .highlight-list h5 {
