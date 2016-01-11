@@ -70,9 +70,9 @@
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
 		    <ul class="nav navbar-nav">
-		      	<% @course_formats.each do |course_format| %>
+		      	<% @courseformats.each do |courseformat| %>
 		        	<li>
-			         	<%= link_to course_format.title, course_format %>
+			         	<%= link_to courseformat.title, courseformat %>
 				         	<span class="sr-only">(current)</span>
 		         	</li>
 		         <% end %>
@@ -102,7 +102,7 @@
 	</div><!-- /.container-fluid -->
 
 </nav>
-<% if controller_name == "courses" || controller_name == 'course_formats' %>
+<% if controller_name == "courses" || controller_name == 'courseformats' %>
 	<div class="collapse navbar-collapse" id="navbar-third">
 	<nav class = 'navbar navbar-third'>
 			<ul class = "nav navbar-nav">

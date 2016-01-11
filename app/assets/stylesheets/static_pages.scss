@@ -109,35 +109,27 @@ section {
 }
 
 .highlight {
-  background-color: #D16468;
-  color: #fff;
+  background-color: #F6E8E9;
   padding: 10px;
   background-position: center center;
   min-height: 100px;
-  border: 2px solid #fff;
-}
-
-.highlight1 {
-  background: url('steven_loges.jpg') no-repeat center center;
-}
-
-
-.highlight2 {
-  background: url('kharris.jpg') no-repeat 0px -100px;
-  background-size: 100%;
+  border-top: 20px solid #A21D21;
+  border-bottom: 5px solid #A21D21;
+  margin: 1%;
 }
 
 .highlight hr {
   margin-top: 5px;
   margin-bottom: 5px;
-  border-top: 3px solid white;
+  border-top: 3px solid #A21D21;
   width: 50%;
   left: 0;
   margin-left: 0;
 }
 
 .highlight h4 {
-  color: #fff;
+  margin-top: 5px;
+  margin-bottom: 5px;
   font-weight: 900;
   letter-spacing: 2px;
 }

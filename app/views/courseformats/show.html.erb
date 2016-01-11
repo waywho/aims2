@@ -1,0 +1,26 @@
+<h1><%= @courseformat.title %></h2>
+
+<span class="course-date"><%= from_to(@courseformat.when_from, @courseformat.when_to) %></span>
+<br />
+<br />
+<%= @courseformat.description.html_safe %>
+
+<% if @courseformat.highlights.present? %>
+<h3>Highlights</h3>
+<div class='highlight-list'>
+<ul>
+	<% @courseformat.highlights.each do |highlight| %>
+	<li><h5><%= highlight.title %></h5> - <%= highlight.description %></li>
+	<% end %>
+</ul>
+</div>
+<% end%>
+
+<br />
+
+<% @courseformat.courses.each do |course| %>
+<h2><%= course.title %></h2>
+<p>
+	<%= course.description.html_safe %>
+</p>
+<% end %>

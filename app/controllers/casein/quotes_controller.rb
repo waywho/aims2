@@ -104,7 +104,7 @@ module Casein
     private
       
       def quote_params
-        params.require(:quote).permit(:saying, :author, :published_at, :updated_at, :workflow_state)
+        params.require(:quote).permit(:saying, :author, :published_at, :updated_at, :workflow_state, :quotes, {:quote_ids => [] })
       end
       
       def undo_link

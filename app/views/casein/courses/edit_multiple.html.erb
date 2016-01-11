@@ -6,7 +6,7 @@
 	<thead>
 		<tr>
 			<th><%= casein_sort_link "Title", :title %></th>
-			<th><%= casein_sort_link "Course Format", :course_format_id %></th>
+			<th><%= casein_sort_link "Course Format", :courseformat_id %></th>
 			<th><%= casein_sort_link "Publish Date", :published_at %></th>
 			<th><%= casein_sort_link "Status", :workflow_state %></th>
 
@@ -17,7 +17,7 @@
 		<%= simple_fields_for 'courses[]', course do |f| %>
 		<tr>			
 			<td><%= casein_table_cell_link course.title, casein_course_path(course) %></td>
-			<td><%= f.input :course_format_id, collection: CourseFormat.all, label: false,text_method: :title %></td>
+			<td><%= f.input :courseformat_id, collection: Courseformat.all, label: false,text_method: :title %></td>
 			<td><%= f.input :published_at, as: :date, html5: true, label: false  %></td>
 			<td><%= f.input :workflow_state, label: false, collection: Course.states %></td>
 		</tr>

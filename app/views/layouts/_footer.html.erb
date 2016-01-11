@@ -1,9 +1,9 @@
 <div class = 'col-xs-12 footer-content container-fluid'>
 	<div class = 'col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-panel'>
 		<ul>
-			<% @course_formats.each do |course_format| %>
-				<li class="footer-title"><%= link_to course_format.title, course_format %></li>
-				<% course_format.courses.each do |course| %>
+			<% @courseformats.each do |courseformat| %>
+				<li class="footer-title"><%= link_to courseformat.title, courseformat %></li>
+				<% courseformat.courses.each do |course| %>
 				<li class="footer-topic"><%= link_to course.title, course %></li>
 				<% end %>
 			<% end %>

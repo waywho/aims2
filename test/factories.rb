@@ -1,4 +1,12 @@
-FactoryGirl.define do  factory :recordfy do
+FactoryGirl.define do  factory :courseformat do
+    
+  end
+  factory :highlight do
+    title "MyString"
+description "MyString"
+course_format_id nil
+  end
+  factory :recordfy do
     page_id 1
 entry ""
 row_order 1

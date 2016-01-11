@@ -1,6 +1,6 @@
-class CreateCourseFormats < ActiveRecord::Migration
+class CreateCourseformats < ActiveRecord::Migration
   def change
-    create_table :course_formats do |t|
+    create_table :courseformats do |t|
       t.string :title
       t.text :description
       t.string :slug
@@ -18,6 +18,6 @@ class CreateCourseFormats < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :course_formats, :slug
-  end
+    	add_index :courseformats, :slug
+	end
 end

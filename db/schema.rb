@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160107191911) do
+ActiveRecord::Schema.define(version: 20160111105104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,17 +60,40 @@ ActiveRecord::Schema.define(version: 20160107191911) do
 
   add_index "course_formats", ["slug"], name: "index_course_formats_on_slug", using: :btree
 
-  create_table "courses", force: :cascade do |t|
+  create_table "courseformats", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
     t.string   "slug"
     t.string   "workflow_state"
-    t.integer  "course_format_id"
+    t.text     "whats_new"
+    t.datetime "when_from"
+    t.datetime "when_to"
+    t.string   "venue"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "county"
+    t.string   "country"
+    t.string   "post_code"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.datetime "published_at"
   end
 
+  add_index "courseformats", ["slug"], name: "index_courseformats_on_slug", using: :btree
+
+  create_table "courses", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "slug"
+    t.string   "workflow_state"
+    t.datetime "published_at"
+    t.integer  "courseformat_id"
+  end
+
+  add_index "courses", ["courseformat_id"], name: "index_courses_on_courseformat_id", using: :btree
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
 
   create_table "events", force: :cascade do |t|
@@ -100,13 +123,21 @@ ActiveRecord::Schema.define(version: 20160107191911) do
     t.string   "description"
     t.integer  "amount"
     t.string   "workflow_state"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.integer  "course_format_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.datetime "published_at"
+    t.integer  "courseformat_id"
   end
 
-  add_index "fees", ["course_format_id"], name: "index_fees_on_course_format_id", using: :btree
+  add_index "fees", ["courseformat_id"], name: "index_fees_on_courseformat_id", using: :btree
+
+  create_table "highlights", force: :cascade do |t|
+    t.string   "title"
+    t.string   "description"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "courseformat_id"
+  end
 
   create_table "klasses", force: :cascade do |t|
     t.string   "title"
