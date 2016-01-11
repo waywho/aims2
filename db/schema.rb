@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160111105104) do
+ActiveRecord::Schema.define(version: 20160111202757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,28 +37,6 @@ ActiveRecord::Schema.define(version: 20160111105104) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "course_formats", force: :cascade do |t|
-    t.string   "title"
-    t.text     "description"
-    t.string   "slug"
-    t.string   "workflow_state"
-    t.text     "whats_new"
-    t.datetime "when_from"
-    t.datetime "when_to"
-    t.string   "venue"
-    t.string   "address1"
-    t.string   "address2"
-    t.string   "city"
-    t.string   "county"
-    t.string   "country"
-    t.string   "post_code"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.datetime "published_at"
-  end
-
-  add_index "course_formats", ["slug"], name: "index_course_formats_on_slug", using: :btree
 
   create_table "courseformats", force: :cascade do |t|
     t.string   "title"
@@ -181,6 +159,7 @@ ActiveRecord::Schema.define(version: 20160111105104) do
     t.integer  "leader_id"
     t.integer  "leader_type"
     t.datetime "published_at"
+    t.string   "type"
   end
 
   add_index "pages", ["leader_id"], name: "index_pages_on_leader_id", using: :btree

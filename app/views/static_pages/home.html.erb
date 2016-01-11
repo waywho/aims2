@@ -52,20 +52,19 @@
 		<h2>News</h2>
 		</div>
 		<table class='table table-striped'>
+			<% @news_items.take(5).each do |news_item| %>
 			<tr>
 				<td>
-					<h4>Title</h4>
-					<p>Description</p>
-					<p>01/01/2016<%= image_tag 'facebook-icon.png', :class => 'social-icon' %><%= image_tag 'twitter-icon.png', :class => 'social-icon' %><%= image_tag 'email-icon.png', :class => 'social-icon' %></p>
+					<h4><%= news_item.title %></h4>
+					<p><% if news_item.has_attribute?(:content) %>
+						<%= news_item.content %>
+					<% elsif news_item.has_attribute?(:description) %>
+						<% news_item.description %></p>
+						<% end %>
+					<p><%= d_m_y(news_item.created_at) %><%= image_tag 'facebook-icon.png', :class => 'social-icon' %><%= image_tag 'twitter-icon.png', :class => 'social-icon' %><%= image_tag 'email-icon.png', :class => 'social-icon' %></p>
 				</td>
 			</tr>
-			<tr>
-				<td>
-					<h4>Title</h4>
-					<p>Description</p>
-					<p>01/01/2016<%= image_tag 'facebook-icon.png', :class => 'social-icon' %><%= image_tag 'twitter-icon.png', :class => 'social-icon' %><%= image_tag 'email-icon.png', :class => 'social-icon' %></p>
-				</td>
-			</tr>
+			<% end %>
 		</table>
 	</div>
 </section>
