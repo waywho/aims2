@@ -6,7 +6,7 @@ class Course < ActiveRecord::Base
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
 	scope :main_course, -> { where(title: ['Solo Course', 'Choral Course', 'CROSSOVER Course', 'Piano Accompanist Course'])}
 
-	belongs_to :course_format
+	belongs_to :courseformat
 	has_many :klasses
 	has_many :photos, as: :imageable
 	accepts_nested_attributes_for :photos, allow_destroy: true

@@ -4,8 +4,8 @@
       <h1>Welcome</h1>
       <p>AIMS is a unique summer experience singing for tutors with a wealth of international performing and teaching experience. We are celebrating the 10th Anniversary of AIMS in 2016!</p>
       <p>
-      <% @course_formats.each do |course_format| %>
-		<b><%= course_format.title %>:</b> <%= from_to(course_format.when_from, course_format.when_to) %><br />
+      <% @courseformats.each do |courseformat| %>
+		<b><%= courseformat.title %>:</b> <%= from_to(courseformat.when_from, courseformat.when_to) %><br />
 		<% end %>
 		</p>
   </div>
@@ -14,61 +14,36 @@
 <section class="attention container-fluid">
 	<div class="row row-attention">
 	<% @courses.each do |course| %>
-	<div class="course col-xs-12 col-sm-6 col-md-3 col-lg-3">
-		<div class='course-heading'>
-			<span class='course-title'><h3><%= course.title %></h3></span>
-		</div>
-		<div class='course-body' %>
-			<p>
-			<%= truncated_description(course.description) %>
-			</p>
-		</div>
-	</div>
+		<%= link_to course_path(course) do %>
+			<div class="course col-xs-12 col-sm-6 col-md-3 col-lg-3">
+				<div class='course-heading'>
+					<span class='course-title'><h3><%= course.title %></h3></span>
+				</div>
+				<div class='course-body' %>
+					<p>
+					<%= truncated_description(course.description) %>
+					</p>
+				</div>
+			</div>
+		<% end %>
 	<% end %>
 </div>
 </section>
 
-<section class="container">
-			<h2>2016 Highlights</h2>
-			<div class="highlight highlight1 col-xs-12 col-sm-6 col-md-6 col-lg-6">
-				<h4>Gala Concert</h4>
-				<hr />
-				Stephan Loges, bass-baritone
-				Shakespear and Cervantes
-			</div>
-			<div class="highlight highlight2 col-xs-12 col-sm-6 col-md-6 col-lg-6">
-				<h4>Celebrity Masterclass</h4>
-				<hr />
-				Katheryn Harris, soprano
-				Director of National Opera Studio
-			</div>
-			<div class="highlight col-xs-12 col-sm-6 col-md-6 col-lg-6">
-				<h4>AIMS Choir</h4>
-				<hr />
-				Nicholas Jenkins, conductor
-			</div>
-			<div class="highlight col-xs-12 col-sm-6 col-md-6 col-lg-6">
-				<h4>Staged Opera Scenes</h4>
-				<hr />
-				Shakespeare operas 
-			</div>
-			<div class="highlight col-xs-12 col-sm-6 col-md-6 col-lg-6">
-				<h4>Small Vocal Ensembles</h4>
-				<hr />
-				Shakespeare part-song settings and Madrigals from the time of Shakespeare
-			</div>
-			<div class="highlight col-xs-12 col-sm-6 col-md-6 col-lg-6">
-				<h4>Early Music Scenes</h4>
-				<hr />
-				The Fairy Queen, Purcell
-			</div>
-			<div class="highlight col-xs-12 col-sm-6 col-md-6 col-lg-6">
-				<h4>The Lighter Side</h4>
-				<hr />
-				The Yeomen of the Guard.
-				Kiss Me Kate.
-				West Side Story.
-			</div>
+<section class="container-fluid">
+	<h2><%= @feature_courseformat.title %> Highlights</h2>
+			<% @feature_courseformat.highlights.each do |highlight| %>
+				<%= link_to courseformat_path(@feature_courseformat) do %>
+
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="highlight">
+							<h4><%= highlight.title %></h4>
+							<hr />
+							<%= highlight.description %>
+						</div>
+					</div>
+				<% end %>
+			<% end %>
 </section>
 
 <section class="news">

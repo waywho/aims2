@@ -1,7 +1,0 @@
-$('#stateform select').hide();
-$('#state-status').show();
-$('#icon-span').append("<%= j image_tag state_icon(@course_format.workflow_state), :class => 'state-icon' %>");
-$('#current-state').html('<%= j @course_format.current_state.to_s %>');
-var currentState = $('#current-state').text();
-$('#update-date').html('<%= j @course_format.updated_at.to_s %>');
-buttonChange();

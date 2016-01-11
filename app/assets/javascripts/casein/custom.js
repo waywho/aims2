@@ -38,7 +38,7 @@
 			$('.unpublish').show();
 			$('.update').show();
 		}
-	};
+	}
 
 
 $(document).ready(function() {
@@ -99,6 +99,19 @@ $(document).ready(function() {
 		event.preventDefault();
 		var $multicheckboxes = $(this).parent().find('input[type=checkbox]');
 		$multicheckboxes.prop('checked', !$multicheckboxes.prop('checked'));
+	});
+
+	$('form').on('click', '.remove_fields', function(event) {
+		$(this).prev("input[type=hidden]").val("1")
+	  	$(this).closest('fieldset').hide()
+	  	event.preventDefault();
+	});
+
+	$('.add_fields').on('click', function() {
+		event.preventDefault();
+	  	var time = new Date().getTime();
+	  	var regexp = new RegExp($(this).data('id'), "g");
+	  	$(this).before($(this).data('fields').replace(regexp, time));
 	});
 		
 })

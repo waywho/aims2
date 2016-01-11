@@ -1,0 +1,2 @@
+module CourseformatsHelper
+end

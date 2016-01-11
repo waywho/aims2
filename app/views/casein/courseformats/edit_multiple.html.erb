@@ -1,6 +1,6 @@
 <h2>Edit Course Formats</h2>
 
-<%= form_tag update_multiple_casein_course_formats_path, defaults: { input_html: { :class => 'multiple-edit' } } do %>
+<%= form_tag update_multiple_casein_courseformats_path, defaults: { input_html: { :class => 'multiple-edit' } } do %>
 
 	<table class="table table-striped table-hover table-condensed">
 		<thead>
@@ -14,10 +14,10 @@
 			</tr>
 		</thead>
 		
-		<% @course_formats.each do |course_format| %>
-			<%= simple_fields_for 'course_formats[]', course_format do |f| %>
+		<% @courseformats.each do |courseformat| %>
+			<%= simple_fields_for 'courseformats[]', courseformat do |f| %>
 			<tr>	
-				<td><%= casein_table_cell_link course_format.title, casein_course_format_path(course_format) %></td>
+				<td><%= casein_table_cell_link courseformat.title, casein_courseformat_path(courseformat) %></td>
 				<td><%= f.input :when_from, label: false, as: :date, html5: true %></td>
 				<td><%= f.input :when_to, label: false, as: :date, html5: true %></td>
 				<td><%= f.input :venue, label: false %></td>

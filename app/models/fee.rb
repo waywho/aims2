@@ -1,5 +1,5 @@
 class Fee < ActiveRecord::Base
-	belongs_to :course_format
+	belongs_to :courseformat
 	has_paper_trail :on => [:update, :create, :destroy]
 	
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}

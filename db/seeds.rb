@@ -26,9 +26,16 @@ course_choral.klasses.create({title: "AIMS Choir", description: "All choral stud
 
 course_dropin.klasses.create({title: "Stagecraftt", description: "Taken by our Opera Directors, these classes cover various aspects of acting technique. They are lively, with lots of participation for all. Specific themes will be covered"})
 
-CourseFormat.delete_all
-format_summer = CourseFormat.create({title: "Summer School 2016", description: "The Summer School is a week-long residential course at the beautiful seaside of East Bourne. The You will be joining around 200 enthusiastic students, along with 70 staff made up of tutors and house pianists. There four main teaching sessions per day, with lots of performance opportunities.", whats_new: "2016 is very new", when_from: "2016-08-21 08:53:20", when_to: "2016-08-28 21:53:20", venue: "EastBourne College", address1: "Old Wish Road", city: "EastBourne", county: "East Sussex", post_code: "BN21 4JY"})
-format_mini = CourseFormat.create({title: "Mini-Aims 2016", description: "Mini-Aims is our non-residential 'taster' version of the main singing summer school.", whats_new: "2016 is very new", when_from: "2016-04-09 08:53:20", when_to: "2016-04-10 21:53:20", venue: "St Gabriel's Halls", address1: "Pimlico", city: "London", county: "Greater London", post_code: "SW1V 3AA"})
+Courseformat.delete_all
+format_summer = Courseformat.create({title: "Summer School 2016", description: "The Summer School is a week-long residential course at the beautiful seaside of East Bourne. The You will be joining around 200 enthusiastic students, along with 70 staff made up of tutors and house pianists. There four main teaching sessions per day, with lots of performance opportunities.", whats_new: "2016 is very new", when_from: "2016-08-21 08:53:20", when_to: "2016-08-28 21:53:20", venue: "EastBourne College", address1: "Old Wish Road", city: "EastBourne", county: "East Sussex", post_code: "BN21 4JY"})
+format_mini = Courseformat.create({title: "Mini-Aims 2016", description: "Mini-Aims is our non-residential 'taster' version of the main singing summer school.", whats_new: "2016 is very new", when_from: "2016-04-09 08:53:20", when_to: "2016-04-10 21:53:20", venue: "St Gabriel's Halls", address1: "Pimlico", city: "London", county: "Greater London", post_code: "SW1V 3AA"})
+format_summer.highlights.create([{title: "Gala Concert", description: "Stephan Loges, bass-baritone"},
+	{title: "Celebrity Masterclass", description: "Kathryn Harris, soprano and Director of National Opera Studio"},
+	{title: "AIMS Choir", description: "Nicholas Jenkins, conductor"}, 
+	{title: "Staged Opera Scenes", description: "Operas of Shakespeare plays"}, 
+	{title: "Small Vocal Ensembles", description: "Shakespeare part-song settings and Madrigals"}, 
+	{title: "Early Music Scenes", description: "The Fairy Queen, Purcell"}, 
+	{title: "The Lighter Side", description: "The Yeomen of the Guard, Kissing Me Kate, and West Side Story"}])
 
 Staff.delete_all
 Staff.create({name: "John Ramster", biography: "Opera Director at the Royal Academy of Music", role: "tutor"})
