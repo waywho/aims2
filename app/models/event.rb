@@ -8,6 +8,7 @@ class Event < ActiveRecord::Base
 	scope :future, -> { published_now.where('date >= ?', Time.zone.now)}
 	has_many :recordfies, as: :entriable
 	has_many :pages, through: :recordfies
+	accepts_nested_attributes_for :pages, allow_destroy: true
 
 	include Workflow
 

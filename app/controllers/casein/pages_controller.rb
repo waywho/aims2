@@ -10,11 +10,12 @@ module Casein
   
     def index
       @casein_page_title = 'Pages'
-      @pages = Page.order(sort_order(:title)).paginate :page => params[:page]
+      @pages = Page.order(sort_order(:title))
     end
   
     def show
       @casein_page_title = 'View page'
+      @courseformats = Courseformat.published_now
       @courses = Course.published_now
       @events = Event.published_now
       @fees = Fee.published_now
@@ -108,7 +109,7 @@ module Casein
       
       def page_params
         params.require(:page).permit(:title, :content, :published_at, 
-          :workflow_state, :pages, {:page_ids => []}, {:course_ids =>[]}, 
+          :workflow_state, :pages, {:page_ids => []}, {:courseformat_ids => []}, {:course_ids =>[]}, 
             {:event_ids =>[]}, {:fee_ids =>[]}, {:klass_ids =>[]}, 
               {:quote_ids =>[]}, {:staff_ids =>[]})
       end

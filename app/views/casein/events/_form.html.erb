@@ -21,6 +21,9 @@
 	<div class="col-lg-6 col-md-6">
 		<%= casein_collection_select f, f.object, 'event', :ticket_type, Fee.event, :full_description, :full_description, include_blank: true %>
 	</div>
+	<div class="col-lg-6 col-md-6">
+		<%= casein_collection_select f, f.object, 'event', :page_ids, @pages, :id, :title, include_blank: true %>
+	</div>
 </div>
 
 <div class="row">
