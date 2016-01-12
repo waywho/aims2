@@ -1,2 +1,0 @@
-class News < Page 
-end
