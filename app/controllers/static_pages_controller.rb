@@ -10,7 +10,7 @@ class StaticPagesController < ApplicationController
 	private
 
 	def load_news_list
-		news = News.published_now
+		news = NewsItem.published_now
 		events = Event.future.order(:date)
 		@news_items = []
 		news.map { |n| @news_items.push(n) }

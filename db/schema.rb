@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160111202757) do
+ActiveRecord::Schema.define(version: 20160112113456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,6 +148,17 @@ ActiveRecord::Schema.define(version: 20160111202757) do
   add_index "menus", ["navigation_type"], name: "index_menus_on_navigation_type", using: :btree
   add_index "menus", ["row_order"], name: "index_menus_on_row_order", using: :btree
 
+  create_table "news_items", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "workflow_state"
+    t.string   "slug"
+    t.integer  "user_id"
+    t.datetime "published_at"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
   create_table "pages", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
@@ -159,7 +170,6 @@ ActiveRecord::Schema.define(version: 20160111202757) do
     t.integer  "leader_id"
     t.integer  "leader_type"
     t.datetime "published_at"
-    t.string   "type"
   end
 
   add_index "pages", ["leader_id"], name: "index_pages_on_leader_id", using: :btree

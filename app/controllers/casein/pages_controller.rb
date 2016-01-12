@@ -2,7 +2,7 @@
 
 module Casein
   class PagesController < Casein::CaseinController
-    before_filter :load_page, :only => [:show, :update, :destory]
+    before_filter :load_page, :only => [:show, :update, :destroy]
   
     ## optional filters for defining usage according to Casein::AdminUser access_levels
     # before_filter :needs_admin, :except => [:action1, :action2]

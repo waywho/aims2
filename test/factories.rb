@@ -1,4 +1,12 @@
-FactoryGirl.define do  factory :courseformat do
+FactoryGirl.define do  factory :news_item do
+    title "MyString"
+description "MyText"
+workflow_state "MyString"
+slug "MyString"
+user_id 1
+published_at "2016-01-12 11:25:05"
+  end
+  factory :courseformat do
     
   end
   factory :highlight do
