@@ -21,8 +21,8 @@
 			<td><%= casein_table_cell_link news_item.description, casein_news_item_path(news_item) %></td>
 			<td><%= casein_table_cell_link news_item.published_at, casein_news_item_path(news_item) %></td>
 			<td><%= casein_table_cell_link news_item.updated_at, casein_news_item_path(news_item) %></td>
-			<td><%= link_to casein_page_path(page) do %>
-					<%= image_tag state_icon(page.workflow_state) %>
+			<td><%= link_to casein_news_items_path(news_item) do %>
+					<%= image_tag state_icon(news_item.workflow_state) %>
 					<% end %>
 				</td>
 			<td class="delete">
