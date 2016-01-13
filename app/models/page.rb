@@ -1,9 +1,12 @@
 class Page < ActiveRecord::Base
 	extend FriendlyId
+	mount_uploader :feature_image, ImageUploader
+
 	belongs_to :user
 	friendly_id :title, use: :slugged
 	has_paper_trail :on => [:update, :create, :destroy]
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
+	scope :feature_page, -> {where(feature_page: true).first}
 	has_many :menus, as: :navigation
 	has_many :recordfies
 	has_many :courses, through: :recordfies, source: :entriable, source_type: 'Course'

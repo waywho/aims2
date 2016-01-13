@@ -1,18 +1,21 @@
 
 <section class="hero">
-  <div class="intro">
-      <h1>Welcome</h1>
-      <p>AIMS is a unique summer experience singing for tutors with a wealth of international performing and teaching experience. We are celebrating the 10th Anniversary of AIMS in 2016!</p>
-      <p>
-      <% @courseformats.each do |courseformat| %>
-		<b><%= courseformat.title %>:</b> <%= from_to(courseformat.when_from, courseformat.when_to) %><br />
-		<% end %>
-		</p>
-  </div>
+	<style media="screen">
+		.hero {background: url('<%= @feature_page.feature_image_url %>') no-repeat center center; background-size: 'cover'}
+	</style>
+ 	 <div class="intro">
+	      <h1><%= @feature_page.title %></h1>
+	      <p><%= @feature_page.content.html_safe %></p>
+	      <p>
+	      <% @courseformats.each do |courseformat| %>
+			<b><%= courseformat.title %>:</b> <%= from_to(courseformat.when_from, courseformat.when_to) %><br />
+			<% end %>
+			</p>
+  	</div>
 </section>
 
-<section class="attention container-fluid">
-	<div class="row row-attention">
+<section class="feature container-fluid">
+	<div class="row feauture-row">
 	<% @courses.each do |course| %>
 		<%= link_to course_path(course) do %>
 			<div class="course col-xs-12 col-sm-6 col-md-3 col-lg-3">
@@ -29,8 +32,13 @@
 	<% end %>
 </div>
 </section>
+<section class="quote-section container-fluid">
+	<div class="col-xs-offset-1 col-xs-10 quote">
+		<%= image_tag 'icon-quote.png', :class => "quote-icon-left img-responsive" %><%= @quotes.order("RANDOM()").first.saying %><%= image_tag 'icon-quote.png', :class => "quote-icon-right img-responsive" %>
+	</div>
+</section>
 
-<section class="container-fluid">
+<section class="course-highlights container-fluid">
 	<h2><%= @feature_courseformat.title %> Highlights</h2>
 			<% @feature_courseformat.highlights.each do |highlight| %>
 				<%= link_to courseformat_path(@feature_courseformat) do %>
@@ -46,45 +54,70 @@
 			<% end %>
 </section>
 
-<section class="news">
-	<div class="news col-xs-12 col-sm-6 col-md-6 col-lg-6">
-		<div class='news-head'>
-		<h2>News</h2>
-		</div>
-		<table class='table table-striped'>
-			<% @news_items.take(5).each do |news_item| %>
-			<tr>
-				<td>
-					<h4><%= news_item.title %></h4>
-					<p><% if news_item.has_attribute?(:content) %>
-						<%= news_item.content %>
-					<% elsif news_item.has_attribute?(:description) %>
-						<% truncated_blurb(news_item.description.html_safe) %></p>
-						<% end %>
-					<p><%= d_m_y(news_item.created_at) %><%= image_tag 'facebook-icon.png', :class => 'social-icon' %><%= image_tag 'twitter-icon.png', :class => 'social-icon' %><%= image_tag 'email-icon.png', :class => 'social-icon' %></p>
-				</td>
-			</tr>
-			<% end %>
-		</table>
+<section class="news container-fluid">
+<% if !@news.present? && !@events.present? %>
+	<div class="col-xs-offset-1 col-xs-10 quote quote-section">
+		<p><%= image_tag 'icon-quote.png', :class => "quote-icon-left img-responsive" %>
+				<%= @quotes.order("RANDOM()").first.saying %>
+			<%= image_tag 'icon-quote.png', :class => "quote-icon-right img-responsive" %></p>
 	</div>
-</section>
-<section class="events container-fluid">
-	<div class="news col-xs-12 col-sm-6 col-md-6 col-lg-6">
-		<h2>Events</h2>
-		<table>
-			<% @events.each do |event| %>
+<% else %>
+	<% if @news.present? %>
+		<div class="news col-xs-12 col-sm-6 col-md-6 col-lg-6">
+			<div class='news-head'>
+			<h2>News</h2>
+			</div>
+			<table class='table table-striped'>
+				<% @news_items.take(5).each do |news_item| %>
 				<tr>
 					<td>
-						<h4><%= event.title %></h4>
-						<p><%= truncated_blurb(event.description.html_safe) %></p>
-						<p><%= event.date %>
+						<h4><%= news_item.title %></h4>
+						<p><% if news_item.has_attribute?(:content) %>
+							<%= news_item.content %>
+						<% elsif news_item.has_attribute?(:description) %>
+							<% truncated_blurb(news_item.description.html_safe) %></p>
+							<% end %>
+						<p><%= d_m_y(news_item.created_at) %><%= image_tag 'facebook-icon.png', :class => 'social-icon' %><%= image_tag 'twitter-icon.png', :class => 'social-icon' %><%= image_tag 'email-icon.png', :class => 'social-icon' %></p>
 					</td>
 				</tr>
-			<% end %>
-		</table>
-
+				<% end %>
+			</table>
+		</div>
+	<% else %>
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 quote quote-section">
+		<p><%= image_tag 'icon-quote.png', :class => "quote-icon-left img-responsive" %>
+				<%= @quotes.order("RANDOM()").first.saying %>
+			<%= image_tag 'icon-quote.png', :class => "quote-icon-right img-responsive" %></p>
+		<p><%= image_tag 'icon-quote.png', :class => "quote-icon-left img-responsive" %>
+				<%= @quotes.order("RANDOM()").first.saying %>
+			<%= image_tag 'icon-quote.png', :class => "quote-icon-right img-responsive" %></p>
 	</div>
-	<div class="whats-new col-xs-12 col-sm-6 col-md-6 col-lg-6">
-		<span class="quote"><i class="icomoon icon-quotes-left">So much music, so much fun, loads of fantastic singing. Thanks all for such a great time!</i></span>
-	</div>
-</section>
+	<% end %>
+	<% if @events.present? %>
+		<div class="news col-xs-12 col-sm-6 col-md-6 col-lg-6">
+			<h2>Events</h2>
+			<table>
+				<% @events.each do |event| %>
+					<tr>
+						<td>
+							<h4><%= event.title %></h4>
+							<p><%= truncated_blurb(event.description.html_safe) %></p>
+							<p><%= event.date %>
+						</td>
+					</tr>
+				<% end %>
+			</table>
+		</div>
+	</section>
+	<% else %>
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 quote quote-section">
+			<p><%= image_tag 'icon-quote.png', :class => "quote-icon-left img-responsive" %>
+					<%= @quotes.order("RANDOM()").first.saying %>
+				<%= image_tag 'icon-quote.png', :class => "quote-icon-right img-responsive" %></p>
+			<p><%= image_tag 'icon-quote.png', :class => "quote-icon-left img-responsive" %>
+					<%= @quotes.order("RANDOM()").first.saying %>
+				<%= image_tag 'icon-quote.png', :class => "quote-icon-right img-responsive" %></p>
+		</div>
+	</section>
+	<% end %>
+<% end %>

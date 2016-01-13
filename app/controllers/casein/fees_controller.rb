@@ -80,7 +80,7 @@ module Casein
     end
 
     def update_multiple
-     @fees = Fee.update(params[:fees].keys, params[:fees].values)
+     @fees = Fee.friendly.update(params[:fees].keys, params[:fees].values)
       @fees.reject! { |fee| fee.errors.empty? }
       if @fees.empty?
         redirect_to casein_fees_path

@@ -2,7 +2,7 @@ class Courseformat < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :title, use: :slugged
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
-	
+	scope :feature_format, -> { self.published_now.find_by(homepage_feature: true)}
 	has_many :courses
 	has_many :photos, as: :imageable
 	accepts_nested_attributes_for :photos, allow_destroy: true

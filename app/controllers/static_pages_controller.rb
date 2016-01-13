@@ -2,9 +2,11 @@ class StaticPagesController < ApplicationController
 	before_filter :load_news_list
 
 	def home
+		@feature_page = Page.feature_page
 		@events = Event.future.order(:date)
-		@courses = Course.published_now.main_course
-		@feature_courseformat = Courseformat.find_by(title: "Summer School 2016")
+		@feature_courseformat = Courseformat.feature_format
+		@courses = @feature_courseformat.courses.limit(4)
+		@quotes = Quote.all
 	end
 
 	private

@@ -244,3 +244,16 @@ a:hover {
 	font-weight: bold;
 	font-size: 22px;
 }
+
+.quote-icon-left {
+	max-height: 40px;
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.quote-icon-right {
+	max-height: 40px;
+	transform:rotate(180deg);
+	margin-left:10px;
+	display: inline-block;
+}

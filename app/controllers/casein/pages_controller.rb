@@ -89,7 +89,7 @@ module Casein
     end
 
     def update_multiple
-      @pages = Page.update(params[:pages].keys, params[:pages].values)
+      @pages = Page.friendly.update(params[:pages].keys, params[:pages].values)
       @pages.reject! { |page| page.errors.empty? }
       if @pages.empty?
         redirect_to casein_pages_path
@@ -108,8 +108,8 @@ module Casein
     private
       
       def page_params
-        params.require(:page).permit(:title, :content, :published_at, 
-          :workflow_state, :pages, {:page_ids => []}, {:courseformat_ids => []}, {:course_ids =>[]}, 
+        params.require(:page).permit(:title, :content, :published_at, :feature_page,
+          :workflow_state, :feature_image, :pages, {:page_ids => []}, {:courseformat_ids => []}, {:course_ids =>[]}, 
             {:event_ids =>[]}, {:fee_ids =>[]}, {:klass_ids =>[]}, 
               {:quote_ids =>[]}, {:staff_ids =>[]})
       end
