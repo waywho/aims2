@@ -6,8 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-CaseinAdminUser.delete_all
-CaseinAdminUser.create({login: "admin", email:"admin@example.com", password:"password"})
+Casein::AdminUser.delete_all
+Casein::AdminUser.create({login: "admin", email:"admin@example.com", password:"password"})
 
 Course.delete_all
 course_solo = Course.create({title: "Solo Course", description: "Our SOLO course is aimed at singers of all ages (18 plus). This could be young professionals on the threshold of a career, students at music colleges, amateurs of 'semi-pro' standard and singers with a little less experience, but a desire to sing really well."})
