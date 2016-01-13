@@ -114,7 +114,7 @@ module Casein
     private
       
       def courseformat_params
-        params.require(:courseformat).permit(:title, :description, :courseformats, :published_at, {:courseformat_ids => []}, 
+        params.require(:courseformat).permit(:title, :description, :courseformats, :homepage_feature, :published_at, {:courseformat_ids => []}, 
           :workflow_state, :whats_new, :when_from, :when_to, :venue, :address1, :address2, :city, :county, :country, :post_code, 
           photos_attributes: [:id, :caption, :image], highlights_attributes: [:title, :description])
       end

@@ -24,6 +24,10 @@
       <%= simple_form_for @page, :url => casein_page_path(@page) do |f| %>
 	      <div class="modal-body">
 	      			<div class='record'>
+						<span class='record-title'>Course Formats</span>(<%= link_to 'select all', '#', :class => 'multi-record' %>)<br />
+						<%= f.collection_check_boxes :courseformat_ids, @courseformats, :id, :title %>
+					</div>
+	      			<div class='record'>
 						<span class='record-title'>Courses</span>(<%= link_to 'select all', '#', :class => 'multi-record' %>)<br />
 						<%= f.collection_check_boxes :course_ids, @courses, :id, :title %>
 					</div>

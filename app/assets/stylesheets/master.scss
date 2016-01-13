@@ -244,3 +244,26 @@ a:hover {
 	font-weight: bold;
 	font-size: 22px;
 }
+
+.quote {
+  font-size: 22px;
+  font-style: italic;
+  font-weight: 100;
+  color: #aaa;
+  text-align: center;
+  padding: 40px 20px;
+  display: inline-block;
+}
+
+.quote-icon-left {
+	max-height: 40px;
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.quote-icon-right {
+	max-height: 40px;
+	transform:rotate(180deg);
+	margin-left:10px;
+	display: inline-block;
+}

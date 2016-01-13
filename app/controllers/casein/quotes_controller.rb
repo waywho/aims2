@@ -37,9 +37,8 @@ module Casein
       @casein_page_title = 'Update quote'
       
       respond_to do |format|
-          if params[:submit]
         if @quote.update_attributes quote_params
-          
+          if params[:submit]          
             @quote.submit!
           elsif params[:approve]
             @quote.approve!
@@ -82,7 +81,7 @@ module Casein
     end
 
     def update_multiple
-     @quotes = Quote.update(params[:quotes].keys, params[:quotes].values)
+     @quotes = Quote.friendly.update(params[:quotes].keys, params[:quotes].values)
       @quotes.reject! { |quote| quote.errors.empty? }
       if @quotes.empty?
         redirect_to casein_quotes_path

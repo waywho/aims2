@@ -1,5 +1,7 @@
 class Page < ActiveRecord::Base
 	extend FriendlyId
+	mount_uploader :feature_image, ImageUploader
+
 	belongs_to :user
 	friendly_id :title, use: :slugged
 	has_paper_trail :on => [:update, :create, :destroy]
@@ -7,6 +9,7 @@ class Page < ActiveRecord::Base
 	has_many :menus, as: :navigation
 	has_many :recordfies
 	has_many :courses, through: :recordfies, source: :entriable, source_type: 'Course'
+	has_many :courseformats, through: :recordfies, source: :entriable, source_type: 'Courseformat'
 	has_many :events, through: :recordfies, source: :entriable, source_type: 'Event'
 	has_many :fees, through: :recordfies, source: :entriable, source_type: 'Fee'
 	has_many :klasses, through: :recordfies, source: :entriable, source_type: 'Klass'

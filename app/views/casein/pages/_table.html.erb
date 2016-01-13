@@ -6,6 +6,7 @@
 			<th><%= check_box_tag 'multi' %></th>
 			<th><%= casein_sort_link "Title", :title %></th>
 			<th><%= casein_sort_link "Content", :content %></th>
+			<th><%= casein_sort_link "Feature", :feature_page %></th>
 			<th><%= casein_sort_link "Publish Date", :published_at %></th>
 			<th><%= casein_sort_link "Updated at", :updated_at %></th>
 			<th><%= casein_sort_link "Status", :workflow_state %></th>
@@ -19,6 +20,9 @@
 				</td>
 			<td><%= casein_table_cell_link page.title, casein_page_path(page) %></td>
 			<td><%= casein_table_cell_link page.content, casein_page_path(page), :casein_truncate => 150 %></td>
+			<td><%= link_to casein_page_path(page) do %>
+			<%= image_tag 'check.png', :class=>'true-check img-responsive' if page.feature_page %>
+			<% end %></td>
 			<td><%= casein_table_cell_link d_m_y(page.published_at), casein_page_path(page) %></td>	
 			<td><%= casein_table_cell_link d_m_y(page.updated_at), casein_page_path(page) %></td>
 			<td><%= link_to casein_page_path(page) do %>

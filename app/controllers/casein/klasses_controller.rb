@@ -81,7 +81,7 @@ module Casein
     end
 
     def update_multiple
-      @klasses = Klass.update(params[:klasses].keys, params[:klasses].values)
+      @klasses = Klass.friendly.update(params[:klasses].keys, params[:klasses].values)
       @klasses.reject! { |klass| klass.errors.empty? }
       if @klasses.empty?
         redirect_to casein_klasses_path

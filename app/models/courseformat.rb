@@ -2,7 +2,6 @@ class Courseformat < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :title, use: :slugged
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
-	
 	has_many :courses
 	has_many :photos, as: :imageable
 	accepts_nested_attributes_for :photos, allow_destroy: true
@@ -10,6 +9,8 @@ class Courseformat < ActiveRecord::Base
 	has_many :menus, as: :navigation
 	has_many :highlights
 	accepts_nested_attributes_for :highlights, :reject_if => lambda { |h| h[:description].blank? }, allow_destroy: true
+	has_many :recordfies, as: :entriable
+	has_many :pages, through: :recordfies
 
 	has_paper_trail :on => [:update, :create, :destroy]
 	include Workflow

@@ -1,4 +1,13 @@
 module ApplicationHelper
+	def truncated_description(description)
+		output = truncate(description, length: 160, separator: " ")
+		output.html_safe
+	end
+
+	def truncated_blurb(description)
+		output = truncate(description, length: 100, separator: " ")
+		output.html_safe
+	end
 
 	def from_to(datetime1, datetime2)
 		if datetime1.present? && datetime2.present?
