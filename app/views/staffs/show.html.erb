@@ -1,0 +1,16 @@
+<h1><%= @staff.name %></h1>
+
+<% if @staff.photo %>
+	<div class="col-sm-6 col-md-3">
+		<div class="thumbnail">
+			<%= image_tag @staff.photo.image_url %>
+		</div>
+	</div>
+<% end %>
+
+<div class="col-sm-6 col-md-9">
+<b><%= @staff.role %></b>
+<br />
+<br />
+<p><%= @staff.biography.html_safe %></p>
+</div>

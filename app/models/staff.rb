@@ -1,8 +1,8 @@
 class Staff < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :name, use: :slugged
-	scope :tutor, -> { where(role: "tutor") }
-	scope :house_pianist, -> { where(role: "house pianist") }
+	scope :tutors, -> { where(role: "tutor") }
+	scope :house_pianists, -> { where(role: "house pianist") }
 	scope :admin, -> { where(role: "admin") }
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
 	has_paper_trail :on => [:update, :create, :destroy]

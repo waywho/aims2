@@ -18,9 +18,25 @@
 
 <br />
 
-<% @courseformat.courses.each do |course| %>
-<h2><%= course.title %></h2>
-<p>
-	<%= course.description.html_safe %>
-</p>
+<% @courseformat.courses.rank(:row_order).each do |course| %>
+<div class='course container-fluid'>
+	<%if course.photos.present? %>
+		<div class='image col-xs-8 col-sm-8 col-md-4 col-lg-4 pull-<%= cycle("left", "right") %>' >
+			<%= image_tag course.photos.order('RANDOM()').first.image_url, :class => 'img-responsive' %>
+		</div>
+		<div class='image col-xs-12 col-sm-12 col-md-8 col-lg-8' %>
+			<h2><%= course.title %></h2>
+			<p>
+				<%= course.description.html_safe %>
+			</p>
+		</div>
+	<% else %>
+		<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' %>
+			<h2><%= course.title %></h2>
+			<p>
+				<%= course.description.html_safe %>
+			</p>
+		</div>
+	<% end %>
+</div>
 <% end %>

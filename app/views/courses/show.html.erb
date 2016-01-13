@@ -1,23 +1,62 @@
 <h1><%= @course.title %></h1>
 
-<p><%= @course.description %></p>
+<!-- Carousel -->
+<% if @course.photos.present? %>
+	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+	  <!-- Indicators -->
+	  <ol class="carousel-indicators">
+	    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+	    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+	    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+	  </ol>
+
+	  <!-- Wrapper for slides -->
+	  <div class="carousel-inner" role="listbox">
+	    <div class="item active">
+	      <%= image_tag @course.photos.order('RANDOM()').first.image_url, :class => 'img-responsive' %>
+	    </div>
+	    <% @course.photos.each do |photo| %>
+	    <div class="item">
+	      <%= image_tag photo.image_url, :class => 'img-responsive' %>
+	    </div>
+	    <% end %>
+	  </div>
+	</div>
+<% else %>
+<div class='spacer'></div>
+<% end %>
+
+<section class='course-description col-xs-offset-1 col-xs-10'>
+	<p><%= @course.description %></p>
+</section>
 
 <% if @course.klasses.present? %>
-	<h2>Classes</h2>
-	<hr class = 'red-divider' />
+	<section class='klasses'>
+			<h2>Classes</h2>
+			<hr class = 'red-divider' />
+
+
+			<ul>
+			<% @course.klasses.each do |klass| %>
+				<li><h4 class = 'class-title'><%= klass.title %> </h4>
+					<% if klass.number_of_sessions.present? %>
+						(<%= klass.number_of_sessions %> sessions)
+					<% end %>
+					<p><%= klass.description %></p>
+					<% if klass.repertoire.present? %>
+						<i>Repertoire:</i> 
+					<p><%= klass.repertoire %></p>
+					<% end %>
+				</li>
+			<% end %>
+			</ul>
+	</section>
 <% end %>
 
-<ul>
-<% @course.klasses.each do |klass| %>
-	<li><h4 class = 'class-title'><%= klass.title %> </h4>
-		<% if klass.number_of_sessions.present? %>
-			(<%= klass.number_of_sessions %> sessions)
-		<% end %>
-		<p><%= klass.description %></p>
-		<% if klass.repertoire.present? %>
-			<i>Repertoire:</i> 
-		<p><%= klass.repertoire %></p>
-		<% end %>
-	</li>
-<% end %>
-</ul>
+<script>
+	$(function() {
+		$('.carousel').carousel({
+			interval: 10000
+		});
+	})
+</script>

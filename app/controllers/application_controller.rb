@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   before_filter :load_menus
   before_filter :load_courseformats
   before_filter :load_courses
+  before_filter :load_news
+  before_filter :load_events
 
  private
  	def load_menus
@@ -17,5 +19,13 @@ class ApplicationController < ActionController::Base
 
  	def load_courses
  		@courses = Course.published_now.rank(:row_order)
+ 	end
+
+ 	def load_news
+ 		@news = NewsItem.published_now
+ 	end
+
+ 	def load_events
+ 		@events = Event.future
  	end
 end

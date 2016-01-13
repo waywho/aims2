@@ -84,18 +84,24 @@
 				         	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= menu.name %>&nbsp;<span class="caret"></span></a>
 					        	<ul class="dropdown-menu">
 						          		<% menu.children.each do |child| %>
-						          		<li><%= link_to child.name, '#' %>
+						          		<li><%= link_to child.name, child.navigation %>
 						          		<% end %>
 
 					        	</ul>
 				        </li>
 				    <% else %>
 			        	<li>
-			         		<%= link_to menu.name, '#' %>
+			         		<%= link_to menu.name, menu.navigation %>
 			         	</li>
 			         <% end %>
 		         <% end %>
 		        <li><%= link_to 'Staff', staffs_path %></li>
+		        <% if @news.present? %>
+		        	<li><%= link_to 'News', newss_path %></li>
+		        <% end %>
+		        <% if @events.present? %>
+		        	<li><%= link_to 'Events', events_path %></li>
+		        <% end %>
 		    </ul>
 		    <ul class="nav navbar-nav navbar-right">
 		    	<li><a href="#">Booking</a></li>
@@ -108,7 +114,7 @@
 	<div class="collapse navbar-collapse" id="navbar-third">
 	<nav class = 'navbar navbar-third'>
 			<ul class = "nav navbar-nav">
-				<% @courses.each do |course| %>
+				<% @courses.rank(:row_order).each do |course| %>
 					<li class='hidden-xs hidden-sm'><%= link_to course.title, course_path(course) %></li>
 				<% end %>
 			</ul>

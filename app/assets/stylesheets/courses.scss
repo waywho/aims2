@@ -1,3 +1,22 @@
 // Place all the styles related to the Courses controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.carousel-inner {
+	max-height: 400px;
+	margin: 25px auto;
+}
+
+.carousel-inner > .item >img, .carousel-inner > .item > a > img {
+	margin: auto;
+}
+
+.carousel-indicators li {
+	border: 1px solid rgba(199,199,199,0.5);
+}
+
+.carousel-indicators .active {
+	background-color: rgba(199,199,199,0.5);
+	border: 0px;
+}

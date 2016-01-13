@@ -4,22 +4,23 @@ class CourseformatsController < ApplicationController
 	  # GET /courseformats
 	  # GET /courseformats.json
 	  def index
-	    @courseformats = Courseformat.all
+	    @courseformats = Courseformat.published_now.rank(:row_order)
 	  end
 
 	  # GET /courseformats/1
 	  # GET /courseformats/1.json
 	  def show
+	  	@courses = Course.published_now.rank(:row_order)
 	  end
 
 	  # GET /courseformats/new
-	  def new
-	    @courseformat = Courseformat.new
-	  end
+	  # def new
+	  #   @courseformat = Courseformat.new
+	  # end
 
 	  # GET /courseformats/1/edit
-	  def edit
-	  end
+	  # def edit
+	  # end
 
 	  # # POST /courseformats
 	  # # POST /courseformats.json

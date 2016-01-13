@@ -6,7 +6,7 @@ class Page < ActiveRecord::Base
 	friendly_id :title, use: :slugged
 	has_paper_trail :on => [:update, :create, :destroy]
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
-	has_many :menus, as: :navigation
+	has_many :menus, as: :navigation, :dependent => :destroy
 	has_many :recordfies
 	has_many :courses, through: :recordfies, source: :entriable, source_type: 'Course'
 	has_many :courseformats, through: :recordfies, source: :entriable, source_type: 'Courseformat'

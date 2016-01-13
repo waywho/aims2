@@ -240,6 +240,10 @@ a:hover {
 	list-style-type: none;
 }
 
+.course {
+	margin-bottom: 20px;
+}
+
 .course-date {
 	font-weight: bold;
 	font-size: 22px;
@@ -266,4 +270,12 @@ a:hover {
 	transform:rotate(180deg);
 	margin-left:10px;
 	display: inline-block;
+}
+
+.spacer {
+	margin-bottom: 50px
+}
+
+.thumbnail {
+	border-radius: 0px;
 }
