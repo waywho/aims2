@@ -33,13 +33,13 @@
 </nav>
 <div class='container-fluid'>
 	<%= link_to root_path do %>
-		<div class = "brand col-xs-12 col-sm-9 col-md-9 col-lg-9">
+		<div class = "brand col-xs-12 col-sm-12 col-md-8 col-lg-8">
 			<%= image_tag "AIMS_red.jpg", :alt => 'AIMS', :class => 'logo' %>International Music School
 		</div>
 	<% end %>
 <!-- Begin MailChimp Signup Form -->
-	<div class="col-xs-6 col-sm-3 col-md-3 col-log-3">
-		<div id="mc_embed_signup">
+	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+		<div id="mc_embed_signup" class="pull-right">
 			<form action="//logical-thinking.us9.list-manage.com/subscribe/post?u=cbb914b50f309ab1290bcd8ea&amp;id=487d141b33" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate form-inline" target="_blank" novalidate>
 			    <div id="mc_embed_signup_scroll form-group">
 					<input type="email" value="" name="EMAIL" class="email form-control" id="mce-EMAIL" placeholder="email address" required>
@@ -97,7 +97,7 @@
 		         <% end %>
 		        <li><%= link_to 'Staff', staffs_path %></li>
 		        <% if @news.present? %>
-		        	<li><%= link_to 'News', newss_path %></li>
+		        	<li><%= link_to 'News', newsitems_path %></li>
 		        <% end %>
 		        <% if @events.present? %>
 		        	<li><%= link_to 'Events', events_path %></li>

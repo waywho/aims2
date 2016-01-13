@@ -50,6 +50,8 @@ gem 'ancestry'
 gem 'ranked-model'
 
 gem 'jquery-ui-rails'
+
+gem 'figaro'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
