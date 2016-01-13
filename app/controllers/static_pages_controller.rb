@@ -5,7 +5,7 @@ class StaticPagesController < ApplicationController
 		@feature_page = Page.find_by(feature_page: true)
 		@events = Event.future.order(:date)
 		@feature_format = Courseformat.find_by(homepage_feature: true)
-		@courses = @feature_format.courses.limit(4)
+		@feature_courses = @feature_format.courses.limit(4).rank(:row_order)
 		@quotes = Quote.all
 	end
 
