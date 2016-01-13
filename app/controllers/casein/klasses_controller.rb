@@ -9,7 +9,7 @@ module Casein
   
     def index
       @casein_page_title = 'Klasses'
-  		@klasses = Klass.order(sort_order(:title)).paginate :page => params[:page]
+  		@klasses = Klass.rank(:row_order)
     end
   
     def show
@@ -100,7 +100,7 @@ module Casein
     private
       
       def klass_params
-        params.require(:klass).permit(:title, :klasses, {:klass_ids => []}, :published_at, :workflow_state, :description, :repertoire, :number_of_sessions, :session_of_day, :course_id)
+        params.require(:klass).permit(:title, :klasses, :row_order_position, {:klass_ids => []}, :published_at, :workflow_state, :description, :repertoire, :number_of_sessions, :session_of_day, :course_id)
       end
 
       def load_klass

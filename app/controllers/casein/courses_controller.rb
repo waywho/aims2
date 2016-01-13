@@ -9,7 +9,7 @@ module Casein
   
     def index
       @casein_page_title = 'Courses'
-  		@courses = Course.order(sort_order(:title)).paginate :page => params[:page]
+  		@courses = Course.rank(:row_order)
     end
   
     def show
@@ -113,7 +113,7 @@ module Casein
     private
       
       def course_params
-        params.require(:course).permit(:title, :courses, :workflow_state, {:course_ids => []}, :description, :published_at, photos_attributes: [:id, :caption, :course_id, :image])
+        params.require(:course).permit(:title, :courses, :workflow_state, :row_order_position, {:course_ids => []}, :description, :published_at, photos_attributes: [:id, :caption, :course_id, :image])
       end
 
       def undo_link

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160112214350) do
+ActiveRecord::Schema.define(version: 20160113092904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,8 +57,10 @@ ActiveRecord::Schema.define(version: 20160112214350) do
     t.datetime "updated_at",       null: false
     t.datetime "published_at"
     t.boolean  "homepage_feature"
+    t.integer  "row_order"
   end
 
+  add_index "courseformats", ["row_order"], name: "index_courseformats_on_row_order", using: :btree
   add_index "courseformats", ["slug"], name: "index_courseformats_on_slug", using: :btree
 
   create_table "courses", force: :cascade do |t|
@@ -70,9 +72,11 @@ ActiveRecord::Schema.define(version: 20160112214350) do
     t.string   "workflow_state"
     t.datetime "published_at"
     t.integer  "courseformat_id"
+    t.integer  "row_order"
   end
 
   add_index "courses", ["courseformat_id"], name: "index_courses_on_courseformat_id", using: :btree
+  add_index "courses", ["row_order"], name: "index_courses_on_row_order", using: :btree
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
 
   create_table "events", force: :cascade do |t|
@@ -116,7 +120,11 @@ ActiveRecord::Schema.define(version: 20160112214350) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "courseformat_id"
+    t.integer  "row_order"
   end
+
+  add_index "highlights", ["courseformat_id"], name: "index_highlights_on_courseformat_id", using: :btree
+  add_index "highlights", ["row_order"], name: "index_highlights_on_row_order", using: :btree
 
   create_table "klasses", force: :cascade do |t|
     t.string   "title"
@@ -129,9 +137,11 @@ ActiveRecord::Schema.define(version: 20160112214350) do
     t.datetime "updated_at",         null: false
     t.string   "workflow_state"
     t.datetime "published_at"
+    t.integer  "row_order"
   end
 
   add_index "klasses", ["course_id"], name: "index_klasses_on_course_id", using: :btree
+  add_index "klasses", ["row_order"], name: "index_klasses_on_row_order", using: :btree
 
   create_table "menus", force: :cascade do |t|
     t.string   "name"

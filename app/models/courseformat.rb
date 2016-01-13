@@ -12,6 +12,9 @@ class Courseformat < ActiveRecord::Base
 	has_many :recordfies, as: :entriable
 	has_many :pages, through: :recordfies
 
+	include RankedModel
+	ranks :row_order
+
 	has_paper_trail :on => [:update, :create, :destroy]
 	include Workflow
 

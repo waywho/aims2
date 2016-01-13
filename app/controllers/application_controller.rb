@@ -12,10 +12,10 @@ class ApplicationController < ActionController::Base
  	end
 
  	def load_courseformats
- 		@courseformats = Courseformat.published_now
+ 		@courseformats = Courseformat.published_now.rank(:row_order)
  	end
 
  	def load_courses
- 		@courses = Course.published_now
+ 		@courses = Course.published_now.rank(:row_order)
  	end
 end

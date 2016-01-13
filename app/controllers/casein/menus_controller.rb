@@ -9,7 +9,7 @@ module Casein
   
     def index
       @casein_page_title = 'Menus'
-      @menus = Menu.rank(:row_order).paginate :page => params[:page]
+      @menus = Menu.rank(:row_order)
       @menu = Menu.new
       @pages = Page.published_now.order(:title)
       @course_formats = Courseformat.published_now

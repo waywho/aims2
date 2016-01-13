@@ -14,6 +14,9 @@ class Course < ActiveRecord::Base
 	has_many :recordfies, as: :entriable
 	has_many :pages, through: :recordfies
 
+	include RankedModel
+	ranks :row_order, :with_same => :courseformat_id
+
 	workflow do
 		state :draft do
 			event :submit, transition_to: :pending_review

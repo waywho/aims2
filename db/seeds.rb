@@ -24,7 +24,7 @@ course_choral.klasses.create({title: "Oratorio Choir", description: "Mendelssohn
 course_choral.klasses.create({title: "Compline Choir", description: "This choir will rehearse the music for a service of Compline on the Wednesday evening. The Compline service at AIMS is a wonderful midpoint of the week. It is a chance to take some time out from the rus, and enjoy some beautiful sacred works, both accompanied and a capella.", repertoire: "Music for the Funeral of Queen Mary, Purcell, Burial Sentences, Croft, Nunc Dimittis, Howell, and motets from Elizabethan/Tudor period.", session_of_day: "Session 3", number_of_sessions: 3})
 course_choral.klasses.create({title: "AIMS Choir", description: "All choral students are encouraged to sing in the AIMS Choir", repertoire: "Haydn The Seasons (Autumn & Winter) published by Barn End Press", session_of_day: 'Session 4', number_of_sessions: '6'})
 
-course_dropin.klasses.create({title: "Stagecraftt", description: "Taken by our Opera Directors, these classes cover various aspects of acting technique. They are lively, with lots of participation for all. Specific themes will be covered"})
+course_dropin.klasses.create({title: "Stagecraft", description: "Taken by our Opera Directors, these classes cover various aspects of acting technique. They are lively, with lots of participation for all. Specific themes will be covered"})
 
 Courseformat.delete_all
 format_summer = Courseformat.create({title: "Summer School 2016", description: "The Summer School is a week-long residential course at the beautiful seaside of East Bourne. The You will be joining around 200 enthusiastic students, along with 70 staff made up of tutors and house pianists. There four main teaching sessions per day, with lots of performance opportunities.", whats_new: "2016 is very new", when_from: "2016-08-21 08:53:20", when_to: "2016-08-28 21:53:20", venue: "EastBourne College", address1: "Old Wish Road", city: "EastBourne", county: "East Sussex", post_code: "BN21 4JY"})
@@ -93,6 +93,6 @@ Fee.create({fee_type: "Event", category: "Concert", description: "Lunchtime Conc
 
 Quote.delete_all
 Quote.create({saying: "Fabulous week at AIMS but then it always is! Lovely to see old friends and meet new ones, and share in this life-enhancing musical experience."})
-Quote.create({saying: "As the week progressed, it was nice to know we alls hared the same vocal issues."})
+Quote.create({saying: "As the week progressed, it was nice to know we all shared the same vocal issues."})
 
 

@@ -5,6 +5,9 @@ class Klass < ActiveRecord::Base
 	has_many :recordfies, as: :entriable
 	has_many :pages, through: :recordfies
 	
+	include RankedModel
+	ranks :row_order, :with_same => :course_id
+
 	include Workflow
 
 	SESSIONS = ["Session 1", "Session 2", "Session 3", "Session 4"]
