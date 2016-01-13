@@ -12,7 +12,7 @@ module Casein
       @menus = Menu.rank(:row_order).paginate :page => params[:page]
       @menu = Menu.new
       @pages = Page.published_now.order(:title)
-      @course_formats = CourseFormat.published_now
+      @course_formats = Courseformat.published_now
     end
   
     def show
