@@ -1,17 +1,29 @@
 
 <section class="hero">
-	<style media="screen">
-		.hero {background: url('<%= @feature_page.feature_image_url %>') no-repeat center center; background-size: 'cover'}
-	</style>
- 	 <div class="intro">
-	      <h1><%= @feature_page.title %></h1>
-	      <p><%= @feature_page.content.html_safe %></p>
-	      <p>
-	      <% @courseformats.each do |courseformat| %>
-			<b><%= courseformat.title %>:</b> <%= from_to(courseformat.when_from, courseformat.when_to) %><br />
-			<% end %>
+	<% if @feature_page.nil? %>
+		<div class="intro">
+		    <h1>Welcome</h1>
+		    <p>Please select a feature page</p>
+		    <p>
+		    	<% @courseformats.each do |courseformat| %>
+				<b><%= courseformat.title %>:</b> <%= from_to(courseformat.when_from, courseformat.when_to) %><br />
+				<% end %>
 			</p>
-  	</div>
+  		</div>
+	<% else %>
+		<style media="screen">
+			.hero {background: url('<%= @feature_page.feature_image_url %>') no-repeat center center; background-size: 'cover'}
+		</style>
+	 	<div class="intro">
+		    <h1><%= @feature_page.title %></h1>
+		    <p><%= @feature_page.content.html_safe %></p>
+		    <p>
+		    <% @courseformats.each do |courseformat| %>
+			<b><%= courseformat.title %>:</b> <%= from_to(courseformat.when_from, courseformat.when_to) %><br />
+				<% end %>
+			</p>
+	  	</div>
+  		<% end %>
 </section>
 
 <section class="feature container-fluid">
@@ -32,6 +44,7 @@
 	<% end %>
 </div>
 </section>
+
 <section class="quote-section container-fluid">
 	<div class="col-xs-offset-1 col-xs-10 quote">
 		<%= image_tag 'icon-quote.png', :class => "quote-icon-left img-responsive" %><%= @quotes.order("RANDOM()").first.saying %><%= image_tag 'icon-quote.png', :class => "quote-icon-right img-responsive" %>
@@ -39,9 +52,9 @@
 </section>
 
 <section class="course-highlights container-fluid">
-	<h2><%= @feature_courseformat.title %> Highlights</h2>
-			<% @feature_courseformat.highlights.each do |highlight| %>
-				<%= link_to courseformat_path(@feature_courseformat) do %>
+	<h2><%= @feature_format.title %> Highlights</h2>
+			<% @feature_format.highlights.each do |highlight| %>
+				<%= link_to courseformat_path(@feature_format) do %>
 
 					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="highlight">
@@ -85,12 +98,16 @@
 		</div>
 	<% else %>
 	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 quote quote-section">
+		<div class="quote">
 		<p><%= image_tag 'icon-quote.png', :class => "quote-icon-left img-responsive" %>
 				<%= @quotes.order("RANDOM()").first.saying %>
 			<%= image_tag 'icon-quote.png', :class => "quote-icon-right img-responsive" %></p>
+		</div>
+		<div class="quote">
 		<p><%= image_tag 'icon-quote.png', :class => "quote-icon-left img-responsive" %>
 				<%= @quotes.order("RANDOM()").first.saying %>
 			<%= image_tag 'icon-quote.png', :class => "quote-icon-right img-responsive" %></p>
+		</div>
 	</div>
 	<% end %>
 	<% if @events.present? %>
@@ -111,12 +128,17 @@
 	</section>
 	<% else %>
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 quote quote-section">
-			<p><%= image_tag 'icon-quote.png', :class => "quote-icon-left img-responsive" %>
-					<%= @quotes.order("RANDOM()").first.saying %>
-				<%= image_tag 'icon-quote.png', :class => "quote-icon-right img-responsive" %></p>
-			<p><%= image_tag 'icon-quote.png', :class => "quote-icon-left img-responsive" %>
-					<%= @quotes.order("RANDOM()").first.saying %>
-				<%= image_tag 'icon-quote.png', :class => "quote-icon-right img-responsive" %></p>
+			<div class="quote">
+				<p><%= image_tag 'icon-quote.png', :class => "quote-icon-left img-responsive" %>
+						<%= @quotes.order("RANDOM()").first.saying %>
+					<%= image_tag 'icon-quote.png', :class => "quote-icon-right img-responsive" %></p>
+				<br />
+			</div>
+			<div class="quote">
+				<p><%= image_tag 'icon-quote.png', :class => "quote-icon-left img-responsive" %>
+						<%= @quotes.order("RANDOM()").first.saying %>
+					<%= image_tag 'icon-quote.png', :class => "quote-icon-right img-responsive" %></p>
+			</div>
 		</div>
 	</section>
 	<% end %>
