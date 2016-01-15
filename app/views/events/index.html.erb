@@ -8,10 +8,11 @@
 	</h4>
 	<%= calendar @date do |date| %>
 		<%= date.day %>
-		<% if @events_by_date[date] %>
-			<%= content_tag :div, date.day, class: "event-day" %>
-	    <% end %>
+		<%= @events_by_date[date] %>
+
+	    
 	<% end %>
+	<%= @events_by_date %>
 </div>
 <div class='event-list col-sm-12 col-md-8'>
 	<% @events.each do |event| %>
