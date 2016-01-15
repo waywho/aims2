@@ -1,6 +1,5 @@
-
-<section class="hero">
-	<% if @feature_page.nil? %>
+<% if @feature_page.nil? %>
+	<section class="hero">
 		<div class="intro">
 		    <h1>Welcome</h1>
 		    <p>Please select a feature page</p>
@@ -10,21 +9,20 @@
 				<% end %>
 			</p>
   		</div>
-	<% else %>
-		<style media="screen">
-			.hero {background: url('<%= @feature_page.feature_image_url %>') no-repeat center center; background-size: 'cover'}
-		</style>
-	 	<div class="intro">
-		    <h1><%= @feature_page.title %></h1>
-		    <p><%= @feature_page.content.html_safe %></p>
-		    <p>
-		    <% @courseformats.each do |courseformat| %>
-			<b><%= courseformat.title %>:</b> <%= from_to(courseformat.when_from, courseformat.when_to) %><br />
-				<% end %>
-			</p>
-	  	</div>
-  		<% end %>
-</section>
+  	</section>
+<% else %>
+	<section class="hero" style="background: url('<%= @feature_page.feature_image %>'); background-position: center center; background-repeat: no-repeat; background-size: cover;">
+		 	<div class="intro">
+		    	<h1><%= @feature_page.title %></h1>
+		   		<p><%= @feature_page.content.html_safe %></p>
+			    <p>
+			    <% @courseformats.each do |courseformat| %>
+				<b><%= courseformat.title %>:</b> <%= from_to(courseformat.when_from, courseformat.when_to) %><br />
+					<% end %>
+				</p>
+	  		</div>
+	</section>
+<% end %>
 
 <section class="feature container-fluid">
 	<div class="row feauture-row">

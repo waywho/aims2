@@ -4,10 +4,10 @@ CarrierWave.configure do |config|
 
   # Optionally define an asset host for configurations that are fronted by a
   # content host, such as CloudFront.
-  # config.asset_host = 'http://example.com'
+  config.asset_host = 'https://aims2.s3.amazonaws.com'
 
   # The maximum period for authenticated_urls is only 7 days.
-  config.aws_authenticated_url_expiration = 60 * 60 * 24 * 7
+  # config.aws_authenticated_url_expiration = 60 * 60 * 24 * 7
 
   # Set custom options such as cache control to leverage browser caching
   # config.aws_attributes = {
