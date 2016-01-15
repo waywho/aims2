@@ -5,6 +5,6 @@ class StaffsController < ApplicationController
 	end
 
 	def show
-		@staff = Staff.friendly.find(params[:id])
+		@staff = Staff.published_now.friendly.find(params[:id])
 	end
 end

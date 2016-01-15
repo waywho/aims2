@@ -24,24 +24,26 @@
 	</section>
 <% end %>
 
-<section class="feature container-fluid">
-	<div class="row feauture-row">
-	<% @feature_courses.each do |course| %>
-		<%= link_to course_path(course) do %>
-			<div class="feature-course col-xs-12 col-sm-6 col-md-3 col-lg-3">
-				<div class='course-heading'>
-					<span class='course-title'><h3><%= course.title %></h3></span>
+<% if feature_course.present? %>
+	<section class="feature container-fluid">
+		<div class="row feauture-row">
+		<% @feature_courses.each do |course| %>
+			<%= link_to course_path(course) do %>
+				<div class="feature-course col-xs-12 col-sm-6 col-md-3 col-lg-3">
+					<div class='course-heading'>
+						<span class='course-title'><h3><%= course.title %></h3></span>
+					</div>
+					<div class='course-body' %>
+						<p>
+						<%= truncated_description(course.description) %>
+						</p>
+					</div>
 				</div>
-				<div class='course-body' %>
-					<p>
-					<%= truncated_description(course.description) %>
-					</p>
-				</div>
-			</div>
+			<% end %>
 		<% end %>
-	<% end %>
-</div>
-</section>
+	</div>
+	</section>
+<% end %>
 
 <section class="quote-section container-fluid">
 	<div class="col-xs-offset-1 col-xs-10 quote">
@@ -49,21 +51,23 @@
 	</div>
 </section>
 
-<section class="course-highlights container-fluid">
-	<h2><%= @feature_format.title %> Highlights</h2>
-			<% @feature_format.highlights.each do |highlight| %>
-				<%= link_to courseformat_path(@feature_format) do %>
+<% if feature_course.hilights.present? %>
+	<section class="course-highlights container-fluid">
+		<h2><%= @feature_format.title %> Highlights</h2>
+				<% @feature_format.highlights.each do |highlight| %>
+					<%= link_to courseformat_path(@feature_format) do %>
 
-					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-						<div class="highlight">
-							<h4><%= highlight.title %></h4>
-							<hr />
-							<%= highlight.description %>
+						<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+							<div class="highlight">
+								<h4><%= highlight.title %></h4>
+								<hr />
+								<%= highlight.description %>
+							</div>
 						</div>
-					</div>
+					<% end %>
 				<% end %>
-			<% end %>
-</section>
+	</section>
+<% end %>
 
 <section class="news container-fluid">
 <% if !@news.present? && !@events.present? %>

@@ -1,0 +1,34 @@
+<h1 class="page-heading">Events</h1>
+
+<div class='calendar col-sm-12 col-md-4'>
+	<h4 id='month'>
+		<%= link_to '<', date: @date.prev_month %>
+		<%= @date.strftime("%B %Y") %>
+		<%= link_to '>', date: @date.next_month %>
+	</h4>
+	<%= calendar @date do |date| %>
+		<%= date.day %>
+		<% if @events_by_date[date] %>
+			<%= content_tag :div, date.day, class: "event-day" %>
+	    <% end %>
+	<% end %>
+</div>
+<div class='event-list col-sm-12 col-md-8'>
+	<% @events.each do |event| %>
+		<%= link_to event_path(event) do %>
+			<div class = 'event'>
+				<h3><%= event.title %></h3>
+				<p>
+					<b><i><%= time_of_date(event.date) %>, <%= d_Month_y(event.date) %></i>&nbsp;&nbsp;&nbsp;&nbsp;<%= event.venue %></b>
+				</p>
+				<p>
+					<%= truncated_blurb(event.description.html_safe) %>
+				</p>
+				<p>
+					<%= event.performers.html_safe %>
+				</p>
+				<hr />
+			</div>
+		<% end %>
+	<% end %>
+</div>

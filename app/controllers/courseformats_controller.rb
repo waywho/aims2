@@ -1,5 +1,5 @@
 class CourseformatsController < ApplicationController
-	 before_action :set_courseformat, only: [:show, :edit, :update, :destroy]
+	 before_action :set_courseformat, only: [:show]
 
 	  # GET /courseformats
 	  # GET /courseformats.json
@@ -65,7 +65,7 @@ class CourseformatsController < ApplicationController
 	  private
 	    # Use callbacks to share common setup or constraints between actions.
 	    def set_courseformat
-	      @courseformat = Courseformat.friendly.find(params[:id])
+	      @courseformat = Courseformat.published_now.friendly.find(params[:id])
 	    end
 
 	    # Never trust parameters from the scary internet, only allow the white list through.

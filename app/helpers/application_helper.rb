@@ -23,6 +23,11 @@ module ApplicationHelper
 		datetime.strftime("%d-%m-%Y") if datetime.present?
 	end
 
+
+	def d_Month_y(datetime)
+		datetime.strftime("%d %B, %Y") if datetime.present?
+	end
+
 	def time_of_date(datetime)
 		datetime.strftime("%H:%M") if datetime.present?
 	end
