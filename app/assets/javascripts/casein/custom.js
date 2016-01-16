@@ -47,7 +47,17 @@ $(document).ready(function() {
 	});
 
 	$('.description-box').each(function(i, elem) {
-	      $(elem).wysihtml5();
+	      $(elem).froalaEditor({
+	      	inlineMode: false,
+	      	heightMin: 400,
+	      	toolBarButtons: ['fullscreen', 'bold', 'italic', 'underline', 
+	      	'strikeThrough', 'subscript', 'superscript', 'fontFamily', 
+	      	'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', 
+	      	'|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 
+	      	'indent', 'quote', 'insertHR', '-', 'insertLink', 'insertImage', 
+	      	'insertVideo', 'insertFile', 'insertTable', 'undo', 'redo', 
+	      	'clearFormatting', 'selectAll', 'html']
+	      });
 	 });
 
 	Dropzone.options.myAwesomeDropzone = {

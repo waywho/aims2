@@ -33,12 +33,14 @@ module Casein
   
     # A list of stylesheets to include. Do not remove the core casein/casein, but you can change the load order, if required.
     def casein_config_stylesheet_includes
-      %w[casein/casein casein/custom casein/dropzone bootstrap-wysihtml5/bootstrap3-wysihtml5 jquery-ui]
+      %w[casein/casein casein/custom casein/dropzone font-awesome froala_style.min froala_editor.min plugins/code_view.min 
+        plugins/image_manager.min plugins/image.min jquery-ui]
     end
   
     # A list of JavaScript files to include. Do not remove the core casein/casein, but you can change the load order, if required.
     def casein_config_javascript_includes
-      %w[casein/casein casein/custom casein/dropzone bootstrap-wysihtml5 bootstrap-wysihtml5/locales jquery-ui]
+      %w[casein/casein casein/custom casein/dropzone froala_editor.min plugins/image_manager.min plugins/image.min plugins/code_view.min 
+        plugins/paragraph_format.min plugins/paragraph_style.min jquery-ui]
     end
   end
 end
