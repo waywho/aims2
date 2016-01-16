@@ -11,13 +11,33 @@
 	padding-top: 1px;
 }
 
+.event-list a {
+  text-decoration: none;
+}
+
 .event-list a:hover .event {
 	text-decoration: none;
 	background-color: #F6E8E9;
 }
 
+.event-list ul {
+  list-style-type: none;
+  padding-left: 10px;
+}
+
+.event-list ul .event {
+  margin: 10px 0px;
+  padding: 0px 10px;
+}
+
+.event-list ul a:hover .event {
+  text-decoration: none;
+  background-color: #F6E8E9;
+}
+
 .calendar {
   border: none;
+  margin-bottom: 25px;
 
   td, th {
     font-family: "Helvetica Neue", arial, helvetica, sans-serif;
@@ -58,11 +78,8 @@
   }
 }
 
-#articles ul {
-  font-size: 11px;
-  padding-left: 20px;
-}
-
 .event-day {
-	background: #F6E8E9;
+	background: #A21D21;
+  border-radius: 50%;
+  color: white;
 }

@@ -3,6 +3,7 @@
 
 body {
 	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif;
+	font-size: 16px;
 }
 
 .clr {
@@ -29,6 +30,13 @@ h1 > a, h2 > a, h3 > a, h4 > a, h5 > a {
 	margin-top: 50px;
 }
 
+
+.red-heading {
+  background-color: #A21D21;
+  padding: 10px;
+  margin-top: 10px;
+  color: #fff;
+}
 
 .logo-title {
 	display: inline-block;
@@ -248,9 +256,21 @@ a:hover {
 	margin-bottom: 20px;
 }
 
-.course-date {
+.important-date {
 	font-weight: bold;
 	font-size: 22px;
+	margin-bottom: 10px;
+}
+
+.important-venue {
+	font-weight: bold;
+	font-size: 20px;
+	margin-bottom: 8px;
+}
+
+.address {
+	margin-bottom: 8px;
+	font-style: italic;
 }
 
 .quote {

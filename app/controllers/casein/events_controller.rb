@@ -20,8 +20,7 @@ module Casein
     def new
       @casein_page_title = 'Add a new event'
       @event = Event.new
-      @event.fees.build
-      @event.page.build
+      @event.pages.build
       @pages = Page.published_now
     end
 

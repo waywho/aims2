@@ -1,7 +1,7 @@
 <h1 class = 'page-heading'><%= @courseformat.title %></h2>
 
-<div class="course-date"><%= from_to(@courseformat.when_from, @courseformat.when_to) %></div>
-<div class="course-date"><%= @courseformat.venue %></div>
+<div class="important-date"><%= from_to(@courseformat.when_from, @courseformat.when_to) %></div>
+<div class="important-venue"><%= @courseformat.venue %></div>
 <!-- Carousel -->
 <% if @courseformat.photos.present? %>
 	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">

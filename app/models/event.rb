@@ -5,10 +5,13 @@ class Event < ActiveRecord::Base
 	has_one :photo, as: :imageable
 	accepts_nested_attributes_for :photo, allow_destroy: true
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
-	scope :future, -> { published_now.where('date >= ?', Time.zone.now)}
+	scope :future, -> { published_now.where('date >= ?', Date.today)}
 	has_many :recordfies, as: :entriable
 	has_many :pages, through: :recordfies
 	accepts_nested_attributes_for :pages, allow_destroy: true
+	validates :address1, presence: true
+	validates :city, presence: true
+	validates :post_code, presence: true
 
 	include Workflow
 
@@ -46,5 +49,15 @@ class Event < ActiveRecord::Base
 
 	def unpublish
 		update_attribute(:published_at, nil)
+	end
+
+	def address
+		address = "#{self.address1}, "
+		address << "#{self.address2}, " if !self.address2.blank?
+		address << "#{self.city}, " if !self.city.blank?
+		address << " #{self.county}, " if !self.county.blank?
+		address << " #{self.country}" if !self.country.blank?
+		address << "#{self.post_code}" if !self.post_code.blank?
+		address
 	end
 end

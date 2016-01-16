@@ -1,6 +1,7 @@
 class Page < ActiveRecord::Base
 	extend FriendlyId
 	mount_uploader :feature_image, ImageUploader
+	before_save :falsify_all_others
 
 	belongs_to :user
 	friendly_id :title, use: :slugged
@@ -52,5 +53,9 @@ class Page < ActiveRecord::Base
 
 	def unpublish
 		update_attribute(:published_at, nil)
+	end
+
+	def falsify_all_others
+		self.class.where('id != ? and feature_page').update_all("feature_page = 'false'")
 	end
 end

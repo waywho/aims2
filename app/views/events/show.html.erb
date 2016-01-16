@@ -1,2 +1,61 @@
-<h1 class="page-heading">Events#show</h1>
-<p>Find me in app/views/events/show.html.erb</p>
+<h1 class="page-heading"><%= @event.title %></h1>
+
+<div class='event-list col-xs-12 col-sm-12 col-md-4 col-lg-4 pull-right'>
+	<% if @future_events.present? %>
+		<h2>Other Events</h2>
+		<ul>
+			<% @future_events.each do |event| %>
+			<li>
+				<%= link_to events_path(event) do %>
+				<div class='event'>
+					<b><%= event.title %></b><br />
+					<i><%= d_Month_y(event.date) %></i>
+				</div>
+				<% end %>
+			</li>
+			<% end %>
+		</ul>
+	<% end %>
+</div>
+<div class='col-xs-12 col-sm-12 col-md-8 col-lg-8'>
+<section class='event-image'>
+	<%= image_tag @event.photo %>
+</section>
+
+<section class='event-details'>
+	<div class='important-date'><%= d_Month_y(@event.date) %></div>
+	<div class='important-venue'><%= @event.venue %></div>
+	<div class='address'>(<%= @event.address %>)</div>
+	<b>Ticket:</b> <%= @event.ticket_type %>
+	<br />
+	<br />
+	<p>
+		<%= @event.programme.html_safe %>
+	</p>
+	<p>
+		<%= @event.performers.html_safe %>
+	</p>
+	<br />
+	<p>
+		<b>Description: </b><%= @event.description %>
+	</p>
+</section>
+
+<% if @event.pages.present? %>
+	<% @event.pages.each do |page| %>
+	<section class='additional'>
+		<h4><%= page.title %></h4>
+		<% if page.feature_image.present? %>
+			<div class='col-xs-12 col-sm-4 col-md-4'>
+				<%= image_tag page.feature_image %>
+			</div>
+			<div class='col-xs-12 col-sm-8 col-md-8'>
+		<% else %>
+			<div class='col-xs-12 col-sm-12 col-md-12'>
+		<% end %>
+				<%= page.content.html_safe %>
+			</div>
+	</section>
+	<% end %>
+<% end %>
+</div>

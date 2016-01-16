@@ -26,6 +26,6 @@ class ApplicationController < ActionController::Base
  	end
 
  	def load_events
- 		@events = Event.future
+ 		@future_events = Event.future.order(:date)
  	end
 end

@@ -24,7 +24,7 @@
 	</section>
 <% end %>
 
-<% if feature_course.present? %>
+<% if @feature_courses.present? %>
 	<section class="feature container-fluid">
 		<div class="row feauture-row">
 		<% @feature_courses.each do |course| %>
@@ -51,7 +51,7 @@
 	</div>
 </section>
 
-<% if feature_course.hilights.present? %>
+<% if @feature_format.highlights.present? %>
 	<section class="course-highlights container-fluid">
 		<h2><%= @feature_format.title %> Highlights</h2>
 				<% @feature_format.highlights.each do |highlight| %>
@@ -70,7 +70,7 @@
 <% end %>
 
 <section class="news container-fluid">
-<% if !@news.present? && !@events.present? %>
+<% if !@news.present? && !@future_events.present? %>
 	<div class="col-xs-offset-1 col-xs-10 quote quote-section">
 		<p><%= image_tag 'icon-quote.png', :class => "quote-icon-left img-responsive" %>
 				<%= @quotes.order("RANDOM()").first.saying %>
@@ -79,7 +79,7 @@
 <% else %>
 	<% if @news.present? %>
 		<div class="news col-xs-12 col-sm-6 col-md-6 col-lg-6">
-			<div class='news-head'>
+			<div class='news-heading'>
 			<h2>News</h2>
 			</div>
 			<table class='table table-striped'>
@@ -112,11 +112,11 @@
 		</div>
 	</div>
 	<% end %>
-	<% if @events.present? %>
+	<% if @future_events.present? %>
 		<div class="news col-xs-12 col-sm-6 col-md-6 col-lg-6">
 			<h2>Events</h2>
 			<table>
-				<% @events.each do |event| %>
+				<% @future_events.each do |event| %>
 					<tr>
 						<td>
 							<h4><%= event.title %></h4>

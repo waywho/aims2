@@ -7,29 +7,77 @@
 		<%= link_to '>', date: @date.next_month %>
 	</h4>
 	<%= calendar @date do |date| %>
-		<%= date.day %>
-		<%= @events_by_date[date] %>
-
-	    
-	<% end %>
-	<%= @events_by_date %>
-</div>
-<div class='event-list col-sm-12 col-md-8'>
-	<% @events.each do |event| %>
-		<%= link_to event_path(event) do %>
-			<div class = 'event'>
-				<h3><%= event.title %></h3>
-				<p>
-					<b><i><%= time_of_date(event.date) %>, <%= d_Month_y(event.date) %></i>&nbsp;&nbsp;&nbsp;&nbsp;<%= event.venue %></b>
-				</p>
-				<p>
-					<%= truncated_blurb(event.description.html_safe) %>
-				</p>
-				<p>
-					<%= event.performers.html_safe %>
-				</p>
-				<hr />
-			</div>
+		<% if @events_by_date[date.to_formatted_s(:numerals)] %>
+			<%= link_to date: date do %>
+			<%= content_tag :div, date.day, :class => 'event-day' %>
+			<% end %>
+		<% else %>
+			<%= date.day %>
 		<% end %>
 	<% end %>
+</div>
+<div class='event-list col-sm-12 col-md-8'>
+	<% if @day_events %>
+		<% if @day_events.first.date.today? %>
+			<h2 class='red-heading'>What's on TODAY</h2>
+		<% else %>
+			<h2 class='red-heading'>What's on <%= d_Month_y(@day_events.first.date) %></h2>
+		<% end %>
+			<% @day_events.each do |event| %>
+			<%= link_to event_path(event) do %>
+				<div class = 'event'>
+					<h3><%= event.title %></h3>
+					<p>
+						<b><i><%= time_of_date(event.date) %>, <%= d_Month_y(event.date) %></i>&nbsp;&nbsp;&nbsp;&nbsp;<%= event.venue %></b>
+					</p>
+					<p>
+						<%= truncated_blurb(event.description.html_safe) %>
+					</p>
+					<p>
+						<%= event.performers.html_safe %>
+					</p>
+					<hr />
+				</div>
+			<% end %>
+			<% end %>
+			<br />
+			<h2 class='red-heading'>Future Events</h2>
+			<% @events.each do |event| %>
+			<%= link_to event_path(event) do %>
+				<div class = 'event'>
+					<h3><%= event.title %></h3>
+					<p>
+						<b><i><%= time_of_date(event.date) %>, <%= d_Month_y(event.date) %></i>&nbsp;&nbsp;&nbsp;&nbsp;<%= event.venue %></b>
+					</p>
+					<p>
+						<%= truncated_blurb(event.description.html_safe) %>
+					</p>
+					<p>
+						<%= event.performers.html_safe %>
+					</p>
+					<hr />
+				</div>
+			<% end %>
+			<% end %>
+	<% else %>
+		<h2 class='red-heading'>Events from	<%= @date.strftime("%B %Y") %></h2>
+		<% @events.each do |event| %>
+			<%= link_to event_path(event) do %>
+				<div class = 'event'>
+					<h3><%= event.title %></h3>
+					<p>
+						<b><i><%= time_of_date(event.date) %>, <%= d_Month_y(event.date) %></i>&nbsp;&nbsp;&nbsp;&nbsp;<%= event.venue %></b>
+					</p>
+					<p>
+						<%= truncated_blurb(event.description.html_safe) %>
+					</p>
+					<p>
+						<%= event.performers.html_safe %>
+					</p>
+					<hr />
+				</div>
+			<% end %>
+		<% end %>
+	<% end %>
+
 </div>
