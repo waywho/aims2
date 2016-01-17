@@ -47,7 +47,13 @@ $(document).ready(function() {
 	});
 
 	$('.description-box').each(function(i, elem) {
-	      $(elem).wysihtml5();
+	      $(elem).wysihtml5({
+	      	toolbar: {
+	      		"html": true,
+	      		"color": true
+	      	}
+
+	      });
 	 });
 
 	Dropzone.options.myAwesomeDropzone = {
