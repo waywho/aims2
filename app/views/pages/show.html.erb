@@ -6,11 +6,48 @@
 <%= @page.content.html_safe %>
 </section>
 <section class = 'page-record'>
-	<% if @page.recordfies %>
-		<% @page.reacordfies.each do |record| %>
-			<%= record.title %>
-			<%= record.description %>
+	<% if @page.staffs %>
+	<ul>
+		<% @page.staffs.each do |staff| %>
+			<li><%= link_to staff.name, staff_path(staff) %></li>
 		<% end %>
+	</ul>
+	<% end %>
+	<% end %>
+	<% if @page.courses %>
+	<ul>
+		<% @page.courses.each do |course| %>
+			<li><%= link_to course.title, course_path(course) %></li>
+		<% end %>
+	</ul>
+	<% end %>
+	<% if @page.events %>
+	<ul>
+		<% @page.events.each do |event| %>
+			<li><%= link_to event.title, event_path(event) %></li>
+		<% end %>
+	</ul>
+	<% end %>
+	<% if @page.fees %>
+	<ul>
+		<% @page.fees.each do |fee| %>
+			<li><%= link_to fee.title, fee_path(fee) %></li>
+		<% end %>
+	</ul>
+	<% end %>
+	<% if @page.klasses %>
+	<ul>
+		<% @page.klasses.each do |klass| %>
+			<li><%= link_to klass.title, klass_path(klass) %></li>
+		<% end %>
+	</ul>
+	<% end %>
+	<% if @page.quotes %>
+	<ul>
+		<% @page.quotes.each do |quote| %>
+			<li><%= link_to quote.saying, quote_path(quote) %></li>
+		<% end %>
+	</ul>
 	<% end %>
 </section>
 

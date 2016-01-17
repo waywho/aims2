@@ -1,7 +1,7 @@
 class Page < ActiveRecord::Base
 	extend FriendlyId
 	mount_uploader :feature_image, ImageUploader
-	before_save :falsify_all_others
+	# before_save :falsify_all_others
 
 	belongs_to :user
 	friendly_id :title, use: :slugged
@@ -56,6 +56,6 @@ class Page < ActiveRecord::Base
 	end
 
 	def falsify_all_others
-		self.class.where('id != ? and feature_page').update_all("feature_page = 'false'")
+		self.class.where('id != ? AND feature_page').update_all("feature_page = 'false'")
 	end
 end

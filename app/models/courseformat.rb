@@ -11,6 +11,7 @@ class Courseformat < ActiveRecord::Base
 	accepts_nested_attributes_for :highlights, :reject_if => lambda { |h| h[:description].blank? }, allow_destroy: true
 	has_many :recordfies, as: :entriable
 	has_many :pages, through: :recordfies
+	accepts_nested_attributes_for :pages, allow_destroy: true
 
 	include RankedModel
 	ranks :row_order

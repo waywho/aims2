@@ -17,6 +17,7 @@ module Casein
       @photos = Photo.all
       @photo = Photo.new
       @courseformat.highlights.build
+      @pages = @courseformat.pages
     end
   
     def new
@@ -114,9 +115,9 @@ module Casein
     private
       
       def courseformat_params
-        params.require(:courseformat).permit(:title, :description, :courseformats, :homepage_feature, :published_at, {:courseformat_ids => []}, 
+        params.require(:courseformat).permit(:title, :description, :courseformats, :homepage_feature, :published_at, {:page_ids => []}, {:courseformat_ids => []}, 
           :workflow_state, :whats_new, :when_from, :when_to, :venue, :address1, :row_order_position, :address2, :city, :county, :country, :post_code, 
-          photos_attributes: [:id, :caption, :image], highlights_attributes: [:title, :description])
+          photos_attributes: [:id, :caption, :image], highlights_attributes: [:id, :title, :description, :_destroy])
       end
       
       def undo_link

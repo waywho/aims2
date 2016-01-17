@@ -52,4 +52,8 @@ class Staff < ActiveRecord::Base
 		update_attribute(:published_at, nil)
 	end
 
+	def title
+		self.name
+	end
+
 end

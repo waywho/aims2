@@ -67,3 +67,14 @@
 	<% end %>
 </div>
 <% end %>
+
+<% if @courseformat.pages.present? %>
+	<h2>Additional Information</h2>
+	<section class='staff col-xs-12 col-sm-12 col-md-12'>
+		<ul>
+		<% @courseformat.pages.each do |page| %>
+			<li><%= link_to page.title, page_path(page) %></li>
+		<% end %>
+		</ul>
+	</section>
+<% end %>
