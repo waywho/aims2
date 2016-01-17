@@ -56,6 +56,20 @@ $(document).ready(function() {
 	      });
 	 });
 
+	$('.description-box-small').each(function(i, elem) {
+	      $(elem).wysihtml5({
+	      	toolbar: {
+	      		"font-style": false,
+	      		"lists": false,
+	      		"html": true,
+	      		"image": false,
+	      		"color": false,
+	      		"blockquote": false
+	      	}
+	      });
+	 });
+
+
 	Dropzone.options.myAwesomeDropzone = {
 		init: function() {
 			this.on("thumbnail", function (file) {
@@ -118,6 +132,17 @@ $(document).ready(function() {
 	  	var time = new Date().getTime();
 	  	var regexp = new RegExp($(this).data('id'), "g");
 	  	$(this).before($(this).data('fields').replace(regexp, time));
+	  	$('#courseformat_highlights_attributes_'+time+"_description").wysihtml5({
+	      	toolbar: {
+	      		"font-style": false,
+	      		"lists": false,
+	      		"html": true,
+	      		"image": false,
+	      		"color": false,
+	      		"blockquote": false
+	      	}
+	      });
+
 	});
 
 		

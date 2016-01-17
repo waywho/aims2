@@ -5,6 +5,11 @@
 	min-height: 350px;
 }
 
+
+.description-box-small {
+	min-height: 80px;
+}
+
 .thumb {
   margin-bottom: 10px;
 }
@@ -121,4 +126,12 @@ td .form-group {
 
 .thumbnail {
 	border-radius: 0px;
+}
+
+.highlight-box {
+	border: 1px solid #e3e3e3;
+	border-radius: 4px;
+	margin-bottom: 10px;
+	background-color: #9BCAF2;
+	padding-top: 2px;
 }
