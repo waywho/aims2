@@ -20,12 +20,6 @@
 	</div>
 </div>
 <div class="row">
-	<%= f.simple_fields_for :highlights do |builder| %>
-		<%= render 'casein/courseformats/highlight_fields', f: builder %>
-	<% end %>
-	<%= link_to_add_fields "Add highlight", f, :highlights %>
-</div>
-<div class="row">
 	<div class="col-lg-12 col-md-12">
 		<%= casein_text_field f, f.object, :venue %>
 	</div>
@@ -50,4 +44,10 @@
 				<%= casein_text_field f, f.object, :post_code %>
 			</div>
 	</div>
+<div class="row">
+	<%= f.simple_fields_for :highlights do |builder| %>
+		<%= render 'casein/courseformats/highlight_fields', f: builder %>
+	<% end %>
+	<%= link_to_add_fields "Add highlight", f, :highlights %>
+</div>
 </div>
