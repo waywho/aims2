@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   root 'static_pages#home'
 
 	#Casein routes
@@ -89,7 +89,7 @@ Rails.application.routes.draw do
 
   resources :events, :only => [:index, :show]
 
-  resources :newsitems, :only => [:index, :show]
+  resources :news_items, :only => [:index, :show]
 
 
   # The priority is based upon order of creation: first created -> highest priority.

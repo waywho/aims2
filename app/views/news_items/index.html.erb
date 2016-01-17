@@ -1,0 +1,24 @@
+<h1 class="page-heading">News</h1>
+
+<div class='news-index col-sm-12 col-md-4'>
+	
+</div>
+<div class='news-list col-sm-12 col-md-8'>
+	<% if @newsies%>
+			<% @newsies.each do |news| %>
+				<%= link_to news_item_path(news) do %>
+					<div class = 'news'>
+						<h3><%= news.title %></h3>
+						<p>
+							<%= truncated_blurb(news.description.html_safe) %>
+						</p>
+						<p>
+							<%= d_m_y(news.published_at) %></i>
+						</p>
+
+						<hr />
+					</div>
+				<% end %>
+			<% end %>
+	<% end %>
+</div>
