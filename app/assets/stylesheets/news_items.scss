@@ -1,3 +1,36 @@
 // Place all the styles related to the news_items controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.news {
+	padding-top: 1px;
+}
+
+.news hr {
+	border: 1px solid #C7C7C7;
+	margin-bottom: 0px;
+}
+
+.news-list a {
+  text-decoration: none;
+}
+
+.news-list a:hover .news {
+	text-decoration: none;
+	background-color: #F6E8E9;
+}
+
+.news-list ul {
+  list-style-type: none;
+  padding-left: 10px;
+}
+
+.news-list ul .news {
+  margin: 10px 0px;
+  padding: 0px 10px;
+}
+
+.news-list ul a:hover .news {
+  text-decoration: none;
+  background-color: #F6E8E9;
+}

@@ -5,5 +5,6 @@ class NewsItemsController < ApplicationController
 
   def show
   	@news = NewsItem.friendly.find(params[:id])
+  	@newsies = NewsItem.published_now.order(:published_at)
   end
 end
