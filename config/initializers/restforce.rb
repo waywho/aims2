@@ -1,8 +1,8 @@
 Restforce.configure do |config|
-	config.username = 'webdev@aims.uk.com.webdev'
-	config.password = 'Greatadmin1b04YyPa0Qiv0CEgiVAUa8Yum'
-  	config.client_id = "3MVG92u_V3UMpV.hdaH4EpiKBPi7wCzIVDIWlwmaIvzWA8N_bmQ1O4DUD8FDNzYqtplH0g082GmoV5skSAti1"
-  	config.client_secret = "335148879781836643"
+	config.username = ENV['SF_USERNAME']
+	config.password = ENV['SF_PASSWORD']
+  	config.client_id = ENV['SF_CONSUMER_ID']
+  	config.client_secret = ENV['SF_CONSUMER_SECRET']
   	config.host = 'test.salesforce.com'
   	config.api_version = '32.0'
 end
