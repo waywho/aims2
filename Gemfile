@@ -52,6 +52,10 @@ gem 'ranked-model'
 gem 'jquery-ui-rails'
 
 gem 'figaro'
+
+gem 'databasedotcom'
+
+gem 'databasedotcom-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
