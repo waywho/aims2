@@ -52,4 +52,9 @@ module ApplicationHelper
     	link_to(name, '#', :class => 'add_fields', data: {id: id, fields: fields.gsub("\n", "")})
   	end
 
+  	def current_user
+ 		@current_user ||= User.find(session[:user_id]) if sesson[:user_id]
+ 	end
+
+
 end

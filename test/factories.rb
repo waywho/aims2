@@ -1,4 +1,12 @@
-FactoryGirl.define do  factory :news_item do
+FactoryGirl.define do  factory :user do
+    provider "MyString"
+uid "MyString"
+name "MyString"
+oauth_token "MyString"
+refresh_token "MyString"
+instance_url "MyString"
+  end
+  factory :news_item do
     title "MyString"
 description "MyText"
 workflow_state "MyString"
