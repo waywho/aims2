@@ -1,6 +1,6 @@
-client_id: 3MVG92u_V3UMpV.hdaH4EpiKBPi7wCzIVDIWlwmaIvzWA8N_bmQ1O4DUD8FDNzYqtplH0g082GmoV5skSAti1
-client_secret: 335148879781836643
-username: webdev@aims.uk.com.webdev
-password: Greatadmin1b04YyPa0Qiv0CEgiVAUa8Yum
+client_id: ENV['SF_CONSUMER_ID']
+client_secret: ENV['SF_CONSUMER_SECRET']
+username: ENV['SF_USERNAME']
+password: ENV['SF_PASSWORD']
 host: test.salesforce.com
 debugging: true
