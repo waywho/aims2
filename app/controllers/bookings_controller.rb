@@ -1,6 +1,7 @@
 class BookingsController < ApplicationController
   def index
-  	@bookings = Restforce.new.query_all('Opportunity')
+  	@client = Restforce.new
+  	@bookings = @client.query('select Name from Opportunity')
   end
 
   def show
