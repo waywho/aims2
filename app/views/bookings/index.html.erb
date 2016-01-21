@@ -3,7 +3,12 @@
 
 <ul>
 <%= @bookings.each do |booking| %>
-	<li><%= booking.Name %></li>
+	<li><%= booking.each do |book2| %>
+	<ul>
+		<li><%= book2 %>
+	</ul>
+	<% end %></li>
 
 <% end %>
+
 </ul>
