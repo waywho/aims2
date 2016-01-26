@@ -2,13 +2,91 @@
 <p>Find me in app/views/bookings/index.html.erb</p>
 
 <ul>
-<%= @bookings.each do |booking| %>
-	<li><%= booking.each do |book2| %>
-	<ul>
-		<li><%= book2 %>
-	</ul>
-	<% end %></li>
+
+<% @accounts.each do |account| %>
+<li><%= account.Name %></li>
+<% end %>
+
+
+<% @bookings.each do |booking| %>
+	<li><%= booking.Name %></li>
 
 <% end %>
 
+
+<% @choral_classes.each do |choral| %>
+	<li><%= choral.label %></li>
+<% end %>
+
+<% @sf_courses.each do |sf_course| %>
+	<li><%= sf_course.label %></li>
+	<% end %>
 </ul>
+
+<%= simple_form_for :booking, :url => bookings_path do |f| %>
+<div class = 'row'>
+	<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+		<div class = 'row'>
+			<div class = 'col-xs-12 col-sm-12 col-md-4 col-lg-4'>
+				<%= f.input :salutation %>
+			</div>
+			<div class = 'col-xs-12 col-sm-12 col-md-8 col-lg-8'>
+				<%= f.input :first_name, as: :string %>
+			</div>
+		</div>
+			<%= f.input :last_name, as: :string %>
+			<%= f.input :street_address %>
+		<div class = 'row'>
+			<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+				<%= f.input :city %>
+			</div>
+			<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+				<%= f.input :county %>
+			</div>
+		</div>
+		<div class = 'row'>
+			<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+				<%= f.input :country %>
+			</div>
+
+			<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+				<%= f.input :post_code %>
+			</div>
+		</div>
+	</div>
+	<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+		<%= f.input :telephone %>
+		<%= f.input :mobile %>
+		<%= f.input :date_of_birth %>
+		<%= f.input :car_reg %>
+		<%= f.input :voiceType %>
+	</div>
+</div>
+<br />
+<div class = 'row'>
+
+	<%= link_to 'Solo', '#', :class => 'btn btn-success' %>
+	<%= link_to 'Choral', '#', :class => 'btn btn-success' %>
+	<%= link_to 'Crossover', '#', :class => 'btn btn-success' %>
+	<%= link_to 'Piano Accompanists', '#', :class => 'btn btn-success' %>
+	<%= link_to 'Choral Conducting', '#', :class => 'btn btn-success' %>
+
+</div>
+<br />
+<div class = 'row'>
+	<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+		<%= f.collection_check_boxes :choral_classes, @choral_classes, :label, :label %>
+	</div>
+	<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+		<%= f.collection_check_boxes :ensemble_classes, @ensemble_classes, :label, :label %>
+	</div>
+</div>
+<div class = 'row'>
+	<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+	</div>
+	<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+	</div>
+</div>
+	<br class = 'clr' />
+	<%= f.button :submit, :class => 'btn btn-primary' %>
+<% end %>
