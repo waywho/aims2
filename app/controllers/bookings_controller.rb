@@ -9,6 +9,7 @@ class BookingsController < ApplicationController
   	@choral_classes = @client.picklist_values('Opportunity', 'Choral_Classes__c')
   	@sf_courses = @client.picklist_values('Opportunity', 'Course__c')
   	@ensemble_classes = @client.picklist_values('Opportunity', 'Ensemble_Classes__c')
+    @klasses = @klasses.published_now
 
   end
 

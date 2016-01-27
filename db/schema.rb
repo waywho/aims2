@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160113092904) do
+ActiveRecord::Schema.define(version: 20160127110744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20160113092904) do
     t.datetime "published_at"
     t.integer  "courseformat_id"
     t.integer  "row_order"
+    t.boolean  "bookable"
   end
 
   add_index "courses", ["courseformat_id"], name: "index_courses_on_courseformat_id", using: :btree
