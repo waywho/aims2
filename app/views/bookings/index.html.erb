@@ -1,55 +1,32 @@
-<h1>Bookings#index</h1>
-<p>Find me in app/views/bookings/index.html.erb</p>
-
-<ul>
-
-<% @accounts.each do |account| %>
-<li><%= account.Name %></li>
-<% end %>
-
-
-<% @bookings.each do |booking| %>
-	<li><%= booking.Name %></li>
-
-<% end %>
-
-
-<% @choral_classes.each do |choral| %>
-	<li><%= choral.label %></li>
-<% end %>
-
-<% @sf_courses.each do |sf_course| %>
-	<li><%= sf_course.label %></li>
-	<% end %>
-</ul>
+<h1>Bookings</h1>
 
 <%= simple_form_for :booking, :url => bookings_path do |f| %>
 <div class = 'row'>
-	<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
 		<div class = 'row'>
-			<div class = 'col-xs-12 col-sm-12 col-md-4 col-lg-4'>
+			<div class = 'col-xs-12 col-sm-6 col-md-4 col-lg-4'>
 				<%= f.input :salutation %>
 			</div>
-			<div class = 'col-xs-12 col-sm-12 col-md-8 col-lg-8'>
+			<div class = 'col-xs-12 col-sm-6 col-md-8 col-lg-8'>
 				<%= f.input :first_name, as: :string %>
 			</div>
 		</div>
 			<%= f.input :last_name, as: :string %>
 			<%= f.input :street_address %>
 		<div class = 'row'>
-			<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+			<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
 				<%= f.input :city %>
 			</div>
-			<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+			<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
 				<%= f.input :county %>
 			</div>
 		</div>
 		<div class = 'row'>
-			<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+			<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
 				<%= f.input :country %>
 			</div>
 
-			<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+			<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
 				<%= f.input :post_code %>
 			</div>
 		</div>
@@ -59,34 +36,57 @@
 		<%= f.input :mobile %>
 		<%= f.input :date_of_birth %>
 		<%= f.input :car_reg %>
-		<%= f.input :voiceType %>
+		<%= f.input :voice_type %>
+	</div>
+</div>
+<br />
+<div class = 'row'>
+	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+		<% @sf_courses.each do |course| %>
+			<%= link_to course.label, '#', :class => 'btn btn-success' %>
+		<% end %>
 	</div>
 </div>
 <br />
 <div class = 'row'>
 
-	<%= link_to 'Solo', '#', :class => 'btn btn-success' %>
-	<%= link_to 'Choral', '#', :class => 'btn btn-success' %>
-	<%= link_to 'Crossover', '#', :class => 'btn btn-success' %>
-	<%= link_to 'Piano Accompanists', '#', :class => 'btn btn-success' %>
-	<%= link_to 'Choral Conducting', '#', :class => 'btn btn-success' %>
+	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+	<h3 class = 'inline-title'>Solo Classes</h3><span class = 'instruction'> (please select up to 3 options)</span><br />
+		<%= f.collection_check_boxes :solo_classes, @solo_classes, :label, :label %>
+	</div>
+	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+		<%= f.input :Notes_for_Class_Selection, label: 'Choice 4 (optional)', hint: '(Replace with this option if any of my selections are not availble)' %>
+	</div>
+	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+		<h3 class = 'inline-title'>Choral and Ensemble Classes</h3><span class = 'instruction'> (please select 1 from each session)</span><br />
+	</div>
+	<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+		<%= f.input :session_1, collection: @session1, label_method: :label, input_html: { id: 'session-1'} %>
+		<div id = 'session-1-options'>
+			<%= f.collection_check_boxes :session_1_options, @session1_options, :label, :label %>
+		</div>
+	</div>
+	<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+		<%= f.input :session_2, collection: @session2, label_method: :label %>
+		<%= f.collection_check_boxes :session_2_options, @session2_options, :label, :label %>
+	</div>
+	<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+		<%= f.input :session_3, collection: @session3, label_method: :label %>
+		<%= f.collection_check_boxes :session_3_options, @session3_options, :label, :label %>
+	</div>
+		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+		<%= f.input :session_4, collection: @session4, label_method: :label %>
+		<%= f.collection_check_boxes :session_4_options, @session4_options, :label, :label %>
+	</div>
+</div>
 
-</div>
+<ul>
+<% @session1.each do |session| %>
+<%= session.inspect %>
+<%= session.dependencies.inspect %>
+<% end %>
 <br />
-<div class = 'row'>
-	<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
-		<%= f.collection_check_boxes :choral_classes, @choral_classes, :label, :label %>
-	</div>
-	<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
-		<%= f.collection_check_boxes :ensemble_classes, @ensemble_classes, :label, :label %>
-	</div>
-</div>
-<div class = 'row'>
-	<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
-	</div>
-	<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
-	</div>
-</div>
+
 
 
 	<br class = 'clr' />

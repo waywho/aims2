@@ -56,6 +56,6 @@ class Page < ActiveRecord::Base
 	end
 
 	def falsify_all_others
-		self.class.where('id != ? AND feature_page').update_all("feature_page = 'false'")
+		self.class.where('id != ? AND feature').update_all("feature = 'false'")
 	end
 end

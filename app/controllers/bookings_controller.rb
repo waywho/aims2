@@ -6,11 +6,17 @@ class BookingsController < ApplicationController
   	@accounts = @client.query('select Name from Account')
   	# @bookings = @client.describe('Opportunity')
 
-  	@choral_classes = @client.picklist_values('Opportunity', 'Choral_Classes__c')
   	@sf_courses = @client.picklist_values('Opportunity', 'Course__c')
-  	@ensemble_classes = @client.picklist_values('Opportunity', 'Ensemble_Classes__c')
-    @klasses = @klasses.published_now
-
+    @solo_classes = @client.picklist_values('Opportunity', 'Solo_classes__c')
+    
+    @session1 = @client.picklist_values('Opportunity', 'Session_1__c')
+    @session1_options = @client.picklist_values('Opportunity', 'Session_1_Options__c')
+    @session2 = @client.picklist_values('Opportunity', 'Session_2__c')
+    @session2_options = @client.picklist_values('Opportunity', 'Session_2_Options__c')
+    @session3 = @client.picklist_values('Opportunity', 'Session_3__c')
+    @session3_options = @client.picklist_values('Opportunity', 'Session_3_Options__c')
+    @session4 = @client.picklist_values('Opportunity', 'Session_4__c')
+    @session4_options = @client.picklist_values('Opportunity', 'Session_4_Options__c')
   end
 
   def show

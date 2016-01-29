@@ -113,7 +113,9 @@ module Casein
     private
       
       def course_params
-        params.require(:course).permit(:title, :courses, :workflow_state, :row_order_position, {:course_ids => []}, :description, :published_at, photos_attributes: [:id, :caption, :course_id, :image])
+        params.require(:course).permit(:title, :courses, :workflow_state, 
+          :row_order_position, {:course_ids => []}, :feature,
+          :bookable, :description, :published_at, photos_attributes: [:id, :caption, :course_id, :image])
       end
 
       def undo_link
