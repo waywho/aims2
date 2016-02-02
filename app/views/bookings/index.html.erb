@@ -108,7 +108,7 @@
 
 <div class = 'row'>
 	<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
-	<h3 class = 'inline-title'>Audition</h3>
+	<h3>Audition</h3>
 		<span>I would like to audiiton. (Please indicate AM or PM)</span> <br />
 		<%= f.collection_check_boxes :audition, @audition, :value, :label %>
 	</div>
@@ -118,13 +118,15 @@
 	</div>
 </div>
 <br />
-<%= f.collection_check_boxes :products, @products, :List_Price__c, :product_description %>
+<h3>Accommodation Options</h3>
+<%= f.input :product, collection: @products, value_method: :List_Price__c, label_method: :Description, label: false %>
 <ul>
 <% @products.each do |product| %>
-<li>
+	<%= product.Family %>
 	<%= product.Name %>
-	<%= product.Description %>,
-	<%= product.List_Price__c %>
+<li>
+	<%= product.Description %>
+	<%= number_to_currency(product.List_Price__c, unit: '£') %>
 </li>
 <% end %>
 </ul>

@@ -6,7 +6,7 @@ class BookingsController < ApplicationController
   	# @accounts = @client.query('select Name from Account')
     @all = @client.describe
   	@booking = @client.describe('Opportunity')
-    @products = @client.query('select ProductCode, Family, Name, Description, List_Price__c from Product2')
+    @products = @client.query('select ProductCode, Family, Name, Description, List_Price__c from Product2').select {|p| p.Family == 'AIMS Course'}
 
 
   	@sf_courses = @client.picklist_values('Opportunity', 'Course__c')
