@@ -52,7 +52,7 @@
 
 	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
 	<h3 class = 'inline-title'>Solo Classes</h3><span class = 'instruction'> (please select up to 3 options)</span><br />
-		<%= f.collection_check_boxes :solo_classes, @solo_classes, :label, :value %>
+		<%= f.collection_check_boxes :solo_classes, @solo_classes, :value, :label %>
 	</div>
 	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
 		<%= f.input :Notes_for_Class_Selection, label: 'Choice 4 (optional)', hint: '(Replace with this option if any of my selections are not availble)' %>
@@ -60,37 +60,91 @@
 	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
 		<h3 class = 'inline-title'>Choral and Ensemble Classes</h3><span class = 'instruction'> (please select 1 from each session)</span><br />
 	</div>
-	<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3'>
-		<%= f.input :session_1, collection: @session1, label_method: :label, value_method: :value, input_html: { :class => 'session'} %>
-		<div class = 'session-options'>
-		</div>
+	<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
+		<%= f.input :session_1, collection: @session1_values, label_method: :label, value_method: :value, input_html: { :class => 'session-select'} %>
+		<% @session1_values.each do |selection| %>
+			<% if sf_session_options(@booking.fields, selection.value, 'Session_1__c', @client).present? %>
+				<div class = 'session-options' data-selection='<%= selection.value %>'>
+					Select either or both of the following options.
+					<%= f.collection_check_boxes :session_1_options, sf_session_options(@booking.fields, selection.value, 'Session_1__c', @client), :value, :label %>
+				</div>
+			<% end %>
+		<% end %>
 	</div>
-	<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3'>
-		<%= f.input :session_2, collection: @session2, label_method: :label, value_method: :value, input_html: { :class => 'session'} %>
-		<div class = 'session-options'>
-		</div>
+	<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
+		<%= f.input :session_2, collection: @session2_values, label_method: :label, value_method: :value, input_html: { :class => 'session-select'} %>
+		<% @session2_values.each do |selection| %>
+			<% if sf_session_options(@booking.fields, selection.value, 'Session_2__c', @client).present? %>
+				<div class = 'session-options' data-selection='<%= selection.value %>'>
+					Select either or both of the following options.
+					<%= f.collection_check_boxes :session_2_options, sf_session_options(@booking.fields, selection.value, 'Session_2__c', @client), :value, :label %>
+				</div>
+			<% end %>
+		<% end %>
 	</div>
-	<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3'>
-		<%= f.input :session_3, collection: @session3, label_method: :label, value_method: :value, input_html: { :class => 'session'} %>
-		<div class = 'session-options'>
-		</div>
+	<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
+		<%= f.input :session_3, collection: @session3_values, label_method: :label, value_method: :value, input_html: { :class => 'session-select'} %>
+		<% @session3_values.each do |selection| %>
+			<% if sf_session_options(@booking.fields, selection.value, 'Session_3__c', @client).present? %>
+				<div class = 'session-options' data-selection='<%= selection.value %>'>
+					Select either or both of the following options.
+					<%= f.collection_check_boxes :session_3_options, sf_session_options(@booking.fields, selection.value, 'Session_3__c', @client), :value, :label %>
+				</div>
+			<% end %>
+		<% end %>
 	</div>
-		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3'>
-		<%= f.input :session_4, collection: @session4, label_method: :label, value_method: :value, input_html: { :class => 'session'} %>
-		<div class = 'session-options'>
-		</div>
+	<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
+		<%= f.input :session_4, collection: @session4_values, label_method: :label, value_method: :value, input_html: { :class => 'session-select'} %>
+		<% @session4_values.each do |selection| %>
+			<% if sf_session_options(@booking.fields, selection.value, 'Session_4__c', @client).present? %>
+				<div class = 'session-options' data-selection='<%= selection.value %>'>
+					Select either or both of the following options.
+					<%= f.collection_check_boxes :session_4_options, sf_session_options(@booking.fields, selection.value, 'Session_4__c', @client), :value, :label %>
+				</div>
+			<% end %>
+		<% end %>
 	</div>
 </div>
+
+<div class = 'row'>
+	<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+	<h3 class = 'inline-title'>Audition</h3>
+		<span>I would like to audiiton. (Please indicate AM or PM)</span> <br />
+		<%= f.collection_check_boxes :audition, @audition, :value, :label %>
+	</div>
+		<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+		<span>I would like to be considered for (please tick all that apply):</span><br />
+		<%= f.collection_check_boxes :audition_for, @audition_for, :value, :label %>
+	</div>
+</div>
+<br />
+<%= f.collection_check_boxes :products, @products, :List_Price__c, :product_description %>
+<ul>
+<% @products.each do |product| %>
+<li>
+	<%= product.Name %>
+	<%= product.Description %>,
+	<%= product.List_Price__c %>
+</li>
+<% end %>
+</ul>
 
 
 
 	<br class = 'clr' />
 	<%= f.button :submit, :class => 'btn btn-primary' %>
 <% end %>
+
 <ul>
-<%= sf_session_options(@booking.fields, @session1.first.value, 'Session_1__c', @client) %>
+<% @all.each do |field| %>
+<li>
+<%= field.name %>
+<ul>
+	<%= field %>
 </ul>
-<br />
+</li>
+<% end %>
+</ul>
 
 <ul>
 <% @booking.recordTypeInfos.each do |type| %>
@@ -114,12 +168,10 @@
 </ul>
 
 <script>
-	$(document).ready(function() {
-		$(".session").change(function() {
-			var selection = $(this).val();
-			console.log(selection);
-			$(this).parent().append("<%= j collection_check_boxes :booking, :session_1_options, 
-				sf_session_options(@booking.fields, @session1.first.value, 'Session_1__c', @client), :label, :value %>")
+	$(function() {
+		$(".session-select").change(function() {
+			$(this).closest('.session').children('.session-options').hide();
+			$("div[data-selection='" + $(this).val() + "']").show();
 		})
 		
 	})
