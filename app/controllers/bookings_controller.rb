@@ -2,9 +2,9 @@ class BookingsController < ApplicationController
 	before_action :load_client
 
   def index
-  	@bookings = @client.query('select Amount, CloseDate, Name, Campaign_Name__c, Course__c from Opportunity')
-  	@accounts = @client.query('select Name from Account')
-  	# @bookings = @client.describe('Opportunity')
+  	# @bookings = @client.query('select Amount, CloseDate, Name, Campaign_Name__c, Course__c from Opportunity')
+  	# @accounts = @client.query('select Name from Account')
+  	@booking = @client.describe('Opportunity')
 
   	@sf_courses = @client.picklist_values('Opportunity', 'Course__c')
     @solo_classes = @client.picklist_values('Opportunity', 'Solo_classes__c')

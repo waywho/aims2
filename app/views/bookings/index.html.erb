@@ -52,7 +52,7 @@
 
 	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
 	<h3 class = 'inline-title'>Solo Classes</h3><span class = 'instruction'> (please select up to 3 options)</span><br />
-		<%= f.collection_check_boxes :solo_classes, @solo_classes, :label, :label %>
+		<%= f.collection_check_boxes :solo_classes, @solo_classes, :label, :value %>
 	</div>
 	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
 		<%= f.input :Notes_for_Class_Selection, label: 'Choice 4 (optional)', hint: '(Replace with this option if any of my selections are not availble)' %>
@@ -61,34 +61,66 @@
 		<h3 class = 'inline-title'>Choral and Ensemble Classes</h3><span class = 'instruction'> (please select 1 from each session)</span><br />
 	</div>
 	<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3'>
-		<%= f.input :session_1, collection: @session1, label_method: :label, input_html: { id: 'session-1'} %>
-		<div id = 'session-1-options'>
-			<%= f.collection_check_boxes :session_1_options, @session1_options, :label, :label %>
+		<%= f.input :session_1, collection: @session1, label_method: :label, value_method: :value, input_html: { :class => 'session'} %>
+		<div class = 'session-options'>
 		</div>
 	</div>
 	<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3'>
-		<%= f.input :session_2, collection: @session2, label_method: :label %>
-		<%= f.collection_check_boxes :session_2_options, @session2_options, :label, :label %>
+		<%= f.input :session_2, collection: @session2, label_method: :label, value_method: :value, input_html: { :class => 'session'} %>
+		<div class = 'session-options'>
+		</div>
 	</div>
 	<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3'>
-		<%= f.input :session_3, collection: @session3, label_method: :label %>
-		<%= f.collection_check_boxes :session_3_options, @session3_options, :label, :label %>
+		<%= f.input :session_3, collection: @session3, label_method: :label, value_method: :value, input_html: { :class => 'session'} %>
+		<div class = 'session-options'>
+		</div>
 	</div>
 		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3'>
-		<%= f.input :session_4, collection: @session4, label_method: :label %>
-		<%= f.collection_check_boxes :session_4_options, @session4_options, :label, :label %>
+		<%= f.input :session_4, collection: @session4, label_method: :label, value_method: :value, input_html: { :class => 'session'} %>
+		<div class = 'session-options'>
+		</div>
 	</div>
 </div>
-
-<ul>
-<% @session1.each do |session| %>
-<%= session.inspect %>
-<%= session.dependencies.inspect %>
-<% end %>
-<br />
 
 
 
 	<br class = 'clr' />
 	<%= f.button :submit, :class => 'btn btn-primary' %>
 <% end %>
+<ul>
+<%= sf_session_options(@booking.fields, @session1.first.value, 'Session_1__c', @client) %>
+</ul>
+<br />
+
+<ul>
+<% @booking.recordTypeInfos.each do |type| %>
+<li>
+<%= type.name %>
+</li>
+<% end %>
+</ul>
+
+<br />
+
+<ul>
+<% @booking.fields.each do |field| %>
+<li>
+<%= field.name %>
+<ul>
+	<%= field %>
+</ul>
+</li>
+<% end %>
+</ul>
+
+<script>
+	$(document).ready(function() {
+		$(".session").change(function() {
+			var selection = $(this).val();
+			console.log(selection);
+			$(this).parent().append("<%= j collection_check_boxes :booking, :session_1_options, 
+				sf_session_options(@booking.fields, @session1.first.value, 'Session_1__c', @client), :label, :value %>")
+		})
+		
+	})
+</script>
