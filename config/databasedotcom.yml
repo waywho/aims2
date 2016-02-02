@@ -1,0 +1,6 @@
+client_id: ENV['SF_CONSUMER_ID']
+client_secret: ENV['SF_CONSUMER_SECRET']
+username: ENV['SF_USERNAME']
+password: ENV['SF_PASSWORD']
+host: test.salesforce.com
+debugging: true

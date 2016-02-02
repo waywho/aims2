@@ -20,4 +20,5 @@ class BookingsController < ApplicationController
   	@client ||= Restforce.new(:oauth_token => Rails.cache.read('salesforceforce_oauth_token'))
   	Rails.cache.write('salesforceforce_oauth_token', @client.options[:oauth_token])
   end
+
 end

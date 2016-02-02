@@ -90,7 +90,6 @@ Rails.application.routes.draw do
 
   resources :news_items, :only => [:index, :show]
 
-
   resources :bookings, :only => [:index, :show, :create]
 
 
