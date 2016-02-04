@@ -119,17 +119,8 @@
 </div>
 <br />
 <h3>Accommodation Options</h3>
-<%= f.input :product, collection: @products, value_method: :List_Price__c, label_method: :Description, label: false %>
-<ul>
-<% @products.each do |product| %>
-	<%= product.Family %>
-	<%= product.Name %>
-<li>
-	<%= product.Description %>
-	<%= number_to_currency(product.List_Price__c, unit: '£') %>
-</li>
-<% end %>
-</ul>
+<%= f.input :product, collection: @fees, value_method: :amount, label_method: :full_description, label: false %>
+
 
 
 

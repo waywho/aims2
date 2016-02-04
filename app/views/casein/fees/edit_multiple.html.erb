@@ -7,6 +7,7 @@
 	<thead>
 		<tr>
 			<th><%= casein_sort_link "Fee type", :fee_type %></th>
+			<th><%= casein_sort_link "Product Code", :product_code %></th>
 			<th><%= casein_sort_link "Category", :category %></th>
 			<th><%= casein_sort_link "Description", :description %></th>
 			<th><%= casein_sort_link "Amount", :amount %></th>
@@ -19,8 +20,8 @@
 	<% @fees.each do |fee| %>
 		<%= simple_fields_for 'fees[]', fee do |f| %>
 		<tr>
-			
 			<td><%= casein_table_cell_link fee.fee_type, casein_fee_path(fee) %></td>
+			<td><%= f.input :product_code, label: false %></td>
 			<td><%= f.input :category, label: false %></td>
 			<td><%= f.input :description, label: false %></td>
 			<td><%= f.input :amount, label: false %></td>
