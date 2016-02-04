@@ -34,7 +34,7 @@ class Fee < ActiveRecord::Base
 	end
 	
 	def full_description
-		"#{self.description}, £#{self.amount}" 
+		"#{self.category}: #{self.description}, £#{self.amount}" 
 	end
 	
 	def self.states

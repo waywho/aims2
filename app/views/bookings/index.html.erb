@@ -1,11 +1,19 @@
 <h1>Bookings</h1>
 
+<ul>
+<% @booking.recordTypeInfos.each do |type| %>
+<li>
+<%= type.name %>
+</li>
+<% end %>
+</ul>
+
 <%= simple_form_for :booking, :url => bookings_path do |f| %>
 <div class = 'row'>
 	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
 		<div class = 'row'>
 			<div class = 'col-xs-12 col-sm-6 col-md-4 col-lg-4'>
-				<%= f.input :salutation %>
+				<%= f.input :salutation, collection: ["Mr.", "Ms.", "Mrs.", "Dr.", "Prof."] %>
 			</div>
 			<div class = 'col-xs-12 col-sm-6 col-md-8 col-lg-8'>
 				<%= f.input :first_name, as: :string %>
@@ -118,8 +126,18 @@
 	</div>
 </div>
 <br />
-<h3>Accommodation Options</h3>
-<%= f.input :product, collection: @fees, value_method: :amount, label_method: :full_description, label: false %>
+<div class = 'row'>
+	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+		<h3>Accommodation Options</h3>
+		<%= f.input :product_code, collection: @booking_courseformat, as: :grouped_select, group_method: :fees, value_method: :product_code, label_method: :full_description, label: false %>
+	</div>
+</div>
+<div class = 'row'>
+	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+		<h3>Payment</h3>
+		<%= f.input :payment_amount %>
+	</div>
+</div>
 
 
 
@@ -128,37 +146,10 @@
 	<%= f.button :submit, :class => 'btn btn-primary' %>
 <% end %>
 
-<ul>
-<% @all.each do |field| %>
-<li>
-<%= field.name %>
-<ul>
-	<%= field %>
-</ul>
-</li>
-<% end %>
-</ul>
 
-<ul>
-<% @booking.recordTypeInfos.each do |type| %>
-<li>
-<%= type.name %>
-</li>
-<% end %>
-</ul>
 
-<br />
 
-<ul>
-<% @booking.fields.each do |field| %>
-<li>
-<%= field.name %>
-<ul>
-	<%= field %>
-</ul>
-</li>
-<% end %>
-</ul>
+
 
 <script>
 	$(function() {
