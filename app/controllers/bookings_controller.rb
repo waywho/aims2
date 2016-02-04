@@ -31,7 +31,7 @@ class BookingsController < ApplicationController
   end
 
   def create
-  	# @client.create('Account')
+  	@client.create('Contact', Name: :full_name, Voice_type__c: course_params[:voice_type] )
   end
 
   private
@@ -42,6 +42,14 @@ class BookingsController < ApplicationController
   end
 
   def course_params
-    params.require(:booking).permit(:name, :recordtype, :phone, :billingaddress, :email, :firstName, :lastName)
+    params.require(:booking).permit(:salutation, :first_name, :last_name, :street_address, 
+      :recordtype, :street_address, :city, :county, :country, :post_code, :email, :telephone, 
+      :mobile, :date_of_birth, :car_reg, :voice_type, :solo_classes, :notes_for_class_selection,
+      :session_1, :session_1_options, :session2, :session_2_options, :session3, :session_3_options,
+      :session4, :session_4_options, :audition, :audition_for, :product_code, :payment_amount)
+  end
+
+  def full_name
+    "#{course_params[:first_name]} #{course_params[:last_name]}
   end
 end

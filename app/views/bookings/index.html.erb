@@ -40,11 +40,12 @@
 		</div>
 	</div>
 	<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+		<%= f.input :email %>
 		<%= f.input :telephone %>
 		<%= f.input :mobile %>
 		<%= f.input :date_of_birth %>
 		<%= f.input :car_reg %>
-		<%= f.input :voice_type %>
+		<%= f.input :voice_type, collection: @voice_types %>
 	</div>
 </div>
 <br />
@@ -63,7 +64,7 @@
 		<%= f.collection_check_boxes :solo_classes, @solo_classes, :value, :label %>
 	</div>
 	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
-		<%= f.input :Notes_for_Class_Selection, label: 'Choice 4 (optional)', hint: '(Replace with this option if any of my selections are not availble)' %>
+		<%= f.input :notes_for_class_selection, label: 'Choice 4 (optional)', hint: '(Replace with this option if any of my selections are not availble)' %>
 	</div>
 	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
 		<h3 class = 'inline-title'>Choral and Ensemble Classes</h3><span class = 'instruction'> (please select 1 from each session)</span><br />
