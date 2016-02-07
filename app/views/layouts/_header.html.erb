@@ -1,116 +1,118 @@
-<nav class ="navbar navbar-secondary">
-	<div class="navbar-header">
-	     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-	        <span class="sr-only">Toggle navigation</span>
-	        <span class="glyphicon glyphicon-info-sign"></span>
-		</button>
-	</div>
-	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	<ul class="nav navbar-nav navbar-right">
-		<% @menus.secondary.roots.rank(:row_order).each do |menu| %>
-	        <% if menu.has_children? %>
-		    	<li class="dropdown">
-		         	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= menu.name %>&nbsp;<span class="caret"></span></a>
-			        	<ul class="dropdown-menu">
-				          		<% menu.children.each do |child| %>
-				          		<li><%= link_to child.name, child.navigation %></li>
-				          		<% end %>
-
-			        	</ul>
-		        </li>
-		    <% else %>
-	        	<li>
-	         		<%= link_to menu.name, menu.navigation %>
-	         	</li>
-	         <% end %>
-        <% end %>
-        <li><%= image_tag 'facebook-icon.png', :class => 'header-social-icon social-icon' %></li>
-        <li><%= image_tag 'twitter-icon.png', :class => 'header-social-icon social-icon' %></li>
-        <li><%= image_tag 'email-icon.png', :class => 'header-social-icon social-icon' %></li>
-	</ul>
-	</div>
-
-</nav>
-<div class='container-fluid'>
-	<%= link_to root_path do %>
-		<div class = "brand col-xs-12 col-sm-12 col-md-9 col-lg-9">
-			<%= image_tag "AIMS_red.jpg", :alt => 'AIMS', :class => 'logo' %>International Music School
+<% cache "header" do %>
+	<nav class ="navbar navbar-secondary">
+		<div class="navbar-header">
+		     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="glyphicon glyphicon-info-sign"></span>
+			</button>
 		</div>
-	<% end %>
-<!-- Begin MailChimp Signup Form -->
-	<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-		<div id="mc_embed_signup" class="pull-right">
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		<ul class="nav navbar-nav navbar-right">
+			<% @menus.secondary.roots.rank(:row_order).each do |menu| %>
+		        <% if menu.has_children? %>
+			    	<li class="dropdown">
+			         	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= menu.name %>&nbsp;<span class="caret"></span></a>
+				        	<ul class="dropdown-menu">
+					          		<% menu.children.each do |child| %>
+					          		<li><%= link_to child.name, child.navigation %></li>
+					          		<% end %>
 
-			<form action="//aims.us11.list-manage.com/subscribe/post?u=d85fe86b45755ccbb9104d1cc&amp;id=0b11524bf9" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate form-inline" target="_blank" novalidate>
-
-
-			    <div id="mc_embed_signup_scroll form-group">
-					<input type="email" value="" name="EMAIL" class="email form-control" id="mce-EMAIL" placeholder="email address" required>
-				    
-				    	<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-					    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_d85fe86b45755ccbb9104d1cc_0b11524bf9" tabindex="-1" value=""></div>
-				    <button type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn btn-default mail-button button">Stay Informed</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-
-<!--End mc_embed_signup-->
-
-<nav class="navbar navbar-default navbar-main">
-	<div class="container-fluid">
-	    <!-- Brand and toggle get grouped for better mobile display -->
-	    <div class="navbar-header">
-		    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2" aria-expanded="false">
-		    	<span class="sr-only">Toggle navigation</span>
-		    	<span class="icon-bar"></span>
-		    	<span class="icon-bar"></span>
-		    	<span class="icon-bar"></span>
-		    </button>
-	   	</div>
-
-	    <!-- Collect the nav links, forms, and other content for toggling -->
-	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-		    <ul class="nav navbar-nav">
-		      	<% @courseformats.each do |courseformat| %>
+				        	</ul>
+			        </li>
+			    <% else %>
 		        	<li>
-			         	<%= link_to courseformat.title, courseformat %>
-				         	<span class="sr-only">(current)</span>
+		         		<%= link_to menu.name, menu.navigation %>
 		         	</li>
 		         <% end %>
-		         <% @menus.main.roots.rank(:row_order).each do |menu| %>
-			        <% if menu.has_children? %>
-				    	<li class="dropdown">
-				         	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= menu.name %>&nbsp;<span class="caret"></span></a>
-					        	<ul class="dropdown-menu">
-						          		<% menu.children.each do |child| %>
-						          		<li><%= link_to child.name, child.navigation %>
-						          		<% end %>
+	        <% end %>
+	        <li><%= image_tag 'facebook-icon.png', :class => 'header-social-icon social-icon' %></li>
+	        <li><%= image_tag 'twitter-icon.png', :class => 'header-social-icon social-icon' %></li>
+	        <li><%= image_tag 'email-icon.png', :class => 'header-social-icon social-icon' %></li>
+		</ul>
+		</div>
 
-					        	</ul>
-				        </li>
-				    <% else %>
+	</nav>
+	<div class='container-fluid'>
+		<%= link_to root_path do %>
+			<div class = "brand col-xs-12 col-sm-12 col-md-9 col-lg-9">
+				<%= image_tag "AIMS_red.jpg", :alt => 'AIMS', :class => 'logo' %>International Music School
+			</div>
+		<% end %>
+	<!-- Begin MailChimp Signup Form -->
+		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+			<div id="mc_embed_signup" class="pull-right">
+
+				<form action="//aims.us11.list-manage.com/subscribe/post?u=d85fe86b45755ccbb9104d1cc&amp;id=0b11524bf9" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate form-inline" target="_blank" novalidate>
+
+
+				    <div id="mc_embed_signup_scroll form-group">
+						<input type="email" value="" name="EMAIL" class="email form-control" id="mce-EMAIL" placeholder="email address" required>
+					    
+					    	<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+						    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_d85fe86b45755ccbb9104d1cc_0b11524bf9" tabindex="-1" value=""></div>
+					    <button type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn btn-default mail-button button">Stay Informed</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!--End mc_embed_signup-->
+
+	<nav class="navbar navbar-default navbar-main">
+		<div class="container-fluid">
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+			    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2" aria-expanded="false">
+			    	<span class="sr-only">Toggle navigation</span>
+			    	<span class="icon-bar"></span>
+			    	<span class="icon-bar"></span>
+			    	<span class="icon-bar"></span>
+			    </button>
+		   	</div>
+
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+			    <ul class="nav navbar-nav">
+			      	<% @courseformats.each do |courseformat| %>
 			        	<li>
-			         		<%= link_to menu.name, menu.navigation %>
+				         	<%= link_to courseformat.title, courseformat %>
+					         	<span class="sr-only">(current)</span>
 			         	</li>
 			         <% end %>
-		         <% end %>
-		        <li><%= link_to 'Staff', staffs_path %></li>
-		        <% if @news.present? %>
-		        	<li><%= link_to 'News', news_items_path %></li>
-		        <% end %>
-		        <% if @events.present? %>
-		        	<li><%= link_to 'Events', events_path %></li>
-		        <% end %>
-		    </ul>
-		    <ul class="nav navbar-nav navbar-right">
-		    	<li><a href="#">Booking</a></li>
-		    </ul>  
-	    </div><!-- /.navbar-collapse -->
-	</div><!-- /.container-fluid -->
+			         <% @menus.main.roots.rank(:row_order).each do |menu| %>
+				        <% if menu.has_children? %>
+					    	<li class="dropdown">
+					         	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= menu.name %>&nbsp;<span class="caret"></span></a>
+						        	<ul class="dropdown-menu">
+							          		<% menu.children.each do |child| %>
+							          		<li><%= link_to child.name, child.navigation %>
+							          		<% end %>
 
-</nav>
+						        	</ul>
+					        </li>
+					    <% else %>
+				        	<li>
+				         		<%= link_to menu.name, menu.navigation %>
+				         	</li>
+				         <% end %>
+			         <% end %>
+			        <li><%= link_to 'Staff', staffs_path %></li>
+			        <% if @news.present? %>
+			        	<li><%= link_to 'News', news_items_path %></li>
+			        <% end %>
+			        <% if @events.present? %>
+			        	<li><%= link_to 'Events', events_path %></li>
+			        <% end %>
+			    </ul>
+			    <ul class="nav navbar-nav navbar-right">
+			    	<li><a href="#">Booking</a></li>
+			    </ul>  
+		    </div><!-- /.navbar-collapse -->
+		</div><!-- /.container-fluid -->
+
+	</nav>
+<% end %>
 <% if controller_name == "courses" || controller_name == 'courseformats' %>
 	<div class="collapse navbar-collapse" id="navbar-third">
 	<nav class = 'navbar navbar-third'>

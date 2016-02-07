@@ -59,7 +59,8 @@ module Casein
           elsif params[:unpublish]
             @course.unpublish!
           end
-        
+          expire_fragment("footer")
+          expire_fragment("header")
           format.html { redirect_to casein_course_path(@course), notice: "Course has been updated. #{undo_link}" }
           format.js
         else
