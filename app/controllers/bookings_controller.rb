@@ -1,15 +1,17 @@
 class BookingsController < ApplicationController
-	before_action :load_client
+	before_action :load_client, :only => [:index, :show]
 
   def index
   	# @bookings = @client.query('select Amount, CloseDate, Name, Campaign_Name__c, Course__c from Opportunity')
-  	# @accounts = @client.query('select Name from Account')
+  	@contacts = @client.query('select Name from Contact')
     # @all = @client.describe
   	@booking = @client.describe('Opportunity')
 
+    @contact = @client.describe('Contact')
+
     @booking_courseformat = Courseformat.where(title: 'Summer School 2016').includes(:fees)
 
-    @voice_types = @client.picklist_values('Contact', 'Voice_type__c')
+    @voice_types = @client.picklist_values('Contact', 'Voice_Type__c')
   	@sf_courses = @client.picklist_values('Opportunity', 'Course__c')
     @solo_classes = @client.picklist_values('Opportunity', 'Solo_classes__c')
     
@@ -31,7 +33,22 @@ class BookingsController < ApplicationController
   end
 
   def create
-  	@client.create('Contact', Name: :full_name, Voice_type__c: course_params[:voice_type] )
+    Restforce.new.create('Contact', 
+      Salutation: booking_params[:salutation], 
+      LastName: booking_params[:last_name], 
+      FirstName: booking_params[:first_name], 
+      Voice_Type__c: booking_params[:voice_type], 
+      MailingStreet: booking_params[:street_address],
+      MailingCity: booking_params[:city], 
+      MailingState: booking_params[:county], 
+      MailingPostalCode: booking_params[:post_code], 
+      MailingCountry: booking_params[:country], 
+      HomePhone: booking_params[:telephone], 
+      MobilePhone: booking_params[:mobile],
+      Birthdate: booking_params[:date_of_birth].to_datetime.strftime("%Y-%m-%d"), 
+      npe01__HomeEmail__c: booking_params[:email] )
+
+    redirect_to bookings_path
   end
 
   private
@@ -41,7 +58,7 @@ class BookingsController < ApplicationController
   	Rails.cache.write('salesforceforce_oauth_token', @client.options[:oauth_token])
   end
 
-  def course_params
+  def booking_params
     params.require(:booking).permit(:salutation, :first_name, :last_name, :street_address, 
       :recordtype, :street_address, :city, :county, :country, :post_code, :email, :telephone, 
       :mobile, :date_of_birth, :car_reg, :voice_type, :solo_classes, :notes_for_class_selection,
@@ -50,6 +67,6 @@ class BookingsController < ApplicationController
   end
 
   def full_name
-    "#{course_params[:first_name]} #{course_params[:last_name]}
+    "#{booking_params[:first_name]} #{booking_params[:last_name]}"
   end
 end
