@@ -9,10 +9,7 @@
 </ul>
 
 <ul>
-<% @products.each do |product| %>
-	<li> <%= product.Id %>,
-	<%= product.Name %></li>
-<% end %>
+<%= @opp %>
 </ul>
 <%= simple_form_for :booking, :url => bookings_path, :method => 'post' do |f| %>
 

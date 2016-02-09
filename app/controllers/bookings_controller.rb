@@ -5,10 +5,10 @@ class BookingsController < ApplicationController
   	# @bookings = @client.query('select Amount, CloseDate, Name, Campaign_Name__c, Course__c from Opportunity')
     # @john = @client.find('Contact', 'BT2011br', 'Web_uid__c')
 
-    @john_opp = @client.query('select ')
     @contacts = @client.query('select Name from Contact')
     # @all = @client.describe
   	@booking = @client.describe('Opportunity')
+    @opp = @client.find('PricebookEntry', '01u24000000QmBaAAK')
 
 
     @contact = @client.describe('Contact')
@@ -72,6 +72,7 @@ class BookingsController < ApplicationController
       CloseDate: Time.now.to_datetime.strftime("%Y-%m-%d"),      
       Attendee_type__c: 'Student',
       Web_uid__c: opp_uid(@account.Name, '7017E0000000gTJQAY', @today),
+      Car_Registration__c: booking_params[:car_reg],
       Course__c: booking_params[:course],
       Solo_classes__c: join_array(booking_params[:solo_classes]),
       Notes_for_class_selection__c: booking_params[:notes_for_class_selection],
@@ -89,10 +90,13 @@ class BookingsController < ApplicationController
       )
 
     @opportunity = @client.find('Opportunity', @opp_uid, 'Web_uid__c')
+    @product = @client.find('PricebookEntry', booking_params[:product_code])
 
     @client.create!('OpportunityLineItem',
       OpportunityId: @opportunity.Id,
-      Product2Id: booking_params[:product_code])
+      PricebookEntryId: booking_params[:product_code], 
+      Quantity: "1.00",
+      TotalPrice: @product.UnitPrice)
 
     redirect_to bookings_path
   end
