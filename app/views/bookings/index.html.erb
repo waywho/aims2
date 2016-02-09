@@ -1,14 +1,6 @@
 <h1>Bookings</h1>
 
 <ul>
-<% @booking.recordTypeInfos.each do |type| %>
-<li>
-<%= type.name %>
-</li>
-<% end %>
-</ul>
-
-<ul>
 <% @contacts.each do |type| %>
 <li>
 <%= type.Name %>
@@ -16,7 +8,19 @@
 <% end %>
 </ul>
 
+<ul>
+<% @products.each do |product| %>
+	<li> <%= product.Id %>,
+	<%= product.Name %></li>
+<% end %>
+</ul>
 <%= simple_form_for :booking, :url => bookings_path, :method => 'post' do |f| %>
+
+<div class = 'row'>
+	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+		<%= f.input :campaign_id, collection: @campaigns, label_method: :Name, value_method: :Id %>
+	</div>
+</div>
 <div class = 'row'>
 	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
 		<div class = 'row'>
@@ -59,23 +63,17 @@
 <br />
 <div class = 'row'>
 	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-		<% @sf_courses.each do |course| %>
-			<%= link_to course.label, '#', :class => 'btn btn-success' %>
-		<% end %>
+
+			<%= f.input :course, collection: @sf_courses, label_method: :label, value_method: :value %>
+
 	</div>
 </div>
 <br />
-
-
-	<br class = 'clr' />
-<%= f.button :submit, :class => 'btn btn-primary' %>
-<% end %>
-<%= simple_form_for :booking, :url => bookings_path do |f| %>
 <div class = 'row'>
 
 	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
 	<h3 class = 'inline-title'>Solo Classes</h3><span class = 'instruction'> (please select up to 3 options)</span><br />
-		<%= f.collection_check_boxes :solo_classes, @solo_classes, :value, :label %>
+		<%= f.collection_check_boxes :solo_classes, @solo_classes, :value, :label, :include_hidden => false %>
 	</div>
 	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
 		<%= f.input :notes_for_class_selection, label: 'Choice 4 (optional)', hint: '(Replace with this option if any of my selections are not availble)' %>
@@ -89,7 +87,7 @@
 			<% if sf_session_options(@booking.fields, selection.value, 'Session_1__c', @client).present? %>
 				<div class = 'session-options' data-selection='<%= selection.value %>'>
 					Select either or both of the following options.
-					<%= f.collection_check_boxes :session_1_options, sf_session_options(@booking.fields, selection.value, 'Session_1__c', @client), :value, :label %>
+					<%= f.collection_check_boxes :session_1_options, sf_session_options(@booking.fields, selection.value, 'Session_1__c', @client), :value, :label, :include_hidden => false %>
 				</div>
 			<% end %>
 		<% end %>
@@ -100,7 +98,7 @@
 			<% if sf_session_options(@booking.fields, selection.value, 'Session_2__c', @client).present? %>
 				<div class = 'session-options' data-selection='<%= selection.value %>'>
 					Select either or both of the following options.
-					<%= f.collection_check_boxes :session_2_options, sf_session_options(@booking.fields, selection.value, 'Session_2__c', @client), :value, :label %>
+					<%= f.collection_check_boxes :session_2_options, sf_session_options(@booking.fields, selection.value, 'Session_2__c', @client), :value, :label, :include_hidden => false %>
 				</div>
 			<% end %>
 		<% end %>
@@ -111,7 +109,7 @@
 			<% if sf_session_options(@booking.fields, selection.value, 'Session_3__c', @client).present? %>
 				<div class = 'session-options' data-selection='<%= selection.value %>'>
 					Select either or both of the following options.
-					<%= f.collection_check_boxes :session_3_options, sf_session_options(@booking.fields, selection.value, 'Session_3__c', @client), :value, :label %>
+					<%= f.collection_check_boxes :session_3_options, sf_session_options(@booking.fields, selection.value, 'Session_3__c', @client), :value, :label, :include_hidden => false %>
 				</div>
 			<% end %>
 		<% end %>
@@ -122,7 +120,7 @@
 			<% if sf_session_options(@booking.fields, selection.value, 'Session_4__c', @client).present? %>
 				<div class = 'session-options' data-selection='<%= selection.value %>'>
 					Select either or both of the following options.
-					<%= f.collection_check_boxes :session_4_options, sf_session_options(@booking.fields, selection.value, 'Session_4__c', @client), :value, :label %>
+					<%= f.collection_check_boxes :session_4_options, sf_session_options(@booking.fields, selection.value, 'Session_4__c', @client), :value, :label, :include_hidden => false %>
 				</div>
 			<% end %>
 		<% end %>
@@ -133,11 +131,18 @@
 	<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
 	<h3>Audition</h3>
 		<span>I would like to audiiton. (Please indicate AM or PM)</span> <br />
-		<%= f.collection_check_boxes :audition, @audition, :value, :label %>
+		<%= f.input :audition, collection: @audition, label_method: :label, value_method: :value %>
 	</div>
-		<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+	<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
 		<span>I would like to be considered for (please tick all that apply):</span><br />
 		<%= f.collection_check_boxes :audition_for, @audition_for, :value, :label %>
+	</div>
+</div>
+<div class = 'row'>
+	<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+	<h3>Audition Recording</h3>
+		<span>If you would like to be considered for Solo, Masterclass, or Bursary but cannot audition in person, please send us recordings, either via email or paste the links below:</span> <br />
+		<%= f.input :audition_notes, as: :text %>
 	</div>
 </div>
 <br />
@@ -167,7 +172,13 @@
 	<% end %>
 </ul>
 
-
+<ul>
+	<% @booking.fields.each do |field| %>
+	<li><%= field.label %><br />
+		<%= field.name %><br />
+		<%= field %></li>
+	<% end %>
+</ul>
 
 
 
