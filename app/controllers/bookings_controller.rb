@@ -3,12 +3,13 @@ class BookingsController < ApplicationController
 
   def index
   	# @bookings = @client.query('select Amount, CloseDate, Name, Campaign_Name__c, Course__c from Opportunity')
-    # @john = @client.find('Contact', 'BT2011br', 'Web_uid__c')
+    # @email = 'grant.access@logic.com'
+    # @john = @client.search("FIND {#{@email}} RETURNING Contact (Id)").map(&:Id)
 
-    @contacts = @client.query('select Name from Contact')
+    # @contacts = @client.query('select Name from Contact')
     # @all = @client.describe
   	@booking = @client.describe('Opportunity')
-    @opp = @client.find('PricebookEntry', '01u24000000QmBaAAK')
+   #  @opp = @client.find('PricebookEntry', '01u24000000QmBaAAK')
 
 
     @contact = @client.describe('Contact')
@@ -32,7 +33,7 @@ class BookingsController < ApplicationController
     @audition_for = @client.picklist_values('Opportunity', 'Auditioning_for__c')
 
     @campaigns = @client.query('select Id, Name from Campaign where IsActive = true')
-    @products = @client.query('select Id, Name from Product2')
+    # @products = @client.query('select Id, Name from Product2')
 
   end
 
@@ -41,11 +42,33 @@ class BookingsController < ApplicationController
 
   def create
     @client = Restforce.new
-    @client.create('Contact', 
+
+    booking_contact = @client.search("FIND {#{booking_params[:email]}} RETURNING Contact (Id)").map(&:Id)
+
+    if booking_contact.nil?
+      @client.create('Contact', 
+          Web_uid__c: web_uid(booking_params[:first_name], booking_params[:last_name]),
+          Salutation: booking_params[:salutation], 
+          LastName: booking_params[:last_name], 
+          FirstName: booking_params[:first_name], 
+          Voice_Type__c: booking_params[:voice_type], 
+          MailingStreet: booking_params[:street_address],
+          MailingCity: booking_params[:city], 
+          MailingState: booking_params[:county], 
+          MailingPostalCode: booking_params[:post_code], 
+          MailingCountry: booking_params[:country], 
+          HomePhone: booking_params[:telephone], 
+          MobilePhone: booking_params[:mobile],
+          Birthdate: booking_params[:date_of_birth].to_datetime.strftime("%Y-%m-%d"), 
+          npe01__HomeEmail__c: booking_params[:email],
+          LeadSource: 'Web' )
+
+        @account = @client.find('Contact', @web_uid, 'Web_uid__c')
+
+  else
+    @client.update('Contact', 
+      Id: "#{account}",
       Web_uid__c: web_uid(booking_params[:first_name], booking_params[:last_name]),
-      Salutation: booking_params[:salutation], 
-      LastName: booking_params[:last_name], 
-      FirstName: booking_params[:first_name], 
       Voice_Type__c: booking_params[:voice_type], 
       MailingStreet: booking_params[:street_address],
       MailingCity: booking_params[:city], 
@@ -54,11 +77,11 @@ class BookingsController < ApplicationController
       MailingCountry: booking_params[:country], 
       HomePhone: booking_params[:telephone], 
       MobilePhone: booking_params[:mobile],
-      Birthdate: booking_params[:date_of_birth].to_datetime.strftime("%Y-%m-%d"), 
-      npe01__HomeEmail__c: booking_params[:email],
       LeadSource: 'Web' )
 
     @account = @client.find('Contact', @web_uid, 'Web_uid__c')
+  end
+
     @today = Time.now.to_formatted_s(:number)
 
     @client.create!('Opportunity',

@@ -1,16 +1,4 @@
 <h1>Bookings</h1>
-
-<ul>
-<% @contacts.each do |type| %>
-<li>
-<%= type.Name %>
-</li>
-<% end %>
-</ul>
-
-<ul>
-<%= @opp %>
-</ul>
 <%= simple_form_for :booking, :url => bookings_path, :method => 'post' do |f| %>
 
 <div class = 'row'>
@@ -156,26 +144,10 @@
 	</div>
 </div>
 
-
-
-
 	<br class = 'clr' />
 	<%= f.button :submit, :class => 'btn btn-primary' %>
 <% end %>
 
-<ul>
-	<% @contact.fields.each do |field| %>
-	<li><%= field.name %></li>
-	<% end %>
-</ul>
-
-<ul>
-	<% @booking.fields.each do |field| %>
-	<li><%= field.label %><br />
-		<%= field.name %><br />
-		<%= field %></li>
-	<% end %>
-</ul>
 
 
 
