@@ -9,15 +9,17 @@ class BookingsController < ApplicationController
     # @contacts = @client.query('select Name from Contact')
     # @all = @client.describe
   	@booking = @client.describe('Opportunity')
-   #  @opp = @client.find('PricebookEntry', '01u24000000QmBaAAK')
-
+    # @opps = @client.query('select Id, Name from PricebookEntry')
 
     @contact = @client.describe('Contact')
+
 
     @booking_courseformat = Courseformat.where(title: 'Summer School 2016').includes(:fees)
 
     @voice_types = @client.picklist_values('Contact', 'Voice_Type__c')
+
   	@sf_courses = @client.picklist_values('Opportunity', 'Course__c')
+    
     @solo_classes = @client.picklist_values('Opportunity', 'Solo_classes__c')
     
     @session1_values = @client.picklist_values('Opportunity', 'Session_1__c')
@@ -32,94 +34,41 @@ class BookingsController < ApplicationController
 
     @audition_for = @client.picklist_values('Opportunity', 'Auditioning_for__c')
 
-    @campaigns = @client.query('select Id, Name from Campaign where IsActive = true')
+    @campaigns = @client.query("select Id, Name, Sub_Type__c from Campaign where IsActive = true and Type = 'Conference'")
     # @products = @client.query('select Id, Name from Product2')
 
   end
 
-  def show
+  def summer_booking
+  end
+
+  def mini_booking
   end
 
   def create
     @client = Restforce.new
 
     booking_contact = @client.search("FIND {#{booking_params[:email]}} RETURNING Contact (Id)").map(&:Id)
+    
+    if booking_contact.empty?
+      web_uid = web_uid(booking_params[:first_name], booking_params[:last_name])
+      SalesforceClient.new.create_salesforce_contact(booking_params, web_uid)
+      @account = @client.find('Contact', web_uid, 'Web_uid__c')
+    else
+      SalesforceClient.new.update_salesforce_contact(booking_params, booking_contact.first)
+      @account = @client.find('Contact', booking_contact.first)
+    end
 
-    if booking_contact.nil?
-      @client.create('Contact', 
-          Web_uid__c: web_uid(booking_params[:first_name], booking_params[:last_name]),
-          Salutation: booking_params[:salutation], 
-          LastName: booking_params[:last_name], 
-          FirstName: booking_params[:first_name], 
-          Voice_Type__c: booking_params[:voice_type], 
-          MailingStreet: booking_params[:street_address],
-          MailingCity: booking_params[:city], 
-          MailingState: booking_params[:county], 
-          MailingPostalCode: booking_params[:post_code], 
-          MailingCountry: booking_params[:country], 
-          HomePhone: booking_params[:telephone], 
-          MobilePhone: booking_params[:mobile],
-          Birthdate: booking_params[:date_of_birth].to_datetime.strftime("%Y-%m-%d"), 
-          npe01__HomeEmail__c: booking_params[:email],
-          LeadSource: 'Web' )
+    opp_uid = opp_uid(@account.Name, '7017E0000000gTJQAY')
 
-        @account = @client.find('Contact', @web_uid, 'Web_uid__c')
+    SalesforceClient.new.create_booking(booking_params, @account, opp_uid)
 
-  else
-    @client.update('Contact', 
-      Id: "#{account}",
-      Web_uid__c: web_uid(booking_params[:first_name], booking_params[:last_name]),
-      Voice_Type__c: booking_params[:voice_type], 
-      MailingStreet: booking_params[:street_address],
-      MailingCity: booking_params[:city], 
-      MailingState: booking_params[:county], 
-      MailingPostalCode: booking_params[:post_code], 
-      MailingCountry: booking_params[:country], 
-      HomePhone: booking_params[:telephone], 
-      MobilePhone: booking_params[:mobile],
-      LeadSource: 'Web' )
+    opportunity = @client.find('Opportunity', opp_uid, 'Web_uid__c')
+    product = @client.find('PricebookEntry', booking_params[:product_code])
 
-    @account = @client.find('Contact', @web_uid, 'Web_uid__c')
-  end
+    SalesforceClient.new.create_product(booking_params, opportunity.Id, product.UnitPrice)
 
-    @today = Time.now.to_formatted_s(:number)
-
-    @client.create!('Opportunity',
-      RecordTypeId: '01224000000DDUcAAO',
-      Type: 'AIMS',
-      Attendee_type__c: 'Student',
-      CampaignId: '7017E0000000gTJQAY',
-      AccountId: @account.AccountId,
-      Name: opp_name(@account.Name, '7017E0000000gTJQAY'),
-      StageName: 'Deposit Received',
-      CloseDate: Time.now.to_datetime.strftime("%Y-%m-%d"),      
-      Attendee_type__c: 'Student',
-      Web_uid__c: opp_uid(@account.Name, '7017E0000000gTJQAY', @today),
-      Car_Registration__c: booking_params[:car_reg],
-      Course__c: booking_params[:course],
-      Solo_classes__c: join_array(booking_params[:solo_classes]),
-      Notes_for_class_selection__c: booking_params[:notes_for_class_selection],
-      Session_1__c: booking_params[:session_1],
-      Session_1_Options__c: join_array(booking_params[:session_1_options]),
-      Session_2__c: booking_params[:session_2],
-      Session_2_Options__c: join_array(booking_params[:session_2_options]),
-      Session_3__c: booking_params[:session_3],
-      Session_3_Options__c: join_array(booking_params[:session_3_options]),
-      Session_4__c: booking_params[:session_4],
-      Session_4_Options__c: join_array(booking_params[:session_4_options]),
-      Audition_requested__c: booking_params[:audition],
-      Auditioning_for__c: join_array(booking_params[:audition_for]),
-      Audition_request_notes__c: booking_params[:audition_notes]
-      )
-
-    @opportunity = @client.find('Opportunity', @opp_uid, 'Web_uid__c')
-    @product = @client.find('PricebookEntry', booking_params[:product_code])
-
-    @client.create!('OpportunityLineItem',
-      OpportunityId: @opportunity.Id,
-      PricebookEntryId: booking_params[:product_code], 
-      Quantity: "1.00",
-      TotalPrice: @product.UnitPrice)
+    SalesforceClient.new.create_payment(booking_params[:payment_amount], opportunity.Id)
 
     redirect_to bookings_path
   end
@@ -141,24 +90,14 @@ class BookingsController < ApplicationController
 
   def web_uid(firstname, lastname)
     unique = ('a'..'z').to_a.shuffle[0,2].join
-    @web_uid = "#{firstname.chr}#{lastname.chr}#{Time.now.to_formatted_s(:number)}#{unique}"
+    "#{firstname.chr}#{lastname.chr}#{Time.now.to_formatted_s(:number)}#{unique}"
   end
 
-  def opp_name(accountName, campaign_id)
+  def opp_uid(accountName, campaign_id)
     campaign = @client.find('Campaign', campaign_id)
-    "#{campaign.Name}-#{accountName}"
+    timecode = Time.now.to_formatted_s(:number)
+    "#{campaign.Name.split(' ').join}#{accountName.split(' ').join}#{timecode}"
   end
 
-  def opp_uid(accountName, campaign_id, date)
-    campaign = @client.find('Campaign', campaign_id)
-    @opp_uid = "#{campaign.Name.split(' ').join}#{accountName.split(' ').join}#{date}"
-  end
 
-  def join_array(array)
-    if array.present?
-      array.join(";")
-    else
-      nil
-    end
-  end
 end

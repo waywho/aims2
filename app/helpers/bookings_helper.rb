@@ -6,7 +6,7 @@ module BookingsHelper
  		end
  	end
 
- 	def product_description(product)
- 		"#{product.Name} #{product.Description} #{product.List_Price__c}"
- 	end
+ 	# def product_description(product)
+ 	# 	"#{product.Name} #{product.Description} #{product.List_Price__c}"
+ 	# end
 end
