@@ -5,7 +5,7 @@
 <div class = 'row'>
 	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
 
-		<%= f.input :campaign_id, label: 'I would like to book...' do %>
+		<%= f.input :campaign_id, required: true, label: 'I would like to book...' do %>
 			<%= f.select :campaign_id, @campaigns.map { |c| [c.Name, c.Id, {'data-type' => c.Sub_Type__c}]}, {include_blank: 'Select a Course'}, {:class => 'form-control campaign-select'} %>
 		<% end %>
 	</div>
@@ -17,35 +17,35 @@
 				<%= f.input :salutation, collection: ["Mr.", "Ms.", "Mrs.", "Dr.", "Prof."] %>
 			</div>
 			<div class = 'col-xs-12 col-sm-6 col-md-8 col-lg-8'>
-				<%= f.input :first_name, as: :string %>
+				<%= f.input :first_name, as: :string, required: true %>
 			</div>
 		</div>
-			<%= f.input :last_name, as: :string %>
+			<%= f.input :last_name, as: :string, required: true %>
 			<%= f.input :street_address %>
 		<div class = 'row'>
 			<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
-				<%= f.input :city %>
+				<%= f.input :city, required: false %>
 			</div>
 			<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
-				<%= f.input :county %>
+				<%= f.input :county, required: false %>
 			</div>
 		</div>
 		<div class = 'row'>
 			<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
-				<%= f.input :country %>
+				<%= f.input :country, required: false %>
 			</div>
 
 			<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
-				<%= f.input :post_code %>
+				<%= f.input :post_code, required: false %>
 			</div>
 		</div>
 	</div>
 	<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
-		<%= f.input :email %>
-		<%= f.input :telephone %>
-		<%= f.input :mobile %>
-		<%= f.input :date_of_birth %>
-		<%= f.input :voice_type, collection: @voice_types, value_method: :value, label_method: :label %>
+		<%= f.input :email, required: true %>
+		<%= f.input :telephone, required: false %>
+		<%= f.input :mobile, required: false %>
+		<%= f.input :date_of_birth, required: false %>
+		<%= f.input :voice_type, collection: @voice_types, value_method: :value, label_method: :label, required: false %>
 	</div>
 </div>
 <br />
@@ -53,7 +53,7 @@
 <div class = 'Summer course-options'>
 	<div class = 'row'>
 		<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
-			<%= f.input :car_reg %>
+			<%= f.input :car_reg, label: 'Car Registration', required: false %>
 		</div>
 	</div>
 	<div class = 'row summer-section'>
@@ -61,7 +61,7 @@
 			<h2>Summer School Options</h2>
 		</div>
 		<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
-			<%= f.input :course, collection: @sf_courses, label_method: :label, value_method: :value, include_blank: 'Select a course', label: 'Course Stream', input_html: { :class => 'course-select'} %>
+			<%= f.input :course, collection: @sf_courses, required: true, label_method: :label, value_method: :value, include_blank: 'Select a course', label: 'Course Stream', input_html: { :class => 'course-select'}, required: false %>
 		</div>
 	</div>
 	<div class = 'row course Solo Crossover'>
@@ -71,10 +71,10 @@
 		<br />
 		<br />
 		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-			<%= f.collection_check_boxes :solo_classes, @solo_classes, :value, :label, :include_hidden => false, item_wrapper_class: 'solo-select' %>
+			<%= f.collection_check_boxes :solo_classes, @solo_classes, :value, :label, :include_hidden => false, item_wrapper_class: 'solo-select', required: false %>
 		</div>
 		<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
-			<%= f.input :notes_for_class_selection, label: 'Choice 4 (optional)', hint: '(Replace with this option if any of my selections are not availble)' %>
+			<%= f.input :notes_for_class_selection, label: 'Choice 4 (optional)', hint: '(Replace with this option if any of my selections are not availble)', required: false %>
 		</div>
 		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
 			(optional) I would like to supplement my Solo classes with <%= link_to 'Choral or Ensemble Classes', '#', :class => 'supplement btn btn-success btn-xs' %>
@@ -88,45 +88,45 @@
 		<br />
 		<br />
 		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
-			<%= f.input :session_1, collection: @session1_values, label_method: :label, value_method: :value, input_html: { :class => 'session-select'} %>
+			<%= f.input :session_1, collection: @session1_values, label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
 			<% @session1_values.each do |selection| %>
 				<% if sf_session_options(@booking.fields, selection.value, 'Session_1__c', @client).present? %>
 					<div class = 'session-options' data-selection='<%= selection.value %>'>
 						Select either or both of the following options.
-						<%= f.collection_check_boxes :session_1_options, sf_session_options(@booking.fields, selection.value, 'Session_1__c', @client), :value, :label, :include_hidden => false %>
+						<%= f.collection_check_boxes :session_1_options, sf_session_options(@booking.fields, selection.value, 'Session_1__c', @client), :value, :label, :include_hidden => false, required: false %>
 					</div>
 				<% end %>
 			<% end %>
 		</div>
 		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
-			<%= f.input :session_2, collection: @session2_values, label_method: :label, value_method: :value, input_html: { :class => 'session-select'} %>
+			<%= f.input :session_2, collection: @session2_values, label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
 			<% @session2_values.each do |selection| %>
 				<% if sf_session_options(@booking.fields, selection.value, 'Session_2__c', @client).present? %>
 					<div class = 'session-options' data-selection='<%= selection.value %>'>
 						Select either or both of the following options.
-						<%= f.collection_check_boxes :session_2_options, sf_session_options(@booking.fields, selection.value, 'Session_2__c', @client), :value, :label, :include_hidden => false %>
+						<%= f.collection_check_boxes :session_2_options, sf_session_options(@booking.fields, selection.value, 'Session_2__c', @client), :value, :label, :include_hidden => false, required: false %>
 					</div>
 				<% end %>
 			<% end %>
 		</div>
 		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
-			<%= f.input :session_3, collection: @session3_values, label_method: :label, value_method: :value, input_html: { :class => 'session-select'} %>
+			<%= f.input :session_3, collection: @session3_values, label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
 			<% @session3_values.each do |selection| %>
 				<% if sf_session_options(@booking.fields, selection.value, 'Session_3__c', @client).present? %>
 					<div class = 'session-options' data-selection='<%= selection.value %>'>
 						Select either or both of the following options.
-						<%= f.collection_check_boxes :session_3_options, sf_session_options(@booking.fields, selection.value, 'Session_3__c', @client), :value, :label, :include_hidden => false %>
+						<%= f.collection_check_boxes :session_3_options, sf_session_options(@booking.fields, selection.value, 'Session_3__c', @client), :value, :label, :include_hidden => false, required: false %>
 					</div>
 				<% end %>
 			<% end %>
 		</div>
 		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
-			<%= f.input :session_4, collection: @session4_values, label_method: :label, value_method: :value, input_html: { :class => 'session-select'} %>
+			<%= f.input :session_4, collection: @session4_values, label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
 			<% @session4_values.each do |selection| %>
 				<% if sf_session_options(@booking.fields, selection.value, 'Session_4__c', @client).present? %>
 					<div class = 'session-options' data-selection='<%= selection.value %>'>
 						Select either or both of the following options.
-						<%= f.collection_check_boxes :session_4_options, sf_session_options(@booking.fields, selection.value, 'Session_4__c', @client), :value, :label, :include_hidden => false %>
+						<%= f.collection_check_boxes :session_4_options, sf_session_options(@booking.fields, selection.value, 'Session_4__c', @client), :value, :label, :include_hidden => false, required: false%>
 					</div>
 				<% end %>
 			<% end %>
@@ -138,16 +138,16 @@
 			<h3>Audition</h3>
 			<span>I would like to be considered for (please tick all that apply):</span><br />
 			<br />
-			<%= f.collection_check_boxes :audition_for, @audition_for, :value, :label %><br />
+			<%= f.collection_check_boxes :audition_for, @audition_for, :value, :label, required: false %><br />
 			<br />
 			<span>I would like to attend the audiiton on Saturday 9 April, 2016: </span> <br />
 			<br />
-			<%= f.input :audition, collection: @audition, label_method: :label, value_method: :value, label: false, include_blank: 'Selection an audition time option' %>
+			<%= f.input :audition, collection: @audition, label_method: :label, value_method: :value, label: false, include_blank: 'Selection an audition time option', required: false %>
 		</div>
 		<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
 			<h3>Audition Recording/Notes</h3>
 			<span>If you would like to be considered for Solo, Masterclass, or Bursary but cannot audition in person, please send us recordings, either via email or paste the links below:</span> <br />
-			<%= f.input :audition_notes, as: :text, label: false %>
+			<%= f.input :audition_notes, as: :text, label: false, required: false %>
 		</div>
 	</div>
 	<br />
@@ -156,8 +156,8 @@
 			<h3>Fee (Accommodation) Options</h3>
 		</div>
 		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-			<%= f.input :product_code do %>
-				<%= f.select :product_code, @summer_fees.map { |sf| [sf.full_description, sf.product_code, {'data-amount' => sf.amount}]}, {include_blank: 'Select an option'}, {:class => 'form-control fee-select'} %>
+			<%= f.input :product_code, required: false do %>
+				<%= f.select :product_code, @summer_fees.map { |sf| [sf.full_description, sf.product_code, {'data-amount' => sf.amount}]}, {include_blank: 'Select an option'}, {:class => 'form-control fee-select', :id => 'Summer-fee'} %>
 			<% end %>
 		</div>
 	</div>
@@ -166,9 +166,9 @@
 <div class = 'row course-options Taster'>
 	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
 		<h2>Mini-Aims Course Options</h2>
-		<%= f.input :days, collection: ['Saturday', 'Sunday'], as: :check_boxes, label: 'I would like to attend...' %>
-		<%= f.input :product_code, label: 'Fee' do %>
-			<%= f.select :product_code, @mini_fees.map { |sf| [sf.full_description, sf.product_code, {'data-amount' => sf.amount}]}, {include_blank: 'Select an option'}, {:class => 'form-control fee-select'} %>
+		<%= f.input :days, collection: ['Saturday', 'Sunday'], as: :check_boxes, label: 'I would like to attend...', required: false %>
+		<%= f.input :product_code, label: 'Fee', required: false do %>
+			<%= f.select :product_code, @mini_fees.map { |sf| [sf.full_description, sf.product_code, {'data-amount' => sf.amount}]}, {include_blank: 'Select an option'}, {:class => 'form-control fee-select', :id => 'Taster-fee'} %>
 		<% end %>
 	</div>
 </div>
@@ -177,9 +177,13 @@
 <div class = 'row'>
 	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
 		<h3>Payment</h3>
-		<%= f.input :stage, collection: ['Full amount', 'Deposit'], as: :radio_buttons, label: 'I would like to pay...', input_html: { :class => 'payment-stage'} %>
-		<b>Amount: </b> <span class = 'payment-amount'></span>
-		<%= f.input :payment_amount, as: :hidden, label: false %>
+	</div>
+	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+		<%= f.input :stage, collection: ['Full amount', 'Deposit'], as: :radio_buttons, label: 'I would like to pay...', input_html: { :class => 'payment-stage'}, required: true %>
+	</div>
+	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6 total'>
+		<b>Amount due: </b> <span class = 'payment-amount'></span>
+		<%= f.input :payment_amount, as: :hidden, label: false, required: false %>
 	</div>
 </div>
 
@@ -220,23 +224,53 @@
 		})
 
 		$('.payment-stage').click(function() {
-			if ($(this).val() == 'Full amount') {
-				if (!$('.fee-select').val()) {
-					alert('Please select a fee option.')
-				} else {
-					var amount = $('.fee-select').find(':selected').data('amount');
-					console.log(amount);
-					$('#booking_payment_amount').val(amount);
-					$('.payment-amount').text("£" + amount);
-				}
 
+			if ($(this).val() ==  'Full amount') { 
+				var campaign = $('.campaign-select').val();
+				// console.log ($('.campaign-select').find(':selected').data("type") );
+
+				if (!campaign) {
+					alert('Please select a Course');
+				} else {
+					if ($('.campaign-select').find(':selected').data("type") == 'Summer') {
+	
+						if (!$('#Summer-fee').val()) {
+							alert('Please select a fee option.')
+						} else {
+							var amount = $('#Summer-fee').find(':selected').data('amount');
+							// console.log(amount);
+							$('#booking_payment_amount').val(amount);
+							$('.payment-amount').text("£" + amount);
+						}
+
+					} else if ($('.campaign-select').find(':selected').data("type") == 'Taster') {
+						// console.log($('#Taster-fee').val());
+						if (!$('#Taster-fee').val()) {
+							alert('Please select a fee option.')
+						} else {
+							var amount = $('#Taster-fee').find(':selected').data('amount');
+							// console.log(amount);
+							$('#booking_payment_amount').val(amount);
+							$('.payment-amount').text("£" + amount);
+						}
+					}
+				}
 			} else if ($(this).val() == 'Deposit') {
 				var amount = '75.00'
-				console.log('75.00');
+				// console.log('75.00');
 				$('#booking_payment_amount').val(amount);
 				$('.payment-amount').text("£" + amount);
 			}
 		})
 		
+		$('.fee-select').change(function() {
+			console.log($('.booking_stage').find(':checked').val());
+			if ($('.booking_stage').find(':checked').val() == 'Full amount') {
+				var amount = $(this).find(':selected').data("amount");
+				console.log(amount);
+				$('#booking_payment_amount').val(amount);
+				$('.payment-amount').text("£" + amount);
+			}
+		})
 	})
 </script>

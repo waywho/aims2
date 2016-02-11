@@ -84,7 +84,7 @@ class BookingsController < ApplicationController
 
   def booking_params
     params.require(:booking).permit(:salutation, :first_name, :last_name, :street_address, :campaign_id,
-      :recordtype, :street_address, :city, :county, :country, :post_code, :email, :telephone, 
+      :recordtype, :street_address, :city, :county, :country, :post_code, :email, :telephone, :stage, 
       :mobile, :date_of_birth, :car_reg, :voice_type, :course,  {:days => []}, {:solo_classes => []}, :notes_for_class_selection,
       :session_1, {:session_1_options => []}, :session_2, {:session_2_options => []}, :session_3, {:session_3_options => []},
       :session_4, {:session_4_options => []}, :audition, {:audition_for => []}, :audition_notes, :product_code, :payment_amount)
