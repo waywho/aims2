@@ -13,9 +13,6 @@ class BookingsController < ApplicationController
 
     @contact = @client.describe('Contact')
 
-
-    @booking_courseformat = Courseformat.where(title: 'Summer School 2016').includes(:fees)
-
     @voice_types = @client.picklist_values('Contact', 'Voice_Type__c')
 
   	@sf_courses = @client.picklist_values('Opportunity', 'Course__c')
@@ -36,6 +33,11 @@ class BookingsController < ApplicationController
 
     @campaigns = @client.query("select Id, Name, Sub_Type__c from Campaign where IsActive = true and Type = 'Conference'")
     # @products = @client.query('select Id, Name from Product2')
+
+    @summer_fees = @courseformats.where('title like ?', '%Summer School%').first.fees.order(:fee_type)
+
+    @mini_fees = @courseformats.where('title like ?', '%Mini%').first.fees.order(:category)
+
 
   end
 
@@ -83,7 +85,7 @@ class BookingsController < ApplicationController
   def booking_params
     params.require(:booking).permit(:salutation, :first_name, :last_name, :street_address, :campaign_id,
       :recordtype, :street_address, :city, :county, :country, :post_code, :email, :telephone, 
-      :mobile, :date_of_birth, :car_reg, :voice_type, :course, {:solo_classes => []}, :notes_for_class_selection,
+      :mobile, :date_of_birth, :car_reg, :voice_type, :course,  {:days => []}, {:solo_classes => []}, :notes_for_class_selection,
       :session_1, {:session_1_options => []}, :session_2, {:session_2_options => []}, :session_3, {:session_3_options => []},
       :session_4, {:session_4_options => []}, :audition, {:audition_for => []}, :audition_notes, :product_code, :payment_amount)
   end

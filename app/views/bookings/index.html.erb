@@ -156,7 +156,9 @@
 			<h3>Fee (Accommodation) Options</h3>
 		</div>
 		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-			<%= f.input :product_code, collection: @booking_courseformat, as: :grouped_select, group_method: :fees, value_method: :product_code, label_method: :full_description, label: false %>
+			<%= f.input :product_code do %>
+				<%= f.select :product_code, @summer_fees.map { |sf| [sf.full_description, sf.product_code, {'data-amount' => sf.amount}]}, {include_blank: 'Select an option'}, {:class => 'form-control fee-select'} %>
+			<% end %>
 		</div>
 	</div>
 </div>
@@ -164,7 +166,10 @@
 <div class = 'row course-options Taster'>
 	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
 		<h2>Mini-Aims Course Options</h2>
-		<%= f.input :product_code, collection: @booking_courseformat, as: :grouped_select, group_method: :fees, value_method: :product_code, label_method: :full_description, label: false %>
+		<%= f.input :days, collection: ['Saturday', 'Sunday'], as: :check_boxes, label: 'I would like to attend...' %>
+		<%= f.input :product_code, label: 'Fee' do %>
+			<%= f.select :product_code, @mini_fees.map { |sf| [sf.full_description, sf.product_code, {'data-amount' => sf.amount}]}, {include_blank: 'Select an option'}, {:class => 'form-control fee-select'} %>
+		<% end %>
 	</div>
 </div>
 
@@ -172,8 +177,9 @@
 <div class = 'row'>
 	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
 		<h3>Payment</h3>
-		<%= f.input :stage, collection: ['Full amount', 'Deposit'], as: :radio_buttons, label: 'I would like to pay...' %>
-		<%= f.input :payment_amount, label: false %>
+		<%= f.input :stage, collection: ['Full amount', 'Deposit'], as: :radio_buttons, label: 'I would like to pay...', input_html: { :class => 'payment-stage'} %>
+		<b>Amount: </b> <span class = 'payment-amount'></span>
+		<%= f.input :payment_amount, as: :hidden, label: false %>
 	</div>
 </div>
 
@@ -211,6 +217,25 @@
 		$('.supplement').click(function(event) {
 			$('.Choral').show();
 			event.preventDefault();
+		})
+
+		$('.payment-stage').click(function() {
+			if ($(this).val() == 'Full amount') {
+				if (!$('.fee-select').val()) {
+					alert('Please select a fee option.')
+				} else {
+					var amount = $('.fee-select').find(':selected').data('amount');
+					console.log(amount);
+					$('#booking_payment_amount').val(amount);
+					$('.payment-amount').text("£" + amount);
+				}
+
+			} else if ($(this).val() == 'Deposit') {
+				var amount = '75.00'
+				console.log('75.00');
+				$('#booking_payment_amount').val(amount);
+				$('.payment-amount').text("£" + amount);
+			}
 		})
 		
 	})

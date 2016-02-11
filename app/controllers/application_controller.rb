@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
  	end
 
  	def load_courseformats
- 		@courseformats = Courseformat.published_now.rank(:row_order).includes(:courses)
+ 		@courseformats = Courseformat.published_now.rank(:row_order).includes(:courses, :fees)
  	end
 
  	def load_news
