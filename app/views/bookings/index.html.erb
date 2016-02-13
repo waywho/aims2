@@ -1,12 +1,12 @@
 <h1>Bookings</h1>
 
-<%= simple_form_for :booking, :url => bookings_path, :method => 'post' do |f| %>
+<%= simple_form_for :booking, :url => bookings_path, :method => 'post', html: {:id => 'booking_form'} do |f| %>
 
 <div class = 'row'>
 	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
 
-		<%= f.input :campaign_id, required: true, label: 'I would like to book...' do %>
-			<%= f.select :campaign_id, @campaigns.map { |c| [c.Name, c.Id, {'data-type' => c.Sub_Type__c}]}, {include_blank: 'Select a Course'}, {:class => 'form-control campaign-select'} %>
+		<%= f.input :campaign_id, label: 'I would like to book...' do %>
+			<%= f.select :campaign_id, @campaigns.map { |c| [c.Name, c.Id, {'data-type' => c.Sub_Type__c}]}, {include_blank: 'Select a Course'}, {:class => 'form-control campaign-select', required: true } %>
 		<% end %>
 	</div>
 </div>
@@ -21,7 +21,7 @@
 			</div>
 		</div>
 			<%= f.input :last_name, as: :string, required: true %>
-			<%= f.input :street_address %>
+			<%= f.input :street_address, required: false %>
 		<div class = 'row'>
 			<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
 				<%= f.input :city, required: false %>
@@ -156,7 +156,7 @@
 			<h3>Fee (Accommodation) Options</h3>
 		</div>
 		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-			<%= f.input :product_code, required: false do %>
+			<%= f.input :product_code, required: false, label: false do %>
 				<%= f.select :product_code, @summer_fees.map { |sf| [sf.full_description, sf.product_code, {'data-amount' => sf.amount}]}, {include_blank: 'Select an option'}, {:class => 'form-control fee-select', :id => 'Summer-fee'} %>
 			<% end %>
 		</div>
@@ -166,7 +166,7 @@
 <div class = 'row course-options Taster'>
 	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
 		<h2>Mini-Aims Course Options</h2>
-		<%= f.input :days, collection: ['Saturday', 'Sunday'], as: :check_boxes, label: 'I would like to attend...', required: false %>
+		<%= f.input :days, collection: ['Saturday', 'Sunday'], as: :check_boxes, label: 'I would like to attend...', required: true %>
 		<%= f.input :product_code, label: 'Fee', required: false do %>
 			<%= f.select :product_code, @mini_fees.map { |sf| [sf.full_description, sf.product_code, {'data-amount' => sf.amount}]}, {include_blank: 'Select an option'}, {:class => 'form-control fee-select', :id => 'Taster-fee'} %>
 		<% end %>
@@ -201,7 +201,7 @@
 			$("div[data-selection='" + $(this).val() + "']").show();
 		})
 
-		$(".campaign-select").change(function() {
+		$("#booking_campaign_id").change(function() {
 			$(".course-options").hide();
 			$("." + $(this).find(':selected').data("type")).show();
 		})
@@ -226,16 +226,18 @@
 		$('.payment-stage').click(function() {
 
 			if ($(this).val() ==  'Full amount') { 
-				var campaign = $('.campaign-select').val();
+				var campaign = $('#booking_campaign_id').val();
+				var validator = $('#booking_form').validate();
 				// console.log ($('.campaign-select').find(':selected').data("type") );
 
-				if (!campaign) {
-					alert('Please select a Course');
-				} else {
-					if ($('.campaign-select').find(':selected').data("type") == 'Summer') {
+				if (validator.element('#booking_campaign_id')) {
+					if ($('#booking_campaign_id').find(':selected').data("type") == 'Summer') {
 	
 						if (!$('#Summer-fee').val()) {
-							alert('Please select a fee option.')
+							console.log("found it!");
+							$("#Summer-fee").addClass('warning-box');
+							$("#Summer-fee").before("<span class = 'warning'>Please select an option first</div>");
+							$("#Summer-fee").focus();
 						} else {
 							var amount = $('#Summer-fee').find(':selected').data('amount');
 							// console.log(amount);
@@ -243,10 +245,12 @@
 							$('.payment-amount').text("£" + amount);
 						}
 
-					} else if ($('.campaign-select').find(':selected').data("type") == 'Taster') {
+					} else if ($('#booking_campaign_id').find(':selected').data("type") == 'Taster') {
 						// console.log($('#Taster-fee').val());
 						if (!$('#Taster-fee').val()) {
-							alert('Please select a fee option.')
+							$("#Taster-fee").addClass('warning-box');
+							$("#Taster-fee").before("<span class = 'warning'>Please select an option first</div>");
+							$('#Taster-fee').focus();
 						} else {
 							var amount = $('#Taster-fee').find(':selected').data('amount');
 							// console.log(amount);
@@ -254,6 +258,8 @@
 							$('.payment-amount').text("£" + amount);
 						}
 					}
+				} else {
+					$('#booking_campaign_id').focus;
 				}
 			} else if ($(this).val() == 'Deposit') {
 				var amount = '75.00'
@@ -272,5 +278,14 @@
 				$('.payment-amount').text("£" + amount);
 			}
 		})
+
+		$('#booking_form').validate({
+			errorClass: 'invalid',
+			errorPlacement: function(error, element) {
+				error.appendTo($("label[for='" + element.attr('id') + "']"));
+			}
+		});
+
+
 	})
 </script>
