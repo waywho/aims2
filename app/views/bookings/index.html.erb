@@ -198,7 +198,7 @@
 </div>
 
 	<br class = 'clr' />
-	<%= f.button :submit, :class => 'btn btn-primary' %>
+	<%= f.button :submit, label: 'Submit Booking', :class => 'btn btn-primary btn-lg' %>
 <% end %>
 
 
@@ -215,6 +215,7 @@
 			$(".course-options").hide();
 			$("." + $(this).find(':selected').data("type")).show();
 			$('.payment-amount').empty();
+			$('.payment-stage').prop('checked', false);
 
 		})
 
@@ -246,8 +247,8 @@
 
 				if (validator.element('#booking_campaign_id')) {
 					if ($('#booking_campaign_id').find(':selected').data("type") == 'Summer') {
-	
-						if (!$('#Summer-fee').val()) {
+						console.log($('#Summer-fee').find(':selected').val());
+						if (!$('#Summer-fee').find(':selected').val()) {
 							console.log("found it!");
 							$("#Summer-fee").addClass('warning-box');
 							$("#Summer-fee").before("<span class = 'warning'>Please select an option first</div>");
@@ -261,8 +262,8 @@
 						}
 
 					} else if ($('#booking_campaign_id').find(':selected').data("type") == 'Taster') {
-						// console.log($('#Taster-fee').val());
-						if (!$('#Taster-fee').val()) {
+						console.log($('#Taster-fee').find(':selected').val());
+						if (!$('#Taster-fee').find(':selected').val()) {
 							$("#Taster-fee").addClass('warning-box');
 							$("#Taster-fee").before("<span class = 'warning'>Please select an option first</div>");
 							$('#Taster-fee').focus();
@@ -291,10 +292,10 @@
 			if ($('.booking_stage').find(':checked').val() == 'Full amount') {
 				var amount = $(this).find(':selected').data("amount");
 				console.log(amount);
-				$('#booking_payment_amount').val(amount);
 				$('.payment-amount').empty();
+				$('#booking_payment_amount').val(amount);
 				$('.payment-amount').text("£" + amount);
-				$('.warning').hide();
+				$('.warning').remove();
 				$(this).removeClass('.warning-box');
 			}
 		})

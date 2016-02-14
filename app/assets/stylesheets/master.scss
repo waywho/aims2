@@ -181,6 +181,12 @@ nav.navbar.navbar-third li a:hover,
 	vertical-align: bottom;
 }
 
+@media (max-width: 992px) {
+	.brand {
+		font-size: 2em;
+	}
+}
+
 
 .navbar-collapse .navbar-nav .open .dropdown-menu > li > a {
 	color: white;
