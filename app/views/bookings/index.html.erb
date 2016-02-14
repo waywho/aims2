@@ -182,8 +182,18 @@
 		<%= f.input :stage, collection: ['Full amount', 'Deposit'], as: :radio_buttons, label: 'I would like to pay...', input_html: { :class => 'payment-stage'}, required: true %>
 	</div>
 	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6 total'>
-		<b>Amount due: </b> <span class = 'payment-amount'></span>
+		<div class = 'col-xs-4 col-sm-4 col-md-4 col-lg-4 amount-header'%>
+			<b>Amount due: </b>
+		</div>
+		<div class = 'col-xs-8 col-sm-8 col-md-8 col-lg-8'%>
+			<span class = 'payment-amount'></span>
 		<%= f.input :payment_amount, as: :hidden, label: false, required: false %>
+		</div>
+	</div>
+	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12 agreement'>
+		I enclose my deposit of £75 (non-refundable) and I understand to pay the remainder of 50% of my fees by 1 May 2016 and the blance by 30 June 2016.
+
+		Note: please make sure that you send the full amount to the AIMS account and that any bank charges are compensate for at your end. Any payments that have had deductions made will have to be paid up in ful at the beginning of the course.
 	</div>
 </div>
 
@@ -204,6 +214,8 @@
 		$("#booking_campaign_id").change(function() {
 			$(".course-options").hide();
 			$("." + $(this).find(':selected').data("type")).show();
+			$('.payment-amount').empty();
+
 		})
 
 		$('.solo-select input[type=checkbox]').change(function(e){
@@ -224,10 +236,12 @@
 		})
 
 		$('.payment-stage').click(function() {
-
+			$('.payment-amount').empty();
 			if ($(this).val() ==  'Full amount') { 
 				var campaign = $('#booking_campaign_id').val();
 				var validator = $('#booking_form').validate();
+				$('.agreement').hide();
+
 				// console.log ($('.campaign-select').find(':selected').data("type") );
 
 				if (validator.element('#booking_campaign_id')) {
@@ -242,6 +256,7 @@
 							var amount = $('#Summer-fee').find(':selected').data('amount');
 							// console.log(amount);
 							$('#booking_payment_amount').val(amount);
+
 							$('.payment-amount').text("£" + amount);
 						}
 
@@ -255,6 +270,7 @@
 							var amount = $('#Taster-fee').find(':selected').data('amount');
 							// console.log(amount);
 							$('#booking_payment_amount').val(amount);
+	
 							$('.payment-amount').text("£" + amount);
 						}
 					}
@@ -266,6 +282,7 @@
 				// console.log('75.00');
 				$('#booking_payment_amount').val(amount);
 				$('.payment-amount').text("£" + amount);
+				$('.agreement').show();
 			}
 		})
 		
@@ -275,7 +292,10 @@
 				var amount = $(this).find(':selected').data("amount");
 				console.log(amount);
 				$('#booking_payment_amount').val(amount);
+				$('.payment-amount').empty();
 				$('.payment-amount').text("£" + amount);
+				$('.warning').hide();
+				$(this).removeClass('.warning-box');
 			}
 		})
 

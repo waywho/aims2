@@ -40,11 +40,26 @@
 	border-bottom: 4px solid #A21D21;
 }
 
-.total {
-	background-color: #F6E8E9;
+.amount-header {
+	background-color: #A21D21;
+	color: white;
 	padding-top: 15px;
 	padding-bottom: 15px;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	text-align: center;
+}
+
+.total {
+	background-color: #F6E8E9;
+	padding: 0px;
 	border-radius: 10px;
+	text-align: center;
+}
+
+.payment-amount {
+	display: block;
+	margin: 15px auto;
 }
 
 .invalid {
@@ -62,4 +77,8 @@
 .warning-box {
 	font-style: italic;
 	color: red;
+}
+
+.agreement {
+	display: none;
 }
