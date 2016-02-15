@@ -89,10 +89,10 @@
 		<br />
 		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
 			<%= f.input :session_1, collection: find_soap_field(@booking, 'Session_1__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
-			<% @session1_values.each do |selection| %>
+			<% find_soap_field(@booking, 'Session_1__c').each do |selection| %>
 				<% if sf_session_options(@booking.fields, selection.value, 'Session_1__c', @client).present? %>
 					<div class = 'session-options' data-selection='<%= selection.value %>'>
-						Select either or both of the following options.
+						<span class='instruction'>Select either or both of the following options.</span><br />
 						<%= f.collection_check_boxes :session_1_options, sf_session_options(@booking.fields, selection.value, 'Session_1__c', @client), :value, :label, :include_hidden => false, required: false %>
 					</div>
 				<% end %>
@@ -100,10 +100,10 @@
 		</div>
 		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
 			<%= f.input :session_2, collection: find_soap_field(@booking, 'Session_2__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
-			<% @session2_values.each do |selection| %>
+			<% find_soap_field(@booking, 'Session_2__c').each do |selection| %>
 				<% if sf_session_options(@booking.fields, selection.value, 'Session_2__c', @client).present? %>
 					<div class = 'session-options' data-selection='<%= selection.value %>'>
-						Select either or both of the following options.
+						<span class='instruction'>Select either or both of the following options.</span><br />
 						<%= f.collection_check_boxes :session_2_options, sf_session_options(@booking.fields, selection.value, 'Session_2__c', @client), :value, :label, :include_hidden => false, required: false %>
 					</div>
 				<% end %>
@@ -111,10 +111,10 @@
 		</div>
 		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
 			<%= f.input :session_3, collection: find_soap_field(@booking, 'Session_3__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
-			<% @session3_values.each do |selection| %>
+			<% find_soap_field(@booking, 'Session_3__c').each do |selection| %>
 				<% if sf_session_options(@booking.fields, selection.value, 'Session_3__c', @client).present? %>
 					<div class = 'session-options' data-selection='<%= selection.value %>'>
-						Select either or both of the following options.
+						<span class='instruction'>Select either or both of the following options.</span><br />
 						<%= f.collection_check_boxes :session_3_options, sf_session_options(@booking.fields, selection.value, 'Session_3__c', @client), :value, :label, :include_hidden => false, required: false %>
 					</div>
 				<% end %>
@@ -122,10 +122,10 @@
 		</div>
 		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
 			<%= f.input :session_4, collection: find_soap_field(@booking, 'Session_4__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
-			<% @session4_values.each do |selection| %>
+			<% find_soap_field(@booking, 'Session_4__c').each do |selection| %>
 				<% if sf_session_options(@booking.fields, selection.value, 'Session_4__c', @client).present? %>
 					<div class = 'session-options' data-selection='<%= selection.value %>'>
-						Select either or both of the following options.
+						<span class='instruction'>Select either or both of the following options.</span><br />
 						<%= f.collection_check_boxes :session_4_options, sf_session_options(@booking.fields, selection.value, 'Session_4__c', @client), :value, :label, :include_hidden => false, required: false%>
 					</div>
 				<% end %>
