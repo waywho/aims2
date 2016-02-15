@@ -319,27 +319,30 @@ nav.navbar.navbar-third li a:hover,
 }
 
 .social-share-button-facebook {
+	background: url("facebook-icon.png") no-repeat;
 	display: inline-block;
 	width: 20px;
 	height: 20px;
-	margin: 5px;
-	background: url("facebook-icon.png") no-repeat;
+	background-size: 20px 20px;
+	margin: 0px 5px;
 }
 
 .social-share-button-twitter {
+	background: url("twitter-icon.png") no-repeat;
 	display: inline-block;
 	width: 20px;
 	height: 20px;
-	margin: 5px;
-	background: url("twitter-icon.png") no-repeat;
+	background-size: 20px 20px;
+	margin: 0px 5px;
 }
 
 .social-share-button-email {
+	background: url("email-icon.png") no-repeat;
 	display: inline-block;
 	width: 20px;
 	height: 20px;
-	margin: 5px;
-	background: url("email-icon.png") no-repeat;
+	background-size: 20px 20px;
+	margin: 0px 5px;
 }
 
 .social-share-button {

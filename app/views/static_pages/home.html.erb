@@ -90,9 +90,9 @@
 						<p><% if news_item.has_attribute?(:content) %>
 							<%= news_item.content %>
 						<% elsif news_item.has_attribute?(:description) %>
-							<% truncated_blurb(news_item.description.html_safe) %></p>
+							<%= truncated_blurb(news_item.description.html_safe) %></p>
 							<% end %>
-						<p><%= d_m_y(news_item.created_at) %><%= social_share_button_tag(news_item.title) %></p>
+						<%= d_m_y(news_item.created_at) %><%= social_share_button_tag(news_item.title) %>
 					</td>
 				</tr>
 				<% end %>
@@ -118,15 +118,15 @@
 			<table>
 				<tbody>
 					<% @future_events.each do |event| %>
-					<%= link_to event_path(event) do %>
 						<tr>
 							<td>
+								<%= link_to event_path(event) do %>
 								<h4><%= event.title %></h4>
 								<p><%= truncated_blurb(event.description.html_safe) %></p>
 								<p><%= event.date %></p>
+								<% end %>
 							</td>
 						</tr>
-						<% end %>
 					<% end %>
 				</tbody>
 			</table>
