@@ -6,6 +6,10 @@ module BookingsHelper
  		end
  	end
 
+ 	def find_soap_field(booking, match)
+		field = booking.fields.find {|f| f.name == match }
+		field.picklistValues
+ 	end
  	# def product_description(product)
  	# 	"#{product.Name} #{product.Description} #{product.List_Price__c}"
  	# end

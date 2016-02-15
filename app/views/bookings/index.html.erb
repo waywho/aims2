@@ -61,7 +61,7 @@
 			<h2>Summer School Options</h2>
 		</div>
 		<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
-			<%= f.input :course, collection: @sf_courses, label_method: :label, value_method: :value, include_blank: 'Select a course', label: 'Course Stream', input_html: { :class => 'course-select'}, required: false %>
+			<%= f.input :course, collection: find_soap_field(@booking, 'Course__c'), label_method: :label, value_method: :value, include_blank: 'Select a course', label: 'Course Stream', input_html: { :class => 'course-select'}, required: false %>
 		</div>
 	</div>
 	<div class = 'row course Solo Crossover'>
@@ -71,7 +71,7 @@
 		<br />
 		<br />
 		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-			<%= f.collection_check_boxes :solo_classes, @solo_classes, :value, :label, :include_hidden => false, item_wrapper_class: 'solo-select', required: false %>
+			<%= f.collection_check_boxes :solo_classes, find_soap_field(@booking, 'Solo_classes__c'), :value, :label, :include_hidden => false, item_wrapper_class: 'solo-select', required: false %>
 		</div>
 		<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
 			<%= f.input :notes_for_class_selection, label: 'Choice 4 (optional)', hint: '(Replace with this option if any of my selections are not availble)', required: false %>
@@ -88,7 +88,7 @@
 		<br />
 		<br />
 		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
-			<%= f.input :session_1, collection: @session1_values, label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
+			<%= f.input :session_1, collection: find_soap_field(@booking, 'Session_1__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
 			<% @session1_values.each do |selection| %>
 				<% if sf_session_options(@booking.fields, selection.value, 'Session_1__c', @client).present? %>
 					<div class = 'session-options' data-selection='<%= selection.value %>'>
@@ -99,7 +99,7 @@
 			<% end %>
 		</div>
 		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
-			<%= f.input :session_2, collection: @session2_values, label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
+			<%= f.input :session_2, collection: find_soap_field(@booking, 'Session_2__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
 			<% @session2_values.each do |selection| %>
 				<% if sf_session_options(@booking.fields, selection.value, 'Session_2__c', @client).present? %>
 					<div class = 'session-options' data-selection='<%= selection.value %>'>
@@ -110,7 +110,7 @@
 			<% end %>
 		</div>
 		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
-			<%= f.input :session_3, collection: @session3_values, label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
+			<%= f.input :session_3, collection: find_soap_field(@booking, 'Session_3__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
 			<% @session3_values.each do |selection| %>
 				<% if sf_session_options(@booking.fields, selection.value, 'Session_3__c', @client).present? %>
 					<div class = 'session-options' data-selection='<%= selection.value %>'>
@@ -121,7 +121,7 @@
 			<% end %>
 		</div>
 		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
-			<%= f.input :session_4, collection: @session4_values, label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
+			<%= f.input :session_4, collection: find_soap_field(@booking, 'Session_4__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
 			<% @session4_values.each do |selection| %>
 				<% if sf_session_options(@booking.fields, selection.value, 'Session_4__c', @client).present? %>
 					<div class = 'session-options' data-selection='<%= selection.value %>'>
@@ -138,11 +138,11 @@
 			<h3>Audition</h3>
 			<span>I would like to be considered for (please tick all that apply):</span><br />
 			<br />
-			<%= f.collection_check_boxes :audition_for, @audition_for, :value, :label, required: false %><br />
+			<%= f.collection_check_boxes :audition_for, find_soap_field(@booking, 'Auditioning_for__c'), :value, :label, required: false %><br />
 			<br />
 			<span>I would like to attend the audiiton on Saturday 9 April, 2016: </span> <br />
 			<br />
-			<%= f.input :audition, collection: @audition, label_method: :label, value_method: :value, label: false, include_blank: 'Selection an audition time option', required: false %>
+			<%= f.input :audition, collection: find_soap_field(@booking, 'Audition_requested__c'), label_method: :label, value_method: :value, label: false, include_blank: 'Selection an audition time option', required: false %>
 		</div>
 		<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
 			<h3>Audition Recording/Notes</h3>

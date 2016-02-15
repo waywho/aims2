@@ -11,25 +11,24 @@ class BookingsController < ApplicationController
   	@booking = @client.describe('Opportunity')
     # @opps = @client.query('select Id, Name from PricebookEntry')
 
-    @contact = @client.describe('Contact')
+    # @contact = @client.describe('Contact')
 
     @voice_types = @client.picklist_values('Contact', 'Voice_Type__c')
 
-  	@sf_courses = @client.picklist_values('Opportunity', 'Course__c')
+  	# @sf_courses = @client.picklist_values('Opportunity', 'Course__c')
+  
     
-    @solo_classes = @client.picklist_values('Opportunity', 'Solo_classes__c')
-    
-    @session1_values = @client.picklist_values('Opportunity', 'Session_1__c')
+    # @session1_values = @client.picklist_values('Opportunity', 'Session_1__c')
 
-    @session2_values = @client.picklist_values('Opportunity', 'Session_2__c')
+    # @session2_values = @client.picklist_values('Opportunity', 'Session_2__c')
 
-    @session3_values = @client.picklist_values('Opportunity', 'Session_3__c')
+    # @session3_values = @client.picklist_values('Opportunity', 'Session_3__c')
 
-    @session4_values = @client.picklist_values('Opportunity', 'Session_4__c')
+    # @session4_values = @client.picklist_values('Opportunity', 'Session_4__c')
 
-    @audition = @client.picklist_values('Opportunity', 'Audition_requested__c')
+    # @audition = @client.picklist_values('Opportunity', 'Audition_requested__c')
 
-    @audition_for = @client.picklist_values('Opportunity', 'Auditioning_for__c')
+    # @audition_for = @client.picklist_values('Opportunity', 'Auditioning_for__c')
 
     @campaigns = @client.query("select Id, Name, Sub_Type__c from Campaign where IsActive = true and Type = 'Conference'")
     # @products = @client.query('select Id, Name from Product2')
