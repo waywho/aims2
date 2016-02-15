@@ -52,14 +52,16 @@
     padding: 10px;
   }
 
-.intro h1 {
-  color: #fff;
-  letter-spacing: 2px;
-}
-
-.intro p {
+  .intro h1 {
     color: #fff;
-} }
+    letter-spacing: 2px;
+  }
+
+  .intro p {
+      color: #fff;
+  } 
+
+}
 
 .feature-course {
 	text-align: center;
@@ -132,4 +134,10 @@ section {
   margin-bottom: 5px;
   font-weight: 900;
   letter-spacing: 2px;
+}
+
+.cheer {
+  font-size: 22px;
+  font-weight: 900;
+  font-style: italic;
 }

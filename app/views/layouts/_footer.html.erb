@@ -1,44 +1,46 @@
-<div class = 'col-xs-12 footer-content container-fluid'>
-	<div class = 'col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-panel'>
-		<ul>
-			<% @courseformats.rank(:row_order).each do |courseformat| %>
-				<li class="footer-title"><%= link_to courseformat.title, courseformat %></li>
-				<% courseformat.courses.rank(:row_order).each do |course| %>
-				<li class="footer-topic"><%= link_to course.title, course %></li>
+<% cache "footer" do %>
+	<div class = 'col-xs-12 footer-content container-fluid'>
+		<div class = 'col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-panel'>
+			<ul>
+				<% @courseformats.rank(:row_order).each do |courseformat| %>
+					<li class="footer-title"><%= link_to courseformat.title, courseformat %></li>
+					<% courseformat.courses.rank(:row_order).each do |course| %>
+					<li class="footer-topic"><%= link_to course.title, course %></li>
+					<% end %>
 				<% end %>
-			<% end %>
-		</ul>
-	</div>
-	<div class = 'col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-panel'>
-		<ul>	
-			<% @menus.main.roots.rank(:row_order).each do |menu| %>
-				<li class="footer-title"><%= menu.name %></li>
-					<% if menu.has_children? %>
-						<% menu.children.each do |sub| %>
-							<li class="footer-topic"><%= sub.name %></li>
+			</ul>
+		</div>
+		<div class = 'col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-panel'>
+			<ul>	
+				<% @menus.main.roots.rank(:row_order).each do |menu| %>
+					<li class="footer-title"><%= menu.name %></li>
+						<% if menu.has_children? %>
+							<% menu.children.each do |sub| %>
+								<li class="footer-topic"><%= sub.name %></li>
+							<% end %>
 						<% end %>
-					<% end %>
-			<% end %>
-		</ul>
-	</div>
-	<div class = 'col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-panel'>
-		<ul>	
-			<li class="footer-title">Social</li>
-			<li class="footer-topic">Facebook</li>
-			<li class="footer-topic">Twitter</li>
-			<li class="footer-topic">Instagram</li>
-		</ul>
-	</div>
-	<div class = 'col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-panel'>
-		<ul>	
-			<% @menus.secondary.roots.rank(:row_order).each do |menu| %>
-				<li class="footer-title"><%= menu.name %></li>
-					<% if menu.has_children? %>
-						<% menu.children.each do |sub| %>
-							<li class="footer-topic"><%= sub.name %></li>
+				<% end %>
+			</ul>
+		</div>
+		<div class = 'col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-panel'>
+			<ul>	
+				<li class="footer-title">Social</li>
+				<li class="footer-topic">Facebook</li>
+				<li class="footer-topic">Twitter</li>
+				<li class="footer-topic">Instagram</li>
+			</ul>
+		</div>
+		<div class = 'col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-panel'>
+			<ul>	
+				<% @menus.secondary.roots.rank(:row_order).each do |menu| %>
+					<li class="footer-title"><%= menu.name %></li>
+						<% if menu.has_children? %>
+							<% menu.children.each do |sub| %>
+								<li class="footer-topic"><%= sub.name %></li>
+							<% end %>
 						<% end %>
-					<% end %>
-			<% end %>
-		</ul>
+				<% end %>
+			</ul>
+		</div>
 	</div>
-</div>
+<% end %>

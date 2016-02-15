@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :load_menus
   before_filter :load_courseformats
-  before_filter :load_courses
   before_filter :load_news
   before_filter :load_events
 
@@ -14,11 +13,7 @@ class ApplicationController < ActionController::Base
  	end
 
  	def load_courseformats
- 		@courseformats = Courseformat.published_now.rank(:row_order)
- 	end
-
- 	def load_courses
- 		@courses = Course.published_now.rank(:row_order)
+ 		@courseformats = Courseformat.published_now.rank(:row_order).includes(:courses, :fees)
  	end
 
  	def load_news
@@ -28,4 +23,5 @@ class ApplicationController < ActionController::Base
  	def load_events
  		@future_events = Event.future.order(:date)
  	end
+
 end

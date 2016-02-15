@@ -1,0 +1,84 @@
+// Place all the styles related to the bookings controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.inline-title {
+	display: inline;
+}
+
+.instruction {
+	font-style: italic;
+}
+
+.session-options {
+	display: none;
+}
+
+.Summer {
+	display: none;
+}
+
+.Taster {
+	display: none;
+	border-top: 4px solid #A21D21;
+	border-bottom: 4px solid #A21D21;
+}
+
+.course {
+	display: none;
+	background-color: #F6E8E9;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.summer-section {
+	border-top: 4px solid #A21D21;
+}
+
+.bottom-div {
+	border-bottom: 4px solid #A21D21;
+}
+
+.amount-header {
+	background-color: #A21D21;
+	color: white;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	text-align: center;
+}
+
+.total {
+	background-color: #F6E8E9;
+	padding: 0px;
+	border-radius: 10px;
+	text-align: center;
+}
+
+.payment-amount {
+	display: block;
+	margin: 15px auto;
+}
+
+.invalid {
+	font-style: italic;
+	color: red;
+	margin-left: 12px;
+}
+
+.warning {
+	font-style: italic;
+	color: red;
+	margin-left: 12px;
+}
+
+.warning-box {
+	font-style: italic;
+	color: red;
+}
+
+.agreement {
+	display: none;
+}

@@ -52,6 +52,12 @@ gem 'ranked-model'
 gem 'jquery-ui-rails'
 
 gem 'figaro'
+
+gem 'restforce'
+
+gem 'omniauth-salesforce'
+
+gem 'jquery-validation-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
