@@ -16,4 +16,5 @@
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //= require bootstrap-sprockets
+//= require social-share-button
 //= require_tree .

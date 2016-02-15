@@ -58,6 +58,8 @@ gem 'restforce'
 gem 'omniauth-salesforce'
 
 gem 'jquery-validation-rails'
+
+gem 'social-share-button'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
