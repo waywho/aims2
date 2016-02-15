@@ -22,6 +22,21 @@ h1 > a, h2 > a, h3 > a, h4 > a, h5 > a {
 	color: #A21D21;
 	} 
 
+a {
+	text-decoration: none;
+	color: #A21D21;
+	font-weight: 900;
+}
+
+b {
+	font-weight: 900;
+}
+
+a:hover {
+	text-decoration: none;
+	color: black;
+}
+
 .nav {
 	margin-bottom: 0;
 }
@@ -174,12 +189,15 @@ nav.navbar.navbar-third li a:hover,
 	font-family: 'Cinzel', 'Georgia', 'Times New Roman', serif;
 	font-weight: bold;
 	font-size: 2.5em;
+	color: black;
 	padding-left: 25px;
 	padding-bottom: 10px;
 	padding-right: 25px;
 	min-height: 50px;
 	vertical-align: bottom;
 }
+
+
 
 @media (max-width: 992px) {
 	.brand {
@@ -198,16 +216,6 @@ nav.navbar.navbar-third li a:hover,
 }
 .logo {
 	height: 75px;
-}
-
-a {
-	text-decoration: none;
-	color: black;
-}
-
-a:hover {
-	text-decoration: none;
-	color: black;
 }
 
 .class-title {

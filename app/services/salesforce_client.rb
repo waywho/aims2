@@ -39,9 +39,9 @@ class SalesforceClient
 		    RecordTypeId: '01224000000DDUcAAO',
 		    Type: 'AIMS',
 		    Attendee_type__c: 'Student',
-		    CampaignId: '7017E0000000gTJQAY',
+		    CampaignId: params[:campaign_id],
 		    AccountId: account.AccountId,
-		    Name: opp_name(account.Name, '7017E0000000gTJQAY'),
+		    Name: opp_name(account.Name, params[:campaign_id]),
 		    StageName: 'Deposit Received',
 		    CloseDate: Time.now.to_datetime.strftime("%Y-%m-%d"),      
 		    Attendee_type__c: 'Student',
@@ -64,10 +64,10 @@ class SalesforceClient
 		      )
 	end
 
-	def create_product(params, opp_id, price)
+	def create_product(opp_id, product_id, price)
 		Restforce.new.create!('OpportunityLineItem',
 		    OpportunityId: opp_id,
-		    PricebookEntryId: params[:product_code], 
+		    PricebookEntryId: product_id, 
 		    Quantity: "1.00",
 		    TotalPrice: price)
 	end

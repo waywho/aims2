@@ -73,6 +73,9 @@ Rails.application.routes.draw do
 	end
 
   post "casein/versions/:id/revert" => 'casein/versions#revert', :as => "revert_version"
+  get 'summer_whats_next', :to => 'static_pages#summer_whats_next'
+  get 'mini_whats_next', :to => 'static_pages#mini_whats_next'
+
 
   resources :courseformats, :only => [:index, :show] do
       resource :photos, :only => [:index, :show]

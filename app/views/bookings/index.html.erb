@@ -61,7 +61,7 @@
 			<h2>Summer School Options</h2>
 		</div>
 		<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
-			<%= f.input :course, collection: @sf_courses, required: true, label_method: :label, value_method: :value, include_blank: 'Select a course', label: 'Course Stream', input_html: { :class => 'course-select'}, required: false %>
+			<%= f.input :course, collection: @sf_courses, label_method: :label, value_method: :value, include_blank: 'Select a course', label: 'Course Stream', input_html: { :class => 'course-select'}, required: false %>
 		</div>
 	</div>
 	<div class = 'row course Solo Crossover'>
@@ -156,8 +156,8 @@
 			<h3>Fee (Accommodation) Options</h3>
 		</div>
 		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-			<%= f.input :product_code, required: false, label: false do %>
-				<%= f.select :product_code, @summer_fees.map { |sf| [sf.full_description, sf.product_code, {'data-amount' => sf.amount}]}, {include_blank: 'Select an option'}, {:class => 'form-control fee-select', :id => 'Summer-fee'} %>
+			<%= f.input :summer_product_code, required: false, label: false do %>
+				<%= f.select :summer_product_code, @summer_fees.map { |sf| [sf.full_description, sf.product_code, {'data-amount' => sf.amount}]}, {include_blank: 'Select an option'}, {:class => 'form-control fee-select', :id => 'Summer-fee'} %>
 			<% end %>
 		</div>
 	</div>
@@ -166,9 +166,16 @@
 <div class = 'row course-options Taster'>
 	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
 		<h2>Mini-Aims Course Options</h2>
+	</div>
+	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+			<%= f.input :course, collection: ['Solo', 'Choral'], include_blank: 'Select a course', label: 'Course Stream', input_html: { :class => 'course-select'}, required: true %>
+	</div>
+	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
 		<%= f.input :days, collection: ['Saturday', 'Sunday'], as: :check_boxes, label: 'I would like to attend...', required: true %>
-		<%= f.input :product_code, label: 'Fee', required: false do %>
-			<%= f.select :product_code, @mini_fees.map { |sf| [sf.full_description, sf.product_code, {'data-amount' => sf.amount}]}, {include_blank: 'Select an option'}, {:class => 'form-control fee-select', :id => 'Taster-fee'} %>
+	</div>
+	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+		<%= f.input :taster_product_code, label: 'Fee', required: false do %>
+			<%= f.select :taster_product_code, @mini_fees.map { |sf| [sf.full_description, sf.product_code, {'data-amount' => sf.amount}]}, {include_blank: 'Select an option'}, {:class => 'form-control fee-select', :id => 'Taster-fee'} %>
 		<% end %>
 	</div>
 </div>
@@ -198,7 +205,7 @@
 </div>
 
 	<br class = 'clr' />
-	<%= f.button :submit, label: 'Submit Booking', :class => 'btn btn-primary btn-lg' %>
+	<%= f.button :submit, 'Submit Booking', :class => 'btn btn-primary btn-lg' %>
 <% end %>
 
 

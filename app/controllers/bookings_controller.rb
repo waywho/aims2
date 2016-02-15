@@ -61,18 +61,27 @@ class BookingsController < ApplicationController
       @account = @client.find('Contact', booking_contact.first)
     end
 
-    opp_uid = opp_uid(@account.Name, '7017E0000000gTJQAY')
+    @campaign = find_campaign(booking_params[:campaign_id])
+    opp_uid = opp_uid(@account.Name, @campaign)
 
     SalesforceClient.new.create_booking(booking_params, @account, opp_uid)
 
     opportunity = @client.find('Opportunity', opp_uid, 'Web_uid__c')
-    product = @client.find('PricebookEntry', booking_params[:product_code])
+    
+    if @campaign.Sub_Type__c == 'Summer'
+      product = @client.find('PricebookEntry', booking_params[:summer_product_code])
+      SalesforceClient.new.create_product(opportunity.Id, product.Id, product.UnitPrice)
+      SalesforceClient.new.create_payment(booking_params[:payment_amount], opportunity.Id)
 
-    SalesforceClient.new.create_product(booking_params, opportunity.Id, product.UnitPrice)
-
-    SalesforceClient.new.create_payment(booking_params[:payment_amount], opportunity.Id)
-
-    redirect_to bookings_path
+      redirect_to summer_whats_next_path
+    elsif @campaign.Sub_Type__c == 'Taster'
+      product = @client.find('PricebookEntry', booking_params[:taster_product_code])
+      SalesforceClient.new.create_product(opportunity.Id, product.Id, product.UnitPrice)
+      SalesforceClient.new.create_payment(booking_params[:payment_amount], opportunity.Id)
+      redirect_to mini_whats_next_path
+    else
+      redirect_to bookings_path
+    end
   end
 
   private
@@ -87,7 +96,7 @@ class BookingsController < ApplicationController
       :recordtype, :street_address, :city, :county, :country, :post_code, :email, :telephone, :stage, 
       :mobile, :date_of_birth, :car_reg, :voice_type, :course,  {:days => []}, {:solo_classes => []}, :notes_for_class_selection,
       :session_1, {:session_1_options => []}, :session_2, {:session_2_options => []}, :session_3, {:session_3_options => []},
-      :session_4, {:session_4_options => []}, :audition, {:audition_for => []}, :audition_notes, :product_code, :payment_amount)
+      :session_4, {:session_4_options => []}, :audition, {:audition_for => []}, :audition_notes, :summer_product_code, :taster_product_code, :payment_amount)
   end
 
   def web_uid(firstname, lastname)
@@ -95,10 +104,13 @@ class BookingsController < ApplicationController
     "#{firstname.chr}#{lastname.chr}#{Time.now.to_formatted_s(:number)}#{unique}"
   end
 
-  def opp_uid(accountName, campaign_id)
-    campaign = @client.find('Campaign', campaign_id)
+  def opp_uid(accountName, campaign)
     timecode = Time.now.to_formatted_s(:number)
     "#{campaign.Name.split(' ').join}#{accountName.split(' ').join}#{timecode}"
+  end
+
+  def find_campaign(campaign_id)
+    @client.find('Campaign', campaign_id)
   end
 
 

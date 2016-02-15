@@ -8,6 +8,12 @@ class StaticPagesController < ApplicationController
 		@feature_courses = @feature_format.courses.feature_courses
 		@quotes = Quote.all
 	end
+	
+	def summer_whats_next
+	end
+
+	def mini_whats_next
+	end
 
 	private
 
