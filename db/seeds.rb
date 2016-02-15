@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Courseformat.delete_all
-format_summer = Courseformat.create({title: "Summer School 2016", description: "The Summer School is a week-long residential course at the beautiful seaside of East Bourne. The You will be joining around 200 enthusiastic students, along with 70 staff made up of tutors and house pianists. There four main teaching sessions per day, with lots of performance opportunities.", whats_new: "2016 is very new", when_from: "2016-08-21 08:53:20", when_to: "2016-08-28 21:53:20", venue: "EastBourne College", address1: "Old Wish Road", city: "EastBourne", county: "East Sussex", post_code: "BN21 4JY", workflow_state: "published", homepage_feature: true})
+format_summer = Courseformat.create({title: "Summer School 2016", description: "The Summer School is a week-long residential course at the beautiful seaside of East Bourne. The You will be joining around 200 enthusiastic students, along with 70 staff made up of tutors and house pianists. There four main teaching sessions per day, with lots of performance opportunities.", whats_new: "2016 is very new", when_from: "2016-08-21 08:53:20", when_to: "2016-08-28 21:53:20", venue: "EastBourne College", address1: "Old Wish Road", city: "EastBourne", county: "East Sussex", post_code: "BN21 4JY", workflow_state: "published", feature: true})
 format_mini = Courseformat.create({title: "Mini-Aims 2016", description: "Mini-Aims is our non-residential 'taster' version of the main singing summer school.", whats_new: "2016 is very new", when_from: "2016-04-09 08:53:20", when_to: "2016-04-10 21:53:20", venue: "St Gabriel's Halls", address1: "Pimlico", city: "London", county: "Greater London", post_code: "SW1V 3AA", workflow_state: "published"})
 format_summer.highlights.create([{title: "Gala Concert", description: "Stephan Loges, bass-baritone"},
 	{title: "Celebrity Masterclass", description: "Kathryn Harris, soprano and Director of National Opera Studio"},
@@ -67,7 +67,7 @@ Page.create({title: "Auditions", content: "This is how you audition"})
 Page.create({title: "A Typical Day", content: "This is the typical day"})
 Page.create({title: "Staff", content: "Here are our staff"})
 Page.create({title: "Course Information", content: "courses info"})
-Page.create({title: "Welcome", content: "This is our 10th year!", workflow_state: "published", feature_page: true})
+Page.create({title: "Welcome", content: "This is our 10th year!", workflow_state: "published", feature: true})
 NewsItem.create({title: "Great News", description: "There is a new news."})
 NewsItem.create({title: "Wonderful News", description: "My news is great."})
 NewsItem.create({title: "Expectations", description: "Another wonderful life."})

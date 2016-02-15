@@ -10,7 +10,7 @@ class CourseformatsController < ApplicationController
 	  # GET /courseformats/1
 	  # GET /courseformats/1.json
 	  def show
-	  	@courses = Course.published_now.rank(:row_order)
+	  	@courses = @courseformat.courses.published_now.rank(:row_order)
 	  end
 
 	  # GET /courseformats/new

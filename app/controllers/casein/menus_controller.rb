@@ -41,6 +41,8 @@ module Casein
       @casein_page_title = 'Update menu'
       
       if @menu.update_attributes menu_params    
+          expire_fragment("footer")
+          expire_fragment("header")
         render :text => 'Menu has been updated'
       else
         flash.now[:warning] = 'There were problems when trying to update this menu'
