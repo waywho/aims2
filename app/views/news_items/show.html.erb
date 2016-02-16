@@ -21,7 +21,12 @@
 	<% end %>
 </div>
 <div class='col-xs-12 col-sm-12 col-md-8 col-lg-8'>
-<section class="col-xs-offset-1 col-xs-10">
-<%= @news.description.html_safe %>
-</section>
+	<section class="col-xs-offset-1 col-xs-10">
+		<div>
+			<%= @news.description.html_safe %>
+		</div>
+		<br />
+		<br />
+	</section>
+	<div class = 'share col-xs-12'><b>share: </b><%= social_share_button_tag(@news.title) %></div>
 </div>

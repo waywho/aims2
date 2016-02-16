@@ -25,27 +25,26 @@
 		         	</li>
 		         <% end %>
 	        <% end %>
-	        <li><div class = 'header-social-icon'>
-	       	 <%= social_share_button_tag('AIMS International Music School', :image => @feature_page.feature_image_url, desc: 'School for Soloists, Choral Singers, and Piano Accompanists', :url => 'http://www.aims.uk.com/') %>
-	    	</div></li>
+	        <li><%= link_to image_tag('twitter-icon.png', :class => 'header-social-icon social-icon'), 'https://twitter.com/aims_singing', :id => 'social-icon-link-twitter' %></li>
+	        <li><%= link_to image_tag('facebook-icon.png', :class => 'header-social-icon social-icon'), 'https://www.facebook.com/groups/5182097482', :id => 'social-icon-link-facebook' %></li>
 		</ul>
 		</div>
 
 	</nav>
 	<div class='container-fluid'>
 		<%= link_to root_path do %>
-			<div class = "brand col-xs-12 col-sm-12 col-md-9 col-lg-9">
+			<div class = "brand col-xs-12 col-sm-12 col-md-8 col-lg-8 text-center-xs text-center-sm">
 				<%= image_tag "AIMS_red.jpg", :alt => 'AIMS', :class => 'logo' %>International Music School
 			</div>
 		<% end %>
 	<!-- Begin MailChimp Signup Form -->
-		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-			<div id="mc_embed_signup" class="pull-right">
+		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+			<div id="mc_embed_signup" class="pull-right col-xs-6 col-sm-6 col-md-12 col-lg-12">
 
 				<form action="//aims.us11.list-manage.com/subscribe/post?u=d85fe86b45755ccbb9104d1cc&amp;id=0b11524bf9" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate form-inline" target="_blank" novalidate>
 
 
-				    <div id="mc_embed_signup_scroll form-group">
+				    <div id="mc_embed_signup_scroll form-group" class = 'mailchimp-form'>
 						<input type="email" value="" name="EMAIL" class="email form-control" id="mce-EMAIL" placeholder="email address" required>
 					    
 					    	<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->

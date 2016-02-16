@@ -188,7 +188,7 @@ nav.navbar.navbar-third li a:hover,
 .brand {
 	font-family: 'Cinzel', 'Georgia', 'Times New Roman', serif;
 	font-weight: bold;
-	font-size: 2.5em;
+	font-size: 42px;
 	color: black;
 	padding-left: 25px;
 	padding-bottom: 10px;
@@ -196,15 +196,6 @@ nav.navbar.navbar-third li a:hover,
 	min-height: 50px;
 	vertical-align: bottom;
 }
-
-
-
-@media (max-width: 992px) {
-	.brand {
-		font-size: 2em;
-	}
-}
-
 
 .navbar-collapse .navbar-nav .open .dropdown-menu > li > a {
 	color: white;
@@ -234,28 +225,42 @@ nav.navbar.navbar-third li a:hover,
 	margin: 5px;
 }
 
+#social-icon-link-facebook {
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+#social-icon-link-twitter {
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
 .header-social-icon {
 	margin-top: 15px;
 	margin-bottom: 15px;
 }
 
-
 #mc_embed_signup {
 	padding-top: 20px;
 }
 
-#mc_embed_signup button {
+#mc-embedded-subscribe {
 	font-size: 11px;
-}
-
-.mail-button {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 5px;
 	background-color: #aaa;
 	color: #fff;
 }
 
-#mc_embed_signup_scroll {
+.mailchimp-form {
 	margin-top: 5px;
 	margin-bottom: 10px;
+	text-align: right;
 }
 
 .highlight-list h5 {
@@ -271,13 +276,13 @@ nav.navbar.navbar-third li a:hover,
 }
 
 .important-date {
-	font-weight: bold;
-	font-size: 22px;
+	font-weight: 900;
+	font-size: 18px;
 	margin-bottom: 10px;
 }
 
 .important-venue {
-	font-weight: bold;
+	font-weight: 900;
 	font-size: 20px;
 	margin-bottom: 8px;
 }
@@ -349,4 +354,49 @@ nav.navbar.navbar-third li a:hover,
 .social-share-button {
 	display: inline-block;
 	margin-left: 10px;
+}
+
+.share {
+	text-align: right;
+}
+
+@media (max-width: 1335px) {
+	.brand {
+		font-size: 40px;
+	}
+}
+
+@media (max-width: 1288px) {
+	.brand {
+		font-size: 38px;
+	}
+}
+
+@media (max-width: 1241px) {
+	.brand {
+		font-size: 35px;
+	}
+}
+
+@media (max-width: 1171px) {
+	.brand {
+		font-size: 32px;
+	}
+}
+
+@media (max-width: 1100px) {
+	.brand {
+		font-size: 30px;
+	}
+}
+
+@media (max-width: 767px) {
+    .text-center-xs {
+        text-align: center;
+    }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    .text-center-sm {
+        text-align: center;
+    }
 }

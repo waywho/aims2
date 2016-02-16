@@ -23,7 +23,7 @@
 	</section>
 
 	<section class='event-details'>
-		<div class='important-date'><%= d_Month_y(@event.date) %></div>
+		<div class='important-date'><%= event_datetime(@event.date) %></div>
 		<div class='important-venue'><%= @event.venue %></div>
 		<div class='address'>(<%= @event.address %>)</div>
 		<b>Ticket:</b> <%= @event.ticket_type %>
@@ -58,4 +58,8 @@
 		</section>
 		<% end %>
 	<% end %>
+	<br />
+	<br />
+
+	<div class = 'share col-xs-12'><b>share: </b><%= social_share_button_tag(@event.title) %></div>
 </div>
