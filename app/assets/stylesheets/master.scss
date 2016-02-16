@@ -12,13 +12,13 @@ body {
 
 h1, h2, h3, h4, h5 {
 	font-family: 'Cinzel', 'Georgia', 'Times New Roman', serif;
-	font-weight: bold;
+	font-weight: 900;
 	color: #A21D21;
 	} 
 
 h1 > a, h2 > a, h3 > a, h4 > a, h5 > a {
 	font-family: 'Cinzel', 'Georgia', 'Times New Roman', serif;
-	font-weight: bold;
+	font-weight: 900;
 	color: #A21D21;
 	} 
 
@@ -195,6 +195,26 @@ nav.navbar.navbar-third li a:hover,
 	padding-right: 25px;
 	min-height: 50px;
 	vertical-align: bottom;
+	display: inline;
+}
+
+.title {
+	display: inline-block;
+}
+
+.title-container {
+	display: 90%;
+	display: inline-block;
+}
+
+.logo {
+	height: 75px;
+	display: inline-block;
+}
+
+.logo-container {
+	width: 10%;
+	display: inline-block;
 }
 
 .navbar-collapse .navbar-nav .open .dropdown-menu > li > a {
@@ -204,9 +224,6 @@ nav.navbar.navbar-third li a:hover,
 .navbar-collapse#navbar-third {
 	padding-left: 0px;
 	padding-right: 0px;
-}
-.logo {
-	height: 75px;
 }
 
 .class-title {
