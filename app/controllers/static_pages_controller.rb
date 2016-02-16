@@ -23,6 +23,12 @@ class StaticPagesController < ApplicationController
 	def mini_whats_next
 	end
 
+	def terms_and_conditions
+	end
+
+	def privacy_policy
+	end
+
 	private
 
 	def load_news_list
