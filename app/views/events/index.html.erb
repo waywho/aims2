@@ -19,16 +19,16 @@
 <div class='event-list col-sm-12 col-md-8'>
 	<% if @day_events %>
 		<% if @day_events.first.date.today? %>
-			<h2 class='red-heading'>What's on TODAY</h2>
+			<h3 class='red-heading'>What's on TODAY</h3>
 		<% else %>
-			<h2 class='red-heading'>What's on <%= d_Month_y(@day_events.first.date) %></h2>
+			<h3 class='red-heading'>What's on <%= d_Month_y(@day_events.first.date) %></h3>
 		<% end %>
 			<% @day_events.each do |event| %>
 			<%= link_to event_path(event) do %>
 				<div class = 'event'>
 					<h3><%= event.title %></h3>
 					<p>
-						<b><i><%= time_of_date(event.date) %>, <%= d_Month_y(event.date) %></i>&nbsp;&nbsp;&nbsp;&nbsp;<%= event.venue %></b>
+						<b><i><%= event_datetime(event.date) %></i>&nbsp;&nbsp;&nbsp;&nbsp;<%= event.venue %></b>
 					</p>
 					<p>
 						<%= truncated_blurb(event.description.html_safe) %>
@@ -41,13 +41,13 @@
 			<% end %>
 			<% end %>
 			<br />
-			<h2 class='red-heading'>Future Events</h2>
+			<h3 class='red-heading'>Future Events</h3>
 			<% @events.each do |event| %>
 			<%= link_to event_path(event) do %>
 				<div class = 'event'>
 					<h3><%= event.title %></h3>
 					<p>
-						<b><i><%= time_of_date(event.date) %>, <%= d_Month_y(event.date) %></i>&nbsp;&nbsp;&nbsp;&nbsp;<%= event.venue %></b>
+						<b><i><%= event_datetime(event.date) %></i>&nbsp;&nbsp;&nbsp;&nbsp;<%= event.venue %></b>
 					</p>
 					<p>
 						<%= truncated_blurb(event.description.html_safe) %>
@@ -60,13 +60,13 @@
 			<% end %>
 			<% end %>
 	<% else %>
-		<h2 class='red-heading'>Events from	<%= @date.strftime("%B %Y") %></h2>
+		<h3 class='red-heading'>Events from	<%= @date.strftime("%B %Y") %></h3>
 		<% @events.each do |event| %>
 			<%= link_to event_path(event) do %>
 				<div class = 'event'>
 					<h3><%= event.title %></h3>
 					<p>
-						<b><i><%= time_of_date(event.date) %>, <%= d_Month_y(event.date) %></i>&nbsp;&nbsp;&nbsp;&nbsp;<%= event.venue %></b>
+						<b><i><%= event_datetime(event.date) %></i>&nbsp;&nbsp;&nbsp;&nbsp;<%= event.venue %></b>
 					</p>
 					<p>
 						<%= truncated_blurb(event.description.html_safe) %>

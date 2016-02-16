@@ -34,9 +34,7 @@
 						<span class='course-title'><h3><%= course.title %></h3></span>
 					</div>
 					<div class='course-body' %>
-						<p>
 						<%= truncated_description(course.description) %>
-						</p>
 					</div>
 				</div>
 			<% end %>
@@ -77,7 +75,7 @@
 			<%= image_tag 'icon-quote.png', :class => "quote-icon-right img-responsive" %></p>
 	</div>
 <% else %>
-	<% if @news.present? %>
+	<% if @news.present? || @future_events.present? %>
 		<div class="news col-xs-12 col-sm-6 col-md-6 col-lg-6">
 			<div class='news-heading'>
 			<h2>News</h2>
@@ -86,13 +84,15 @@
 				<% @news_items.take(5).each do |news_item| %>
 				<tr>
 					<td>
+						<%= link_to news_item do %>
 						<h4><%= news_item.title %></h4>
 						<p><% if news_item.has_attribute?(:content) %>
-							<%= news_item.content %>
+							<%= truncated_blurb(news_item.content.html_safe) %>
 						<% elsif news_item.has_attribute?(:description) %>
-							<% truncated_blurb(news_item.description.html_safe) %></p>
+							<%= truncated_blurb(news_item.description.html_safe) %></p>
 							<% end %>
-						<p><%= d_m_y(news_item.created_at) %><%= image_tag 'facebook-icon.png', :class => 'social-icon' %><%= image_tag 'twitter-icon.png', :class => 'social-icon' %><%= image_tag 'email-icon.png', :class => 'social-icon' %></p>
+						<% end %>
+						<%= d_m_y(news_item.created_at) %><%= social_share_button_tag(news_item.title) %>
 					</td>
 				</tr>
 				<% end %>
@@ -115,16 +115,37 @@
 	<% if @future_events.present? %>
 		<div class="news col-xs-12 col-sm-6 col-md-6 col-lg-6">
 			<h2>Events</h2>
-			<table>
-				<% @future_events.each do |event| %>
-					<tr>
-						<td>
-							<h4><%= event.title %></h4>
-							<p><%= truncated_blurb(event.description.html_safe) %></p>
-							<p><%= event.date %>
-						</td>
-					</tr>
+		<div class='calendar col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+			<h4 id='month'>
+				<%= link_to '<', date: @date.prev_month %>
+				<%= @date.strftime("%B %Y") %>
+				<%= link_to '>', date: @date.next_month %>
+			</h4>
+			<div class = 'calender-home'>
+				<%= calendar @date do |date| %>
+					<% if @events_by_date[date.to_formatted_s(:numerals)] %>
+							<%= link_to events_path(date: date) do %>
+							<%= content_tag :div, date.day, :class => 'event-day' %>
+							<% end %>
+						<% else %>
+							<%= date.day %>
+						<% end %>
 				<% end %>
+			</div>
+		</div>
+			<table class='table'>
+				<tbody>
+					<% @future_events.each do |event| %>
+						<tr>
+							<td>
+								<%= link_to event_path(event) do %>
+								<h4><%= event.title %></h4>
+								<span class='date'><%= event_datetime(event.date) %></span>
+								<% end %>
+							</td>
+						</tr>
+					<% end %>
+				</tbody>
 			</table>
 		</div>
 	</section>

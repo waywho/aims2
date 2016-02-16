@@ -65,6 +65,17 @@
 
 .feature-course {
 	text-align: center;
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+
+a .feature-course {
+  color: black;
+  font-weight: normal;
+}
+
+.feature-course:hover {
+  background-color: #F6E8E9;
 }
 
 .course-heading {
@@ -114,10 +125,19 @@ section {
   background-color: #F6E8E9;
   padding: 10px;
   background-position: center center;
-  min-height: 100px;
+  min-height: 125px;
   border-top: 20px solid #A21D21;
   border-bottom: 5px solid #A21D21;
   margin: 1%;
+}
+
+.highlight:hover {
+  color: #A21D21;
+}
+
+a .highlight {
+  color: black;
+  font-weight: normal;
 }
 
 .highlight hr {
@@ -140,4 +160,13 @@ section {
   font-size: 22px;
   font-weight: 900;
   font-style: italic;
+}
+
+.news a {
+  color: black;
+  font-weight: normal;
+}
+
+.calender-home table {
+  margin: auto;
 }

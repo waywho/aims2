@@ -25,9 +25,9 @@
 		         	</li>
 		         <% end %>
 	        <% end %>
-	        <li><%= image_tag 'facebook-icon.png', :class => 'header-social-icon social-icon' %></li>
-	        <li><%= image_tag 'twitter-icon.png', :class => 'header-social-icon social-icon' %></li>
-	        <li><%= image_tag 'email-icon.png', :class => 'header-social-icon social-icon' %></li>
+	        <li><div class = 'header-social-icon'>
+	       	 <%= social_share_button_tag('AIMS International Music School', :image => @feature_page.feature_image_url, desc: 'School for Soloists, Choral Singers, and Piano Accompanists', :url => 'http://www.aims.uk.com/') %>
+	    	</div></li>
 		</ul>
 		</div>
 
@@ -101,7 +101,7 @@
 			        <% if @news.present? %>
 			        	<li><%= link_to 'News', news_items_path %></li>
 			        <% end %>
-			        <% if @events.present? %>
+			        <% if @future_events.present? %>
 			        	<li><%= link_to 'Events', events_path %></li>
 			        <% end %>
 			    </ul>
