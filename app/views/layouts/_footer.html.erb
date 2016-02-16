@@ -1,7 +1,26 @@
 <% cache "footer" do %>
-<div class = 'big-footer'>
+<div class = 'row visible-xs mini-footer'>
+	<div class = 'col-xs-12'>
+		<ul class = 'nav nav-pills nav-stacked'>
+			<li class = 'dropdown'>
+			<a class = 'collapse collapsed' data-toggle='collapse' data-parent='#mini-footer' href='#explore-collapse'>Test Title
+				<span class = 'pull-right'>
+					<i class = 'glyphicon glyphicon-plus
+'></i>
+				</span>
+			</a>
+				<ul class="nav nav-pills nav-stacked collapse" id="explore-collapse">
+					<li class="mini-footer-item">test1</li>
+					<li class="mini-footer-item">test2</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<div class = 'big-footer hidden-xs'>
 	<div class = 'col-xs-12 footer-content container-fluid'>
-		<div class = 'col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-panel'>
+		<div class = 'col-sm-6 col-md-3 col-lg-3 footer-panel'>
 			<ul>
 				<% @courseformats.rank(:row_order).each do |courseformat| %>
 					<li class="footer-title"><%= link_to courseformat.title, courseformat %></li>
