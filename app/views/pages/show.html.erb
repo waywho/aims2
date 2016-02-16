@@ -6,7 +6,7 @@
 <%= @page.content.html_safe %>
 </section>
 <section class = 'page-record'>
-	<% if @page.staffs %>
+	<% if @page.staffs.present? %>
 	<h4>Our Staff</h4>
 		<ul>
 			<% @page.staffs.each do |staff| %>
@@ -14,35 +14,35 @@
 			<% end %>
 		</ul>
 	<% end %>
-	<% if @page.courses %>
+	<% if @page.courses.present? %>
 		<ul>
 			<% @page.courses.each do |course| %>
 				<li><%= link_to course.title, course_path(course) %></li>
 			<% end %>
 		</ul>
 	<% end %>
-	<% if @page.events %>
+	<% if @page.events.present? %>
 		<ul>
 			<% @page.events.each do |event| %>
 				<li><%= link_to event.title, event_path(event) %></li>
 			<% end %>
 		</ul>
 	<% end %>
-	<% if @page.fees %>
+	<% if @page.fees.present? %>
 		<ul>
 			<% @page.fees.each do |fee| %>
 				<li><%= link_to fee.title, fee_path(fee) %></li>
 			<% end %>
 		</ul>
 	<% end %>
-	<% if @page.klasses %>
+	<% if @page.klasses.present? %>
 		<ul>
 			<% @page.klasses.each do |klass| %>
 				<li><%= link_to klass.title, klass_path(klass) %></li>
 			<% end %>
 		</ul>
 	<% end %>
-	<% if @page.quotes %>
+	<% if @page.quotes.present? %>
 		<ul>
 			<% @page.quotes.each do |quote| %>
 				<li><%= link_to quote.saying, quote_path(quote) %></li>
