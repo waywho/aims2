@@ -28,6 +28,10 @@ module ApplicationHelper
 		datetime.strftime("%d %B, %Y") if datetime.present?
 	end
 
+	def event_datetime(datetime)
+		datetime.strftime("%A, %d %B, %Y  |  %I:%M %p") if datetime.present?
+	end
+
 	def time_of_date(datetime)
 		datetime.strftime("%H:%M") if datetime.present?
 	end

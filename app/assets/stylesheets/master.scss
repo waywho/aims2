@@ -291,10 +291,11 @@ nav.navbar.navbar-third li a:hover,
   font-size: 22px;
   font-style: italic;
   font-weight: 100;
-  color: #aaa;
+  color: black;
   text-align: center;
   padding: 40px 20px;
   display: inline-block;
+  opacity: 0.5;
 }
 
 .quote-icon-left {
@@ -347,4 +348,5 @@ nav.navbar.navbar-third li a:hover,
 
 .social-share-button {
 	display: inline-block;
+	margin-left: 10px;
 }

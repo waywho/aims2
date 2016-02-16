@@ -8,11 +8,14 @@
 }
 
 .event {
-	padding-top: 1px;
+	padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .event-list a {
   text-decoration: none;
+  color: black;
+  font-weight: normal;
 }
 
 .event-list a:hover .event {
@@ -82,4 +85,8 @@
 	background: #A21D21;
   border-radius: 50%;
   color: white;
+}
+
+.date {
+  font-size: 14px;
 }
