@@ -77,6 +77,7 @@ Rails.application.routes.draw do
   get 'mini_whats_next', :to => 'static_pages#mini_whats_next'
   get 'tersm_and_conditions', :to => 'static_pages#terms_and_conditions'
   get 'privacy_policy', :to => 'static_pages#privacy_policy'
+  post 'get_calendar', :to => 'static_pages#get_calendar'
 
 
   resources :courseformats, :only => [:index, :show] do

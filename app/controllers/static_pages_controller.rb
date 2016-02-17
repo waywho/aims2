@@ -16,6 +16,22 @@ class StaticPagesController < ApplicationController
   		end
   		@events_by_date = @future_events.group_by {|t| t.date.to_formatted_s(:numerals)}
 	end
+
+	def get_calendar
+		@date = params[:date] ? Date.parse(params[:date]) : Date.parse(Event.published_now.first.date.to_s)
+  		if Event.published_now.where(date: @date.beginning_of_day..@date.end_of_day).present?
+	  		@day_events = Event.published_now.where(date: @date.beginning_of_day..@date.end_of_day).order(:date)
+	  		@events = @future_events.where("date >= ?", @date.tomorrow).order(:date)
+  		else
+  			@events = Event.published_now.where("date >= ?", @date.beginning_of_month).order(:date)
+  		end
+  		@events_by_date = @future_events.group_by {|t| t.date.to_formatted_s(:numerals)}
+
+
+  		respond_to do |format|
+  			format.js
+  		end
+	end
 	
 	def summer_whats_next
 	end

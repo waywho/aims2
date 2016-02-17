@@ -113,23 +113,9 @@
 	<% if @future_events.present? %>
 		<div class="news col-xs-12 col-sm-6 col-md-6 col-lg-6">
 			<h2>Events</h2>
-		<div class='calendar col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-			<h4 id='month'>
-				<%= link_to '<', date: @date.prev_month %>
-				<%= @date.strftime("%B %Y") %>
-				<%= link_to '>', date: @date.next_month %>
-			</h4>
-			<div class = 'calender-home'>
-				<%= calendar @date do |date| %>
-					<% if @events_by_date[date.to_formatted_s(:numerals)] %>
-							<%= link_to events_path(date: date) do %>
-							<%= content_tag :div, date.day, :class => 'event-day' %>
-							<% end %>
-						<% else %>
-							<%= date.day %>
-						<% end %>
-				<% end %>
-			</div>
+		<div class='calendar col-xs-12 col-sm-12 col-md-12 col-lg-12' id='calendar-container'>
+
+				<%= render :partial => 'static_pages/calendar' %>
 		</div>
 			<table class='table'>
 				<tbody>

@@ -1,0 +1,16 @@
+<h4 id='month'>
+	<%= link_to '<', get_calendar_path(date: @date.prev_month), method: :post, remote: true %>
+	<%= @date.strftime("%B %Y") %>
+	<%= link_to '>', get_calendar_path(date: @date.next_month), method: :post, remote: true %>
+</h4>
+<div class = 'calender-home'>
+	<%= calendar @date do |date| %>
+		<% if @events_by_date[date.to_formatted_s(:numerals)] %>
+				<%= link_to events_path(date: date) do %>
+				<%= content_tag :div, date.day, :class => 'event-day' %>
+				<% end %>
+			<% else %>
+				<%= date.day %>
+			<% end %>
+	<% end %>
+</div>
