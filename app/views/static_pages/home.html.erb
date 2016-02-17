@@ -11,6 +11,29 @@
   		</div>
   	</section>
 <% else %>
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+	  <!-- Indicators -->
+	  <ol class="carousel-indicators">
+	    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+	    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+	    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+	  </ol>
+
+	  <!-- Wrapper for slides -->
+	  <div class="carousel-inner" role="listbox">
+	    <div class="item active">
+	      <%= image_tag @courseformat.photos.order('RANDOM()').first.image_url, :class => 'img-responsive' %>
+	    </div>
+	    <% @courseformat.photos.each do |photo| %>
+	    <div class="item">
+	      <%= image_tag photo.image_url, :class => 'img-responsive' %>
+	    </div>
+	    <% end %>
+	  </div>
+	</div>
+
+
+
 	<section class="hero" style="background: url('<%= @feature_page.feature_image %>'); background-position: center center; background-repeat: no-repeat; background-size: cover;">
 		 	<div class="intro">
 		    	<h1><%= @feature_page.title %></h1>
