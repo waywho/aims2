@@ -25,33 +25,34 @@
 	  </div>
 	</div>
 <% else %>
-<div class='spacer'></div>
+	<div class='spacer'></div>
 <% end %>
 
 <section class='course-description col-xs-offset-1 col-xs-10'>
-<%= @courseformat.description.html_safe %>
+	<%= @courseformat.description.html_safe %>
 </section>
 
 <% if @courseformat.highlights.present? %>
-<section class='highlights'>
-<h3>Highlights</h3>
-<div class='highlight-list'>
-<ul>
-	<% @courseformat.highlights.each do |highlight| %>
-	<li><h5><%= highlight.title %></h5> - <%= highlight.description %></li>
-	<% end %>
-</ul>
-</div>
+	<section class='highlights'>
+		<div class='highlight-list container-fluid'>
+			<h3>Highlights</h3>
+			<ul>
+				<% @courseformat.highlights.each do |highlight| %>
+					<li><h5><%= highlight.title %></h5> - <%= highlight.description %></li>
+				<% end %>
+			</ul>
+		</div>
+	</section>
 <% end%>
-</section>
+
 
 <% @courseformat.courses.rank(:row_order).each do |course| %>
 <div class='course container-fluid'>
-	<%if course.photos.present? %>
+	<% if course.photos.present? %>
 		<div class='image col-xs-8 col-sm-8 col-md-4 col-lg-4 pull-<%= cycle("left", "right") %>' >
 			<%= image_tag course.photos.order('RANDOM()').first.image_url, :class => 'img-responsive' %>
 		</div>
-		<div class='image col-xs-12 col-sm-12 col-md-8 col-lg-8' %>
+		<div class='col-xs-12 col-sm-12 col-md-8 col-lg-8' %>
 			<h2><%= course.title %></h2>
 			<p>
 				<%= course.description.html_safe %>

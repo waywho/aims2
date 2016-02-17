@@ -64,7 +64,7 @@
 			<%= f.input :course, collection: find_soap_field(@booking, 'Course__c'), label_method: :label, value_method: :value, include_blank: 'Select a course', label: 'Course Stream', input_html: { :class => 'course-select'}, required: false %>
 		</div>
 	</div>
-	<div class = 'row course Solo Crossover'>
+	<div class = 'row course-booking Solo Crossover'>
 		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
 			<h3 class = 'inline-title'>Solo Classes</h3><span class = 'instruction'> (All students enrolled on the SOLO course should select Solo Vocal Techniuqe class and up to 3 additional options)</span>
 		</div>
@@ -81,7 +81,7 @@
 		</div>
 	</div>
 
-	<div class = 'row course Choral Crossover'>
+	<div class = 'row course-booking Choral Crossover'>
 		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
 			<h3 class = 'inline-title'>Choral and Ensemble Classes</h3><span class = 'instruction'> (please select 1 from each session)</span>
 		</div>

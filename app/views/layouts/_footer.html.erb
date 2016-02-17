@@ -1,54 +1,121 @@
 <% cache "footer" do %>
-<div class = 'row visible-xs mini-footer'>
-	<div class = 'col-xs-12'>
-		<ul class = 'nav nav-pills nav-stacked'>
-			<li class = 'dropdown'>
-			<a class = 'collapse collapsed' data-toggle='collapse' data-parent='#mini-footer' href='#explore-collapse'>Test Title
-				<span class = 'pull-right'>
-					<i class = 'glyphicon glyphicon-plus
-'></i>
-				</span>
-			</a>
-				<ul class="nav nav-pills nav-stacked collapse" id="explore-collapse">
-					<li class="mini-footer-item">test1</li>
-					<li class="mini-footer-item">test2</li>
+<div class = 'row visible-xs mini-footer' id = 'mini-footer'>
+	<!-- Begin MailChimp Signup Form -->
+	<div class = 'col-xs-12 footer-content container-fluid'>
+		<div id="mc_embed_signup">
+
+			<form action="//aims.us11.list-manage.com/subscribe/post?u=d85fe86b45755ccbb9104d1cc&amp;id=0b11524bf9" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate form-inline" target="_blank" novalidate>
+
+
+			    <div id="mc_embed_signup_scroll form-group" class = 'mailchimp-form'>
+			    	<label class="sr-only" for="email">Email for AIMS Newsletter</label>
+					<input type="email" value="" name="EMAIL" class="email form-control" id="mce-EMAIL" placeholder="email address for AIMS newsletter" required>
+				    
+				    	<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+					    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_d85fe86b45755ccbb9104d1cc_0b11524bf9" tabindex="-1" value=""></div>
+				    <button type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn btn-default mail-button button">Stay Informed</button>
+				</div>
+			</form>
+		</div>
+
+	<!--End mc_embed_signup-->
+		<ul class="nav nav-pills nav-stacked">
+			<li role="presentation" class="dropdown">
+	    		<a class="collapsed dropdown-toggle" data-toggle="collapse" data-parent='#mini-footer' href="#course-collapse" role="button" aria-haspopup="true" aria-expanded="false">
+	      		Courses<span class="glyphicon glyphicon-menu-up pull-right"></span>
+	    		</a>
+	    		<ul class="nav nav-pills nav-stacked collapse" id='course-collapse'>
+	    			<% @courseformats.rank(:row_order).each do |courseformat| %>
+	    				<li class='mini-footer-item'><%= link_to courseformat.title, courseformat %>
+		    				<% if courseformat.courses.present? %>
+					    		<ul class="nav nav-pills nav-stacked">
+					    			<% courseformat.courses.rank(:row_order).each do |course| %>
+					      				<li class='mini-footer-sub-item'><%= link_to course.title, course %></li>
+					      			<% end %>
+					    		</ul>
+					    	<% end %>
+					    </li>
+				    <% end %>
 				</ul>
-			</li>
+	  		</li>
+	  		<li role="presentation" class="dropdown">
+	    		<a class="collapsed dropdown-toggle" data-toggle="collapse" data-parent='#mini-footer' href="#info-collapse" role="button" aria-haspopup="true" aria-expanded="false">
+	      		School Info<span class="glyphicon glyphicon-menu-up pull-right"></span>
+	    		</a>
+	    		<ul class="nav nav-pills nav-stacked collapse" id='info-collapse'>
+	    			<% @menus.main.rank(:row_order).each do |menu| %>
+	    				<li class='mini-footer-item'><%= link_to menu.name, menu.navigation %>
+		    				<% if menu.has_children? %>
+					    		<ul class="nav nav-pills nav-stacked">
+					    			<% menu.children.rank(:row_order).each do |sub| %>
+					      				<li class='mini-footer-sub-item'><%= link_to sub.name, sub.navigation %></li>
+					      			<% end %>
+					    		</ul>
+					    	<% end %>
+					    </li>
+				    <% end %>
+				</ul>
+	  		</li>
+		  	<li role="presentation" class="dropdown">
+	    		<a class="collapsed dropdown-toggle" data-toggle="collapse" data-parent='#mini-footer' href="#aims-collapse" role="button" aria-haspopup="true" aria-expanded="false">
+	      		About AIMS<span class="glyphicon glyphicon-menu-up pull-right"></span>
+	    		</a>
+	    		<ul class="nav nav-pills nav-stacked collapse" id='aims-collapse'>
+	    			<% @menus.secondary.rank(:row_order).each do |menu| %>
+	    				<li class='mini-footer-item'><%= link_to menu.name, menu.navigation %>
+		    				<% if menu.has_children? %>
+					    		<ul class="nav nav-pills nav-stacked">
+					    			<% menu.children.rank(:row_order).each do |sub| %>
+					      				<li class='mini-footer-sub-item'><%= link_to sub.name, sub.navigation %></li>
+					      			<% end %>
+					    		</ul>
+					    	<% end %>
+					    </li>
+				    <% end %>
+				</ul>
+	  		</li>
 		</ul>
+	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12 mini-footer-panel mini-copy-right'>
+		Copyright 2016 AIMS UK | All Rights Reserved | <%= link_to 'Terms and Conditions', tersm_and_conditions_path %> and <%= link_to 'Privacy Policy', privacy_policy_path %>| Powered by  <%= link_to 'Logical Thinking', "http://logical-thinking.co.uk/" %>
 	</div>
+	</div>
+
 </div>
 
 <div class = 'big-footer hidden-xs'>
 	<div class = 'col-xs-12 footer-content container-fluid'>
 		<div class = 'col-sm-6 col-md-3 col-lg-3 footer-panel'>
 			<ul>
+				<li class="footer-title">Courses</li>
 				<% @courseformats.rank(:row_order).each do |courseformat| %>
-					<li class="footer-title"><%= link_to courseformat.title, courseformat %></li>
+					<li class="footer-item"><%= link_to courseformat.title, courseformat %></li>
 					<% courseformat.courses.rank(:row_order).each do |course| %>
-					<li class="footer-item"><%= link_to course.title, course %></li>
+					<li class="footer-sub-item"><%= link_to course.title, course %></li>
 					<% end %>
 				<% end %>
 			</ul>
 		</div>
 		<div class = 'col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-panel'>
-			<ul>	
+			<ul>
+				<li class="footer-title">School Info</li>
 				<% @menus.main.roots.rank(:row_order).each do |menu| %>
-					<li class="footer-title"><%= link_to menu.name, menu.navigation %></li>
+					<li class='footer-item'><%= link_to menu.name, menu.navigation %></li>
 						<% if menu.has_children? %>
 							<% menu.children.each do |sub| %>
-								<li class="footer-item"><%= link_to sub.name, sub.navigation %></li>
+								<li class="footer-sub-item"><%= link_to sub.name, sub.navigation %></li>
 							<% end %>
 						<% end %>
 				<% end %>
 			</ul>
 		</div>
 		<div class = 'col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-panel'>
-			<ul>	
+			<ul>
+				<li class="footer-title">AIMS</li>
 				<% @menus.secondary.roots.rank(:row_order).each do |menu| %>
-					<li class="footer-title"><%= link_to menu.name, menu.navigation %></li>
+					<li class='footer-item'><%= link_to menu.name, menu.navigation %></li>
 						<% if menu.has_children? %>
 							<% menu.children.each do |sub| %>
-								<li class="footer-topic"><%= link_to sub.name, sub.navigation %></li>
+								<li class="footer-sub-item"><%= link_to sub.name, sub.navigation %></li>
 							<% end %>
 						<% end %>
 				<% end %>
@@ -74,3 +141,11 @@
 	</div>
 </div>
 <% end %>
+
+<script>
+	$(document).ready(function() {
+		$('.dropdown-toggle').click(function(){
+    	$(this).find('span').toggleClass('glyphicon-menu-up').toggleClass('glyphicon-menu-down');
+		});
+	})
+</script>
