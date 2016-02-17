@@ -14,13 +14,22 @@ html, body {
 .footer {
   position: relative;
   margin-top: -150px; /* negative value of footer height */
-  height: 150px;
+  min-height: 150px;
   clear: both;
   padding: 15px;
   color: #BABABA;
   font-size: 14px;
   background-color: #434343;
-} 
+}
+
+.footer-row {
+  padding: 0px;
+}
+
+.footer ul {
+  list-style: none;
+  padding: 0px
+}
 
 .footer a {
   color: #BABABA;
@@ -32,10 +41,6 @@ html, body {
 
 .footer-content {
   background-color: #434343;
-}
-
-.big-footer ul {
-  list-style: none;
 }
 
 .footer-title {

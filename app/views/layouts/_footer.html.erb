@@ -82,58 +82,62 @@
 
 </div>
 
-<div class = 'big-footer hidden-xs'>
-	<div class = 'col-xs-12 footer-content container-fluid'>
-		<div class = 'col-sm-6 col-md-3 col-lg-3 footer-panel'>
-			<ul>
-				<li class="footer-title">Courses</li>
-				<% @courseformats.rank(:row_order).each do |courseformat| %>
-					<li class="footer-item"><%= link_to courseformat.title, courseformat %></li>
-					<% courseformat.courses.rank(:row_order).each do |course| %>
-					<li class="footer-sub-item"><%= link_to course.title, course %></li>
+<div class = 'big-footer hidden-xs container-fluid'>
+	<div class = 'footer-content row'>
+		<div class = 'col-sm-12 col-md-6 footer-row'>
+			<div class = 'col-sm-6 col-md-6 col-lg-6 footer-panel'>
+				<ul>
+					<li class="footer-title">Courses</li>
+					<% @courseformats.rank(:row_order).each do |courseformat| %>
+						<li class="footer-item"><%= link_to courseformat.title, courseformat %></li>
+						<% courseformat.courses.rank(:row_order).each do |course| %>
+						<li class="footer-sub-item"><%= link_to course.title, course %></li>
+						<% end %>
 					<% end %>
-				<% end %>
-			</ul>
-		</div>
-		<div class = 'col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-panel'>
-			<ul>
-				<li class="footer-title">School Info</li>
-				<% @menus.main.roots.rank(:row_order).each do |menu| %>
-					<li class='footer-item'><%= link_to menu.name, menu.navigation %></li>
-						<% if menu.has_children? %>
-							<% menu.children.each do |sub| %>
-								<li class="footer-sub-item"><%= link_to sub.name, sub.navigation %></li>
+				</ul>
+			</div>
+			<div class = 'col-sm-6 col-md-6 col-lg-6 footer-panel'>
+				<ul>
+					<li class="footer-title">School Info</li>
+					<% @menus.main.roots.rank(:row_order).each do |menu| %>
+						<li class='footer-item'><%= link_to menu.name, menu.navigation %></li>
+							<% if menu.has_children? %>
+								<% menu.children.each do |sub| %>
+									<li class="footer-sub-item"><%= link_to sub.name, sub.navigation %></li>
+								<% end %>
 							<% end %>
-						<% end %>
-				<% end %>
-			</ul>
+					<% end %>
+				</ul>
+			</div>
 		</div>
-		<div class = 'col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-panel'>
-			<ul>
-				<li class="footer-title">AIMS</li>
-				<% @menus.secondary.roots.rank(:row_order).each do |menu| %>
-					<li class='footer-item'><%= link_to menu.name, menu.navigation %></li>
-						<% if menu.has_children? %>
-							<% menu.children.each do |sub| %>
-								<li class="footer-sub-item"><%= link_to sub.name, sub.navigation %></li>
+		<div class = 'col-sm-12 col-md-6 footer-row'>
+			<div class = 'col-sm-6 col-md-6 col-lg-6 footer-panel'>
+				<ul>
+					<li class="footer-title">AIMS</li>
+					<% @menus.secondary.roots.rank(:row_order).each do |menu| %>
+						<li class='footer-item'><%= link_to menu.name, menu.navigation %></li>
+							<% if menu.has_children? %>
+								<% menu.children.each do |sub| %>
+									<li class="footer-sub-item"><%= link_to sub.name, sub.navigation %></li>
+								<% end %>
 							<% end %>
-						<% end %>
-				<% end %>
-			</ul>
-		</div>
-		<div class = 'col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-panel'>
-			<ul>	
-				<li class="footer-title">Contact</li>
-				<li class="footer-item">
-					AIMS International Music School<br />
-					88 Gordon Road<br />
-					Shoreham-by-Sea, West Susssex<br />
-					BN43 6WE
-				</li>
-				<br />
-				<li><span class = 'copy-right'>AIMS Bursry Fund is a registered charity (charity no. 1123905) in England & Wales.</span>
-				</li>
-			</ul>
+					<% end %>
+				</ul>
+			</div>
+			<div class = 'col-sm-6 col-md-6 col-lg-6 footer-panel'>
+				<ul>	
+					<li class="footer-title">Contact</li>
+					<li class="footer-item">
+						AIMS International Music School<br />
+						88 Gordon Road<br />
+						Shoreham-by-Sea, West Susssex<br />
+						BN43 6WE
+					</li>
+					<br />
+					<li><span class = 'copy-right'>AIMS Bursry Fund is a registered charity (charity no. 1123905) in England & Wales.</span>
+					</li>
+				</ul>
+			</div>
 		</div>
 	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12 footer-panel copy-right'>
 		Copyright 2016 AIMS UK | All Rights Reserved | <%= link_to 'Terms and Conditions', tersm_and_conditions_path %> and <%= link_to 'Privacy Policy', privacy_policy_path %>| Powered by  <%= link_to 'Logical Thinking', "http://logical-thinking.co.uk/" %>
