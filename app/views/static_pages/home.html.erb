@@ -11,24 +11,27 @@
   		</div>
   	</section>
 <% else %>
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+<div id="hero-carousel" class="carousel slide" data-ride="carousel">
 	  <!-- Indicators -->
-	  <ol class="carousel-indicators">
-	    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-	    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-	    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+	  <ol class="carousel-indicators hero-indicators">
+	    <li data-target="#hero-carousel" data-slide-to="0" class="active">
+	    	<%= @feature_page.title %>
+	    </li>
+	    <li data-target="#hero-carousel" data-slide-to="1">Test1</li>
+	    <li data-target="#hero-carousel" data-slide-to="2">Test2</li>
 	  </ol>
 
 	  <!-- Wrapper for slides -->
 	  <div class="carousel-inner" role="listbox">
 	    <div class="item active">
-	      <%= image_tag @courseformat.photos.order('RANDOM()').first.image_url, :class => 'img-responsive' %>
+	      <%= image_tag @feature_page.feature_image_url, :class => 'img-responsive' %>
 	    </div>
-	    <% @courseformat.photos.each do |photo| %>
 	    <div class="item">
-	      <%= image_tag photo.image_url, :class => 'img-responsive' %>
+	    	<%= image_tag @feature_page.feature_image_url, :class => 'img-responsive' %>
 	    </div>
-	    <% end %>
+	    <div class="item">
+	    	<%= image_tag @feature_page.feature_image_url, :class => 'img-responsive' %>
+	    </div>
 	  </div>
 	</div>
 
