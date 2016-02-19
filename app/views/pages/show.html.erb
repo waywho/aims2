@@ -1,7 +1,14 @@
 <h1 class = "page-heading"><%= @page.title %></h1>
 <div class='spacer'></div>
-<section class = 'page-content'>
-<%= @page.content.html_safe %>
+<% if @page.feature_image.present? %>
+	<section class ='feature-image col-xs-12 col-sm-12 col-md-offset-1 col-md-10'>
+		<%= image_tag @page.feature_image_url, :class => 'img-responsive' %>
+	</section>
+	<br />
+	<div class='spacer'></div>
+<% end %>
+<section class = 'page-content col-xs-12 col-sm-12 col-md-12'>
+	<%= @page.content.html_safe %>
 </section>
 <section class = 'page-record'>
 	<% if @page.staffs.present? %>
