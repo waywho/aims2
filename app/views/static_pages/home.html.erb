@@ -1,4 +1,4 @@
-<% if @feature_page.nil? %>
+<% if @feature_pages.nil? %>
 	<section class="hero">
 		<div class="intro">
 		    <h1>Welcome</h1>
@@ -10,42 +10,47 @@
 			</p>
   		</div>
   	</section>
-<% else %>
-<div id="hero-carousel" class="carousel slide" data-ride="carousel">
-	  <!-- Indicators -->
-	  <ol class="carousel-indicators hero-indicators">
-	    <li data-target="#hero-carousel" data-slide-to="0" class="active">
-	    	<%= @feature_page.title %>
-	    </li>
-	    <li data-target="#hero-carousel" data-slide-to="1">Test1</li>
-	    <li data-target="#hero-carousel" data-slide-to="2">Test2</li>
-	  </ol>
+<% elsif @feature_pages.size > 1 %>
+	<div id="hero-carousel" class="carousel slide">
+		  <!-- Indicators -->
+		  <ol class="carousel-indicators" id="hero-indicators">
+		  	<% @feature_pages.each_with_index do |page, index| %>
+			    <li data-target="#hero-carousel" style="background-image: url('<%= page.feature_image %>'); background-position: center center; background-repeat: no-repeat; background-size: cover;" data-slide-to="<%= index %>" class=<%= "active" if index == 0 %>>
+			    	<span class='thumb-caption'><%= page.title %></span>
+			    </li>
+		    <% end %>
+		  </ol>
 
-	  <!-- Wrapper for slides -->
-	  <div class="carousel-inner" role="listbox">
-	    <div class="item active">
-	      <%= image_tag @feature_page.feature_image_url, :class => 'img-responsive' %>
-	    </div>
-	    <div class="item">
-	    	<%= image_tag @feature_page.feature_image_url, :class => 'img-responsive' %>
-	    </div>
-	    <div class="item">
-	    	<%= image_tag @feature_page.feature_image_url, :class => 'img-responsive' %>
-	    </div>
-	  </div>
+		  <!-- Wrapper for slides -->
+		  <div class="carousel-inner" role="listbox" id="hero-inner">
+		  	<% @feature_pages.each_with_index do |page, index| %>
+			    <div class="item <%= 'active' if index == 0 %>" style="background-image: url('<%= page.feature_image %>'); background-position: center center; background-repeat: no-repeat; background-size: cover;" >
+
+				      <div class="intro">
+					    	<h1><%= page.title %></h1>
+					   		<p><%= truncated_feature(page.content, page_path(page)).html_safe %></p>
+					   		<% if index == 0 %>
+							    <hr />
+							    <% @courseformats.each do |courseformat| %>
+								<b><%= courseformat.title %>:</b> <%= from_to(courseformat.when_from, courseformat.when_to) %><br />
+									<% end %>
+							<% end %>
+				  		</div>
+			    </div>
+		    <% end %>
+		  </div>
 	</div>
 
-
-
-	<section class="hero" style="background: url('<%= @feature_page.feature_image %>'); background-position: center center; background-repeat: no-repeat; background-size: cover;">
+<% else %>
+	<section class="hero" style="background: url('<%= @feature_pages.first.feature_image %>'); background-position: center center; background-repeat: no-repeat; background-size: cover;">
 		 	<div class="intro">
-		    	<h1><%= @feature_page.title %></h1>
-		   		<p><%= @feature_page.content.html_safe %></p>
-			    <p>
+		    	<h1><%= @feature_pages.first.title %></h1>
+		   		<p><%= truncated_feature(@feature_pages.first.content, page_path(@feature_pages.first)).html_safe %></p>
+		   		<hr />
 			    <% @courseformats.each do |courseformat| %>
 				<b><%= courseformat.title %>:</b> <%= from_to(courseformat.when_from, courseformat.when_to) %><br />
 					<% end %>
-				</p>
+
 	  		</div>
 	</section>
 <% end %>

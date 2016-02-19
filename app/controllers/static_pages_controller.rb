@@ -2,31 +2,16 @@ class StaticPagesController < ApplicationController
 	before_filter :load_news_list
 
 	def home
-		@feature_page = Page.find_by(feature: true)
+		@feature_pages = Page.where(feature: true).limit(3)
 		@feature_format = Courseformat.find_by(feature: true)
 		@feature_courses = @feature_format.courses.feature_courses
 		@quotes = Quote.all
 
-		@date = params[:date] ? Date.parse(params[:date]) : Date.parse(Event.published_now.first.date.to_s)
-  		if Event.published_now.where(date: @date.beginning_of_day..@date.end_of_day).present?
-	  		@day_events = Event.published_now.where(date: @date.beginning_of_day..@date.end_of_day).order(:date)
-	  		@events = @future_events.where("date >= ?", @date.tomorrow).order(:date)
-  		else
-  			@events = Event.published_now.where("date >= ?", @date.beginning_of_month).order(:date)
-  		end
-  		@events_by_date = @future_events.group_by {|t| t.date.to_formatted_s(:numerals)}
+		load_event_dates
 	end
 
 	def get_calendar
-		@date = params[:date] ? Date.parse(params[:date]) : Date.parse(Event.published_now.first.date.to_s)
-  		if Event.published_now.where(date: @date.beginning_of_day..@date.end_of_day).present?
-	  		@day_events = Event.published_now.where(date: @date.beginning_of_day..@date.end_of_day).order(:date)
-	  		@events = @future_events.where("date >= ?", @date.tomorrow).order(:date)
-  		else
-  			@events = Event.published_now.where("date >= ?", @date.beginning_of_month).order(:date)
-  		end
-  		@events_by_date = @future_events.group_by {|t| t.date.to_formatted_s(:numerals)}
-
+		load_event_dates
 
   		respond_to do |format|
   			format.js
@@ -54,5 +39,16 @@ class StaticPagesController < ApplicationController
 		news.map { |n| @news_items.push(n) }
 		events.map { |e| @news_items.push(e) }
 		@news_items.sort_by { |i| i[:created_at] }
+	end
+
+	def load_event_dates
+		@date = params[:date] ? Date.parse(params[:date]) : Date.parse(Event.published_now.first.date.to_s)
+  		if Event.published_now.where(date: @date.beginning_of_day..@date.end_of_day).present?
+	  		@day_events = Event.published_now.where(date: @date.beginning_of_day..@date.end_of_day).order(:date)
+	  		@events = @future_events.where("date >= ?", @date.tomorrow).order(:date)
+  		else
+  			@events = Event.published_now.where("date >= ?", @date.beginning_of_month).order(:date)
+  		end
+  		@events_by_date = @future_events.group_by {|t| t.date.to_formatted_s(:numerals)}
 	end
 end

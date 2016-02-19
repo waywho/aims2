@@ -9,6 +9,11 @@ module ApplicationHelper
 		output.html_safe
 	end
 
+	def truncated_feature(description, link)
+		output = truncate(description, length: 250, separator: " ", escape: false) {link_to "continue", link}
+		output.html_safe
+	end
+
 	def from_to(datetime1, datetime2)
 		if datetime1.present? && datetime2.present?
 			if datetime1.strftime("%m") == datetime2.strftime("%m")

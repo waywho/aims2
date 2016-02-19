@@ -55,7 +55,7 @@ class Page < ActiveRecord::Base
 		update_attribute(:published_at, nil)
 	end
 
-	def falsify_all_others
-		self.class.where('id != ? AND feature').update_all("feature = 'false'")
-	end
+	# def falsify_all_others
+	# 	self.class.where('id != ? AND feature').update_all("feature = 'false'")
+	# end
 end
