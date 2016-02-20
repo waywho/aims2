@@ -24,7 +24,6 @@ module Casein
     def new
       @casein_page_title = 'Add a new staff'
       @staff = Staff.new
-      @photo = @staff.photo.build
     end
 
     def create

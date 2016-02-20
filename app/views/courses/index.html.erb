@@ -3,6 +3,6 @@
 
 <% @courses.each do |course| %>
 <h2><%= link_to course.title, course_path(course) %></h2>
-<p><%= course.description %></p>
+<p><%= course.description.html_safe %></p>
 <% end %>
 

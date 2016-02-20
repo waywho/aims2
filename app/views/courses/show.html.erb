@@ -27,7 +27,7 @@
 <% end %>
 
 <section class='course-description col-xs-offset-1 col-xs-10'>
-	<p><%= @course.description %></p>
+	<p><%= @course.description.html_safe %></p>
 </section>
 
 <% if @course.klasses.present? %>
@@ -42,10 +42,10 @@
 					<% if klass.number_of_sessions.present? %>
 						(<%= klass.number_of_sessions %> sessions)
 					<% end %>
-					<p><%= klass.description %></p>
+					<p><%= klass.description.html_safe %></p>
 					<% if klass.repertoire.present? %>
 						<i>Repertoire:</i> 
-					<p><%= klass.repertoire %></p>
+					<p><%= klass.repertoire.html_safe %></p>
 					<% end %>
 				</li>
 			<% end %>

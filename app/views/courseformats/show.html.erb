@@ -33,7 +33,7 @@
 			<h3>Highlights</h3>
 			<ul>
 				<% @courseformat.highlights.each do |highlight| %>
-					<li><h5><%= highlight.title %></h5> - <%= highlight.description %></li>
+					<li><h5><%= highlight.title %></h5> - <%= highlight.description.html_safe %></li>
 				<% end %>
 			</ul>
 		</div>

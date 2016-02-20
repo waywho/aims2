@@ -64,7 +64,7 @@
 						<span class='course-title'><h3><%= course.title %></h3></span>
 					</div>
 					<div class='course-body' %>
-						<%= truncated_description(course.description) %>
+						<%= truncated_description(course.description).html_safe %>
 					</div>
 				</div>
 			<% end %>
@@ -88,7 +88,7 @@
 							<div class="highlight">
 								<h4><%= highlight.title %></h4>
 								<hr />
-								<%= highlight.description %>
+								<%= highlight.description.html_safe %>
 							</div>
 						</div>
 					<% end %>

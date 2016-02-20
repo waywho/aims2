@@ -38,7 +38,7 @@ class StaticPagesController < ApplicationController
 		@news_items = []
 		news.map { |n| @news_items.push(n) }
 		events.map { |e| @news_items.push(e) }
-		@news_items.sort_by { |i| i[:created_at] }
+		@news_items.sort_by { |i| i[:published_at] }
 	end
 
 	def load_event_dates

@@ -22,7 +22,6 @@ module Casein
       @event = Event.new
       @event.pages.build
       @pages = Page.published_now
-      @photo = @event.photos.build
     end
 
     def create
