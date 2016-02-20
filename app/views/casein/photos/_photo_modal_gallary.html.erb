@@ -4,28 +4,38 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add Existing Photos from Gallery</h4>
+        <h4 class="modal-title" id="photoModalLabel">Add Photos</h4>
+        <%= link_to 'Gallery', '#', :class => 'btn btn-xs btn-success gallery-btn' %>
+        <%= link_to 'Upload', '#', :class => 'btn btn-xs btn-success upload-btn' %>
       </div>
-      <%= form_tag update_multiple_casein_photos_path do %>
-      <div class="modal-body">
-		<i>Click a photo to select...</i><br />
-			<br class = 'clr' />
-			<div class = 'row'>
-				<% @photos.unassigned.each do |photo| %>
-					<div class = 'col-xs-6 col-md-4 container thumb'>
-						<%= check_box_tag "photo[photo_ids[]", photo.id, checked = false, {:class => 'cbox', id: dom_id(photo)} %>
-						<%= image_tag photo.image_url(:thumb).to_s, :class => 'thumbnail image-select' %>
-					</div>
-				<% end %>
-			</div>
-				<%= hidden_field_tag 'imageable[imageable_id]', imageable.id %>
-				<%= hidden_field_tag 'imageable[imageable_type]', imageable.class.name %>
-	   </div>
-	   <div class="modal-footer">
+      <div class = 'no-photo'>
+      	<i>select how to add photos first....</i>
+      </div>
+      <%= form_tag update_multiple_casein_photos_path, :class => 'gallery-form' do %>
+    	<div class="modal-body">
+			<i>Click a photo to select...</i><br />
+				<br class = 'clr' />
+				<div class = 'row'>
+					<% @photos.unassigned.each do |photo| %>
+						<div class = 'col-xs-6 col-md-4 container thumb'>
+							<%= check_box_tag "photo[photo_ids[]", photo.id, checked = false, {:class => 'cbox', id: dom_id(photo)} %>
+							<%= image_tag photo.image_url(:thumb).to_s, :class => 'thumbnail image-select' %>
+						</div>
+					<% end %>
+				</div>
+					<%= hidden_field_tag 'imageable[imageable_id]', imageable.id %>
+					<%= hidden_field_tag 'imageable[imageable_type]', imageable.class.name %>
+		</div>
+		<div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	        <%= submit_tag 'Add photos', :class => 'btn btn-mini btn-primary sub-btn' %>
-	   </div>
+		</div>
       <% end %>
+      <div class="row modal-body upload-div">
+			<div class='col-lg-12 col-md-12'>
+				<%= render partial: 'casein/photos/photo_upload', object: imageable, as: :imageable %>
+			</div>
+		</div>
     </div>
   </div>
 </div>
