@@ -407,6 +407,17 @@ nav.navbar.navbar-third li a:hover,
 	text-align: right;
 }
 
+.feature-image {
+	height: 350px;
+	overflow: hidden;
+	position: relative;
+}
+
+.feature-image img {
+	position: absolute;
+	top: -25%;
+}
+
 @media (max-width: 1335px) {
 	.brand {
 		font-size: 40px;

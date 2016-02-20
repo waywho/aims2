@@ -1,5 +1,3 @@
-<b>Upload new photos</b>
-<br />
 <br />
 	<%= form_for @photo, :url => casein_photos_path, html: { :class => 'dropzone-imageable dropzone', :id => 'my-awesome-dropzone'} do |builder| %>
 		<%= casein_hidden_field builder, builder.object, :imageable_id, value: imageable.id %>

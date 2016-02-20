@@ -69,6 +69,19 @@ $(document).ready(function() {
 	      });
 	 });
 
+	$('.gallery-btn').click(function() {
+		$('.gallery-form').show();
+		$('.upload-div').hide();
+		$('.no-photo').hide();
+	});
+
+
+	$('.upload-btn').click(function() {
+		$('.gallery-form').hide();
+		$('.upload-div').show();
+		$('.no-photo').hide();
+	})
+
 
 	Dropzone.options.myAwesomeDropzone = {
 		init: function() {
