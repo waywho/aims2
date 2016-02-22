@@ -33,6 +33,9 @@ module Casein
       @page = Page.new page_params
     
       if @page.save
+        if params[:publish]
+            @courseformat.publish!
+        end
         flash[:notice] = 'Page created'
         redirect_to casein_pages_path
       else

@@ -25,6 +25,9 @@ module Casein
       @quote = Quote.new quote_params
     
       if @quote.save
+        if params[:publish]
+            @courseformat.publish!
+        end
         flash[:notice] = 'Quote created'
         redirect_to casein_quotes_path
       else

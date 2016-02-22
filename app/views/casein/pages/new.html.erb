@@ -9,6 +9,9 @@
 	<p class="submits">
 		<%= link_to 'Cancel', casein_pages_path, :class => 'btn btn-mini btn-danger' %>
 		<%= f.submit "Add new page", :class => "btn btn-mini btn-primary" %>
+		<% if current_user.is_admin? %>
+			<%= submit_tag "Publish", name: 'publish', :class => 'btn btn-mini btn-primary' %>
+		<% end %>
 	</p>
 
 <% end %>

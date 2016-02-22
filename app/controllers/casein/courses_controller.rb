@@ -28,6 +28,9 @@ module Casein
       @course = Course.new course_params
     
       if @course.save
+          if params[:publish]
+            @courseformat.publish!
+          end
           if params[:photos_attributes]
             params[:photos_attributes]['image'].each do |image|
               @course.photos.create(image: image)

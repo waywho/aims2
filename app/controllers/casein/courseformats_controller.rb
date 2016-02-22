@@ -31,7 +31,9 @@ module Casein
       @courseformat = Courseformat.new courseformat_params
     
       if @courseformat.save
-
+        if params[:publish]
+            @courseformat.publish!
+        end
         if params[:photos_attributes]
           params[:photos_attributes]['image'].each do |image|
             @courseformat.photos.create(image: image)

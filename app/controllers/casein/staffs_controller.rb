@@ -30,6 +30,9 @@ module Casein
       @staff = Staff.new staff_params
     
       if @staff.save
+        if params[:publish]
+            @courseformat.publish!
+        end
         flash[:notice] = 'Staff created'
         redirect_to casein_staffs_path
       else

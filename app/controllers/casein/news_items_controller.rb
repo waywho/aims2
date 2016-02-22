@@ -25,6 +25,9 @@ module Casein
       @news_item = NewsItem.new news_item_params
     
       if @news_item.save
+        if params[:publish]
+            @courseformat.publish!
+        end
         flash[:notice] = 'News item created'
         redirect_to casein_news_items_path
       else
