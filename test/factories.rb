@@ -1,4 +1,9 @@
-FactoryGirl.define do  factory :user do
+FactoryGirl.define do  factory :document do
+    caption "MyString"
+description "MyText"
+file "MyString"
+  end
+  factory :user do
     provider "MyString"
 uid "MyString"
 name "MyString"
