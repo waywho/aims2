@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
 	#Casein routes
 	namespace :casein do
+		resources :documents
 		resources :news_items do
       collection do
         post :edit_multiple
