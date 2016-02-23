@@ -45,23 +45,13 @@ $(document).ready(function() {
 	$(document).on('page:load', function(){
 		window['rangy'].initialized = false
 	});
-	// var myEmailTemplates = {
-	// 	  email: function(context) {
-	// 	    return "<li>" +
-	// 	      "<a class='btn btn-default' data-wysihtml5-command='insertHTML' data-wysihtml5-command-value='&hellip;'>hellip</a>" +
-	// 	      "</li>";
-	// 	  }
-	// 	};
 
 	$('.description-box').each(function(i, elem) {
 	      $(elem).wysihtml5({
 	      	toolbar: {
 	      		"html": true,
 	      		"color": true
-	      		// email: true
 	      	}
-	      	// customTemplates: myEmailTemplate
-
 	      });
 	 });
 
@@ -73,7 +63,7 @@ $(document).ready(function() {
 	      		"html": true,
 	      		"image": false,
 	      		"color": false,
-	      		"blockquote": false
+	      		"blockquote": false,
 	      	}
 	      });
 	 });

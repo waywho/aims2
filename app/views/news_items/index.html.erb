@@ -2,7 +2,7 @@
 
 <div class='news-list col-sm-12 col-md-12'>
 	<% if @newsies %>
-			<% @newsies.order(:published_at).each do |news| %>
+			<% @newsies.each do |news| %>
 				<%= link_to news_item_path(news) do %>
 					<div class = 'news'>
 						<h3><%= news.title %></h3>
