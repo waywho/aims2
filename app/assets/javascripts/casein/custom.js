@@ -46,6 +46,7 @@ $(document).ready(function() {
 		window['rangy'].initialized = false
 	});
 
+
 	$('.description-box').each(function(i, elem) {
 	      $(elem).wysihtml5({
 	      	toolbar: {
@@ -63,7 +64,7 @@ $(document).ready(function() {
 	      		"html": true,
 	      		"image": false,
 	      		"color": false,
-	      		"blockquote": false,
+	      		"blockquote": false
 	      	}
 	      });
 	 });
