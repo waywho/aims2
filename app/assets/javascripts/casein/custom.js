@@ -48,24 +48,30 @@ $(document).ready(function() {
 
 
 	$('.description-box').each(function(i, elem) {
-	      $(elem).wysihtml5({
-	      	toolbar: {
-	      		"html": true,
-	      		"color": true
-	      	}
+	      $(elem).froalaEditor({
+	      	inlineMode: false,
+	      	charCounterCount: true,
+	      	heightMin: 400,
+	      	fileUploadURL: "/casein/documents/",
+	      	imageManagerLoadURL: "/casein/photos/",
+	      	toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 
+	      	'strikeThrough','fontSize', '|', 'color', 'paragraphStyle', 
+	      	'|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 
+	      	'indent', 'quote', 'insertHR', '-', 'insertLink', 'insertImage', 
+	      	'insertFile', 'insertTable', 'undo', 'redo', 
+	      	'clearFormatting', 'selectAll', 'html']
 	      });
 	 });
 
 	$('.description-box-small').each(function(i, elem) {
-	      $(elem).wysihtml5({
-	      	toolbar: {
-	      		"font-style": false,
-	      		"lists": false,
-	      		"html": true,
-	      		"image": false,
-	      		"color": false,
-	      		"blockquote": false
-	      	}
+		$(elem).froalaEditor({
+	      	inlineMode: false,
+	      	charCounterCount: true,
+	      	heightMin: 100, 
+	      	toolbarButtons: ['bold', 'italic', 'underline', 
+	      	'strikeThrough', '|', 'color', 'formatOL', 'formatUL', 'quote', 'insertHR', '-', 'insertLink', 'insertImage', 
+	      	'insertVideo', 'insertFile', 'insertTable', 'undo', 'redo', 
+	      	'clearFormatting', 'selectAll', 'html']
 	      });
 	 });
 
@@ -145,7 +151,7 @@ $(document).ready(function() {
 	  	var time = new Date().getTime();
 	  	var regexp = new RegExp($(this).data('id'), "g");
 	  	$(this).before($(this).data('fields').replace(regexp, time));
-	  	$('#courseformat_highlights_attributes_'+time+"_description").wysihtml5({
+	  	$('#courseformat_highlights_attributes_'+time+"_description").froalaEditor({
 	      	toolbar: {
 	      		"font-style": false,
 	      		"lists": false,

@@ -37,7 +37,7 @@ gem 'carrierwave-aws'
 
 gem 'rmagick', '~> 2.15.3'
 
-gem 'bootstrap-wysihtml5-rails', github: 'nerian/bootstrap-wysihtml5-rails'
+gem 'wysiwyg-rails'
 
 gem 'paper_trail', '~> 4.0.0'
 
