@@ -69,8 +69,7 @@ $(document).ready(function() {
 	      	charCounterCount: true,
 	      	heightMin: 100, 
 	      	toolbarButtons: ['bold', 'italic', 'underline', 
-	      	'strikeThrough', '|', 'color', 'formatOL', 'formatUL', 'quote', 'insertHR', '-', 'insertLink', 'insertImage', 
-	      	'insertVideo', 'insertFile', 'insertTable', 'undo', 'redo', 
+	      	'strikeThrough', '|', 'color', 'formatOL', 'formatUL', 'quote', 'insertLink', 'undo', 'redo', 
 	      	'clearFormatting', 'selectAll', 'html']
 	      });
 	 });
