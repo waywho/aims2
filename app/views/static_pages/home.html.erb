@@ -64,7 +64,7 @@
 						<span class='course-title'><h3><%= course.title %></h3></span>
 					</div>
 					<div class='course-body' %>
-						<%= truncated_description(course.description).html_safe %>
+						<%= HTML_Truncator.truncate(course.description, 160, :length_in_chars => true).html_safe %>
 					</div>
 				</div>
 			<% end %>
