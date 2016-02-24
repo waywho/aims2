@@ -111,7 +111,7 @@ module Casein
       @courseformat.photos.each do |photo|
         photo.update_attributes(imageable_id: nil, imageable_type: nil)
       end
-      flash[:notice] = 'Course format has been deleted. #{undo_link}"'
+      flash[:notice] = "Course format has been deleted. #{undo_link}"
       redirect_to casein_courseformats_path
     end
   

@@ -102,7 +102,7 @@ module Casein
     def destroy
       @staff.destroy
       @staff.photo.destroy
-      flash[:notice] = 'Staff has been deleted'
+      flash[:notice] = "Staff has been deleted #{}"
       redirect_to casein_staffs_path
     end
   

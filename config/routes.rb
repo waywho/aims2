@@ -3,7 +3,13 @@ Rails.application.routes.draw do
 
 	#Casein routes
 	namespace :casein do
-		resources :documents
+		resources :documents do
+      collection do
+        post :insert_file
+        post :edit_multiple
+        post :update_multiple
+      end
+    end
 		resources :news_items do
       collection do
         post :edit_multiple

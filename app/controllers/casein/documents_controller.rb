@@ -32,6 +32,19 @@ module Casein
         render :action => :new
       end
     end
+
+    def insert_file
+       @document = Document.new document_params
+    
+      if @document.save
+        respond_to do |format|
+          format.json { render json: { :link => casein_document_path(@document)} }
+        end
+      else
+        flash.now[:warning] = 'There were problems when trying to create a new document'
+        render :action => :new
+      end
+    end
   
     def update
       @casein_page_title = 'Update document'
@@ -40,7 +53,7 @@ module Casein
 
           if @document.update_attributes document_params
   
-          format.html { redirect_to casein_document_path(@document), notice: "Document has been updated. #{undo_link}" }
+          format.html { redirect_to casein_document_path(@document), notice: "Document has been updated."}
           format.js
         else
           flash.now[:warning] = 'There were problems when trying to update this document'
@@ -73,7 +86,7 @@ module Casein
     def destroy
 
       @document.destroy
-      flash[:notice] = 'Document has been deleted. #{undo_link}"'
+      flash[:notice] = "Document has been deleted."
       redirect_to casein_documents_path
     end
   

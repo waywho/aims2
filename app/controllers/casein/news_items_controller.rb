@@ -99,7 +99,7 @@ module Casein
       @news_item.photos.each do |photo|
         photo.update_attributes(imageable_id: nil, imageable_type: nil)
       end
-      flash[:notice] = 'News item has been deleted. #{undo_link}"'
+      flash[:notice] = "News item has been deleted. #{undo_link}"
       redirect_to casein_news_items_path
     end
   

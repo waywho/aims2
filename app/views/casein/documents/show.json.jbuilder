@@ -1,0 +1,1 @@
+json.link casein_document_path(@document)

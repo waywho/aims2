@@ -96,7 +96,7 @@ module Casein
     def destroy
 
       @klass.destroy
-      flash[:notice] = 'Klass has been deleted'
+      flash[:notice] = "Klass has been deleted #{undo_link}"
       redirect_to casein_klasses_path
     end
   

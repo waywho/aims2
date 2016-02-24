@@ -99,7 +99,7 @@ module Casein
       @quote.photos.each do |photo|
         photo.update_attributes(imageable_id: nil, imageable_type: nil)
       end
-      flash[:notice] = 'Quote has been deleted. #{undo_link}"'
+      flash[:notice] = "Quote has been deleted. #{undo_link}"
       redirect_to casein_quotes_path
     end
   

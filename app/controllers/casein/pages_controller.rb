@@ -104,7 +104,7 @@ module Casein
     def destroy
 
       @page.destroy
-      flash[:notice] = 'Page has been deleted'
+      flash[:notice] = "Page has been deleted #{undo_link}"
       redirect_to casein_pages_path
     end
   
