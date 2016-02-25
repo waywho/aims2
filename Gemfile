@@ -63,7 +63,7 @@ gem 'social-share-button'
 
 gem "html_truncator", "~>0.2"
 
-gem 'legato'
+gem 'google-api-client', '~> 0.9'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
