@@ -70,13 +70,13 @@ class BookingsController < ApplicationController
     if @campaign.Sub_Type__c == 'Summer'
       product = @client.find('PricebookEntry', booking_params[:summer_product_code])
       SalesforceClient.new.create_product(opportunity.Id, product.Id, product.UnitPrice)
-      SalesforceClient.new.create_payment(booking_params[:payment_amount], opportunity.Id)
+      # SalesforceClient.new.create_payment(booking_params[:payment_amount], opportunity.Id)
 
       redirect_to summer_whats_next_path
     elsif @campaign.Sub_Type__c == 'Taster'
       product = @client.find('PricebookEntry', booking_params[:taster_product_code])
       SalesforceClient.new.create_product(opportunity.Id, product.Id, product.UnitPrice)
-      SalesforceClient.new.create_payment(booking_params[:payment_amount], opportunity.Id)
+      # SalesforceClient.new.create_payment(booking_params[:payment_amount], opportunity.Id)
       redirect_to mini_whats_next_path
     else
       redirect_to bookings_path
