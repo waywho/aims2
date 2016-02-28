@@ -18,8 +18,8 @@ module Casein
         :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
         :audience             => 'https://accounts.google.com/o/oauth2/token',
         :scope                => 'https://www.googleapis.com/auth/analytics.readonly',
-        :issuer               => SERVICE_ACCOUNT_EMAIL_ADDRESS,
-        :signing_key          => Google::APIClient::PKCS12.load_key(PATH_TO_KEY_FILE, 'notasecret')
+        :issuer               => ENV['client_email'],
+        :signing_key          => Google::APIClient::PKCS12.load_key('config/API_Project_4fc819d124ee.p12', 'notasecret')
       ).tap { |auth| auth.fetch_access_token! }
 
       api_method = client.discovered_api('analytics','v3').data.ga.get
@@ -27,7 +27,7 @@ module Casein
 
       # make queries
       @results = client.execute(:api_method => api_method, :parameters => {
-        'ids'        => PROFILE,
+        'ids'        => 'ga:45000190',
         'start-date' => Date.new(1970,1,1).to_s,
         'end-date'   => Date.today.to_s,
         'dimensions' => 'ga:pagePath',
