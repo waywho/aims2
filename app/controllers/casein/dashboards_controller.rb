@@ -12,9 +12,9 @@ module Casein
       @casein_page_title = 'Dashboards'
 
 
-      client  = Google::APIClient.new
+      ga_client  = Google::APIClient.new
 
-      client.authorization = Signet::OAuth2::Client.new(
+      ga_client.authorization = Signet::OAuth2::Client.new(
         :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
         :audience             => 'https://accounts.google.com/o/oauth2/token',
         :scope                => 'https://www.googleapis.com/auth/analytics.readonly',
@@ -22,19 +22,17 @@ module Casein
         :signing_key          => Google::APIClient::PKCS12.load_key('config/API_Project_4fc819d124ee.p12', 'notasecret')
       ).tap { |auth| auth.fetch_access_token! }
 
-      api_method = client.discovered_api('analytics','v3').data.ga.get
+      api_method = ga_client.discovered_api('analytics','v3').data.ga.get
 
 
       # make queries
-      @results = client.execute(:api_method => api_method, :parameters => {
-        'ids'        => 'ga:45000190',
-        'start-date' => Date.new(1970,1,1).to_s,
+      @results = ga_client.execute(:api_method => api_method, :parameters => {
+        'ids'        => 'ga:78025227',
+        'start-date' => '60daysAgo',
         'end-date'   => Date.today.to_s,
-        'dimensions' => 'ga:pagePath',
-        'metrics'    => 'ga:pageviews',
-        'filters'    => 'ga:pagePath==/url/to/user'
+        'metrics'    => 'ga:sessions,ga:users,ga:newUsers,ga:entrances,ga:pageviews,ga:uniquePageviews,ga:pageviewsPerSession,ga:avgSessionDuration,ga:timeOnPage'
       })
-
+      # ,ga:city,ga:mobileDeviceModel,ga:country,ga:mobileDeviceBranding
       # puts result.data.rows.inspect
     end
   

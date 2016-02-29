@@ -1,3 +1,12 @@
 hello world!
 
-<%= @results.inspect %>
+<%= @results.data.inspect %>
+
+<br />
+<br />
+<b>Metrics in the last 60 days</b><br />
+<% @results.data.totalsForAllResults.to_hash.each do |key, value| %>
+	<div class ='col-xs-12 col-sm-3'>
+	<b><%= key %>:</b> <%= value %>
+	</div>
+<% end %>
