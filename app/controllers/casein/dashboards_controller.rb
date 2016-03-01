@@ -30,6 +30,7 @@ module Casein
         'ids'        => 'ga:78025227',
         'start-date' => '60daysAgo',
         'end-date'   => Date.today.to_s,
+        'dimension'  => 'ga:country,ga:city,ga:mobileDeviceModel,ga:mobileDeviceBranding'
         'metrics'    => 'ga:sessions,ga:users,ga:newUsers,ga:entrances,ga:pageviews,ga:uniquePageviews,ga:pageviewsPerSession,ga:avgSessionDuration,ga:timeOnPage'
       })
       # ,ga:city,ga:mobileDeviceModel,ga:country,ga:mobileDeviceBranding
