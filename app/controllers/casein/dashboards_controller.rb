@@ -26,12 +26,13 @@ module Casein
 
 
       # make queries
+      @period = '30'
       @results = ga_client.execute(:api_method => api_method, :parameters => {
         'ids'        => 'ga:78025227',
-        'start-date' => '60daysAgo',
+        'start-date' => "#{@period}daysAgo",
         'end-date'   => Date.today.to_s,
-        'dimension'  => 'ga:country,ga:city,ga:mobileDeviceModel,ga:mobileDeviceBranding'
-        'metrics'    => 'ga:sessions,ga:users,ga:newUsers,ga:entrances,ga:pageviews,ga:uniquePageviews,ga:pageviewsPerSession,ga:avgSessionDuration,ga:timeOnPage'
+        'dimension'  => 'ga:date',
+        'metrics'    => 'ga:users,ga:newUsers,ga:sessions,ga:avgSessionDuration,ga:pageviews,ga:uniquePageviews,ga:pageviewsPerSession,ga:timeOnPage'
       })
       # ,ga:city,ga:mobileDeviceModel,ga:country,ga:mobileDeviceBranding
       # puts result.data.rows.inspect
