@@ -62,6 +62,8 @@ gem 'jquery-validation-rails'
 gem 'social-share-button'
 
 gem "html_truncator", "~>0.2"
+
+gem 'google-api-client', '~> 0.8.2'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
