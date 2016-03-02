@@ -111,7 +111,7 @@
 			        <% end %>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
-			    	<li><%= link_to 'Booking', bookings_path %></a></li>
+			    	<li><%= link_to 'Booking', bookings_path, :id => 'booking' %></a></li>
 			    </ul>  
 		    </div><!-- /.navbar-collapse -->
 		</div><!-- /.container-fluid -->
@@ -139,6 +139,23 @@
 </div>
 <% end %>
 
+<div class="modal fade" id="booking_warning" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        Loading. <div class='loading'>This may take a few seconds</div>
+      </div>
+  </div>
+</div>
+
+
+<script>
+	$(function() {
+		$('#booking').click(function() {
+			$('#booking_warning').modal('show');
+		});
+	})
+</script>
 
 
 <!-- 
