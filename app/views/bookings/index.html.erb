@@ -134,7 +134,7 @@
 	</div>
 
 	<div class = 'row'>
-		<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+		<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6 audition'>
 			<h3>Audition</h3>
 			<span>I would like to be considered for (please tick all that apply):</span><br />
 			<br />
@@ -144,7 +144,7 @@
 			<br />
 			<%= f.input :audition, collection: find_soap_field(@booking, 'Audition_requested__c'), label_method: :label, value_method: :value, label: false, include_blank: 'Selection an audition time option', required: false %>
 		</div>
-		<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+		<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6 audition-notes'>
 			<h3>Audition Recording/Notes</h3>
 			<span>If you would like to be considered for Solo, Masterclass, or Bursary but cannot audition in person, please send us recordings, either via email or paste the links below:</span> <br />
 			<%= f.input :audition_notes, as: :text, label: false, required: false %>
@@ -210,7 +210,24 @@
 
 <script>
 	$(function() {
+
+		function resetSummerClasses() {
+			$('.solo-select input:checked').removeAttr('checked');
+			$('#booking_notes_for_class_selection').val("");
+			$('.session select').val("");
+			$('.session input:checked').removeAttr('checked');
+			$('.session-options').hide();
+		};
+
+		function resetSummerOptions() {
+			$('.audition input[type=checkbox]:checked').removeAttr('checked');
+			$('.audition select').val("");
+			$('#Summer-fee').val("");
+		}
+
+
 		$(".session-select").change(function() {
+			$(this).closest('.session').find('.input:checked').removeAttr('checked');
 			$(this).closest('.session').children('.session-options').hide();
 			$("div[data-selection='" + $(this).val() + "']").show();
 		})
@@ -220,6 +237,11 @@
 			$("." + $(this).find(':selected').data("type")).show();
 			$('.payment-amount').empty();
 			$('.payment-stage').prop('checked', false);
+			$('#booking_course').val("");
+			resetSummerClasses();
+			resetSummerOptions();
+			$('.Taster select').val("");
+			$('.Taster input:checked').removeAttr('checked');
 
 		})
 
@@ -231,7 +253,9 @@
 		})
 
 		$('.course-select').change(function() {
-			$('.course').hide();
+			resetSummerClasses();
+			// $('.course-booking').hide();
+
 			$("." + $(this).val()).show();
 		})
 
