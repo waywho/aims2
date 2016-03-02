@@ -6,7 +6,7 @@
 <b>Google Analytics Metrics in the last <%= @period %> days</b><br />
 <% @results.data.totalsForAllResults.to_hash.each do |key, value| %>
 	<div class ='col-xs-12 col-sm-3'>
-	<b><%= key %>:</b> <%= value.to_f.round(2) %>
+	<b><%= key.gsub(/ga:/, "").gsub(/[a-zA-Z](?=[A-Z])/, '\0 ').split.map(&:capitalize).join(' ') %>:</b> <%= value.to_f.round(2) %>
 	</div>
 <% end %>
 
