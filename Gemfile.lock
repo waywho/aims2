@@ -269,6 +269,7 @@ GEM
     simple_form (3.2.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
+    sitemap (0.3.3)
     social-share-button (0.1.10)
       coffee-rails
       sass-rails
@@ -336,6 +337,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   simple_form
+  sitemap
   social-share-button
   spring
   turbolinks

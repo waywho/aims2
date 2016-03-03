@@ -68,6 +68,8 @@ gem 'google-api-client', '~> 0.8.2'
 gem 'metamagic'
 
 gem 'acts-as-taggable-on', '~> 3.4'
+
+gem 'sitemap'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
