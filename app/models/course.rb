@@ -18,6 +18,8 @@ class Course < ActiveRecord::Base
 	include RankedModel
 	ranks :row_order, :with_same => :courseformat_id
 
+	acts_as_taggable_on :keywords
+
 	workflow do
 		state :draft do
 			event :submit, transition_to: :pending_review

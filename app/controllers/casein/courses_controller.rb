@@ -118,7 +118,7 @@ module Casein
       
       def course_params
         params.require(:course).permit(:title, :courses, :workflow_state, 
-          :row_order_position, {:course_ids => []}, :feature,
+          :row_order_position, {:course_ids => []}, :feature, :keyword_list,
           :bookable, :description, :published_at, photos_attributes: [:id, :caption, :course_id, :image])
       end
 
