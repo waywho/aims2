@@ -13,6 +13,8 @@ class Staff < ActiveRecord::Base
 	accepts_nested_attributes_for :photo, allow_destroy: true
 	has_many :recordfies, as: :entriable
 	has_many :pages, through: :recordfies
+
+	acts_as_taggable_on :speciality
 	
 	include Workflow
 

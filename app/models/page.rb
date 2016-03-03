@@ -17,6 +17,8 @@ class Page < ActiveRecord::Base
 	has_many :quotes, through: :recordfies, source: :entriable, source_type: 'Quote'
 	has_many :staffs, through: :recordfies, source: :entriable, source_type: 'Staff'
 
+	acts_as_taggable_on :keywords
+
 	include Workflow
 
 	workflow do
