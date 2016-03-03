@@ -19,6 +19,8 @@ class Courseformat < ActiveRecord::Base
 	has_paper_trail :on => [:update, :create, :destroy]
 	include Workflow
 
+	acts_as_taggable_on :keywords
+
 	workflow do
 		state :draft do
 			event :submit, transition_to: :pending_review

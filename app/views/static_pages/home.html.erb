@@ -1,4 +1,5 @@
 <% if @feature_pages.nil? %>
+	<% meta title: "International Music School" %>
 	<section class="hero">
 		<div class="intro">
 		    <h1>Welcome</h1>
@@ -11,6 +12,8 @@
   		</div>
   	</section>
 <% elsif @feature_pages.size > 1 %>
+	<% meta title: "International Music School",
+		keywords: @feature_pages.first.keyword_list %>
 	<div id="hero-carousel" class="carousel slide">
 		  <!-- Indicators -->
 		  <ol class="carousel-indicators" id="hero-indicators">
@@ -42,6 +45,8 @@
 	</div>
 
 <% else %>
+	<% meta title: "International Music School",
+		keywords: @feature_pages.first.keyword_list %>
 	<section class="hero" style="background: url('<%= @feature_pages.first.feature_image %>'); background-position: center center; background-repeat: no-repeat; background-size: cover;">
 		 	<div class="intro">
 		    	<h1><%= @feature_pages.first.title %></h1>

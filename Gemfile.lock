@@ -48,6 +48,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    acts-as-taggable-on (3.5.0)
+      activerecord (>= 3.2, < 5)
     addressable (2.4.0)
     ancestry (2.1.0)
       activerecord (>= 3.0.0)
@@ -175,6 +177,8 @@ GEM
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     memoist (0.14.0)
+    metamagic (3.1.7)
+      rails (>= 3.0.0)
     mime-types (2.99)
     mini_portile2 (2.0.0)
     minitest (5.8.3)
@@ -304,6 +308,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts-as-taggable-on (~> 3.4)
   ancestry
   bootstrap-sass (>= 3.3.3)
   byebug
@@ -320,6 +325,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   jquery-validation-rails
+  metamagic
   omniauth-salesforce
   paper_trail (~> 4.0.0)
   pg (~> 0.15)

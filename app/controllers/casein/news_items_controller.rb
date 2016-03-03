@@ -106,7 +106,7 @@ module Casein
     private
       
       def news_item_params
-        params.require(:news_item).permit(:title, :description, :published_at, :updated_at, :workflow_state, :news_items, {:news_item_ids => []}, photo_attributes: [:id, :caption, :image, :_destroy])
+        params.require(:news_item).permit(:title, :description, :published_at, :updated_at, :workflow_state, :news_items, :keyword_list, {:news_item_ids => []}, photo_attributes: [:id, :caption, :image, :_destroy])
       end
       
       def undo_link

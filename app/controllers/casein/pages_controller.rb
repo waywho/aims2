@@ -111,7 +111,7 @@ module Casein
     private
       
       def page_params
-        params.require(:page).permit(:title, :content, :published_at, :feature,
+        params.require(:page).permit(:title, :content, :published_at, :feature, :keyword_list,
           :workflow_state, :feature_image, :pages, {:page_ids => []}, {:courseformat_ids => []}, {:course_ids =>[]}, 
             {:event_ids =>[]}, {:fee_ids =>[]}, {:klass_ids =>[]}, 
               {:quote_ids =>[]}, {:staff_ids =>[]})

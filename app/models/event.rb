@@ -15,6 +15,8 @@ class Event < ActiveRecord::Base
 
 	include Workflow
 
+	acts_as_taggable_on :keywords
+
 	workflow do
 		state :draft do
 			event :submit, transition_to: :pending_review

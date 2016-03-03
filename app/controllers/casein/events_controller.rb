@@ -109,7 +109,7 @@ module Casein
       
       def event_params
         params.require(:event).permit(:title, :published_at, :description, :programme, :performers, :date, :workflow_state, :events, :ticket_type, 
-          :venue, :address1, :address2, :city, :county, :country, :post_code, {:event_ids => []}, 
+          :venue, :address1, :address2, :city, :county, :country, :post_code, {:event_ids => []}, :keyword_list,
           {photo_attributes: [:id, :caption, :image, :_destroy]}, {:page_ids => []})
       end
       
