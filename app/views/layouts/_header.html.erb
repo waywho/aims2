@@ -1,4 +1,4 @@
-<% cache "header" do %>
+<% cache "header", skip_digest: true do %>
 	<nav class ="navbar navbar-secondary">
 		<div class="navbar-header">
 		     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
@@ -9,22 +9,20 @@
 		<div class="collapse navbar-collapse" id="navbar-collapse-1">
 		<ul class="nav navbar-nav navbar-right">
 			<% @menus.secondary.roots.rank(:row_order).each do |menu| %>
-				<% cache menu do %>
-			        <% if menu.has_children? %>
-				    	<li class="dropdown">
-				         	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= menu.name %>&nbsp;<span class="caret"></span></a>
-					        	<ul class="dropdown-menu">
-						          		<% menu.children.each do |child| %>
-						          		<li><%= link_to child.name, child.navigation %></li>
-						          		<% end %>
+		        <% if menu.has_children? %>
+			    	<li class="dropdown">
+			         	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= menu.name %>&nbsp;<span class="caret"></span></a>
+				        	<ul class="dropdown-menu">
+					          		<% menu.children.each do |child| %>
+					          		<li><%= link_to child.name, child.navigation %></li>
+					          		<% end %>
 
-					        	</ul>
-				        </li>
-				    <% else %>
-			        	<li>
-			         		<%= link_to menu.name, menu.navigation %>
-			         	</li>
-			         <% end %>
+				        	</ul>
+			        </li>
+			    <% else %>
+		        	<li>
+		         		<%= link_to menu.name, menu.navigation %>
+		         	</li>
 		         <% end %>
 	        <% end %>
 	        <li><%= link_to image_tag('twitter-icon.png', :class => 'header-social-icon social-icon'), 'https://twitter.com/aims_singing', :id => 'social-icon-link-twitter' %></li>
@@ -88,7 +86,6 @@
 			         	</li>
 			         <% end %>
 			         <% @menus.main.roots.rank(:row_order).each do |menu| %>
-			         <% cache menu do %>
 				        <% if menu.has_children? %>
 					    	<li class="dropdown">
 					         	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= menu.name %>&nbsp;<span class="caret"></span></a>
@@ -103,9 +100,8 @@
 				        	<li>
 				         		<%= link_to menu.name, menu.navigation %>
 				         	</li>
-				         <% end %>
-				      <% end %>
-			         <% end %>
+				        <% end %>
+				     <% end %>
 			        <li><%= link_to 'Staff', staffs_path %></li>
 			        <% if @news.present? %>
 			        	<li><%= link_to 'News', news_items_path %></li>

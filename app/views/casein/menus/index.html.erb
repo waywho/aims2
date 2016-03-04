@@ -6,7 +6,7 @@
 <h4>Existing Menu Items</h4>
 <p>
 <ul class='exiting-menu-list row'>
-<% @courseformats.each do |courseformat| %>
+<% @courseformats.rank(:row_order).each do |courseformat| %>
 	<li class='col-xs-3 col-md-3 col-lg-3'><%= courseformat.title %>
 <% end %>
 	<li class='col-xs-3 col-md-3 col-lg-3'>Staff</li>

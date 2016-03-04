@@ -3,7 +3,7 @@
 	<div class='col-lg-6 col-md-6 col-xs-12'>
 		<ul class="main-menus menu-list">
 			<h4>Main Menu</h4>
-			<% menus.main.roots.each do |menu| %>
+			<% menus.main.rank(:row_order).roots.each do |menu| %>
 				<li data-update-url=<%= casein_menu_path(menu) %> class='menu-item'>
 					<%= check_box_tag 'menu[menu_ids][]', menu.id, checked = false, { id: dom_id(menu), :class => 'index-check' } %>
 					<%= menu.name %>
@@ -26,7 +26,7 @@
 	<div class='col-lg-6 col-md-6 col-xs-12'>
 		<ul class="secondary-menus menu-list">
 			<h4>Secondary Menu</h4>
-			<% menus.secondary.roots.each do |menu| %>
+			<% menus.secondary.rank(:row_order).roots.each do |menu| %>
 				<li data-update-url=<%= casein_menu_path(menu) %> class='menu-item'>
 					<%= check_box_tag 'menu[menu_ids][]', menu.id, checked = false, { id: dom_id(menu), :class => 'index-check' } %>
 					<%= menu.name %>
@@ -51,7 +51,7 @@
 	<div class='col-lg-6 col-md-6 col-xs-12'>
 		<ul class="unassigned-menus menu-list">
 			<h4>Unassigned Menu Items</h4>
-			<% menus.unassigned.roots.each do |menu| %>
+			<% menus.unassigned.rank(:row_order).roots.each do |menu| %>
 				<li data-update-url=<%= casein_menu_path(menu) %> class='menu-item'>
 					<%= check_box_tag 'menu[menu_ids][]', menu.id, checked = false, { id: dom_id(menu), :class => 'index-check' } %>
 					<%= menu.name %>

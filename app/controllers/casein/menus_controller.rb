@@ -9,7 +9,7 @@ module Casein
   
     def index
       @casein_page_title = 'Menus'
-      @menus = Menu.rank(:row_order)
+      @menus = Menu.all
       @menu = Menu.new
       @pages = Page.published_now.order(:title)
       @course_formats = Courseformat.published_now
@@ -31,6 +31,8 @@ module Casein
       @pages.each do |page|
         @menu = page.menus.create(menu_params)
         @menu.update_attribute(:name, page.title)
+          expire_fragment("footer")
+          expire_fragment("header")
       end
 
       flash[:notice] = 'Menu created'
@@ -87,6 +89,8 @@ module Casein
     def destroy
 
       @menu.destroy
+      expire_fragment("footer")
+      expire_fragment("header")
       flash[:notice] = 'Menu has been deleted.'
       redirect_to casein_menus_path
     end
