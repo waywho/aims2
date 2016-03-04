@@ -45,7 +45,7 @@
 					</div>
 					<div class='record'>
 						<span class='record-title'>Staffs</span>(<%= link_to 'select all', '#', :class => 'multi-record' %>)<br />
-						<%= f.collection_check_boxes :staff_ids, @staffs, :id, :name %>
+						<%= f.collection_check_boxes :staff_ids, @staffs, :id, :full_name %>
 		  			</div>
 		   </div>
 		   <div class="modal-footer">

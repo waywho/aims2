@@ -11,37 +11,64 @@
 <section class = 'page-content col-xs-12 col-sm-12 col-md-12'>
 	<%= @page.content.html_safe %>
 </section>
-<section class = 'page-record'>
+<section class = 'page-record col-xs-12 col-sm-12 col-md-12'>
 	<% if @page.staffs.present? %>
 	<h4>Our Staff</h4>
-		<ul>
-			<% @page.staffs.each do |staff| %>
-				<li><%= link_to staff.name, staff_path(staff) %></li>
+		<div class = 'row'>
+			<% @page.staffs.order(:last_name).each do |staff| %>
+				<% if staff.photo %>
+		  			<div class = "col-sm-6 col-md-3 col-lg-3">
+		  				<%= link_to staff_path(staff) do %>
+		    			<div class = "thumbnail staff-thumb">
+		     			<%= image_tag staff.photo.image_url %>
+		      				<div class = "caption">
+		        			<h4><%= link_to staff.full_name, "", :name => staff.combined_name %></h4>
+		      				</div>
+		   				</div>
+		   				<% end %>
+		   			</div>
+		   		<% else %>
+		   			<div class = "col-sm-6 col-md-3 col-lg-3">
+		  				<%= link_to staff_path(staff) do %>
+		    			<div class = "thumbnail staff-thumb">
+		     			<%= image_tag 'person_holder.png' %>
+		      				<div class = "caption">
+		        			<h4><%= link_to staff.full_name, "", :name => staff.combined_name %></h4>
+		        			<%= staff.role %>
+		      				</div>
+		   				</div>
+		   				<% end %>
+		   			</div>
+	   			<% end %>
 			<% end %>
-		</ul>
+		</div>
 	<% end %>
 	<% if @page.courses.present? %>
+	<h4>Courses</h4>
 		<ul>
-			<% @page.courses.each do |course| %>
+			<% @page.courses.rank(:row_order).each do |course| %>
 				<li><%= link_to course.title, course_path(course) %></li>
 			<% end %>
 		</ul>
 	<% end %>
 	<% if @page.events.present? %>
+	<h4>Events</h4>
 		<ul>
-			<% @page.events.each do |event| %>
+			<% @page.events.order(date: :desc).each do |event| %>
 				<li><%= link_to event.title, event_path(event) %></li>
 			<% end %>
 		</ul>
 	<% end %>
 	<% if @page.fees.present? %>
+	<h4>Fee</h4>
 		<ul>
 			<% @page.fees.each do |fee| %>
 				<li><%= link_to fee.title, fee_path(fee) %></li>
 			<% end %>
 		</ul>
 	<% end %>
-	<% if @page.klasses.present? %>
+	<% if @page.klasses.rank(:row_order).present? %>
+	<h4>Classes</h4>
 		<ul>
 			<% @page.klasses.each do |klass| %>
 				<li><%= link_to klass.title, klass_path(klass) %></li>
@@ -49,6 +76,7 @@
 		</ul>
 	<% end %>
 	<% if @page.quotes.present? %>
+	<h4>What People Say...</h4>
 		<ul>
 			<% @page.quotes.each do |quote| %>
 				<li><%= link_to quote.saying, quote_path(quote) %></li>
