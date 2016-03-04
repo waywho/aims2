@@ -96,6 +96,8 @@ module Casein
 
     def update_multiple
      @courses = Course.friendly.update(params[:courses].keys, params[:courses].values)
+      expire_fragment("footer")
+      expire_fragment("header")
       @courses.reject! { |course| course.errors.empty? }
       if @courses.empty?
         redirect_to casein_courses_path

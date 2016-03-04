@@ -60,6 +60,8 @@ module Casein
           elsif params[:unpublish]
             @page.unpublish!
           end
+      expire_fragment("footer")
+      expire_fragment("header")
 
           format.html { redirect_to casein_page_path(@page), notice: "Page has been updated. #{undo_link}" }
           format.js
@@ -93,6 +95,8 @@ module Casein
 
     def update_multiple
       @pages = Page.friendly.update(params[:pages].keys, params[:pages].values)
+      expire_fragment("footer")
+      expire_fragment("header")
       @pages.reject! { |page| page.errors.empty? }
       if @pages.empty?
         redirect_to casein_pages_path

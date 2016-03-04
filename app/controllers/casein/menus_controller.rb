@@ -73,7 +73,9 @@ module Casein
     end
 
     def update_multiple
-     @menus = Menu.friendly.update(params[:menus].keys, params[:menus].values)
+      @menus = Menu.friendly.update(params[:menus].keys, params[:menus].values)
+      expire_fragment("footer")
+      expire_fragment("header")
       @menus.reject! { |menu| menu.errors.empty? }
       if @menus.empty?
         redirect_to casein_menus_path

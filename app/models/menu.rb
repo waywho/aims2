@@ -1,5 +1,5 @@
 class Menu < ActiveRecord::Base
-	has_ancestry
+	has_ancestry, :touch => true
 	include RankedModel
 	ranks :row_order, :with_same => :menu_type
 

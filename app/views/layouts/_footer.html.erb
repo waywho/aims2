@@ -44,6 +44,7 @@
 	    		</a>
 	    		<ul class="nav nav-pills nav-stacked collapse" id='info-collapse'>
 	    			<% @menus.main.rank(:row_order).each do |menu| %>
+	    				<% cache menu do %>
 	    				<li class='mini-footer-item'><%= link_to menu.name, menu.navigation %>
 		    				<% if menu.has_children? %>
 					    		<ul class="nav nav-pills nav-stacked">
@@ -53,6 +54,7 @@
 					    		</ul>
 					    	<% end %>
 					    </li>
+					    <% end %>
 				    <% end %>
 				</ul>
 	  		</li>
@@ -62,6 +64,7 @@
 	    		</a>
 	    		<ul class="nav nav-pills nav-stacked collapse" id='aims-collapse'>
 	    			<% @menus.secondary.rank(:row_order).each do |menu| %>
+	    				<% cache menu do %>
 	    				<li class='mini-footer-item'><%= link_to menu.name, menu.navigation %>
 		    				<% if menu.has_children? %>
 					    		<ul class="nav nav-pills nav-stacked">
@@ -71,6 +74,7 @@
 					    		</ul>
 					    	<% end %>
 					    </li>
+					    <% end %>
 				    <% end %>
 				</ul>
 	  		</li>
@@ -100,12 +104,14 @@
 				<ul>
 					<li class="footer-title">School Info</li>
 					<% @menus.main.roots.rank(:row_order).each do |menu| %>
+						<% cache menu do %>
 						<li class='footer-item'><%= link_to menu.name, menu.navigation %></li>
 							<% if menu.has_children? %>
 								<% menu.children.each do |sub| %>
 									<li class="footer-sub-item"><%= link_to sub.name, sub.navigation %></li>
 								<% end %>
 							<% end %>
+						<% end %>
 					<% end %>
 				</ul>
 			</div>
@@ -115,12 +121,14 @@
 				<ul>
 					<li class="footer-title">AIMS</li>
 					<% @menus.secondary.roots.rank(:row_order).each do |menu| %>
+						<% cache menu do %>
 						<li class='footer-item'><%= link_to menu.name, menu.navigation %></li>
 							<% if menu.has_children? %>
 								<% menu.children.each do |sub| %>
 									<li class="footer-sub-item"><%= link_to sub.name, sub.navigation %></li>
 								<% end %>
 							<% end %>
+						<% end %>
 					<% end %>
 				</ul>
 			</div>
