@@ -12,6 +12,7 @@
   		</div>
   	</section>
 <% elsif @feature_pages.size > 1 %>
+<% cache @feature_pages.first do %>
 	<% meta title: "International Music School",
 		keywords: @feature_pages.first.keyword_list %>
 	<div id="hero-carousel" class="carousel slide">
@@ -43,8 +44,9 @@
 		    <% end %>
 		  </div>
 	</div>
-
+<% end %>
 <% else %>
+<% cache @feature_pages.first do %>
 	<% meta title: "International Music School",
 		keywords: @feature_pages.first.keyword_list %>
 	<section class="hero" style="background: url('<%= @feature_pages.first.feature_image %>'); background-position: center center; background-repeat: no-repeat; background-size: cover;">
@@ -58,6 +60,7 @@
 
 	  		</div>
 	</section>
+<% end %>
 <% end %>
 
 <% if @feature_courses.present? %>
