@@ -9,12 +9,12 @@ module Casein
   
     def index
       @casein_page_title = 'Staffs'
-      @staffs = Staff.order(sort_order(:name)).paginate :page => params[:page]
+      @staffs = Staff.order(sort_order(:last_name)).paginate :page => params[:page]
     end
 
     def publish_index
       @casein_page_title = 'Staffs: Publish Index'
-      @staffs = Staff.order(sort_order(:name))
+      @staffs = Staff.order(sort_order(:last_name))
     end
   
     def show
@@ -109,7 +109,7 @@ module Casein
     private
       
       def staff_params
-        params.require(:staff).permit(:name, :staffs, { :staff_ids => [] }, :published_at, :biography, :role, :photo, :speciality_list, :published_at, :workflow_state, photo_attributes: [:id, :caption, :image, :_destroy])
+        params.require(:staff).permit(:last_name, :first_name, :staffs, { :staff_ids => [] }, :published_at, :biography, :role, :photo, :speciality_list, :published_at, :workflow_state, photo_attributes: [:id, :caption, :image, :_destroy])
       end
 
       def load_staff

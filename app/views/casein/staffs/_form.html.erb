@@ -25,14 +25,17 @@
 </div>
 <div class ="row">
 	<div class="col-lg-6 col-md-6">
-		<%= casein_text_field f, f.object, :name %>	
+		<%= casein_text_field f, f.object, :first_name %>	
 	</div>
 	<div class="col-lg-6 col-md-6">
-		<%= casein_select f, f.object, :role, Staff::ROLES, include_blank: true %>
+		<%= casein_text_field f, f.object, :last_name %>	
 	</div>
 </div>
 <div class = 'row'>
-	<div class="col-lg-12 col-md-12">
+	<div class="col-lg-6 col-md-6">
+		<%= casein_select f, f.object, :role, Staff::ROLES, include_blank: true %>
+	</div>
+	<div class="col-lg-6 col-md-6">
 		<%= casein_text_field f, f.object, :speciality_list, casein_label: "Speciality (separated by commas)", value: f.object.speciality_list.to_s, id: 'keywords', data: {autocomplete_source: ActsAsTaggableOn::Tag.all.map(&:name)} %>
 	</div>
 </div>
