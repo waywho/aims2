@@ -19,6 +19,8 @@ module Casein
         :audience             => 'https://accounts.google.com/o/oauth2/token',
         :scope                => 'https://www.googleapis.com/auth/analytics.readonly',
         :issuer               => ENV['client_email'],
+        :application_name     => 'aims-website',
+        :application_version  => '0.0.0.0',
         :signing_key          => Google::APIClient::PKCS12.load_key('config/API_Project_4fc819d124ee.p12', 'notasecret')
       ).tap { |auth| auth.fetch_access_token! }
 

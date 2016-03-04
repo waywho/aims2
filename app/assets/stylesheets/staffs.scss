@@ -10,3 +10,36 @@
 .thumbnail {
 	border-radius: 0px;
 }
+
+.tag-cloud-container {
+	margin-top: 50px;
+}
+
+.tag_cloud {
+	display: inline-block;
+	background-color: #F6E8E9;
+	padding: 0px 5px;
+	margin: 5px;
+	border-radius: 5px;
+	font-weight: normal;
+}
+
+.staff-list ul {
+	list-style-type: none;
+	padding-left: 0;
+}
+
+.staff-list ul a{
+	color: black;
+	font-weight: normal;
+}
+
+.staff-photo .caption a {
+	color: black;
+}
+
+.staff-thumb .caption {
+	min-height: 76px;
+}
+/*
+	F6E8E9;*/

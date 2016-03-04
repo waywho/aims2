@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160303074131) do
+ActiveRecord::Schema.define(version: 20160304085106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -234,7 +234,7 @@ ActiveRecord::Schema.define(version: 20160303074131) do
   add_index "recordfies", ["row_order"], name: "index_recordfies_on_row_order", using: :btree
 
   create_table "staffs", force: :cascade do |t|
-    t.string   "name"
+    t.string   "first_name"
     t.text     "biography"
     t.string   "role"
     t.string   "slug"
@@ -242,6 +242,7 @@ ActiveRecord::Schema.define(version: 20160303074131) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.datetime "published_at"
+    t.string   "last_name"
   end
 
   create_table "taggings", force: :cascade do |t|

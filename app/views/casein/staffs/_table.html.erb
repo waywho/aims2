@@ -4,7 +4,8 @@
 	<thead>
 		<tr>
 			<th><%= check_box_tag 'multi' %></th>
-			<th><%= casein_sort_link "Name", :name %></th>
+			<th><%= casein_sort_link "First Name", :first_name %></th>
+			<th><%= casein_sort_link "Last Name", :last_name %></th>
 			<th><%= casein_sort_link "Role", :role %></th>
 			<th><%= casein_sort_link "Publish Date", :published_at %></th>
 			<th><%= casein_sort_link "Updated at", :updated_at %></th>
@@ -17,7 +18,8 @@
 		<tr>
 			<td><%= check_box_tag 'staff[staff_ids][]', staff.id, checked = false, { id: dom_id(staff), :class => 'index-check' } %>
 				</td>
-			<td><%= casein_table_cell_link staff.name, casein_staff_path(staff) %></td>
+			<td><%= casein_table_cell_link staff.first_name, casein_staff_path(staff) %></td>
+			<td><%= casein_table_cell_link staff.last_name, casein_staff_path(staff) %></td>
 			<td><%= casein_table_cell_link staff.role, casein_staff_path(staff) %></td>	
 			<td><%= casein_table_cell_link d_m_y(staff.published_at), casein_staff_path(staff) %></td>
 			<td><%= casein_table_cell_link staff.updated_at, casein_staff_path(staff) %></td>
