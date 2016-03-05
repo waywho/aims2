@@ -34,8 +34,10 @@ module Casein
     
       if @page.save
         if params[:publish]
-            @courseformat.publish!
+            @page.publish!
         end
+      expire_fragment("footer")
+      expire_fragment("header")
         flash[:notice] = 'Page created'
         redirect_to casein_pages_path
       else
@@ -108,6 +110,8 @@ module Casein
     def destroy
 
       @page.destroy
+      expire_fragment("footer")
+      expire_fragment("header")
       flash[:notice] = "Page has been deleted #{undo_link}"
       redirect_to casein_pages_path
     end

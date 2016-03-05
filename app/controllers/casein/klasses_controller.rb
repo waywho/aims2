@@ -26,7 +26,7 @@ module Casein
     
       if @klass.save
         if params[:publish]
-            @courseformat.publish!
+            @klass.publish!
         end
         flash[:notice] = 'Klass created'
         redirect_to casein_klasses_path

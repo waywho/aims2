@@ -29,7 +29,7 @@ module Casein
     
       if @event.save
         if params[:publish]
-            @courseformat.publish!
+            @event.publish!
         end
         flash[:notice] = 'Event created'
         redirect_to casein_events_path

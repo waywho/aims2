@@ -26,7 +26,7 @@ module Casein
     
       if @fee.save
         if params[:publish]
-            @courseformat.publish!
+            @fee.publish!
         end
         flash[:notice] = 'Fee created'
         redirect_to casein_fees_path

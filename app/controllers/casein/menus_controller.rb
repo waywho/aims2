@@ -31,9 +31,9 @@ module Casein
       @pages.each do |page|
         @menu = page.menus.create(menu_params)
         @menu.update_attribute(:name, page.title)
-          expire_fragment("footer")
-          expire_fragment("header")
       end
+      expire_fragment("footer")
+      expire_fragment("header")
 
       flash[:notice] = 'Menu created'
       redirect_to casein_menus_path

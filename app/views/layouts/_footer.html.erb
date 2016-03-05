@@ -125,17 +125,21 @@
 				</ul>
 			</div>
 			<div class = 'col-sm-6 col-md-6 col-lg-6 footer-panel'>
-				<ul>	
-					<li class="footer-title">Contact</li>
-					<li class="footer-item">
-						AIMS International Music School<br />
-						88 Gordon Road<br />
-						Shoreham-by-Sea, West Susssex<br />
-						BN43 6WE
-					</li>
-					<br />
-					<li><span class = 'copy-right'>AIMS Bursry Fund is a registered charity (charity no. 1123905) in England & Wales.</span>
-					</li>
+				<ul>
+				<li class="footer-title">Contact</li>
+					<% if @footer_contact.present? %>
+						<li class = 'footer-item'><%= @footer_contact.content.html_safe %></li>
+					<% else %>
+						<li class="footer-item">
+							AIMS International Music School<br />
+							88 Gordon Road<br />
+							Shoreham-by-Sea, West Susssex<br />
+							BN43 6WE
+						</li>
+						<br />
+						<li><span class = 'copy-right'>AIMS Bursry Fund is a registered charity (charity no. 1123905) in England & Wales.</span>
+						</li>
+					<% end %>
 				</ul>
 			</div>
 		</div>

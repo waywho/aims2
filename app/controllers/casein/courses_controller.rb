@@ -29,7 +29,7 @@ module Casein
     
       if @course.save
           if params[:publish]
-            @courseformat.publish!
+            @course.publish!
           end
           if params[:photos_attributes]
             params[:photos_attributes]['image'].each do |image|

@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_filter :load_courseformats
   before_filter :load_news
   before_filter :load_events
+  before_filter :load_footer_contact
   protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format.json? }
  
 	private
@@ -23,6 +24,10 @@ class ApplicationController < ActionController::Base
 
 	 	def load_events
 	 		@future_events = Event.future.order(:date)
+	 	end
+
+	 	def load_footer_contact
+	 		@footer_contact = Page.where(title: 'Footer Contact').first
 	 	end
 
 end
