@@ -17,4 +17,4 @@
 //= require jquery.validate.additional-methods
 //= require bootstrap-sprockets
 //= require social-share-button
-//= require_tree .
+//= require google_analytics
