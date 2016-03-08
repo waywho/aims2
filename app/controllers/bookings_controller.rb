@@ -67,6 +67,8 @@ class BookingsController < ApplicationController
 
     opportunity = @client.find('Opportunity', opp_uid, 'Web_uid__c')
     
+    notify_admin(booking_params[:first_name], booking_params[:last_name], booking_params[:email])
+
     if @campaign.Sub_Type__c == 'Summer'
       product = @client.find('PricebookEntry', booking_params[:summer_product_code])
       SalesforceClient.new.create_product(opportunity.Id, product.Id, product.UnitPrice)
@@ -110,6 +112,10 @@ class BookingsController < ApplicationController
 
   def find_campaign(campaign_id)
     @client.find('Campaign', campaign_id)
+  end
+
+  def notify_admin(first_name, last_name, email)
+    NotificationMailer.booking_added(first_name, Last_name, email).deliver_now
   end
 
 end
