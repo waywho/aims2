@@ -1,3 +1,5 @@
-<b>Dear ,</b>
+<b>Dear <%= @first_name %>,</b>
 
-<p>This email is to confrim that you have submitted a booking for</p>
+<p>This email is to confrim that you have submitted a booking for <%= @campaign %></p>
+
+<%= @page_content.html_safe %>
