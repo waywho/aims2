@@ -1,5 +1,7 @@
 Dear <%= @first_name %>,
 
-This email is to confrim that you have submitted a booking for <%= @campaign %>
+This email is to confirm that you have submitted a booking for <%= @campaign %>.
 
-<%= @page_content.html_safe %>
+Your booking reference number is: <%= @opp_uid %>. Please retain this for future reference.
+
+<%= @page.content.html_safe %>
