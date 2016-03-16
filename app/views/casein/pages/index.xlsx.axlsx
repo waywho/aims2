@@ -1,0 +1,8 @@
+page_wb = xlsx_package.workbook
+
+page_wb.add_worksheet(name: "pages-#{Date.today}") do |sheet|
+	sheet.add_row @pages.first.attributes.keys.to_a
+	@pages.each do |page|
+		sheet.add_row page.attributes.values.to_a
+	end
+end

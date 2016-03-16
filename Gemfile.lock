@@ -50,6 +50,10 @@ GEM
       tzinfo (~> 1.1)
     acts-as-taggable-on (3.5.0)
       activerecord (>= 3.2, < 5)
+    acts_as_xlsx (1.0.6)
+      activerecord (>= 2.3.9)
+      axlsx (>= 1.0.13)
+      i18n (>= 0.4.1)
     addressable (2.4.0)
     ancestry (2.1.0)
       activerecord (>= 3.0.0)
@@ -71,6 +75,13 @@ GEM
       jmespath (~> 1.0)
     aws-sdk-resources (2.2.26)
       aws-sdk-core (= 2.2.26)
+    axlsx (2.0.1)
+      htmlentities (~> 4.3.1)
+      nokogiri (>= 1.4.1)
+      rubyzip (~> 1.0.0)
+    axlsx_rails (0.4.0)
+      axlsx (>= 2.0.1)
+      rails (>= 3.1)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.3)
@@ -148,6 +159,7 @@ GEM
     hashie (3.4.3)
     html_truncator (0.4.1)
       nokogiri (~> 1.5)
+    htmlentities (4.3.4)
     i18n (0.7.0)
     i18n_data (0.7.0)
     jbuilder (2.4.1)
@@ -247,6 +259,7 @@ GEM
       json (>= 1.7.5, < 1.9.0)
     retriable (1.4.1)
     rmagick (2.15.4)
+    rubyzip (1.0.0)
     sass (3.4.21)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
@@ -309,7 +322,10 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on (~> 3.4)
+  acts_as_xlsx
   ancestry
+  axlsx (~> 2.0.1)
+  axlsx_rails
   bootstrap-sass (>= 3.3.3)
   byebug
   carrierwave-aws

@@ -1,0 +1,8 @@
+news_item_wb = xlsx_package.workbook
+
+news_item_wb.add_worksheet(name: "news_items-#{Date.today}") do |sheet|
+	sheet.add_row @news_items.first.attributes.keys.to_a
+	@news_items.each do |news_item|
+		sheet.add_row news_item.attributes.values.to_a
+	end
+end

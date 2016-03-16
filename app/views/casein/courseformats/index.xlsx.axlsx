@@ -1,0 +1,8 @@
+courseformat_wb = xlsx_package.workbook
+
+courseformat_wb.add_worksheet(name: "courseformats-#{Date.today}") do |sheet|
+	sheet.add_row @courseformats.first.attributes.keys.to_a
+	@courseformats.each do |courseformat|
+		sheet.add_row courseformat.attributes.values.to_a
+	end
+end

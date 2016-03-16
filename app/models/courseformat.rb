@@ -12,6 +12,7 @@ class Courseformat < ActiveRecord::Base
 	has_many :recordfies, as: :entriable
 	has_many :pages, through: :recordfies
 	accepts_nested_attributes_for :pages, allow_destroy: true
+	acts_as_xlsx
 
 	include RankedModel
 	ranks :row_order
@@ -56,5 +57,14 @@ class Courseformat < ActiveRecord::Base
 
 	def unpublish
 		update_attribute(:published_at, nil)
+	end
+
+	def self.to_csv
+		CSV.generate do |csv|
+			csv << column_names
+			all.each do |item|
+				csv << item.attributes.values_at(*column_names)
+			end
+		end
 	end
 end

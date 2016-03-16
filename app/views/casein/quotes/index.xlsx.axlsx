@@ -1,0 +1,8 @@
+quote_wb = xlsx_package.workbook
+
+quote_wb.add_worksheet(name: "quotes-#{Date.today}") do |sheet|
+	sheet.add_row @quotes.first.attributes.keys.to_a
+	@quotes.each do |quote|
+		sheet.add_row quote.attributes.values.to_a
+	end
+end

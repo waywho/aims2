@@ -2,8 +2,7 @@
 
 module Casein
   class DashboardsController < Casein::CaseinController
-    
-    require 'google/api_client'
+  
     ## optional filters for defining usage according to Casein::AdminUser access_levels
     # before_filter :needs_admin, :except => [:action1, :action2]
     # before_filter :needs_admin_or_current_user, :only => [:action1, :action2]

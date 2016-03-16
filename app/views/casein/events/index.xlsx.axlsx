@@ -1,0 +1,8 @@
+event_wb = xlsx_package.workbook
+
+event_wb.add_worksheet(name: "events-#{Date.today}") do |sheet|
+	sheet.add_row @events.first.attributes.keys.to_a
+	@events.each do |event|
+		sheet.add_row event.attributes.values.to_a
+	end
+end

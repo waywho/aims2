@@ -1,0 +1,8 @@
+fee_wb = xlsx_package.workbook
+
+fee_wb.add_worksheet(name: "fees-#{Date.today}") do |sheet|
+	sheet.add_row @fees.first.attributes.keys.to_a
+	@fees.each do |fee|
+		sheet.add_row fee.attributes.values.to_a
+	end
+end

@@ -9,5 +9,7 @@
 <%= content_for :sidebar do %>
 
 	<li><%= link_to "#{casein_show_icon "plus-sign"}Add a new courseformat".html_safe, new_casein_courseformat_path %></li>
+	Download: <%= link_to 'CSV', casein_courseformats_path(format: 'csv') %> | 
+	<%= link_to 'Excel', casein_courseformats_path(format: 'xlsx') %>
 
 <% end %>

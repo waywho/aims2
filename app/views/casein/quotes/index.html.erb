@@ -12,5 +12,6 @@
 <%= content_for :sidebar do %>
 
 	<li><%= link_to "#{casein_show_icon "plus-sign"}Add a new quote".html_safe, new_casein_quote_path %></li>
-
+	Download: <%= link_to 'CSV', casein_quotes_path(format: 'csv') %> | 
+	<%= link_to 'Excel', casein_quotes_path(format: 'xlsx') %>
 <% end %>

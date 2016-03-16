@@ -11,6 +11,11 @@ module Casein
     def index
       @casein_page_title = 'Pages'
       @pages = Page.order(sort_order(:title))
+      respond_to do |format|
+        format.html
+        format.csv { send_data @pages.to_csv, filename: "pages-#{Date.today}.csv"}
+        format.xlsx
+      end
     end
   
     def show

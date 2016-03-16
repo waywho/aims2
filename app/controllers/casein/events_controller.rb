@@ -10,6 +10,11 @@ module Casein
     def index
       @casein_page_title = 'Events'
       @events = Event.order(sort_order(:title)).paginate :page => params[:page]
+      respond_to do |format|
+        format.html
+        format.csv { send_data @events.to_csv, filename: "events-#{Date.today}.csv"}
+        format.xlsx
+      end
     end
   
     def show

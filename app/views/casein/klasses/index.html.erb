@@ -11,5 +11,6 @@
 <%= content_for :sidebar do %>
 
 	<li><%= link_to "#{casein_show_icon "plus-sign"}Add a new klass".html_safe, new_casein_klass_path %></li>
-
+	Download: <%= link_to 'CSV', casein_klasses_path(format: 'csv') %> | 
+	<%= link_to 'Excel', casein_klasses_path(format: 'xlsx') %>
 <% end %>

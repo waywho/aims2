@@ -10,6 +10,11 @@ module Casein
     def index
       @casein_page_title = 'Courses'
   		@courses = Course.rank(:row_order)
+      respond_to do |format|
+        format.html
+        format.csv { send_data @courses.to_csv, filename: "courses-#{Date.today}.csv"}
+        format.xlsx
+      end
     end
   
     def show

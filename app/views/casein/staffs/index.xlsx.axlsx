@@ -1,0 +1,8 @@
+staff_wb = xlsx_package.workbook
+
+staff_wb.add_worksheet(name: "staffs-#{Date.today}") do |sheet|
+	sheet.add_row @staffs.first.attributes.keys.to_a
+	@staffs.each do |staff|
+		sheet.add_row staff.attributes.values.to_a
+	end
+end
