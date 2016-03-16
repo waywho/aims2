@@ -21,7 +21,7 @@ module Casein
         :issuer               => ENV['client_email'],
         :application_name     => 'aims-website',
         :application_version  => '0.0.0.0',
-        :signing_key          => Google::APIClient::PKCS12.load_key('config/API_Project_4fc819d124ee.p12', 'notasecret')
+        :signing_key          => Google::APIClient::PKCS12.load_key(ENV['P12_CONTENT'], 'notasecret')
       ).tap { |auth| auth.fetch_access_token! }
 
       api_method = ga_client.discovered_api('analytics','v3').data.ga.get
