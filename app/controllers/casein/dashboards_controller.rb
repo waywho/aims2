@@ -12,30 +12,30 @@ module Casein
       @casein_page_title = 'Dashboards'
 
 
-      ga_client  = Google::APIClient.new
+      # ga_client  = Google::APIClient.new
 
-      ga_client.authorization = Signet::OAuth2::Client.new(
-        :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
-        :audience             => 'https://accounts.google.com/o/oauth2/token',
-        :scope                => 'https://www.googleapis.com/auth/analytics.readonly',
-        :issuer               => ENV['client_email'],
-        :application_name     => 'aims-website',
-        :application_version  => '0.0.0.0',
-        :signing_key          => Google::APIClient::PKCS12.load_key(ENV['P12_CONTENT'], 'notasecret')
-      ).tap { |auth| auth.fetch_access_token! }
+      # ga_client.authorization = Signet::OAuth2::Client.new(
+      #   :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
+      #   :audience             => 'https://accounts.google.com/o/oauth2/token',
+      #   :scope                => 'https://www.googleapis.com/auth/analytics.readonly',
+      #   :issuer               => ENV['client_email'],
+      #   :application_name     => 'aims-website',
+      #   :application_version  => '0.0.0.0',
+      #   :signing_key          => Google::APIClient::PKCS12.load_key(ENV['P12_CONTENT'], 'notasecret')
+      # ).tap { |auth| auth.fetch_access_token! }
 
-      api_method = ga_client.discovered_api('analytics','v3').data.ga.get
+      # api_method = ga_client.discovered_api('analytics','v3').data.ga.get
 
 
       # make queries
       @period = '30'
-      @results = ga_client.execute(:api_method => api_method, :parameters => {
-        'ids'        => 'ga:78025227',
-        'start-date' => "#{@period}daysAgo",
-        'end-date'   => Date.today.to_s,
-        'dimension'  => 'ga:date',
-        'metrics'    => 'ga:users,ga:newUsers,ga:sessions,ga:avgSessionDuration,ga:pageviews,ga:uniquePageviews,ga:pageviewsPerSession,ga:timeOnPage'
-      })
+      # @results = ga_client.execute(:api_method => api_method, :parameters => {
+      #   'ids'        => 'ga:78025227',
+      #   'start-date' => "#{@period}daysAgo",
+      #   'end-date'   => Date.today.to_s,
+      #   'dimension'  => 'ga:date',
+      #   'metrics'    => 'ga:users,ga:newUsers,ga:sessions,ga:avgSessionDuration,ga:pageviews,ga:uniquePageviews,ga:pageviewsPerSession,ga:timeOnPage'
+      # })
       # ,ga:city,ga:mobileDeviceModel,ga:country,ga:mobileDeviceBranding
       # puts result.data.rows.inspect
     end
