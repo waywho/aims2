@@ -12,10 +12,12 @@ class Event < ActiveRecord::Base
 	validates :address1, presence: true
 	validates :city, presence: true
 	validates :post_code, presence: true
+	
+	acts_as_xlsx
+	acts_as_taggable_on :keywords	
+
 
 	include Workflow
-
-	acts_as_taggable_on :keywords
 
 	workflow do
 		state :draft do
@@ -61,5 +63,22 @@ class Event < ActiveRecord::Base
 		address << " #{self.country}" if !self.country.blank?
 		address << "#{self.post_code}" if !self.post_code.blank?
 		address
+	end
+
+	def self.to_csv
+		CSV.generate do |csv|
+			csv << column_names
+			all.each do |item|
+				csv << item.attributes.values_at(*column_names)
+			end
+		end
+	end
+
+	def self.import(file)
+		CSV.foreach(file.path, headers: true) do |row|
+			item = find_by_id(row["id"]) || new
+			item.attributes = row.to_hash.slice(*self.column_names)
+			item.save!
+		end
 	end
 end

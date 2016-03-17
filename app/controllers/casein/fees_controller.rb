@@ -16,6 +16,13 @@ module Casein
         format.xlsx
       end
     end
+
+
+    def import
+      Fee.import(params[:file])
+      flash[:notice] = 'File has been imported'
+      redirect_to casein_fees_path
+    end
   
     def show
       @casein_page_title = 'View fee'

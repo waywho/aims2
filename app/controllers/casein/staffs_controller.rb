@@ -17,6 +17,12 @@ module Casein
       end
     end
 
+    def import
+      Staff.import(params[:file])
+      flash[:notice] = 'File has been imported'
+      redirect_to casein_staffs_path
+    end
+
     def publish_index
       @casein_page_title = 'Staffs: Publish Index'
       @staffs = Staff.order(sort_order(:last_name))

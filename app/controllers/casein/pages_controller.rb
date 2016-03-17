@@ -17,6 +17,12 @@ module Casein
         format.xlsx
       end
     end
+
+    def import
+      Page.import(params[:file])
+      flash[:notice] = 'File has been imported'
+      redirect_to casein_pages_path
+    end
   
     def show
       @casein_page_title = 'View page'

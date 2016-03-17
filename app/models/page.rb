@@ -16,7 +16,8 @@ class Page < ActiveRecord::Base
 	has_many :klasses, through: :recordfies, source: :entriable, source_type: 'Klass'
 	has_many :quotes, through: :recordfies, source: :entriable, source_type: 'Quote'
 	has_many :staffs, through: :recordfies, source: :entriable, source_type: 'Staff'
-
+	
+	acts_as_xlsx
 	acts_as_taggable_on :keywords
 
 	include Workflow
@@ -60,4 +61,21 @@ class Page < ActiveRecord::Base
 	# def falsify_all_others
 	# 	self.class.where('id != ? AND feature').update_all("feature = 'false'")
 	# end
+
+	def self.to_csv
+		CSV.generate do |csv|
+			csv << column_names
+			all.each do |item|
+				csv << item.attributes.values_at(*column_names)
+			end
+		end
+	end
+
+	def self.import(file)
+		CSV.foreach(file.path, headers: true) do |row|
+			item = find_by_id(row["id"]) || new
+			item.attributes = row.to_hash.slice(*self.column_names)
+			item.save!
+		end
+	end
 end

@@ -14,6 +14,8 @@ class Course < ActiveRecord::Base
 	has_many :menus, as: :navigation
 	has_many :recordfies, as: :entriable
 	has_many :pages, through: :recordfies
+	
+	acts_as_xlsx
 
 	include RankedModel
 	ranks :row_order, :with_same => :courseformat_id
@@ -55,5 +57,22 @@ class Course < ActiveRecord::Base
 	
 	def unpublish
 		update_attribute(:published_at, nil)
+	end
+
+	def self.to_csv
+		CSV.generate do |csv|
+			csv << column_names
+			all.each do |item|
+				csv << item.attributes.values_at(*column_names)
+			end
+		end
+	end
+
+	def self.import(file)
+		CSV.foreach(file.path, headers: true) do |row|
+			item = find_by_id(row["id"]) || new
+			item.attributes = row.to_hash.slice(*self.column_names)
+			item.save!
+		end
 	end
 end

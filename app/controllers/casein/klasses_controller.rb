@@ -16,6 +16,12 @@ module Casein
         format.xlsx
       end
     end
+
+    def import
+      Klass.import(params[:file])
+      flash[:notice] = 'File has been imported'
+      redirect_to casein_klasses_path
+    end
   
     def show
       @casein_page_title = 'View klass'

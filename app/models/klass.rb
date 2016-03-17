@@ -8,6 +8,8 @@ class Klass < ActiveRecord::Base
 	include RankedModel
 	ranks :row_order, :with_same => :course_id
 
+	acts_as_xlsx
+
 	include Workflow
 
 	SESSIONS = ["Session 1", "Session 2", "Session 3", "Session 4"]
@@ -46,5 +48,22 @@ class Klass < ActiveRecord::Base
 
 	def unpublish
 		update_attribute(:published_at, nil)
+	end
+
+	def self.to_csv
+		CSV.generate do |csv|
+			csv << column_names
+			all.each do |item|
+				csv << item.attributes.values_at(*column_names)
+			end
+		end
+	end
+
+	def self.import(file)
+		CSV.foreach(file.path, headers: true) do |row|
+			item = find_by_id(row["id"]) || new
+			item.attributes = row.to_hash.slice(*self.column_names)
+			item.save!
+		end
 	end
 end

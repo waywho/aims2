@@ -35,30 +35,35 @@ Rails.application.routes.draw do
       collection do
         post :edit_multiple
         post :update_multiple
+        post :import
       end
     end
 		resources :fees do
       collection do
         post :edit_multiple
         post :update_multiple
+        post :import
       end
     end
 		resources :events do
       collection do
         post :edit_multiple
         post :update_multiple
+        post :import
       end
     end
 		resources :pages do
       collection do
         post :edit_multiple
         post :update_multiple
+        post :import
       end
     end
 		resources :staffs do
       collection do
         post :edit_multiple
         post :update_multiple
+        post :import
       end
     end
 		resources :photos do
@@ -72,12 +77,14 @@ Rails.application.routes.draw do
       collection do
         post :edit_multiple
         post :update_multiple
+        post :import
       end
     end
 		resources :courses do
       collection do
         post :edit_multiple
         post :update_multiple
+        post :import
       end
     end
 	end

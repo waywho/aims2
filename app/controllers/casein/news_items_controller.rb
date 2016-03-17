@@ -16,6 +16,12 @@ module Casein
         format.xlsx
       end
     end
+
+    def import
+      NewsItem.import(params[:file])
+      flash[:notice] = 'File has been imported'
+      redirect_to casein_news_items_path
+    end
   
     def show
       @casein_page_title = 'View news item'
