@@ -8,9 +8,9 @@
 	<br />
 	<%= f.input :caption %>
 	<% if @photo.imageable_type == 'Staff' %>
-		<%= f.input :imageable_id, collection: Staff.all, label: 'Assign to...' %>
+		<%= f.input :imageable_id, collection: Staff.all, label: 'Assign to...', label_method: :full_name %>
 	<% else %>
-		<%= f.input :imageable_id, collection: [CourseFormat, Course, Event], label: 'Assign to...', as: :grouped_select, group_method: :all %>
+		<%= f.input :imageable_id, collection: [Courseformat , Course, Event], label: 'Assign to...', as: :grouped_select, group_method: :all %>
 	<% end %>
 
 	<%= f.button :submit, :class => "btn btn-mini btn-primary" %>

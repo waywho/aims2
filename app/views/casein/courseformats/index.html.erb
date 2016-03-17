@@ -11,5 +11,13 @@
 	<li><%= link_to "#{casein_show_icon "plus-sign"}Add a new courseformat".html_safe, new_casein_courseformat_path %></li>
 	Download: <%= link_to 'CSV', casein_courseformats_path(format: 'csv') %> | 
 	<%= link_to 'Excel', casein_courseformats_path(format: 'xlsx') %>
+	<br />
+	<br />
+	Upload CSV file:
+	<br />
+	<%= form_tag import_casein_courseformats_path, multipart: true do %>
+		<%= file_field_tag :file, accept: 'text/csv' %>
+		<%= submit_tag "Import", :class => 'btn btn-xs btn-primary pull-right' %>
+	<% end %>
 
 <% end %>

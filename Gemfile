@@ -76,6 +76,7 @@ gem 'axlsx', '~> 2.0.1'
 gem 'axlsx_rails'
 
 gem 'acts_as_xlsx'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

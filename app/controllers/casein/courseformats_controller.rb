@@ -16,6 +16,12 @@ module Casein
         format.xlsx
       end
     end
+
+    def import
+      Courseformat.import(params[:file])
+      flash[:notice] = 'File has been imported'
+      redirect_to casein_courseformats_path
+    end
   
     def show
       @casein_page_title = 'View course format'
@@ -126,7 +132,7 @@ module Casein
     private
       
       def courseformat_params
-        params.require(:courseformat).permit(:title, :description, :courseformats, :feature, :published_at, {:page_ids => []}, {:courseformat_ids => []}, 
+        params.require(:courseformat).permit(:title, :description, :courseformats, :feature, :published_at, {:page_ids => []}, {:courseformat_ids => []}, :file,
           :workflow_state, :whats_new, :when_from, :when_to, :venue, :address1, :row_order_position, :address2, :city, :county, :country, :post_code, :keyword_list,
           photos_attributes: [:id, :caption, :image], highlights_attributes: [:id, :title, :description, :_destroy])
       end
