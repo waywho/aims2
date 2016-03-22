@@ -3,6 +3,13 @@ Rails.application.routes.draw do
 
 	#Casein routes
 	namespace :casein do
+		resources :faqs do
+      collection do
+        post :edit_multiple
+        post :update_multiple
+        post :import
+      end
+    end
 		resources :dashboards
 
 		resources :documents do
@@ -115,6 +122,8 @@ Rails.application.routes.draw do
   resources :news_items, :only => [:index, :show]
 
   resources :bookings, :only => [:index, :show, :create]
+
+  resources :faqs, :only => [:index, :show, :create]
 
 
   # The priority is based upon order of creation: first created -> highest priority.

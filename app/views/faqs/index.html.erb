@@ -1,0 +1,34 @@
+<h1 class="page-heading">Frequently Asked Questions</h1>
+
+<section class='questions'>
+<ul>
+	<% @faqs.each do |faq| %>
+		<li><h4><%= link_to faq.question, faqs_path(:anchor => faq.question.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')), :class => 'in_page' %></h4></li>
+	<% end %>
+</ul>
+</section>
+<br />
+<br />
+<section class='answers'>
+	<% @faqs.each do |faq| %>
+	<div>
+		<h4><%= link_to faq.question, "", :name => faq.question.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '') %></h4>
+		<p>
+			<%= faq.answer.html_safe %>
+		</p>
+	</div>
+	<br />
+	<% end %>
+</section>
+
+<script>
+	$(document).ready(function() {
+		var $root = $('html, body');
+		$('.in_page').click(function(){
+		    $root.animate({
+		        scrollTop: $('[name="' + $.attr(this, 'href').substr(6) + '"]').offset().top
+		    }, 500);
+		    return false;
+		});
+	})
+</script>

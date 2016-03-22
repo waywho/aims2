@@ -13,19 +13,19 @@
 	<h3>Admin</h3>
 	<ul>
 		<% @staffs.admin.each do |staff| %>
-			<li><%= link_to staff.full_name, staffs_path(:anchor => staff.combined_name) %></li>
+			<li><%= link_to staff.full_name, staffs_path(:anchor => staff.combined_name), :class => 'in_page' %></li>
 		<% end %>
 	</ul>
 	<h3>Tutors</h3>
 	<ul>
 	<% @staffs.tutors.each do |staff| %>
-		<li><%= link_to staff.full_name, staffs_path(:anchor => staff.combined_name) %></li>
+		<li><%= link_to staff.full_name, staffs_path(:anchor => staff.combined_name), :class => 'in_page' %></li>
 	<% end %>
 	</ul>
 	<h3>House Pianists</h3>
 	<ul>
 	<% @staffs.house_pianists.each do |staff| %>
-		<li><%= link_to staff.full_name, staffs_path(:anchor => staff.combined_name) %></li>
+		<li><%= link_to staff.full_name, staffs_path(:anchor => staff.combined_name), :class => 'in_page' %></li>
 	<% end %>
 	</ul>
 </section>
@@ -34,23 +34,23 @@
 	<div class = "row">
 		<% @staffs.each do |staff| %>
 			<% if staff.photo %>
-	  			<div class = "col-sm-6 col-md-3 col-lg-3">
+	  			<div class = "col-sm-6 col-md-3 col-lg-3" name = <%= staff.combined_name %> >
 	  				<%= link_to staff_path(staff) do %>
 	    			<div class = "thumbnail staff-thumb">
 	     			<%= image_tag staff.photo.image_url %>
 	      				<div class = "caption">
-	        			<h4><%= link_to staff.full_name, "", :name => staff.combined_name %></h4>
+	        			<h4><%=  staff.full_name %></h4>
 	      				</div>
 	   				</div>
 	   				<% end %>
 	   			</div>
 	   		<% else %>
-	   			<div class = "col-sm-6 col-md-3 col-lg-3">
+	   			<div class = "col-sm-6 col-md-3 col-lg-3" name = <%= staff.combined_name %>>
 	  				<%= link_to staff_path(staff) do %>
 	    			<div class = "thumbnail staff-thumb">
 	     			<%= image_tag 'person_holder.png' %>
 	      				<div class = "caption">
-	        			<h4><%= link_to staff.full_name, "", :name => staff.combined_name %></h4>
+	        			<h4><%= link_to staff.full_name %></h4>
 	      				</div>
 	   				</div>
 	   				<% end %>
@@ -59,3 +59,16 @@
    		<% end %>
 	</div>
 </section>
+
+
+<script>
+	$(document).ready(function() {
+		var $root = $('html, body');
+		$('.in_page').click(function(){
+		    $root.animate({
+		        scrollTop: $('[name="' + $.attr(this, 'href').substr(8) + '"]').offset().top
+		    }, 500);
+		    return false;
+		});
+	})
+</script>
