@@ -22,8 +22,16 @@
 <%= content_for :sidebar do %>
 
 	<li><%= link_to "#{casein_show_icon "plus-sign"}Add a new photo".html_safe, new_casein_photo_path %></li>
-	<div id='photo-load'></div>
-
+	<div id='photo-load'></div><br />
+	<hr />
+	Download Data: <%= link_to 'CSV', casein_photos_path(format: 'csv') %> | 
+	<%= link_to 'Excel', casein_photos_path(format: 'xlsx') %>	
+	<br />
+	<br />
+	<%= form_tag import_casein_photos_path, multipart: true do %>
+		<%= file_field_tag :file, accept: 'text/csv' %>
+		<%= submit_tag "Import", :class => 'btn btn-xs btn-primary pull-right' %>
+	<% end %>
 <% end %>
 
 <script>

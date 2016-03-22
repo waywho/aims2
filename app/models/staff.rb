@@ -81,6 +81,8 @@ class Staff < ActiveRecord::Base
 			item = find_by_id(row["id"]) || new
 			item.attributes = row.to_hash.slice(*self.column_names)
 			item.save!
+
+			item.specialty_list.add(row["specialty"])
 		end
 	end
 

@@ -54,7 +54,7 @@ $(document).ready(function() {
 	      	heightMin: 400,
 	      	fileUploadURL: "/casein/documents/insert_file",
 	      	fileUploadParam: "document[file]",
-	      	imageManagerLoadURL: "/casein/photos/",
+	      	imageManagerLoadURL: "/casein/photos.json",
 	      	toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 
 	      	'strikeThrough','fontSize', '|', 'color', 'paragraphStyle', 
 	      	'|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 

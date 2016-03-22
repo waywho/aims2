@@ -70,6 +70,7 @@ Rails.application.routes.draw do
       collection do
         get :edit_multiple
         post :update_multiple
+        post :import
         # post :imageable_create
       end
     end

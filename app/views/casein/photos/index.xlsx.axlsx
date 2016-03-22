@@ -1,0 +1,8 @@
+photo_wb = xlsx_package.workbook
+
+photo_wb.add_worksheet(name: "photos-#{Date.today}") do |sheet|
+	sheet.add_row @photos.first.attributes.keys.to_a
+	@photos.each do |photo|
+		sheet.add_row photo.attributes.values.to_a
+	end
+end

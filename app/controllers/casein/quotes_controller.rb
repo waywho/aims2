@@ -17,7 +17,6 @@ module Casein
       end
     end
 
-
     def import
       Quote.import(params[:file])
       flash[:notice] = 'File has been imported'

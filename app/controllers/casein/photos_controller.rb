@@ -12,8 +12,20 @@ module Casein
       @casein_page_title = 'Photos'
   		@photo = Photo.new
       @photos = Photo.order(sort_order(:caption)).paginate :page => params[:page]
+      respond_to do |format|
+        format.html
+        format.json
+        format.csv { send_data @photos.to_csv, filename: "photos-#{Date.today}.csv"}
+        format.xlsx
+      end
     end
-  
+    
+    def import
+      Photo.import(params[:file])
+      flash[:notice] = 'File has been imported'
+      redirect_to casein_photos_path
+    end
+
     def show
       @casein_page_title = 'View photo'
       @photo = Photo.find params[:id]
