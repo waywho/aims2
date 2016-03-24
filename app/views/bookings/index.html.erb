@@ -156,7 +156,7 @@
 	<br />
 	<div class = 'row bottom-div'>
 		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-			<h3>Fee (Accommodation) Options</h3>
+			<h3>Accommodation/Visitor Options</h3>
 		</div>
 		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
 			<%= f.input :summer_product_code, required: false, label: false do %>
@@ -183,64 +183,9 @@
 	</div>
 </div>
 
-<!--- Payment Options Commented Out until Payment Gate is decided
-<div class = 'row'>
-	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-		<h3>Payment</h3>
-	</div>
-	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
-		<%= f.input :stage, collection: ['Full amount', 'Deposit'], as: :radio_buttons, label: 'I would like to pay...', input_html: { :class => 'payment-stage'}, required: true %>
-	</div>
-	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6 total'>
-		<div class = 'col-xs-4 col-sm-4 col-md-4 col-lg-4 amount-header'%>
-			<b>Amount due: </b>
-		</div>
-		<div class = 'col-xs-8 col-sm-8 col-md-8 col-lg-8'%>
-			<span class = 'payment-amount'></span>
-		<%= f.input :payment_amount, as: :hidden, label: false, required: false %>
-		</div>
-	</div>
-	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12 agreement'>
-		I enclose my deposit of £75 (non-refundable) and I understand to pay the remainder of 50% of my fees by 1 May 2016 and the blance by 30 June 2016.
-
-		Note: please make sure that you send the full amount to the AIMS account and that any bank charges are compensate for at your end. Any payments that have had deductions made will have to be paid up in ful at the beginning of the course.
-	</div>
-</div>
--->
-
-<div class = 'row'>
-	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-	<h3>Payment</h3>
-	</p>By cheque (made payable to <b>AIMS International Music School</b>) or Bank transfer (details below)</p>
-	</div>
-	<div class = 'col-xs-12 col-sm-12 col-md-8 col-lg-8'>
-		<div class = 'bank-detail row'>
-			<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
-				<b>SORT CODE:</b> 40 25 06
-			</div>
-			<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
-				<b>IBAN:</b> GB37MIDL40250681383132
-			</div>
-			<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
-				<b>ACCOUNT NUMBER:</b> 81383132
-			</div>
-			<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
-				<b>BIC:</b> MIDLGB2113U
-			</div>
-		</div>
-	</div>
-	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-		<p>
-			Please make sure that you send the full amount to the AIMS account, that any bank chanrges are compensated for at your end. Any payments that have had deductions made will have to be paid up in full at the beginning of the course.
-		</p>
-		<p>
-			To confirm your booking, you can pay a deposit of £75 (non-refundable). You will pay the remainder of 50% of your fees by 1 May 2016 and the blance by 30 June 2016.
-		</p>
-	</div>
-</div>
-
 	<br class = 'clr' />
-	<%= f.button :submit, 'Submit Booking', :class => 'btn btn-primary btn-lg' %>
+	<%= f.button :submit, 'Submit Booking', :class => 'btn btn-primary' %>
+
 <% end %>
 
 <script>
