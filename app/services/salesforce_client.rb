@@ -35,6 +35,7 @@ class SalesforceClient
 	end
 
 	def create_booking(params, account, opp_uid)
+		course_selection = [params[:course_stream_summer], params[:course_strea_mini]].find { |x| !x.empty?}
 		Restforce.new.create!('Opportunity',
 		    RecordTypeId: '01224000000DDUcAAO',
 		    Type: 'AIMS',
@@ -46,7 +47,7 @@ class SalesforceClient
 		    CloseDate: Time.now.to_datetime.strftime("%Y-%m-%d"),
 		    Web_uid__c: opp_uid,
 		    Car_Registration__c: params[:car_reg],
-		    Course__c: params[:course],
+		    Course__c: course_select,
 		    Solo_classes__c: join_array(params[:solo_classes]),
 		    Notes_for_class_selection__c: params[:notes_for_class_selection],
 		    Session_1__c: params[:session_1],

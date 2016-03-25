@@ -3,7 +3,7 @@
 
 <h1>Bookings</h1>
 
-<%= simple_form_for :booking, :url => bookings_path, :method => 'post', html: {:id => 'booking_form'} do |f| %>
+<%= simple_form_for :booking, :url => review_bookings_path, :method => 'post', html: {:id => 'booking_form'} do |f| %>
 
 <div class = 'row'>
 	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
@@ -64,8 +64,10 @@
 			<h2>Summer School Options</h2>
 		</div>
 		<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
-			<%= f.input :course, collection: find_soap_field(@booking, 'Course__c'), label_method: :label, value_method: :value, include_blank: 'Select a course', label: 'Course Stream', input_html: { :class => 'course-select'}, required: false %>
+			<%= f.input :course_stream_summer, collection: find_soap_field(@opportunity, 'Course__c'), label_method: :label, value_method: :value, include_blank: 'Select a course', label: 'Course Stream', input_html: { :id => 'summer-course-select'}, required: false %>
 		</div>
+
+
 	</div>
 	<div class = 'row course-booking Solo Crossover'>
 		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
@@ -74,7 +76,7 @@
 		<br />
 		<br />
 		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-			<%= f.collection_check_boxes :solo_classes, find_soap_field(@booking, 'Solo_classes__c'), :value, :label, :include_hidden => false, item_wrapper_class: 'solo-select', required: false %>
+			<%= f.collection_check_boxes :solo_classes, find_soap_field(@opportunity, 'Solo_classes__c'), :value, :label, :include_hidden => false, item_wrapper_class: 'solo-select', required: false %>
 		</div>
 		<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
 			<%= f.input :notes_for_class_selection, label: 'Choice 4 (optional)', hint: '(Replace with this option if any of my selections are not availble)', required: false %>
@@ -91,45 +93,45 @@
 		<br />
 		<br />
 		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
-			<%= f.input :session_1, collection: find_soap_field(@booking, 'Session_1__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
-			<% find_soap_field(@booking, 'Session_1__c').each do |selection| %>
-				<% if sf_session_options(@booking.fields, selection.value, 'Session_1__c', @client).present? %>
+			<%= f.input :session_1, collection: find_soap_field(@opportunity, 'Session_1__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
+			<% find_soap_field(@opportunity, 'Session_1__c').each do |selection| %>
+				<% if sf_session_options(@opportunity.fields, selection.value, 'Session_1__c', @client).present? %>
 					<div class = 'session-options' data-selection='<%= selection.value %>'>
 						<span class='instruction'>Select either or both of the following options.</span><br />
-						<%= f.collection_check_boxes :session_1_options, sf_session_options(@booking.fields, selection.value, 'Session_1__c', @client), :value, :label, :include_hidden => false, required: false %>
+						<%= f.collection_check_boxes :session_1_options, sf_session_options(@opportunity.fields, selection.value, 'Session_1__c', @client), :value, :label, :include_hidden => false, required: false %>
 					</div>
 				<% end %>
 			<% end %>
 		</div>
 		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
-			<%= f.input :session_2, collection: find_soap_field(@booking, 'Session_2__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
-			<% find_soap_field(@booking, 'Session_2__c').each do |selection| %>
-				<% if sf_session_options(@booking.fields, selection.value, 'Session_2__c', @client).present? %>
+			<%= f.input :session_2, collection: find_soap_field(@opportunity, 'Session_2__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
+			<% find_soap_field(@opportunity, 'Session_2__c').each do |selection| %>
+				<% if sf_session_options(@opportunity.fields, selection.value, 'Session_2__c', @client).present? %>
 					<div class = 'session-options' data-selection='<%= selection.value %>'>
 						<span class='instruction'>Select either or both of the following options.</span><br />
-						<%= f.collection_check_boxes :session_2_options, sf_session_options(@booking.fields, selection.value, 'Session_2__c', @client), :value, :label, :include_hidden => false, required: false %>
+						<%= f.collection_check_boxes :session_2_options, sf_session_options(@opportunity.fields, selection.value, 'Session_2__c', @client), :value, :label, :include_hidden => false, required: false %>
 					</div>
 				<% end %>
 			<% end %>
 		</div>
 		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
-			<%= f.input :session_3, collection: find_soap_field(@booking, 'Session_3__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
-			<% find_soap_field(@booking, 'Session_3__c').each do |selection| %>
-				<% if sf_session_options(@booking.fields, selection.value, 'Session_3__c', @client).present? %>
+			<%= f.input :session_3, collection: find_soap_field(@opportunity, 'Session_3__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
+			<% find_soap_field(@opportunity, 'Session_3__c').each do |selection| %>
+				<% if sf_session_options(@opportunity.fields, selection.value, 'Session_3__c', @client).present? %>
 					<div class = 'session-options' data-selection='<%= selection.value %>'>
 						<span class='instruction'>Select either or both of the following options.</span><br />
-						<%= f.collection_check_boxes :session_3_options, sf_session_options(@booking.fields, selection.value, 'Session_3__c', @client), :value, :label, :include_hidden => false, required: false %>
+						<%= f.collection_check_boxes :session_3_options, sf_session_options(@opportunity.fields, selection.value, 'Session_3__c', @client), :value, :label, :include_hidden => false, required: false %>
 					</div>
 				<% end %>
 			<% end %>
 		</div>
 		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
-			<%= f.input :session_4, collection: find_soap_field(@booking, 'Session_4__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
-			<% find_soap_field(@booking, 'Session_4__c').each do |selection| %>
-				<% if sf_session_options(@booking.fields, selection.value, 'Session_4__c', @client).present? %>
+			<%= f.input :session_4, collection: find_soap_field(@opportunity, 'Session_4__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
+			<% find_soap_field(@opportunity, 'Session_4__c').each do |selection| %>
+				<% if sf_session_options(@opportunity.fields, selection.value, 'Session_4__c', @client).present? %>
 					<div class = 'session-options' data-selection='<%= selection.value %>'>
 						<span class='instruction'>Select either or both of the following options.</span><br />
-						<%= f.collection_check_boxes :session_4_options, sf_session_options(@booking.fields, selection.value, 'Session_4__c', @client), :value, :label, :include_hidden => false, required: false%>
+						<%= f.collection_check_boxes :session_4_options, sf_session_options(@opportunity.fields, selection.value, 'Session_4__c', @client), :value, :label, :include_hidden => false, required: false%>
 					</div>
 				<% end %>
 			<% end %>
@@ -141,11 +143,11 @@
 			<h3>Audition</h3>
 			<span>I would like to be considered for (please tick all that apply):</span><br />
 			<br />
-			<%= f.collection_check_boxes :audition_for, find_soap_field(@booking, 'Auditioning_for__c'), :value, :label, required: false %><br />
+			<%= f.collection_check_boxes :audition_for, find_soap_field(@opportunity, 'Auditioning_for__c'), :value, :label, required: false %><br />
 			<br />
 			<span>I would like to attend the audiiton on Saturday 9 April, 2016: </span> <br />
 			<br />
-			<%= f.input :audition, collection: find_soap_field(@booking, 'Audition_requested__c'), label_method: :label, value_method: :value, label: false, include_blank: 'Selection an audition time option', required: false %>
+			<%= f.input :audition, collection: find_soap_field(@opportunity, 'Audition_requested__c'), label_method: :label, value_method: :value, label: false, include_blank: 'Select an audition time', required: false %>
 		</div>
 		<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6 audition-notes'>
 			<h3>Audition Recording/Notes</h3>
@@ -171,7 +173,7 @@
 		<h2>Mini-Aims Course Options</h2>
 	</div>
 	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
-			<%= f.input :course, collection: ['Solo', 'Choral'], include_blank: 'Select a course', label: 'Course Stream', input_html: { :class => 'course-select'}, required: true %>
+			<%= f.input :course_stream_mini, collection: ['Solo', 'Choral'], include_blank: 'Select a course', label: 'Course Stream', input_html: { :class => 'course-select'}, required: true %>
 	</div>
 	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
 		<%= f.input :days, collection: ['Saturday', 'Sunday'], as: :check_boxes, label: 'I would like to attend...', required: true %>
@@ -182,9 +184,34 @@
 		<% end %>
 	</div>
 </div>
+<div class = 'row'>
+	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+		<h3>Payment</h3>
+	</div>
+	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+		<%= f.input :stage, collection: ['Credit Cards', 'Bank Transfer'], as: :radio_buttons, label: 'I would like to pay by...', input_html: { :class => 'payment-type'}, required: true %>
+	</div>
+	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+		<%= f.input :stage, collection: ['Full amount', 'Deposit'], as: :radio_buttons, label: 'I would like to pay...', input_html: { :class => 'payment-stage'}, required: true %>
+	</div>
+	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6 total'>
+		<div class = 'col-xs-4 col-sm-4 col-md-4 col-lg-4 amount-header'%>
+			<b>Amount due: </b>
+		</div>
+		<div class = 'col-xs-8 col-sm-8 col-md-8 col-lg-8'%>
+			<span class = 'payment-amount amount'></span>
+		<%= f.input :payment_amount, as: :hidden, label: false, required: false %>
+		</div>
+	</div>
+	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12 agreement'>
+		I enclose my deposit of £75 (non-refundable) and I understand to pay the remainder of 50% of my fees by 1 May 2016 and the blance by 30 June 2016.
+
+		Note: please make sure that you send the full amount to the AIMS account and that any bank charges are compensate for at your end. Any payments that have had deductions made will have to be paid up in ful at the beginning of the course.
+	</div>
+</div>
 
 	<br class = 'clr' />
-	<%= f.button :submit, 'Submit Booking', :class => 'btn btn-primary' %>
+	<%= f.button :submit, 'Pay and Submit', :class => 'btn btn-primary' %>
 
 <% end %>
 
@@ -192,6 +219,7 @@
 	$(function() {
 
 		function resetSummerClasses() {
+			$('#summer-course-select').val("");
 			$('.solo-select input:checked').removeAttr('checked');
 			$('#booking_notes_for_class_selection').val("");
 			$('.session select').val("");
@@ -203,8 +231,11 @@
 			$('.audition input[type=checkbox]:checked').removeAttr('checked');
 			$('.audition select').val("");
 			$('#Summer-fee').val("");
-		}
+		};
 
+		if($(".session-select").val()) {
+			$("div[data-selection='" + $(".session-select").val() + "']").show();
+		};
 
 		$(".session-select").change(function() {
 			$(this).closest('.session').find('.input:checked').removeAttr('checked');
@@ -232,7 +263,7 @@
 		   }
 		})
 
-		$('.course-select').change(function() {
+		$('#summer-course-select').change(function() {
 			resetSummerClasses();
 			$('.course-booking').hide();
 
