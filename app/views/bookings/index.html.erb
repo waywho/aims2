@@ -3,7 +3,7 @@
 
 <h1>Bookings</h1>
 
-<%= simple_form_for :booking, :url => review_bookings_path, :method => 'post', html: {:id => 'booking_form'} do |f| %>
+<%= simple_form_for :booking, :url => bookings_path, :method => 'post', html: {:id => 'booking_form'} do |f| %>
 
 <div class = 'row'>
 	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
@@ -189,10 +189,9 @@
 		<h3>Payment</h3>
 	</div>
 	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
-		<%= f.input :stage, collection: ['Credit Cards', 'Bank Transfer'], as: :radio_buttons, label: 'I would like to pay by...', input_html: { :class => 'payment-type'}, required: true %>
-	</div>
-	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
-		<%= f.input :stage, collection: ['Full amount', 'Deposit'], as: :radio_buttons, label: 'I would like to pay...', input_html: { :class => 'payment-stage'}, required: true %>
+		<%= f.input :stage, collection: ['Full amount', 'Deposit'], as: :radio_buttons, label: 'I would like to pay...', input_html: { :class => 'payment-stage btn-primary'}, required: true %>
+		<div id = 'little-warning'>
+		</div>
 	</div>
 	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6 total'>
 		<div class = 'col-xs-4 col-sm-4 col-md-4 col-lg-4 amount-header'%>
@@ -204,22 +203,60 @@
 		</div>
 	</div>
 	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12 agreement'>
+	<br />
 		I enclose my deposit of £75 (non-refundable) and I understand to pay the remainder of 50% of my fees by 1 May 2016 and the blance by 30 June 2016.
 
 		Note: please make sure that you send the full amount to the AIMS account and that any bank charges are compensate for at your end. Any payments that have had deductions made will have to be paid up in ful at the beginning of the course.
 	</div>
+	<br />
+</div>
+<br />
+<div class = 'row'>
+	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+		<%= f.input :payment_type, collection: ['Credit Cards', 'Bank Transfer'], as: :radio_buttons, label: 'Pay by...', input_html: { :class => 'payment-type'}, required: true %>
+	</div>
 </div>
 
 	<br class = 'clr' />
-	<%= f.button :submit, 'Pay and Submit', :class => 'btn btn-primary' %>
+<div class = 'row pay-stripe'>
+	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+		<i>We accept...</i><%= image_tag 'card_visa.png', :class => 'img-responsive card' %> <%= image_tag 'card_master.png', :class => 'img-responsive card' %> <%= image_tag 'card_amex.png', :class => 'img-responsive card' %>
+		<%= image_tag 'stripe-solid.png' %>
+	</div>
+	<div class = "col-xs-12 col-sm-6 col-md-6 col-lg-6">
+	  <article>
+	    <% if flash[:error].present? %>
+	      <div id="error_explanation">
+	        <p><%= flash[:error] %></p>
+	      </div>
+	    <% end %>
+	    <label class="amount">
+	      <span>Amount: $5.00</span>
+	    </label>
+	  </article>
 
+	  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+	          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+	          data-description="A month's subscription"
+	          data-amount="500"
+	          data-locale="auto"></script>
+	</div>
+</div>
+<br />
+<div class = "row pay-bank">
+	<div class = "col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		</div>
+	<div class = "col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		<%= f.button :submit, :class => 'btn btn-primary' %>
+	</div>
+</div>
 <% end %>
 
 <script>
 	$(function() {
 
 		function resetSummerClasses() {
-			$('#summer-course-select').val("");
+			// $('#summer-course-select').val("");
 			$('.solo-select input:checked').removeAttr('checked');
 			$('#booking_notes_for_class_selection').val("");
 			$('.session select').val("");
@@ -277,6 +314,7 @@
 
 		$('.payment-stage').click(function() {
 			$('.payment-amount').empty();
+			$('#little-warning').empty();
 			if ($(this).val() ==  'Full amount') { 
 				var campaign = $('#booking_campaign_id').val();
 				var validator = $('#booking_form').validate();
@@ -315,6 +353,7 @@
 						}
 					}
 				} else {
+					$('#little-warning').text('Please select an amount');
 					$('#booking_campaign_id').focus;
 				}
 			} else if ($(this).val() == 'Deposit') {

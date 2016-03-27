@@ -123,14 +123,11 @@ Rails.application.routes.draw do
 
   resources :bookings, :only => [:index, :show, :create, :edit] do
     collection do
-      post :review
       post :payment
     end
   end
 
   resources :faqs, :only => [:index, :show, :create]
-
-  resources :charges
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
