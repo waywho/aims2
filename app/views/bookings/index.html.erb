@@ -226,22 +226,7 @@
 		<%= image_tag 'stripe-solid.png' %>
 	</div>
 	<div class = "col-xs-12 col-sm-6 col-md-6 col-lg-6">
-	  <article>
-	    <% if flash[:error].present? %>
-	      <div id="error_explanation">
-	        <p><%= flash[:error] %></p>
-	      </div>
-	    <% end %>
-	    <label class="amount">
-	      <span>Amount: $5.00</span>
-	    </label>
-	  </article>
-
-	  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-	          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-	          data-description="A month's subscription"
-	          data-amount="500"
-	          data-locale="auto"></script>
+		<%= f.submit 'Pay and Submit Booking', name: 'stripe_booking', :class => 'btn btn-primary', :id => 'stripeButton' %>
 	</div>
 </div>
 <div class = "row pay-bank">
@@ -271,12 +256,11 @@
 	</div>
 	<div class = "col-xs-12 col-sm-6 col-md-6 col-lg-6">
 		<br />
-		<br />
-		<%= f.button :submit, 'Submit Booking', :class => 'btn btn-primary' %>
+		<%= f.submit "Submit Booking", name: 'bank_booking', :class => 'btn btn-primary' %>
 	</div>
 </div>
 <% end %>
-
+<script src="https://checkout.stripe.com/checkout.js"></script>
 <script>
 	$(function() {
 
@@ -420,6 +404,42 @@
 				error.appendTo($("label[for='" + element.attr('id') + "']"));
 			}
 		});
+
+		var handler = StripeCheckout.configure({
+		    key: "<%= Rails.configuration.stripe[:publishable_key] %>",
+		    locale: 'auto',
+		    token: function(token) {
+		      // Use the token to create the charge with a server-side script.
+		      // You can access the token ID with `token.id`
+		      var form = $('#booking_form');
+        		form.append($('<input type="hidden" name="stripeToken" />').val(token.id));
+        		form.submit();
+		    }
+		  });
+
+		  $('#stripeButton').on('click', function(e) {
+		  	var validator = $('#booking_form').validate({
+			errorClass: 'invalid',
+			errorPlacement: function(error, element) {
+				error.appendTo($("label[for='" + element.attr('id') + "']"));
+				}
+			});
+		  	if(validator.form()) {
+		  		// Open Checkout with further options
+			    handler.open({
+			      name: 'Demo Site',
+			      description: '2 widgets',
+			      currency: "gbp",
+			      amount: 2000
+			    });
+			    e.preventDefault();
+		  	}
+		  });
+
+		  // Close Checkout on page navigation
+		  $(window).on('popstate', function() {
+		    handler.close();
+		  });
 
 
 	})

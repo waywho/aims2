@@ -41,6 +41,27 @@ class BookingsController < ApplicationController
   end
 
   def create
+
+    if params[:stripeToken] 
+      @amount = 500
+
+      customer = Stripe::Customer.create(
+          :email => booking_params[:email],
+          :source  => params[:stripeToken]
+        )
+
+      charge = Stripe::Charge.create(
+          :customer    => customer.id,
+          :amount      => @amount,
+          :description => 'Rails Stripe customer',
+          :currency    => 'usd'
+        )
+
+      rescue Stripe::CardError => e
+        flash[:error] = e.message
+        redirect_to new_charge_path
+    end
+
     @client = Restforce.new
 
     booking_contact = @client.search("FIND {#{booking_params[:email]}} RETURNING Contact (Id)").map(&:Id)
