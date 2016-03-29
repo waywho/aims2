@@ -45,10 +45,10 @@
 	</div>
 	<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
 		<%= f.input :email, required: true %>
-		<%= f.input :telephone, required: false %>
-		<%= f.input :mobile, required: false %>
+		<%= f.input :preferred_contact, collection: @preferred_phone_values, label: 'Preferred contact', value_method: :value, label_method: :label, required: true %>
+		<%= f.input :contact_number, required: false %>
 		<%= f.input :date_of_birth, required: false %>
-		<%= f.input :voice_type, collection: @voice_types, value_method: :value, label_method: :label, required: false %>
+		<%= f.input :voice_type, collection: @voice_types, value_method: :value, label_method: :label, required: true %>
 	</div>
 </div>
 <br />
@@ -188,36 +188,42 @@
 	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
 		<h3>Payment</h3>
 	</div>
-	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
 		<div id = 'little-warning'></div>
-		<%= f.input :stage, collection: ['Full amount', 'Deposit'], as: :radio_buttons, label: 'I would like to pay...', input_html: { :class => 'payment-stage btn-primary'}, required: true %>
+		<%= f.input :stage, collection: ['Full Amount', 'Deposit'], as: :radio_buttons, label: 'I would like to pay...', input_html: { :class => 'payment-stage btn-primary'}, required: true %>
 		<div class = 'agreement'>
 			<%= f.input :agreement, as: :boolean, label: "I enclose my deposit of £75 (non-refundable) and I understand to pay the remainder of 50% of my fees by 1 May 2016 and the blance by 30 June 2016." %>
 		</div>
 	</div>
-	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6 total'>
-		<div class = 'col-xs-4 col-sm-4 col-md-4 col-lg-4 amount-header'%>
-			<b>Amount due: </b>
-		</div>
-		<div class = 'col-xs-8 col-sm-8 col-md-8 col-lg-8'%>
-			<span class = 'payment-amount amount'></span>
-		<%= f.input :payment_amount, as: :hidden, label: false, required: false %>
-		</div>
-	</div>
-	<br />
 </div>
 <div class = 'row'>
-	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-		<b>Pay by...</b>
+	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+		<b>Pay by...</b><br />
+		<br />
 		<div class="btn-group payment-type-buttons" data-toggle="buttons">
 		  <label class="btn btn-default active">
-		    <input type="radio" name="options" id="option1" autocomplete="off" value='credit' checked = ""> Credit Cards
+		    <input type="radio" name="options" id="option1" autocomplete="off" value='credit' checked = 'checked'> Credit Cards
 		  </label>
 		  <label class="btn btn-default">
 		    <input type="radio" name="options" id="option2" autocomplete="off" value='bank'> Bank Transfer
 		  </label>
 		</div>
 	</div>
+	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+		<div id = 'course-cost' class = 'text-holder'></div>
+		<div id = 'service-charge' class = 'text-holder'></div>
+		<%= f.input :service_fee, as: :hidden, label: false, required: false %>
+		<div class = 'total'>
+			<div class = 'col-xs-4 col-sm-4 col-md-4 col-lg-4 amount-header'%>
+				<b>Amount due: </b>
+			</div>
+			<div class = 'col-xs-8 col-sm-8 col-md-8 col-lg-8'%>
+				<span class = 'payment-amount amount'></span>
+			<%= f.input :payment_amount, as: :hidden, label: false, required: false %>
+			</div>
+		</div>
+	</div>
+	<br />
 </div>
 <br />
 <div class = 'row pay-stripe'>
@@ -279,6 +285,24 @@
 			$('#Summer-fee').val("");
 		};
 
+		function set_amount_due_with_service(amount) {
+			$('#service-charge').empty();
+			var chargeAmount = (amount + 0.2) / (1 - 0.014)
+			var service = chargeAmount - amount
+			$('#course-cost').text("Sub-total: £" + amount);
+			$('.payment-amount').text("£" + (chargeAmount).toFixed(2));
+			$('#booking_payment_amount').val((chargeAmount).toFixed(2));
+			$('#service-charge').text("Stripe Service charge: £" + (service).toFixed(2));	
+			$('#booking_service_fee').val((service).toFixed(2));
+		};
+
+		function set_amount_due_no_service(amount) {
+			$('#service-charge').empty();
+			$('#course-cost').text("Sub-total £" + amount);
+			$('#booking_payment_amount').val(amount);
+			$('.payment-amount').text("£" + amount);
+		}
+
 		if($(".session-select").val()) {
 			$("div[data-selection='" + $(".session-select").val() + "']").show('slow');
 		};
@@ -324,7 +348,7 @@
 		$('.payment-stage').click(function() {
 			$('.payment-amount').empty();
 			$('#little-warning').empty();
-			if ($(this).val() ==  'Full amount') { 
+			if ($(this).val() ==  'Full Amount') { 
 				var campaign = $('#booking_campaign_id').val();
 				var validator = $('#booking_form').validate();
 				$('.agreement').hide('slow');
@@ -335,16 +359,19 @@
 					if ($('#booking_campaign_id').find(':selected').data("type") == 'Summer') {
 						console.log($('#Summer-fee').find(':selected').val());
 						if (!$('#Summer-fee').find(':selected').val()) {
-							console.log("found it!");
 							$("#Summer-fee").addClass('warning-box');
 							$("#Summer-fee").before("<span class = 'warning'>Please select an option first</div>");
 							$("#Summer-fee").focus();
 						} else {
 							var amount = $('#Summer-fee').find(':selected').data('amount');
-							// console.log(amount);
-							$('#booking_payment_amount').val(amount);
-
-							$('.payment-amount').text("£" + amount);
+							console.log(amount);
+							if($('.payment-type-buttons input:radio:checked').val() == 'credit') {
+								// console.log(amount);
+								set_amount_due_with_service(amount);
+							} else {
+								// console.log(amount);
+								set_amount_due_no_service(amount);
+							}
 						}
 
 					} else if ($('#booking_campaign_id').find(':selected').data("type") == 'Taster') {
@@ -355,10 +382,13 @@
 							$('#Taster-fee').focus();
 						} else {
 							var amount = $('#Taster-fee').find(':selected').data('amount');
-							// console.log(amount);
-							$('#booking_payment_amount').val(amount);
-	
-							$('.payment-amount').text("£" + amount);
+							if($('.payment-type-buttons input:radio:checked').val() == 'credit') {
+								// console.log(amount);
+								set_amount_due_with_service(amount);
+							} else {
+								// console.log(amount);
+								set_amount_due_no_service(amount);
+							}						
 						}
 					}
 				} else {
@@ -366,22 +396,34 @@
 					$('#booking_campaign_id').focus;
 				}
 			} else if ($(this).val() == 'Deposit') {
-				var amount = '75.00'
-				// console.log('75.00');
-				$('#booking_payment_amount').val(amount);
-				$('.payment-amount').text("£" + amount);
+
+				var amount = 75.00
+				// console.log('75.00')
+
+				if($('.payment-type-buttons input:radio:checked').val() == 'credit') {
+						// console.log(amount);
+						set_amount_due_with_service(amount);
+					} else {
+						// console.log(amount);
+						set_amount_due_no_service(amount);
+							}				
 				$('.agreement').show('slow');
-			}
+			};
 		})
 		
 		$('.fee-select').change(function() {
 			console.log($('.booking_stage').find(':checked').val());
-			if ($('.booking_stage').find(':checked').val() == 'Full amount') {
+			if ($('.booking_stage').find(':checked').val() == 'Full Amount') {
 				var amount = $(this).find(':selected').data("amount");
 				console.log(amount);
 				$('.payment-amount').empty();
-				$('#booking_payment_amount').val(amount);
-				$('.payment-amount').text("£" + amount);
+				if($('.payment-type-buttons input:radio:checked').val() == 'credit') {
+						// console.log(amount);
+						set_amount_due_with_service(amount);
+					} else {
+						// console.log(amount);
+						set_amount_due_no_service(amount);
+					}
 				$('.warning').remove();
 				$(this).removeClass('.warning-box');
 			}
@@ -389,12 +431,20 @@
 
 		$('.payment-type-buttons').change(function() {
 			console.log($('.payment-type-buttons input:radio:checked').val());
+			var amount = $('.fee-select').find(':selected').data("amount");
 			if($('.payment-type-buttons input:radio:checked').val() == 'credit') {
 				$('.pay-stripe').slideDown("slow");
 				$('.pay-bank').slideUp("slow");
+				if(amount) {
+					set_amount_due_with_service(amount);
+				}
+				
 			} else {
 				$('.pay-stripe').slideUp("slow");
 				$('.pay-bank').slideDown("slow");
+				if(amount) {
+					set_amount_due_no_service(amount);
+				}
 			}
 		});
 
@@ -417,24 +467,31 @@
 		    }
 		  });
 
-		  $('#stripeButton').on('click', function(e) {
+		$('#stripeButton').on('click', function(e) {
 		  	var validator = $('#booking_form').validate({
-			errorClass: 'invalid',
-			errorPlacement: function(error, element) {
-				error.appendTo($("label[for='" + element.attr('id') + "']"));
-				}
+				errorClass: 'invalid',
+				errorPlacement: function(error, element) {
+					error.appendTo($("label[for='" + element.attr('id') + "']"));
+					}
 			});
 		  	if(validator.form()) {
+		  		if ($('#booking_campaign_id').find(':selected').data("type") == 'Summer') {
+		  			var productDescription = $('#Summer-fee').find(':selected').text();
+		  		} else {
+		  			var productDescription = $('#Taster-fee').find(':selected').text();
+		  		}
+		  		var customerEmail = $('#booking_email').val().trim();
 		  		// Open Checkout with further options
 			    handler.open({
-			      name: 'Demo Site',
-			      description: '2 widgets',
+			      name: 'AIMS International',
+			      description: productDescription,
+			      email: customerEmail,
 			      currency: "gbp",
-			      amount: 2000
+			      amount: $('#booking_payment_amount').val() * 100
 			    });
 			    e.preventDefault();
 		  	}
-		  });
+		});
 
 		  // Close Checkout on page navigation
 		  $(window).on('popstate', function() {

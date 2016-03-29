@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-	before_action :load_client, :only => [:index, :show]
+	before_action :load_client, :only => [:index, :show, :create]
 
   def index
   	# @bookings = @client.query('select Amount, CloseDate, Name, Campaign_Name__c, Course__c from Opportunity')
@@ -11,6 +11,7 @@ class BookingsController < ApplicationController
   	@opportunity = @client.describe('Opportunity')
     # @opps = @client.query('select Id, Name from PricebookEntry')
     # @contact = @client.describe('Contact')
+    @preferred_phone_values = @client.picklist_values('Contact', 'npe01__PreferredPhone__c')
 
     @voice_types = @client.picklist_values('Contact', 'Voice_Type__c')
 
@@ -41,9 +42,12 @@ class BookingsController < ApplicationController
   end
 
   def create
-
+    @campaign = find_campaign(booking_params[:campaign_id])
+    product = select_product(@campaign)
+    payment_after_service = (booking_params[:payment_amount].to_f - booking_params[:service_fee].to_f).to_s
     if params[:stripeToken] 
-      @amount = 500
+
+      @amount = (booking_params[:payment_amount].to_f * 100).to_i
 
       customer = Stripe::Customer.create(
           :email => booking_params[:email],
@@ -53,52 +57,37 @@ class BookingsController < ApplicationController
       charge = Stripe::Charge.create(
           :customer    => customer.id,
           :amount      => @amount,
-          :description => 'Rails Stripe customer',
-          :currency    => 'usd'
+          :description => product.Description,
+          :currency    => 'gbp'
         )
 
-      rescue Stripe::CardError => e
+      account = SalesforceClient.new.find_create_update_contact(booking_params)
+
+      opp_uid = create_opp_uid(account.Name, @campaign)
+      SalesforceClient.new.create_booking(booking_params, account, opp_uid)
+      opportunity = @client.find('Opportunity', opp_uid, 'Web_uid__c')
+
+      SalesforceClient.new.create_product(opportunity.Id, product.Id, product.UnitPrice)
+      SalesforceClient.new.create_payment(payment_after_service, opportunity.Id)
+
+    elsif params[:bank_booking]
+      account = SalesforceClient.new.find_create_update_contact(booking_params)
+
+      opp_uid = create_opp_uid(account.Name, @campaign)
+      SalesforceClient.new.create_booking(booking_params, account, opp_uid, params[:bank_booking])
+      opportunity = @client.find('Opportunity', opp_uid, 'Web_uid__c')
+
+      SalesforceClient.new.create_product(opportunity.Id, product.Id, product.UnitPrice)
+    end
+
+    confirm_booking(booking_params[:first_name], booking_params[:last_name], booking_params[:email], @campaign, opp_uid)
+    notify_admin(booking_params[:first_name], booking_params[:last_name], booking_params[:email], @campaign, account.Web_uid__c, opp_uid)
+
+    redirect_to summer_whats_next_path
+
+    rescue Stripe::CardError => e
         flash[:error] = e.message
-        redirect_to new_charge_path
-    end
-
-    @client = Restforce.new
-
-    booking_contact = @client.search("FIND {#{booking_params[:email]}} RETURNING Contact (Id)").map(&:Id)
-    
-    if booking_contact.empty?
-      web_uid = create_web_uid(booking_params[:first_name], booking_params[:last_name])
-      SalesforceClient.new.create_salesforce_contact(booking_params, web_uid)
-      @account = @client.find('Contact', web_uid, 'Web_uid__c')
-    else
-      SalesforceClient.new.update_salesforce_contact(booking_params, booking_contact.first)
-      @account = @client.find('Contact', booking_contact.first)
-    end
-
-    @campaign = find_campaign(booking_params[:campaign_id])
-    opp_uid = create_opp_uid(@account.Name, @campaign)
-
-    SalesforceClient.new.create_booking(booking_params, @account, opp_uid)
-
-    opportunity = @client.find('Opportunity', opp_uid, 'Web_uid__c')
-    
-    notify_admin(booking_params[:first_name], booking_params[:last_name], booking_params[:email], @campaign, web_uid, opp_uid)
-
-    if @campaign.Sub_Type__c == 'Summer'
-      product = @client.find('PricebookEntry', booking_params[:summer_product_code])
-      SalesforceClient.new.create_product(opportunity.Id, product.Id, product.UnitPrice)
-      # SalesforceClient.new.create_payment(booking_params[:payment_amount], opportunity.Id)
-      confirm_booking(booking_params[:first_name], booking_params[:last_name], booking_params[:email], @campaign, opp_uid)
-      redirect_to summer_whats_next_path
-    elsif @campaign.Sub_Type__c == 'Taster'
-      product = @client.find('PricebookEntry', booking_params[:taster_product_code])
-      SalesforceClient.new.create_product(opportunity.Id, product.Id, product.UnitPrice)
-      # SalesforceClient.new.create_payment(booking_params[:payment_amount], opportunity.Id)
-      confirm_booking(booking_params[:first_name], booking_params[:last_name], booking_params[:email], @campaign, opp_uid)
-      redirect_to mini_whats_next_path
-    else
-      redirect_to bookings_path
-    end
+        redirect_to bookings_path
   end
 
   private
@@ -110,16 +99,18 @@ class BookingsController < ApplicationController
 
   def booking_params
     params.require(:booking).permit(:salutation, :first_name, :last_name, :street_address, :campaign_id,
-      :recordtype, :street_address, :city, :county, :country, :post_code, :email, :telephone, :stage, 
-      :mobile, :date_of_birth, :car_reg, :voice_type, :course_stream_summer, :course_stream_mini,  {:days => []}, {:solo_classes => []}, :notes_for_class_selection,
+      :recordtype, :street_address, :city, :county, :country, :post_code, :email, :preferred_contact,
+      :contact_number, :date_of_birth, :car_reg, :voice_type, :course_stream_summer, :course_stream_mini,  
+      {:days => []}, {:solo_classes => []}, :notes_for_class_selection,
       :session_1, {:session_1_options => []}, :session_2, {:session_2_options => []}, :session_3, {:session_3_options => []},
-      :session_4, {:session_4_options => []}, :audition, {:audition_for => []}, :audition_notes, :summer_product_code, :taster_product_code, :payment_amount)
+      :session_4, {:session_4_options => []}, :stage, :agreement, :audition, {:audition_for => []}, :audition_notes, 
+      :summer_product_code, :taster_product_code, :service_fee, :payment_amount)
   end
 
-  def create_web_uid(firstname, lastname)
-    unique = ('a'..'z').to_a.shuffle[0,2].join
-    "#{firstname.chr}#{lastname.chr}#{Time.now.to_formatted_s(:number)}#{unique}"
-  end
+  # def create_web_uid(firstname, lastname)
+  #   unique = ('a'..'z').to_a.shuffle[0,2].join
+  #   "#{firstname.chr}#{lastname.chr}#{Time.now.to_formatted_s(:number)}#{unique}"
+  # end
 
   def create_opp_uid(accountName, campaign)
     timecode = Time.now.to_formatted_s(:number)
@@ -137,5 +128,14 @@ class BookingsController < ApplicationController
   def confirm_booking(first_name, last_name, email, campaign, opp_uid)
     NotificationMailer.confirm_booking(first_name, last_name, email, campaign, opp_uid).deliver_now
   end
+
+  def select_product(campaign)
+    if @campaign.Sub_Type__c == 'Summer'
+      @client.find('PricebookEntry', booking_params[:summer_product_code])
+    elsif @campaign.Sub_Type__c == 'Taster'
+      @client.find('PricebookEntry', booking_params[:taster_product_code])
+    end
+  end
+
 
 end

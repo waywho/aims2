@@ -1,8 +1,26 @@
 class SalesforceClient
 
-	def create_salesforce_contact(params, web_uid)
+	# def initialize(params, client)
+	# 	@params = params
+	# 	load_client
+	# end
+
+	def find_create_update_contact(params)
+		load_client
+		contact = return_contact_id(params[:email])
+		new_uid = create_web_uid(params[:first_name], params[:last_name])
+
+		if contact.empty?	
+			create_salesforce_contact(params, new_uid)
+		else
+			update_salesforce_contact(params, contact.first, new_uid)
+		end
+		account = @client.find('Contact', new_uid, 'Web_uid__c')
+	end
+
+	def create_salesforce_contact(params, uid)
 		Restforce.new.create!('Contact', 
-          Web_uid__c: web_uid,
+          Web_uid__c: uid,
           Salutation: params[:salutation], 
           LastName: params[:last_name], 
           FirstName: params[:first_name], 
@@ -12,30 +30,36 @@ class SalesforceClient
           MailingState: params[:county], 
           MailingPostalCode: params[:post_code], 
           MailingCountry: params[:country], 
-          HomePhone: params[:telephone], 
-          MobilePhone: params[:mobile],
+	      npe01__PreferredPhone__c: params[:preferred_contact],
+	      HomePhone: params[:contact_number], 
+	      MobilePhone: params[:contact_number],
+	      npe01__WorkPhone__c: params[:contact_number],
           Birthdate: date_string(params[:date_of_birth]), 
           npe01__HomeEmail__c: params[:email],
           LeadSource: 'Web' )
 
 	end
 
-	def update_salesforce_contact(params, contact_id)
+	def update_salesforce_contact(params, contact_id, uid)
 		Restforce.new.update!('Contact', 
 	        Id: contact_id,
+	        Web_uid__c: uid,
 	        Voice_Type__c: params[:voice_type], 
 	        MailingStreet: params[:street_address],
 	        MailingCity: params[:city], 
 	        MailingState: params[:county], 
 	        MailingPostalCode: params[:post_code], 
-	        MailingCountry: params[:country], 
-	        HomePhone: params[:telephone], 
-	        MobilePhone: params[:mobile],
+	        MailingCountry: params[:country],
+	        npe01__PreferredPhone__c: params[:preferred_contact],
+	        HomePhone: params[:contact_number], 
+	        MobilePhone: params[:contact_number],
+	        npe01__WorkPhone__c: params[:contact_number],
 	        LeadSource: 'Web' )
 	end
 
-	def create_booking(params, account, opp_uid)
-		course_selection = [params[:course_stream_summer], params[:course_strea_mini]].find { |x| !x.empty?}
+	def create_booking(params, account, opp_uid, bank_params = nil)
+		course_selection = [params[:course_stream_summer], params[:course_stream_mini]].find { |x| !x.empty?}
+
 		Restforce.new.create!('Opportunity',
 		    RecordTypeId: '01224000000DDUcAAO',
 		    Type: 'AIMS',
@@ -43,7 +67,7 @@ class SalesforceClient
 		    CampaignId: params[:campaign_id],
 		    AccountId: account.AccountId,
 		    Name: opp_name(account.Name, params[:campaign_id]),
-		    StageName: 'Deposit Received',
+		    StageName: booking_stage(params[:stage], bank_params),
 		    CloseDate: Time.now.to_datetime.strftime("%Y-%m-%d"),
 		    Web_uid__c: opp_uid,
 		    Car_Registration__c: params[:car_reg],
@@ -77,13 +101,40 @@ class SalesforceClient
 			npe01__Paid__c: true,
 			npe01__Opportunity__c: opp_id,
 			npe01__Payment_Amount__c: payment_amount,
-			npe01__Payment_Method__c: 'Cash')
+			npe01__Payment_Method__c: 'Stripe')
 	end
 
 	private
+
+	def load_client
+		@client ||= Restforce.new(:oauth_token => Rails.cache.read('salesforceforce_oauth_token'))
+  			Rails.cache.write('salesforceforce_oauth_token', @client.options[:oauth_token])
+	end
+
+	def return_contact_id(email)
+ 		@client.search("FIND {#{email}} RETURNING Contact (Id)").map(&:Id)
+	end
+
+	def create_web_uid(firstname, lastname)
+    	unique = ('a'..'z').to_a.shuffle[0,2].join
+    	"#{firstname.chr}#{lastname.chr}#{Time.now.to_formatted_s(:number)}#{unique}"
+  	end
+
 	def date_string(date)
 		if date.present?
 			date.to_datetime.strftime("%Y-%m-%d")
+		end
+	end
+
+	def booking_stage(stage, bank_params = nil)
+		if bank_params.present?
+			"Prospective"
+		else
+			if stage == "Deposit"
+				"Deposit Received"
+			elsif stage == "Full Amount"
+				"Fully Paid"
+			end
 		end
 	end
 
