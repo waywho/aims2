@@ -2,10 +2,12 @@
 	keywords: "#w{booking next step}" %>
 <h1 class = 'page-heading'>What's Next</h2>
 
-<%= @salutation %> <%= @name %>,
+Dear <%= @salutation %> <%= @name %>,<br />
 
 <span class='cheer'>Thank you for submitting your booking for <%= @campaign_name %>!</span>
-Your booking confirmation number: <%= @opp_uid %>
+<br />
+<br />
+<span class='note'>Your booking confirmation number: <%= @opp_uid %></span>
 <br />
 <br />
 

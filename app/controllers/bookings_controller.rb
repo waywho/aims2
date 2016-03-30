@@ -33,22 +33,13 @@ class BookingsController < ApplicationController
     @mini_fees = @courseformats.where('title like ?', '%Mini%').first.fees.order(:category)
   end
 
-  def summer_booking
-  end
-
-  def mini_booking
-  end
-
-  def review
-    @booking = booking_params
-  end
-
   def create
 
     booking_params = params[:booking].reject { |k, v| v.blank? }
     @campaign = find_campaign(booking_params[:campaign_id])
     product = select_product(@campaign)
     payment_after_service = (booking_params[:payment_amount].to_f - booking_params[:service_fee].to_f).to_s
+    
     if params[:stripeToken] 
 
       @amount = (booking_params[:payment_amount].to_f * 100).to_i
@@ -67,31 +58,50 @@ class BookingsController < ApplicationController
 
       account = SalesforceClient.new.find_create_update_contact(booking_params)
 
-      opp_uid = create_opp_uid(account.Name, @campaign)
+      @opp_uid = create_opp_uid(account.Name, @campaign)
       SalesforceClient.new.create_booking(booking_params, account, opp_uid)
       opportunity = @client.find('Opportunity', opp_uid, 'Web_uid__c')
 
       SalesforceClient.new.create_product(opportunity.Id, product.Id, product.UnitPrice)
       SalesforceClient.new.create_payment(payment_after_service, opportunity.Id)
 
+
     elsif params[:bank_booking]
       account = SalesforceClient.new.find_create_update_contact(booking_params)
 
-      opp_uid = create_opp_uid(account.Name, @campaign)
+      @opp_uid = create_opp_uid(account.Name, @campaign)
       SalesforceClient.new.create_booking(booking_params, account, opp_uid, params[:bank_booking])
       opportunity = @client.find('Opportunity', opp_uid, 'Web_uid__c')
 
       SalesforceClient.new.create_product(opportunity.Id, product.Id, product.UnitPrice)
     end
 
-    confirm_booking(booking_params[:first_name], booking_params[:last_name], booking_params[:email], @campaign, opp_uid)
-    notify_admin(booking_params[:first_name], booking_params[:last_name], booking_params[:email], @campaign, account.Web_uid__c, opp_uid)
+    @name =  "#{booking_params[:first_name]} #{booking_params[:last_name]}"
+    @salutation = booking_params[:salutation]
 
+    send_notification_emails(booking_params[:first_name], booking_params[:last_name], booking_params[:email], @campaign, account.Web_uid__c, @opp_uid)
+
+    if params[:bank_booking]
+      render :whats_next
+
+    elsif booking_params[:stage] == 'Deposit'
+
+    elsif booking_params[:stage] == 'Full Amount'
+
+    end
     redirect_to whats_next_path(type: @campaign.Sub_Type__c, salutation: booking_params[:salutation], name: account.Name, campaign: @campaign.Name, opp_uid: opp_uid)
 
     rescue Stripe::CardError => e
         flash[:error] = e.message
         redirect_to bookings_path
+  end
+
+  def whats_next
+    @page = Page.where(title: whats_next_page_tite(params[:type])).first
+    @name = params[:name]
+    @opp_uid = params[:opp_uid]
+    @campaign_name = params[:campaign]
+    @salutation = params[:salutation]
   end
 
   private
@@ -125,11 +135,8 @@ class BookingsController < ApplicationController
     @client.find('Campaign', campaign_id)
   end
 
-  def notify_admin(first_name, last_name, email, campaign, web_uid, opp_uid)
+  def send_notification_emails(first_name, last_name, email, campaign, web_uid, opp_uid)
     NotificationMailer.booking_added(first_name, last_name, email, campaign, web_uid, opp_uid).deliver_now
-  end
-
-  def confirm_booking(first_name, last_name, email, campaign, opp_uid)
     NotificationMailer.confirm_booking(first_name, last_name, email, campaign, opp_uid).deliver_now
   end
 
@@ -141,5 +148,16 @@ class BookingsController < ApplicationController
     end
   end
 
+  def redirect_with_stage(stage, bank_params = nil)
+    if bank_params.present?
+      "Prospective"
+    else
+      if stage == "Deposit"
+        "Deposit Received"
+      elsif stage == "Full Amount"
+        "Fully Paid"
+      end
+    end
+  end
 
 end

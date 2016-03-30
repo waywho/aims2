@@ -17,14 +17,7 @@ class StaticPagesController < ApplicationController
   			format.js
   		end
 	end
-	
-	def whats_next
-		@page = Page.where(title: params[:type]).first
-		@name = params[:name]
-		@opp_uid = params[:opp_uid]
-		@campaign_name = params[:campaign]
-		@salutation = params[:salutation]
-	end
+
 
 	def terms_and_conditions
 	end
@@ -52,5 +45,9 @@ class StaticPagesController < ApplicationController
   			@events = Event.published_now.where("date >= ?", @date.beginning_of_month).order(:date)
   		end
   		@events_by_date = @future_events.group_by {|t| t.date.to_formatted_s(:numerals)}
+	end
+
+	def whats_next_page_title(campaign_type)
+		"Whats Next #{campaign_type}"
 	end
 end
