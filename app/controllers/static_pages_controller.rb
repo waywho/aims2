@@ -18,10 +18,12 @@ class StaticPagesController < ApplicationController
   		end
 	end
 	
-	def summer_whats_next
-	end
-
-	def mini_whats_next
+	def whats_next
+		@page = Page.where(title: params[:type]).first
+		@name = params[:name]
+		@opp_uid = params[:opp_uid]
+		@campaign_name = params[:campaign]
+		@salutation = params[:salutation]
 	end
 
 	def terms_and_conditions

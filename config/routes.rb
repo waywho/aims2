@@ -98,8 +98,7 @@ Rails.application.routes.draw do
 	end
 
   post "casein/versions/:id/revert" => 'casein/versions#revert', :as => "revert_version"
-  get 'summer_whats_next', :to => 'static_pages#summer_whats_next'
-  get 'mini_whats_next', :to => 'static_pages#mini_whats_next'
+  get 'whats_next/:type/:salutation/:name/:campaign/:opp_uid', :to => 'static_pages#whats_next', :as => "whats_next"
   get 'tersm_and_conditions', :to => 'static_pages#terms_and_conditions'
   get 'privacy_policy', :to => 'static_pages#privacy_policy'
   post 'get_calendar', :to => 'static_pages#get_calendar'

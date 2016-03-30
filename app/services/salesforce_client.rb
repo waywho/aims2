@@ -7,19 +7,27 @@ class SalesforceClient
 
 	def find_create_update_contact(params)
 		load_client
-		contact = return_contact_id(params[:email])
-		new_uid = create_web_uid(params[:first_name], params[:last_name])
+		contact = return_contact(params[:email])
 
-		if contact.empty?	
-			create_salesforce_contact(params, new_uid)
+		if contact.empty?
+			uid = create_web_uid(params[:first_name], params[:last_name])
+			create_salesforce_contact(params, uid)
 		else
-			update_salesforce_contact(params, contact.first, new_uid)
+			if contact.first[:web_uid].nil?
+				uid = create_web_uid(params[:first_name], params[:last_name])
+				update_salesforce_contact(params, contact.first, uid)
+			else
+				uid = contact.first[:web_uid]
+				update_salesforce_contact(params, contact.first[:id])
+			end
 		end
-		account = @client.find('Contact', new_uid, 'Web_uid__c')
+		accounts = @client.query("select Id, AccountId, Name, Web_uid__c from Contact where Web_uid__c = #{uid}")
+		account = accounts.first
 	end
 
 	def create_salesforce_contact(params, uid)
-		Restforce.new.create!('Contact', 
+		load_client
+		@client.create!('Contact', 
           Web_uid__c: uid,
           Salutation: params[:salutation], 
           LastName: params[:last_name], 
@@ -29,19 +37,17 @@ class SalesforceClient
           MailingCity: params[:city], 
           MailingState: params[:county], 
           MailingPostalCode: params[:post_code], 
-          MailingCountry: params[:country], 
-	      npe01__PreferredPhone__c: params[:preferred_contact],
-	      HomePhone: params[:contact_number], 
-	      MobilePhone: params[:contact_number],
-	      npe01__WorkPhone__c: params[:contact_number],
+          MailingCountry: params[:country],
           Birthdate: date_string(params[:date_of_birth]), 
           npe01__HomeEmail__c: params[:email],
           LeadSource: 'Web' )
 
+		update_phone(params[:preferred_contact], params[:contact_number], uid)
 	end
 
-	def update_salesforce_contact(params, contact_id, uid)
-		Restforce.new.update!('Contact', 
+	def update_salesforce_contact(params, contact_id, uid = nil)
+		load_client
+		@client.update!('Contact', 
 	        Id: contact_id,
 	        Web_uid__c: uid,
 	        Voice_Type__c: params[:voice_type], 
@@ -50,17 +56,15 @@ class SalesforceClient
 	        MailingState: params[:county], 
 	        MailingPostalCode: params[:post_code], 
 	        MailingCountry: params[:country],
-	        npe01__PreferredPhone__c: params[:preferred_contact],
-	        HomePhone: params[:contact_number], 
-	        MobilePhone: params[:contact_number],
-	        npe01__WorkPhone__c: params[:contact_number],
 	        LeadSource: 'Web' )
+
+		update_phone(params[:preferred_contact], params[:contact_number], uid)
 	end
 
 	def create_booking(params, account, opp_uid, bank_params = nil)
-		course_selection = [params[:course_stream_summer], params[:course_stream_mini]].find { |x| !x.empty?}
-
-		Restforce.new.create!('Opportunity',
+		load_client
+		course_selection = params[:course_stream_summer] || params[:course_stream_mini]
+		@client.create!('Opportunity',
 		    RecordTypeId: '01224000000DDUcAAO',
 		    Type: 'AIMS',
 		    Attendee_type__c: 'Student',
@@ -84,12 +88,12 @@ class SalesforceClient
 		    Session_4_Options__c: join_array(params[:session_4_options]),
 		    Audition_requested__c: params[:audition],
 		    Auditioning_for__c: join_array(params[:audition_for]),
-		    Audition_request_notes__c: params[:audition_notes]
-		      )
+		    Audition_request_notes__c: params[:audition_notes] )
 	end
 
 	def create_product(opp_id, product_id, price)
-		Restforce.new.create!('OpportunityLineItem',
+		load_client
+		@client.create!('OpportunityLineItem',
 		    OpportunityId: opp_id,
 		    PricebookEntryId: product_id, 
 		    Quantity: "1.00",
@@ -97,11 +101,31 @@ class SalesforceClient
 	end
 
 	def create_payment(payment_amount, opp_id)
-		Restforce.new.create!('npe01__OppPayment__c', 
+		load_client
+		@client.create!('npe01__OppPayment__c', 
 			npe01__Paid__c: true,
 			npe01__Opportunity__c: opp_id,
 			npe01__Payment_Amount__c: payment_amount,
 			npe01__Payment_Method__c: 'Stripe')
+	end
+
+	def update_phone(preferred_contact, phone, uid)
+		load_client
+		if preferred_contact == "Home"
+			@client.upsert!('Contact', 'Web_uid__c',
+				Web_uid__c: uid,
+				npe01__PreferredPhone__c: preferred_contact,
+	        	HomePhone: phone)
+		elsif preferred_contact == 'Mobile'
+			@client.upsert!('Contact', 'Web_uid__c',
+				Web_uid__c: uid,
+				npe01__PreferredPhone__c: preferred_contact,
+				MobilePhone: phone)
+		else @client.upsert!('Contact', 'Web_uid__c',
+				Web_uid__c: uid,
+				npe01__PreferredPhone__c: preferred_contact,
+				npe01__WorkPhone__c: phone)
+		end
 	end
 
 	private
@@ -111,8 +135,8 @@ class SalesforceClient
   			Rails.cache.write('salesforceforce_oauth_token', @client.options[:oauth_token])
 	end
 
-	def return_contact_id(email)
- 		@client.search("FIND {#{email}} RETURNING Contact (Id)").map(&:Id)
+	def return_contact(email)
+ 		@client.search("FIND {#{email}} RETURNING Contact (Id, Web_uid__c)").map { |x| {id: x.Id, web_uid: x.Web_uid__c}}
 	end
 
 	def create_web_uid(firstname, lastname)

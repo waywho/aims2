@@ -4,8 +4,10 @@ class BookingsController < ApplicationController
   def index
   	# @bookings = @client.query('select Amount, CloseDate, Name, Campaign_Name__c, Course__c from Opportunity')
     # @email = 'grant.access@logic.com'
-    # @john = @client.search("FIND {#{@email}} RETURNING Contact (Id)").map(&:Id)
-
+    # @john = @client.search("FIND {walzerfan@yahoo.com} RETURNING Contact (Id, Name, AccountId, Web_uid__c)").map { |x| {id: x.Id, name: x.Name, account_id: x.AccountId, web_uid: x.Web_uid__c}}
+    # uid = "12533"
+    # johns = @client.query("select Id, AccountId, Name, Web_uid__c from Contact where Web_uid__c = '#{uid}'")
+    # @john = johns.first
     # @contacts = @client.query('select Name from Contact')
     # @all = @client.describe
   	@opportunity = @client.describe('Opportunity')
@@ -42,6 +44,8 @@ class BookingsController < ApplicationController
   end
 
   def create
+
+    booking_params = params[:booking].reject { |k, v| v.blank? }
     @campaign = find_campaign(booking_params[:campaign_id])
     product = select_product(@campaign)
     payment_after_service = (booking_params[:payment_amount].to_f - booking_params[:service_fee].to_f).to_s
@@ -83,7 +87,7 @@ class BookingsController < ApplicationController
     confirm_booking(booking_params[:first_name], booking_params[:last_name], booking_params[:email], @campaign, opp_uid)
     notify_admin(booking_params[:first_name], booking_params[:last_name], booking_params[:email], @campaign, account.Web_uid__c, opp_uid)
 
-    redirect_to summer_whats_next_path
+    redirect_to whats_next_path(type: @campaign.Sub_Type__c, salutation: booking_params[:salutation], name: account.Name, campaign: @campaign.Name, opp_uid: opp_uid)
 
     rescue Stripe::CardError => e
         flash[:error] = e.message
