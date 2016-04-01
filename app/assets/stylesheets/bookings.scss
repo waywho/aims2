@@ -30,7 +30,7 @@
 	display: none;
 	background-color: #F6E8E9;
 	padding-top: 15px;
-	padding-bottom: 15px;
+	padding-bottom: 0px;
 }
 
 .summer-section {
@@ -44,8 +44,8 @@
 .amount-header {
 	background-color: #A21D21;
 	color: white;
-	padding-top: 15px;
-	padding-bottom: 15px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 	border-top-left-radius: 10px;
 	border-bottom-left-radius: 10px;
 	text-align: center;
@@ -56,11 +56,14 @@
 	padding: 0px;
 	border-radius: 10px;
 	text-align: center;
+	min-width: 100%;
+	display: inline-block;
 }
 
 .payment-amount {
 	display: block;
-	margin: 15px auto;
+	margin: 10px auto;
+	font-weight: bold;
 }
 
 .invalid {
@@ -88,4 +91,51 @@
 	background-color: #F6E8E9;
 	padding: 10px 0px;
 	margin: 10px 0px;
+}
+
+.card {
+	display: inline-block;
+	height: 25px;
+	margin: 5px;
+}
+
+.booking_stage .radio {
+	display: inline-block;
+	margin: 0px 5px;
+}
+
+#little-warning {
+	font-style: italic;
+	color: red;
+}
+
+.pay-bank-note {
+	font-size: 13px;
+	font-style: italic;
+}
+
+.payment-type-buttons {
+	margin-left: 30px;
+}
+
+.pay-bank {
+	display: none;
+}
+
+#add-on {
+	background-color: white;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+#service-charge {
+	font-style: italic;
+}
+
+#course-cost {
+	font-weight: bold;
+}
+
+.text-holder {
+	margin-bottom: 5px;
 }

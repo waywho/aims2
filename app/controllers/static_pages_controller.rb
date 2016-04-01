@@ -17,12 +17,7 @@ class StaticPagesController < ApplicationController
   			format.js
   		end
 	end
-	
-	def summer_whats_next
-	end
 
-	def mini_whats_next
-	end
 
 	def terms_and_conditions
 	end

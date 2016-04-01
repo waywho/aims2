@@ -1,6 +1,6 @@
 <% meta title: "Booking",
 	keywords: #w{booking course} %>
-
+<script src="https://checkout.stripe.com/checkout.js"></script>
 <h1>Bookings</h1>
 
 <%= simple_form_for :booking, :url => bookings_path, :method => 'post', html: {:id => 'booking_form'} do |f| %>
@@ -45,10 +45,10 @@
 	</div>
 	<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
 		<%= f.input :email, required: true %>
-		<%= f.input :telephone, required: false %>
-		<%= f.input :mobile, required: false %>
+		<%= f.input :preferred_contact, collection: @preferred_phone_values, label: 'Preferred contact', value_method: :value, label_method: :label, required: true %>
+		<%= f.input :contact_number, required: false %>
 		<%= f.input :date_of_birth, required: false %>
-		<%= f.input :voice_type, collection: @voice_types, value_method: :value, label_method: :label, required: false %>
+		<%= f.input :voice_type, collection: @voice_types, value_method: :value, label_method: :label, required: true %>
 	</div>
 </div>
 <br />
@@ -64,8 +64,10 @@
 			<h2>Summer School Options</h2>
 		</div>
 		<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
-			<%= f.input :course, collection: find_soap_field(@booking, 'Course__c'), label_method: :label, value_method: :value, include_blank: 'Select a course', label: 'Course Stream', input_html: { :class => 'course-select'}, required: false %>
+			<%= f.input :course_stream_summer, collection: find_soap_field(@opportunity, 'Course__c'), label_method: :label, value_method: :value, include_blank: 'Select a course', label: 'Course Stream', input_html: { :id => 'summer-course-select'}, required: false %>
 		</div>
+
+
 	</div>
 	<div class = 'row course-booking Solo Crossover'>
 		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
@@ -74,12 +76,12 @@
 		<br />
 		<br />
 		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-			<%= f.collection_check_boxes :solo_classes, find_soap_field(@booking, 'Solo_classes__c'), :value, :label, :include_hidden => false, item_wrapper_class: 'solo-select', required: false %>
+			<%= f.collection_check_boxes :solo_classes, find_soap_field(@opportunity, 'Solo_classes__c'), :value, :label, :include_hidden => false, item_wrapper_class: 'solo-select', required: false %>
 		</div>
 		<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
 			<%= f.input :notes_for_class_selection, label: 'Choice 4 (optional)', hint: '(Replace with this option if any of my selections are not availble)', required: false %>
 		</div>
-		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12' id = 'add-on'>
 			(optional) I would like to supplement my Solo classes with <%= link_to 'Choral or Ensemble Classes', '#', :class => 'supplement btn btn-success btn-xs' %>
 		</div>
 	</div>
@@ -91,45 +93,45 @@
 		<br />
 		<br />
 		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
-			<%= f.input :session_1, collection: find_soap_field(@booking, 'Session_1__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
-			<% find_soap_field(@booking, 'Session_1__c').each do |selection| %>
-				<% if sf_session_options(@booking.fields, selection.value, 'Session_1__c', @client).present? %>
+			<%= f.input :session_1, collection: find_soap_field(@opportunity, 'Session_1__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
+			<% find_soap_field(@opportunity, 'Session_1__c').each do |selection| %>
+				<% if sf_session_options(@opportunity.fields, selection.value, 'Session_1__c', @client).present? %>
 					<div class = 'session-options' data-selection='<%= selection.value %>'>
 						<span class='instruction'>Select either or both of the following options.</span><br />
-						<%= f.collection_check_boxes :session_1_options, sf_session_options(@booking.fields, selection.value, 'Session_1__c', @client), :value, :label, :include_hidden => false, required: false %>
+						<%= f.collection_check_boxes :session_1_options, sf_session_options(@opportunity.fields, selection.value, 'Session_1__c', @client), :value, :label, :include_hidden => false, required: false %>
 					</div>
 				<% end %>
 			<% end %>
 		</div>
 		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
-			<%= f.input :session_2, collection: find_soap_field(@booking, 'Session_2__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
-			<% find_soap_field(@booking, 'Session_2__c').each do |selection| %>
-				<% if sf_session_options(@booking.fields, selection.value, 'Session_2__c', @client).present? %>
+			<%= f.input :session_2, collection: find_soap_field(@opportunity, 'Session_2__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
+			<% find_soap_field(@opportunity, 'Session_2__c').each do |selection| %>
+				<% if sf_session_options(@opportunity.fields, selection.value, 'Session_2__c', @client).present? %>
 					<div class = 'session-options' data-selection='<%= selection.value %>'>
 						<span class='instruction'>Select either or both of the following options.</span><br />
-						<%= f.collection_check_boxes :session_2_options, sf_session_options(@booking.fields, selection.value, 'Session_2__c', @client), :value, :label, :include_hidden => false, required: false %>
+						<%= f.collection_check_boxes :session_2_options, sf_session_options(@opportunity.fields, selection.value, 'Session_2__c', @client), :value, :label, :include_hidden => false, required: false %>
 					</div>
 				<% end %>
 			<% end %>
 		</div>
 		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
-			<%= f.input :session_3, collection: find_soap_field(@booking, 'Session_3__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
-			<% find_soap_field(@booking, 'Session_3__c').each do |selection| %>
-				<% if sf_session_options(@booking.fields, selection.value, 'Session_3__c', @client).present? %>
+			<%= f.input :session_3, collection: find_soap_field(@opportunity, 'Session_3__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
+			<% find_soap_field(@opportunity, 'Session_3__c').each do |selection| %>
+				<% if sf_session_options(@opportunity.fields, selection.value, 'Session_3__c', @client).present? %>
 					<div class = 'session-options' data-selection='<%= selection.value %>'>
 						<span class='instruction'>Select either or both of the following options.</span><br />
-						<%= f.collection_check_boxes :session_3_options, sf_session_options(@booking.fields, selection.value, 'Session_3__c', @client), :value, :label, :include_hidden => false, required: false %>
+						<%= f.collection_check_boxes :session_3_options, sf_session_options(@opportunity.fields, selection.value, 'Session_3__c', @client), :value, :label, :include_hidden => false, required: false %>
 					</div>
 				<% end %>
 			<% end %>
 		</div>
 		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
-			<%= f.input :session_4, collection: find_soap_field(@booking, 'Session_4__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
-			<% find_soap_field(@booking, 'Session_4__c').each do |selection| %>
-				<% if sf_session_options(@booking.fields, selection.value, 'Session_4__c', @client).present? %>
+			<%= f.input :session_4, collection: find_soap_field(@opportunity, 'Session_4__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
+			<% find_soap_field(@opportunity, 'Session_4__c').each do |selection| %>
+				<% if sf_session_options(@opportunity.fields, selection.value, 'Session_4__c', @client).present? %>
 					<div class = 'session-options' data-selection='<%= selection.value %>'>
 						<span class='instruction'>Select either or both of the following options.</span><br />
-						<%= f.collection_check_boxes :session_4_options, sf_session_options(@booking.fields, selection.value, 'Session_4__c', @client), :value, :label, :include_hidden => false, required: false%>
+						<%= f.collection_check_boxes :session_4_options, sf_session_options(@opportunity.fields, selection.value, 'Session_4__c', @client), :value, :label, :include_hidden => false, required: false%>
 					</div>
 				<% end %>
 			<% end %>
@@ -141,11 +143,11 @@
 			<h3>Audition</h3>
 			<span>I would like to be considered for (please tick all that apply):</span><br />
 			<br />
-			<%= f.collection_check_boxes :audition_for, find_soap_field(@booking, 'Auditioning_for__c'), :value, :label, required: false %><br />
+			<%= f.collection_check_boxes :audition_for, find_soap_field(@opportunity, 'Auditioning_for__c'), :value, :label, required: false %><br />
 			<br />
 			<span>I would like to attend the audiiton on Saturday 9 April, 2016: </span> <br />
 			<br />
-			<%= f.input :audition, collection: find_soap_field(@booking, 'Audition_requested__c'), label_method: :label, value_method: :value, label: false, include_blank: 'Selection an audition time option', required: false %>
+			<%= f.input :audition, collection: find_soap_field(@opportunity, 'Audition_requested__c'), label_method: :label, value_method: :value, label: false, include_blank: 'Select an audition time', required: false %>
 		</div>
 		<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6 audition-notes'>
 			<h3>Audition Recording/Notes</h3>
@@ -156,7 +158,7 @@
 	<br />
 	<div class = 'row bottom-div'>
 		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-			<h3>Fee (Accommodation) Options</h3>
+			<h3>Accommodation/Visitor Options</h3>
 		</div>
 		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
 			<%= f.input :summer_product_code, required: false, label: false do %>
@@ -171,7 +173,7 @@
 		<h2>Mini-Aims Course Options</h2>
 	</div>
 	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
-			<%= f.input :course, collection: ['Solo', 'Choral'], include_blank: 'Select a course', label: 'Course Stream', input_html: { :class => 'course-select'}, required: true %>
+			<%= f.input :course_stream_mini, collection: ['Solo', 'Choral'], include_blank: 'Select a course', label: 'Course Stream', input_html: { :class => 'course-select'}, required: true %>
 	</div>
 	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
 		<%= f.input :days, collection: ['Saturday', 'Sunday'], as: :check_boxes, label: 'I would like to attend...', required: true %>
@@ -182,38 +184,60 @@
 		<% end %>
 	</div>
 </div>
-
-<!--- Payment Options Commented Out until Payment Gate is decided
 <div class = 'row'>
 	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
 		<h3>Payment</h3>
 	</div>
-	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
-		<%= f.input :stage, collection: ['Full amount', 'Deposit'], as: :radio_buttons, label: 'I would like to pay...', input_html: { :class => 'payment-stage'}, required: true %>
-	</div>
-	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6 total'>
-		<div class = 'col-xs-4 col-sm-4 col-md-4 col-lg-4 amount-header'%>
-			<b>Amount due: </b>
+	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+		<div id = 'little-warning'></div>
+		<%= f.input :stage, collection: ['Full Amount', 'Deposit'], as: :radio_buttons, label: 'I would like to pay...', input_html: { :class => 'payment-stage btn-primary'}, required: true %>
+		<div class = 'agreement'>
+			<%= f.input :agreement, as: :boolean, label: "I enclose my deposit of £75 (non-refundable) and I understand to pay the remainder of 50% of my fees by 1 May 2016 and the blance by 30 June 2016." %>
 		</div>
-		<div class = 'col-xs-8 col-sm-8 col-md-8 col-lg-8'%>
-			<span class = 'payment-amount'></span>
-		<%= f.input :payment_amount, as: :hidden, label: false, required: false %>
-		</div>
-	</div>
-	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12 agreement'>
-		I enclose my deposit of £75 (non-refundable) and I understand to pay the remainder of 50% of my fees by 1 May 2016 and the blance by 30 June 2016.
-
-		Note: please make sure that you send the full amount to the AIMS account and that any bank charges are compensate for at your end. Any payments that have had deductions made will have to be paid up in ful at the beginning of the course.
 	</div>
 </div>
--->
-
 <div class = 'row'>
-	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-	<h3>Payment</h3>
-	</p>By cheque (made payable to <b>AIMS International Music School</b>) or Bank transfer (details below)</p>
+	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+		<b>Pay by...</b><br />
+		<br />
+		<div class="btn-group payment-type-buttons" data-toggle="buttons">
+		  <label class="btn btn-default active">
+		    <input type="radio" name="options" id="option1" autocomplete="off" value='credit' checked = 'checked'> Credit Cards
+		  </label>
+		  <label class="btn btn-default">
+		    <input type="radio" name="options" id="option2" autocomplete="off" value='bank'> Bank Transfer
+		  </label>
+		</div>
 	</div>
-	<div class = 'col-xs-12 col-sm-12 col-md-8 col-lg-8'>
+	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+		<div id = 'course-cost' class = 'text-holder'></div>
+		<div id = 'service-charge' class = 'text-holder'></div>
+		<%= f.input :service_fee, as: :hidden, label: false, required: false %>
+		<div class = 'total'>
+			<div class = 'col-xs-4 col-sm-4 col-md-4 col-lg-4 amount-header'%>
+				<b>Amount due: </b>
+			</div>
+			<div class = 'col-xs-8 col-sm-8 col-md-8 col-lg-8'%>
+				<span class = 'payment-amount amount'></span>
+			<%= f.input :payment_amount, as: :hidden, label: false, required: false %>
+			</div>
+		</div>
+	</div>
+	<br />
+</div>
+<br />
+<div class = 'row pay-stripe'>
+	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+		<i>We accept...</i><%= image_tag 'card_visa.png', :class => 'img-responsive card' %> <%= image_tag 'card_master.png', :class => 'img-responsive card' %> <%= image_tag 'card_amex.png', :class => 'img-responsive card' %>
+		<%= image_tag 'stripe-solid.png' %>
+	</div>
+	<div class = "col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		<%= f.submit 'Pay and Submit Booking', name: 'stripe_booking', :class => 'btn btn-primary', :id => 'stripeButton' %>
+	</div>
+</div>
+<div class = "row pay-bank">
+	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+		By cheque (made payable to <b>AIMS International Music School</b>) or Bank transfer (details below)
 		<div class = 'bank-detail row'>
 			<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
 				<b>SORT CODE:</b> 40 25 06
@@ -228,48 +252,69 @@
 				<b>BIC:</b> MIDLGB2113U
 			</div>
 		</div>
+		<div class = "col-xs-12 col-sm-12 col-md-12 col-lg-12 pay-bank-note">
+		Note: When sending bank payments, please make sure that you send the full amount to the AIMS account and that any bank charges are compensate for at your end. Any payments that have had deductions made will have to be paid up in full at the beginning of the course.
+		</div>
 	</div>
-	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-		<p>
-			Please make sure that you send the full amount to the AIMS account, that any bank chanrges are compensated for at your end. Any payments that have had deductions made will have to be paid up in full at the beginning of the course.
-		</p>
-		<p>
-			To confirm your booking, you can pay a deposit of £75 (non-refundable). You will pay the remainder of 50% of your fees by 1 May 2016 and the blance by 30 June 2016.
-		</p>
+	<div class = "col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		<br />
+		Pressing the 'Submit Booking' button will make a <i><b>tentative booking</b></i>. Booking will be confirmed once your payment has been received.
+	</div>
+	<div class = "col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		<br />
+		<%= f.submit "Submit Booking", name: 'bank_booking', :class => 'btn btn-primary' %>
 	</div>
 </div>
-
-	<br class = 'clr' />
-	<%= f.button :submit, 'Submit Booking', :class => 'btn btn-primary btn-lg' %>
 <% end %>
-
 <script>
 	$(function() {
 
 		function resetSummerClasses() {
+			// $('#summer-course-select').val("");
 			$('.solo-select input:checked').removeAttr('checked');
 			$('#booking_notes_for_class_selection').val("");
 			$('.session select').val("");
 			$('.session input:checked').removeAttr('checked');
-			$('.session-options').hide();
+			$('.session-options').hide('slow');
 		};
 
 		function resetSummerOptions() {
 			$('.audition input[type=checkbox]:checked').removeAttr('checked');
 			$('.audition select').val("");
 			$('#Summer-fee').val("");
+		};
+
+		function set_amount_due_with_service(amount) {
+			$('#service-charge').empty();
+			var chargeAmount = (amount + 0.2) / (1 - 0.014)
+			var service = chargeAmount - amount
+			$('#course-cost').text("Sub-total: £" + amount);
+			$('.payment-amount').text("£" + (chargeAmount).toFixed(2));
+			$('#booking_payment_amount').val((chargeAmount).toFixed(2));
+			$('#service-charge').text("Stripe Service charge: £" + (service).toFixed(2));	
+			$('#booking_service_fee').val((service).toFixed(2));
+		};
+
+		function set_amount_due_no_service(amount) {
+			$('#service-charge').empty();
+			$('#course-cost').text("Sub-total £" + amount);
+			$('#booking_payment_amount').val(amount);
+			$('.payment-amount').text("£" + amount);
 		}
 
+		if($(".session-select").val()) {
+			$("div[data-selection='" + $(".session-select").val() + "']").show('slow');
+		};
 
 		$(".session-select").change(function() {
 			$(this).closest('.session').find('.input:checked').removeAttr('checked');
-			$(this).closest('.session').children('.session-options').hide();
-			$("div[data-selection='" + $(this).val() + "']").show();
+			$(this).closest('.session').children('.session-options').hide('slow');
+			$("div[data-selection='" + $(this).val() + "']").show('slow');
 		})
 
 		$("#booking_campaign_id").change(function() {
-			$(".course-options").hide();
-			$("." + $(this).find(':selected').data("type")).show();
+			$(".course-options").hide('slow');
+			$("." + $(this).find(':selected').data("type")).show('slow');
 			$('.payment-amount').empty();
 			$('.payment-stage').prop('checked', false);
 			$('#booking_course').val("");
@@ -277,6 +322,12 @@
 			resetSummerOptions();
 			$('.Taster select').val("");
 			$('.Taster input:checked').removeAttr('checked');
+			if($(this).find(':selected').data("type") == 'Taster') {
+				$('#booking_stage_full_amount').prop('checked', true)
+				$('.payment-stage').prop('disabled', true);
+			} else if ($(this).find(':selected').data("type") == 'Summer') {
+				$('.payment-stage').prop('disabled', false);
+			}
 
 		})
 
@@ -287,41 +338,45 @@
 		   }
 		})
 
-		$('.course-select').change(function() {
+		$('#summer-course-select').change(function() {
 			resetSummerClasses();
-			$('.course-booking').hide();
+			$('.course-booking').hide('slow');
 
-			$("." + $(this).val()).show();
+			$("." + $(this).val()).show('slow');
 		})
 
 		$('.supplement').click(function(event) {
-			$('.Choral').show();
+			$('.Choral').show('slow');
 			event.preventDefault();
 		})
 
 		$('.payment-stage').click(function() {
 			$('.payment-amount').empty();
-			if ($(this).val() ==  'Full amount') { 
+			$('#little-warning').empty();
+			if ($(this).val() ==  'Full Amount') { 
 				var campaign = $('#booking_campaign_id').val();
 				var validator = $('#booking_form').validate();
-				$('.agreement').hide();
+				$('.agreement').hide('slow');
 
 				// console.log ($('.campaign-select').find(':selected').data("type") );
 
 				if (validator.element('#booking_campaign_id')) {
 					if ($('#booking_campaign_id').find(':selected').data("type") == 'Summer') {
 						console.log($('#Summer-fee').find(':selected').val());
-						if (!$('#Summer-fee').find(':selected').val()) {
-							console.log("found it!");
+						if (!$('#taster_product_code-fee').find(':selected').val()) {
 							$("#Summer-fee").addClass('warning-box');
 							$("#Summer-fee").before("<span class = 'warning'>Please select an option first</div>");
 							$("#Summer-fee").focus();
 						} else {
 							var amount = $('#Summer-fee').find(':selected').data('amount');
-							// console.log(amount);
-							$('#booking_payment_amount').val(amount);
-
-							$('.payment-amount').text("£" + amount);
+							console.log(amount);
+							if($('.payment-type-buttons input:radio:checked').val() == 'credit') {
+								// console.log(amount);
+								set_amount_due_with_service(amount);
+							} else {
+								// console.log(amount);
+								set_amount_due_no_service(amount);
+							}
 						}
 
 					} else if ($('#booking_campaign_id').find(':selected').data("type") == 'Taster') {
@@ -332,36 +387,71 @@
 							$('#Taster-fee').focus();
 						} else {
 							var amount = $('#Taster-fee').find(':selected').data('amount');
-							// console.log(amount);
-							$('#booking_payment_amount').val(amount);
-	
-							$('.payment-amount').text("£" + amount);
+							if($('.payment-type-buttons input:radio:checked').val() == 'credit') {
+								// console.log(amount);
+								set_amount_due_with_service(amount);
+							} else {
+								// console.log(amount);
+								set_amount_due_no_service(amount);
+							}						
 						}
 					}
 				} else {
+					$('#little-warning').text('Please select an amount');
 					$('#booking_campaign_id').focus;
 				}
 			} else if ($(this).val() == 'Deposit') {
-				var amount = '75.00'
-				// console.log('75.00');
-				$('#booking_payment_amount').val(amount);
-				$('.payment-amount').text("£" + amount);
-				$('.agreement').show();
-			}
+
+				var amount = 75.00
+				// console.log('75.00')
+
+				if($('.payment-type-buttons input:radio:checked').val() == 'credit') {
+						// console.log(amount);
+						set_amount_due_with_service(amount);
+					} else {
+						// console.log(amount);
+						set_amount_due_no_service(amount);
+							}				
+				$('.agreement').show('slow');
+			};
 		})
 		
 		$('.fee-select').change(function() {
 			console.log($('.booking_stage').find(':checked').val());
-			if ($('.booking_stage').find(':checked').val() == 'Full amount') {
+			if ($('.booking_stage').find(':checked').val() == 'Full Amount') {
 				var amount = $(this).find(':selected').data("amount");
 				console.log(amount);
 				$('.payment-amount').empty();
-				$('#booking_payment_amount').val(amount);
-				$('.payment-amount').text("£" + amount);
+				if($('.payment-type-buttons input:radio:checked').val() == 'credit') {
+						// console.log(amount);
+						set_amount_due_with_service(amount);
+					} else {
+						// console.log(amount);
+						set_amount_due_no_service(amount);
+					}
 				$('.warning').remove();
 				$(this).removeClass('.warning-box');
 			}
-		})
+		});
+
+		$('.payment-type-buttons').change(function() {
+			console.log($('.payment-type-buttons input:radio:checked').val());
+			var amount = $('.fee-select').find(':selected').data("amount");
+			if($('.payment-type-buttons input:radio:checked').val() == 'credit') {
+				$('.pay-stripe').slideDown("slow");
+				$('.pay-bank').slideUp("slow");
+				if(amount) {
+					set_amount_due_with_service(amount);
+				}
+				
+			} else {
+				$('.pay-stripe').slideUp("slow");
+				$('.pay-bank').slideDown("slow");
+				if(amount) {
+					set_amount_due_no_service(amount);
+				}
+			}
+		});
 
 		$('#booking_form').validate({
 			errorClass: 'invalid',
@@ -369,6 +459,49 @@
 				error.appendTo($("label[for='" + element.attr('id') + "']"));
 			}
 		});
+
+		var handler = StripeCheckout.configure({
+		    key: "<%= Rails.configuration.stripe[:publishable_key] %>",
+		    locale: 'auto',
+		    token: function(token) {
+		      // Use the token to create the charge with a server-side script.
+		      // You can access the token ID with `token.id`
+		      var form = $('#booking_form');
+        		form.append($('<input type="hidden" name="stripeToken" />').val(token.id));
+        		form.submit();
+		    }
+		  });
+
+		$('#stripeButton').on('click', function(e) {
+		  	var validator = $('#booking_form').validate({
+				errorClass: 'invalid',
+				errorPlacement: function(error, element) {
+					error.appendTo($("label[for='" + element.attr('id') + "']"));
+					}
+			});
+		  	if(validator.form()) {
+		  		if ($('#booking_campaign_id').find(':selected').data("type") == 'Summer') {
+		  			var productDescription = $('#Summer-fee').find(':selected').text();
+		  		} else {
+		  			var productDescription = $('#Taster-fee').find(':selected').text();
+		  		}
+		  		var customerEmail = $('#booking_email').val().trim();
+		  		// Open Checkout with further options
+			    handler.open({
+			      name: 'AIMS International',
+			      description: productDescription,
+			      email: customerEmail,
+			      currency: "gbp",
+			      amount: $('#booking_payment_amount').val() * 100
+			    });
+			    e.preventDefault();
+		  	}
+		});
+
+		  // Close Checkout on page navigation
+		  $(window).on('popstate', function() {
+		    handler.close();
+		  });
 
 
 	})
