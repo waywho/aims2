@@ -3,5 +3,29 @@ Dear <%= @first_name %>,
 This email is to confirm that you have submitted a booking for <%= @campaign %>.
 
 Your booking reference number is: <%= @opp_uid %>. Please retain this for future reference.
+Dear <%= @salutation %> <%= @name %>,
 
-<%= @page.content.html_safe %>
+This email is to confirm that you have submitted a booking for <%= @campaign %>
+
+Payment Information
+Your booking confirmation number: <%= @opp_uid %> Please retain this for future reference.
+
+<% if @payment_method == 'bank' %>
+	Payment Method: Bank Transfer or Cheque
+	Amount due: <%= @amount_due %>
+<% elsif @payment_method == 'credit' %>
+	Payment Method: Creditcards via Stripe
+	Service charge: <%= @service_fee %>
+	Total amount paid: <%= @payment %>
+<% end %>
+<% if @half_amount_remain || @half_amount_remain > 0 %>
+	2nd Installment due by ... : <%= @half_amount_remain %>
+	Final Installment due by ...: <%= @half_amount_remain %>
+<% end %>
+
+You can make your payment(s) by:
+	Stripe payment link	
+	or...
+	<%= @bank_details_page.content.html_safe if @bank_dertails_page %>
+
+<%= @page.content.html_safe if @page %>

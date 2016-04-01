@@ -1,9 +1,15 @@
 Hello, Admin,
 
-A new booking of <%= @campaign %> has bee submitted to Salesforce by <%= @first_name %> <%= @last_name %>, with email: <%= @email %>
+A new booking for <%= @campaign %> has bee submitted to Salesforce by <%= @name %>, with email: <%= @email %>
 
 This booking account web uid:<%= @web_uid %>
 This booking opportunity uid:<%= @opp_uid %>
+
+<% if @payment_method == 'bank' %>
+	<%= @name %> has selected to pay by Bank Transfer or cheque
+<% else %>
+	<%= @name %> has selected to pay by Stripe
+<% end %>
 
 Regards,
 

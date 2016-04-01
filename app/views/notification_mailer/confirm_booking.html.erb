@@ -1,7 +1,28 @@
-<b>Dear <%= @first_name %>,</b>
+<b>Dear <%= @salutation %> <%= @name %>,</b>
 
 <p>This email is to confirm that you have submitted a booking for <%= @campaign %></p>
 
-<p>Your booking reference number is: <b><%= @opp_uid %></b></p> Please retain this for future reference.
+<h3>Payment Information</h3>
+<span class='note'>Your booking confirmation number: <%= @opp_uid %></span> Please retain this for future reference.
+<br />
+<br />
+<% if @payment_method == 'bank' %>
+	<b>Payment Method:</b> Bank Transfer or Cheque
+	<b>Amount due:</b> <%= @amount_due %>
+<% elsif @payment_method == 'credit' %>
+	<b>Payment Method:</b> Creditcards via Stripe
+	<b>Service charge:</b> <%= @service_fee %>
+	<b>Total amount paid:</b> <%= @payment %>
+<% end %>
+<% if @half_amount_remain || @half_amount_remain > 0 %>
+	<b>2nd Installment due by ... :</b> <%= @half_amount_remain %>
+	<b>Final Installment due by ...:</b> <%= @half_amount_remain %>
+<% end %>
+<br />
+<br />
+<b>You can make your payment(s) by:</b><br />
+	Stripe payment link<br />
+	or...<br />
+	<%= @bank_details_page.content.html_safe if @bank_dertails_page %>
 
-<%= @page.content.html_safe %>
+<%= @page.content.html_safe if @page %>

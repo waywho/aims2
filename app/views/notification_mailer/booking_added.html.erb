@@ -1,7 +1,7 @@
 <p>Hello, Admin</p>
 <br />
 <p>
-	A new booking <%= @campaign %> has been submitted to Salesforce by <%= @first_name %> <%= @last_name %>, with email: <%= @email %>
+	A new booking for <%= @campaign %> has been submitted to Salesforce by <%= @name %>, with email: <%= @email %>
 </p>
 
 <br />
@@ -10,6 +10,11 @@ This booking account web uid:<b><%= @web_uid %></b><br />
 This booking opportunity uid:<b><%= @opp_uid %></b>
 </p>
 <br />
+<% if @payment_method == 'bank' %>
+	<%= @name %> has selected to pay by <b>Bank Transfer or cheque</b>
+<% else %>
+	<%= @name %> has selected to pay by <b>Stripe</b>
+<% end %>
 
 Regards,<br />
 <br />

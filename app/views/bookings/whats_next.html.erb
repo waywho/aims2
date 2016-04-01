@@ -7,28 +7,24 @@ Dear <%= @salutation %> <%= @name %>,<br />
 <span class='cheer'>Thank you for submitting your booking for <%= @campaign_name %>!</span>
 <br />
 <br />
-Payment Information
-<span class='note'>Your booking confirmation number: <%= @opp_uid %></span>
+<h3>Payment Information</h3>
 <br />
 <br />
 <% if @payment_method == 'bank' %>
-	Payment Method: Bank Transfer or Cheque
-	Amount due: <%= @amount_due %>
+	<b>Payment Method:</b> Bank Transfer or Cheque
+	<b>Amount due:</b> <%= @amount_due %>
 <% elsif @payment_method == 'credit' %>
-	Payment Method: Creditcards via Stripe
-	Service charge: <%= @service_fee %>
-	Total amount paid: <%= @payment %>
+	<b>Payment Method:</b> Creditcards via Stripe
+	<b>Service charge:</b> <%= @service_fee %>
+	<b>Total amount paid:</b> <%= @payment %>
 <% end %>
-<% if @half_amount_remain > 0 %>
-	2nd Installment due by ... : <%= @half_amount_remain %>
-	Final Installment due by ...: <%= @half_amount_remain %>
+<% if @half_amount_remain || @half_amount_remain > 0 %>
+	<b>2nd Installment due by ... :</b> <%= @half_amount_remain %>
+	<b>Final Installment due by ...:</b> <%= @half_amount_remain %>
 <% end %>
 <br />
 <br />
-You can make your payment(s) by:
-<% if @bank_details_page %>
-	<%= @bank_details_page.content.html_safe %>
-<% end %>
-	Stripe payment link
-
-<%= @page.content.html_safe if @page %>
+<b>You can make your payment(s) by:</b><br />
+	Stripe payment link<br />
+	or...<br />
+	<%= @bank_details_page.content.html_safe if @bank_dertails_page %>

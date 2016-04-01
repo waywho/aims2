@@ -138,7 +138,7 @@ class BookingsController < ApplicationController
 
   def send_notification_emails(name, email, campaign, web_uid, opp_uid, service_fee, payment_after_service, 
     payment, payment_method, amount_due, half_amount_remain)
-    NotificationMailer.booking_added(name, email, campaign, web_uid, opp_uid).deliver_now
+    NotificationMailer.booking_added(name, email, campaign, web_uid, opp_uid, payment_method).deliver_now
     NotificationMailer.confirm_booking(name, email, campaign, opp_uid, service_fee, payment_after_service, payment, payment_method, amount_due, half_amount_remain).deliver_now
   end
 
