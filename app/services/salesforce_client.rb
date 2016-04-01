@@ -13,15 +13,10 @@ class SalesforceClient
 			uid = create_web_uid(params[:first_name], params[:last_name])
 			create_salesforce_contact(params, uid)
 		else
-			if contact.first[:web_uid].nil?
-				uid = create_web_uid(params[:first_name], params[:last_name])
-				update_salesforce_contact(params, contact.first, uid)
-			else
-				uid = contact.first[:web_uid]
-				update_salesforce_contact(params, contact.first[:id])
-			end
+			uid = contact[:web_uid] || create_web_uid(params[:first_name], params[:last_name])
+			update_salesforce_contact(params, contact[:id], uid)
 		end
-		accounts = @client.query("select Id, AccountId, Name, Web_uid__c from Contact where Web_uid__c = #{uid}")
+		accounts = @client.query("select Id, AccountId, Name, Web_uid__c from Contact where Web_uid__c = '#{uid}'")
 		account = accounts.first
 	end
 
@@ -45,7 +40,7 @@ class SalesforceClient
 		update_phone(params[:preferred_contact], params[:contact_number], uid)
 	end
 
-	def update_salesforce_contact(params, contact_id, uid = nil)
+	def update_salesforce_contact(params, contact_id, uid)
 		load_client
 		@client.update!('Contact', 
 	        Id: contact_id,
@@ -136,7 +131,8 @@ class SalesforceClient
 	end
 
 	def return_contact(email)
- 		@client.search("FIND {#{email}} RETURNING Contact (Id, Web_uid__c)").map { |x| {id: x.Id, web_uid: x.Web_uid__c}}
+ 		contacts = @client.search("FIND {#{email}} RETURNING Contact (Id, Web_uid__c)").map { |x| {id: x.Id, web_uid: x.Web_uid__c}}
+		contacts.first
 	end
 
 	def create_web_uid(firstname, lastname)
@@ -153,12 +149,10 @@ class SalesforceClient
 	def booking_stage(stage, bank_params = nil)
 		if bank_params.present?
 			"Prospective"
-		else
-			if stage == "Deposit"
-				"Deposit Received"
-			elsif stage == "Full Amount"
-				"Fully Paid"
-			end
+		elsif stage == "Deposit"
+			"Deposit Received"
+		elsif stage == "Full Amount"
+			"Fully Paid"
 		end
 	end
 

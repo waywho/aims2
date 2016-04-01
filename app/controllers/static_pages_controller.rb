@@ -46,8 +46,4 @@ class StaticPagesController < ApplicationController
   		end
   		@events_by_date = @future_events.group_by {|t| t.date.to_formatted_s(:numerals)}
 	end
-
-	def whats_next_page_title(campaign_type)
-		"Whats Next #{campaign_type}"
-	end
 end

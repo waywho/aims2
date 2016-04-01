@@ -322,6 +322,12 @@
 			resetSummerOptions();
 			$('.Taster select').val("");
 			$('.Taster input:checked').removeAttr('checked');
+			if($(this).find(':selected').data("type") == 'Taster') {
+				$('#booking_stage_full_amount').prop('checked', true)
+				$('.payment-stage').prop('disabled', true);
+			} else if ($(this).find(':selected').data("type") == 'Summer') {
+				$('.payment-stage').prop('disabled', false);
+			}
 
 		})
 
@@ -357,7 +363,7 @@
 				if (validator.element('#booking_campaign_id')) {
 					if ($('#booking_campaign_id').find(':selected').data("type") == 'Summer') {
 						console.log($('#Summer-fee').find(':selected').val());
-						if (!$('#Summer-fee').find(':selected').val()) {
+						if (!$('#taster_product_code-fee').find(':selected').val()) {
 							$("#Summer-fee").addClass('warning-box');
 							$("#Summer-fee").before("<span class = 'warning'>Please select an option first</div>");
 							$("#Summer-fee").focus();

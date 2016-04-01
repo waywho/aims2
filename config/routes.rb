@@ -98,7 +98,7 @@ Rails.application.routes.draw do
 	end
 
   post "casein/versions/:id/revert" => 'casein/versions#revert', :as => "revert_version"
-  get 'whats_next/:type/:salutation/:name/:campaign/:opp_uid', :to => 'static_pages#whats_next', :as => "whats_next"
+  post 'whats_next/:type/:salutation/:name/:campaign/:opp_uid', :to => 'static_pages#whats_next', :as => "whats_next"
   get 'tersm_and_conditions', :to => 'static_pages#terms_and_conditions'
   get 'privacy_policy', :to => 'static_pages#privacy_policy'
   post 'get_calendar', :to => 'static_pages#get_calendar'
@@ -123,6 +123,7 @@ Rails.application.routes.draw do
   resources :bookings, :only => [:index, :show, :create, :edit] do
     collection do
       post :payment
+      post :whats_next
     end
   end
 
