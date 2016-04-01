@@ -105,6 +105,9 @@ class BookingsController < ApplicationController
     # @salutation = params[:salutation]
   end
 
+  def payment
+  end
+
   private
 
   def load_client

@@ -1,15 +1,9 @@
-Dear <%= @first_name %>,
-
-This email is to confirm that you have submitted a booking for <%= @campaign %>.
-
-Your booking reference number is: <%= @opp_uid %>. Please retain this for future reference.
 Dear <%= @salutation %> <%= @name %>,
 
 This email is to confirm that you have submitted a booking for <%= @campaign %>
-
-Payment Information
 Your booking confirmation number: <%= @opp_uid %> Please retain this for future reference.
 
+Payment Information
 <% if @payment_method == 'bank' %>
 	Payment Method: Bank Transfer or Cheque
 	Amount due: <%= @amount_due %>

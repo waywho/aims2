@@ -363,7 +363,7 @@
 				if (validator.element('#booking_campaign_id')) {
 					if ($('#booking_campaign_id').find(':selected').data("type") == 'Summer') {
 						console.log($('#Summer-fee').find(':selected').val());
-						if (!$('#taster_product_code-fee').find(':selected').val()) {
+						if (!$('#Summer-fee').find(':selected').val()) {
 							$("#Summer-fee").addClass('warning-box');
 							$("#Summer-fee").before("<span class = 'warning'>Please select an option first</div>");
 							$("#Summer-fee").focus();

@@ -2,21 +2,20 @@
 
 <p>This email is to confirm that you have submitted a booking for <%= @campaign %></p>
 
-<h3>Payment Information</h3>
 <span class='note'>Your booking confirmation number: <%= @opp_uid %></span> Please retain this for future reference.
-<br />
+<h3>Payment Information</h3>
 <br />
 <% if @payment_method == 'bank' %>
-	<b>Payment Method:</b> Bank Transfer or Cheque
-	<b>Amount due:</b> <%= @amount_due %>
+	<b>Payment Method:</b> Bank Transfer or Cheque<br />
+	<b>Amount due:</b> <%= @amount_due %><br />
 <% elsif @payment_method == 'credit' %>
 	<b>Payment Method:</b> Creditcards via Stripe
-	<b>Service charge:</b> <%= @service_fee %>
-	<b>Total amount paid:</b> <%= @payment %>
+	<b>Service charge:</b> <%= @service_fee %><br />
+	<b>Total amount paid:</b> <%= @payment %><br />
 <% end %>
 <% if @half_amount_remain || @half_amount_remain > 0 %>
-	<b>2nd Installment due by ... :</b> <%= @half_amount_remain %>
-	<b>Final Installment due by ...:</b> <%= @half_amount_remain %>
+	<b>2nd Installment due by ... :</b> <%= @half_amount_remain %><br />
+	<b>Final Installment due by ...:</b> <%= @half_amount_remain %><br />
 <% end %>
 <br />
 <br />
@@ -24,5 +23,5 @@
 	Stripe payment link<br />
 	or...<br />
 	<%= @bank_details_page.content.html_safe if @bank_dertails_page %>
-
+<br />
 <%= @page.content.html_safe if @page %>

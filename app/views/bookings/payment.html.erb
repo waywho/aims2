@@ -1,25 +1,54 @@
-<div class = 'row'>
-	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-		<h3>Payment</h3>
-	</div>
-	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
-		<%= f.input :stage, collection: ['Credit Cards', 'Bank Transfer'], as: :radio_buttons, label: 'I would like to pay by...', input_html: { :class => 'payment-type'}, required: true %>
-	</div>
-	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
-		<%= f.input :stage, collection: ['Full amount', 'Deposit'], as: :radio_buttons, label: 'I would like to pay...', input_html: { :class => 'payment-stage'}, required: true %>
-	</div>
-	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6 total'>
-		<div class = 'col-xs-4 col-sm-4 col-md-4 col-lg-4 amount-header'%>
-			<b>Amount due: </b>
-		</div>
-		<div class = 'col-xs-8 col-sm-8 col-md-8 col-lg-8'%>
-			<span class = 'payment-amount amount'></span>
-		<%= f.input :payment_amount, as: :hidden, label: false, required: false %>
-		</div>
-	</div>
-	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12 agreement'>
-		I enclose my deposit of £75 (non-refundable) and I understand to pay the remainder of 50% of my fees by 1 May 2016 and the blance by 30 June 2016.
 
-		Note: please make sure that you send the full amount to the AIMS account and that any bank charges are compensate for at your end. Any payments that have had deductions made will have to be paid up in ful at the beginning of the course.
-	</div>
+<h1>Payment</h1>
+<div class = 'col-xs-12 col-sm-6' %>
+<%= simple_form_for :stripe_payment, :url => payment_bookings_path, :method => 'post', html: {:id => 'payment-form'} do |f| %>
+	<%= f.input :product_description %>
+	<%= f.input :amount, as: :float %>
+
+	<%= f.input :card_number, input_html: { "data-stripe" => "number" } %>
+	<%= f.input :cvc, label: "cvc", input_html: { "data-stripe" => "cvc" } %>
+	<%= f.input :expiration_month, as: :date, label: "Expiration (MM/YYYY)", :use_two_digit_numbers => true, discard_day: true, discard_year: true, input_html: { "data-stripe" => "exp-month"} %>
+	<%= f.input :year, as: :date, start_year: Date.today.year, end_year: Date.today.year + 25, discard_day: true, discard_month: true, label: false, input_html: { "data-stripe" => "exp-year"} %>
+	<%= link_to 'Calculate Service Charge', "", :class => 'btn btn-success', :id => 'calculate' %>
+	<%= f.submit "Submit Payment",  :class => 'btn btn-primary', :disabled => true %>
+
+<% end %>
 </div>
+
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script>
+	Stripe.setPublishableKey("<%= Rails.configuration.stripe[:publishable_key] %>")
+		function stripeResponseHandler(status, response) {
+		  var $form = $('#payment-form');
+
+		  if (response.error) {
+		    // Show the errors on the form
+		    $form.find('.payment-errors').text(response.error.message);
+		    $form.find('button').prop('disabled', false);
+		  } else {
+		    // response contains id and card, which contains additional card details
+		    var token = response.id;
+		    console.log(response.card.country);
+		    // Insert the token into the form so it gets submitted to the server
+		    // Disable the submit button to prevent repeated clicks
+			
+			$form.find('button').prop('disabled', false);
+		    $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+		    // and submit
+		    // $form.get(0).submit();
+		  }
+		};
+
+	$(document).ready(function() {
+
+
+		$('#calculate').click(function(event) {
+			var $form = $('#payment-form');
+
+			Stripe.card.createToken($form, stripeResponseHandler);
+
+			// Prevent the form from submitting with the default action
+			return false;
+		})
+	})
+</script>

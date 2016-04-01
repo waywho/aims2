@@ -122,7 +122,7 @@ Rails.application.routes.draw do
 
   resources :bookings, :only => [:index, :show, :create, :edit] do
     collection do
-      post :payment
+      get :payment
       post :whats_next
     end
   end
