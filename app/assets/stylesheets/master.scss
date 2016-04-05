@@ -1,5 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Cinzel);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+$aims-color: #A21D21;
+$aims-bg-color: #F6E8E9;
 
 body {
 	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif;
@@ -18,18 +20,18 @@ body {
 h1, h2, h3, h4, h5 {
 	font-family: 'Cinzel', 'Georgia', 'Times New Roman', serif;
 	font-weight: 900;
-	color: #A21D21;
+	color: $aims-color;
 	} 
 
 h1 > a, h2 > a, h3 > a, h4 > a, h5 > a {
 	font-family: 'Cinzel', 'Georgia', 'Times New Roman', serif;
 	font-weight: 900;
-	color: #A21D21;
+	color: $aims-color;
 	} 
 
 a {
 	text-decoration: none;
-	color: #A21D21;
+	color: $aims-color;
 	font-weight: 900;
 }
 
@@ -52,7 +54,7 @@ a:hover {
 
 
 .red-heading {
-  background-color: #A21D21;
+  background-color: $aims-color;
   padding: 10px;
   margin-top: 10px;
   color: #fff;
@@ -67,7 +69,7 @@ a:hover {
 	font-size: 18px;
 	font-family: 'Cinzel', 'Georgia', 'Times New Roman', serif;
     font-weight: 900;
-    color: #A21D21;
+    color: $aims-color;
 }
 
 .navbar {
@@ -135,7 +137,7 @@ a:hover {
 
 .navbar-main {
 	border-radius: 0;
-	background-color: #A21D21;
+	background-color: $aims-color;
 	color: white;
 	border: 0;
 }
@@ -252,7 +254,7 @@ nav.navbar.navbar-third li a:hover,
 
 .red-divider {
 	border-width: 5px;
-	border-color: #A21D21;
+	border-color: $aims-color;
 }
 
 .social-icon {

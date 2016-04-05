@@ -1,9 +1,21 @@
 
 <h1>Payment</h1>
-<div class = 'col-xs-12 col-sm-6' %>
+
 <%= simple_form_for :stripe_payment, :url => payment_bookings_path, :method => 'post', html: {:id => 'payment-form'} do |f| %>
-	<%= f.input :product_description %>
+<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6 payment-amount' %>
+	<%= f.input :product_description, as: :text %>
 	<%= f.input :amount, as: :float %>
+	<div id = 'sub-total' class = 'text-holder'></div>
+	<div id = 'service-charge' class = 'text-holder'></div>
+	<%= f.input :service_fee, as: :hidden, label: false %>
+	<hr id = "grand-total" />
+	<div id = 'total' class = 'text-holder'></div>
+	<%= f.input :total_amount, as: :hidden, label: false %>
+</div>
+<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6' %>
+Credit Card Information<br />
+		<i>We accept...</i><%= image_tag 'card_visa.png', :class => 'img-responsive card' %> <%= image_tag 'card_master.png', :class => 'img-responsive card' %> <%= image_tag 'card_amex.png', :class => 'img-responsive card' %>
+		<%= image_tag 'stripe-solid.png' %>
 
 	<%= f.input :card_number, input_html: { "data-stripe" => "number" } %>
 	<%= f.input :cvc, label: "cvc", input_html: { "data-stripe" => "cvc" } %>
@@ -11,9 +23,9 @@
 	<%= f.input :year, as: :date, start_year: Date.today.year, end_year: Date.today.year + 25, discard_day: true, discard_month: true, label: false, input_html: { "data-stripe" => "exp-year"} %>
 	<%= link_to 'Calculate Service Charge', "", :class => 'btn btn-success', :id => 'calculate' %>
 	<%= f.submit "Submit Payment",  :class => 'btn btn-primary', :disabled => true %>
-
-<% end %>
 </div>
+<% end %>
+
 
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script>
@@ -29,6 +41,9 @@
 		    // response contains id and card, which contains additional card details
 		    var token = response.id;
 		    console.log(response.card.country);
+		    var tokenCountry = response.card.country;
+		    set_amount_due_with_service(tokenCountry);
+
 		    // Insert the token into the form so it gets submitted to the server
 		    // Disable the submit button to prevent repeated clicks
 			
@@ -37,6 +52,24 @@
 		    // and submit
 		    // $form.get(0).submit();
 		  }
+		};
+
+		function set_amount_due_with_service(country) {
+			var amount = parseInt($("#stripe_payment_amount").val());
+			$('#service-charge').empty();
+			if(country == "US") {
+				var chargeAmount = (amount + 0.2) / (1 - 0.029)
+				var service = chargeAmount - amount
+			} else {
+				var chargeAmount = (amount + 0.2) / (1 - 0.014)
+				var service = chargeAmount - amount
+			}
+
+			$('#sub-total').text("Sub-total: £" + amount);
+			$('#service-charge').text("Stripe Service charge: £" + (service).toFixed(2));
+			$('#stripe_payment_service_fee').val((service).toFixed(2));
+			$('#total').text("£" + (chargeAmount).toFixed(2));
+			$('#stripe_payment_total_amount').val((chargeAmount).toFixed(2));
 		};
 
 	$(document).ready(function() {

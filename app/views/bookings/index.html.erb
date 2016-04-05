@@ -1,12 +1,11 @@
 <% meta title: "Booking",
 	keywords: #w{booking course} %>
-<script src="https://checkout.stripe.com/checkout.js"></script>
 <h1>Bookings</h1>
 
 <%= simple_form_for :booking, :url => bookings_path, :method => 'post', html: {:id => 'booking_form'} do |f| %>
 
 <div class = 'row'>
-	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-6 col-lg-6'>
 
 		<%= f.input :campaign_id, label: 'I would like to book...' do %>
 			<%= f.select :campaign_id, @campaigns.map { |c| [c.Name, c.Id, {'data-type' => c.Sub_Type__c}]}, {include_blank: 'Select a Course'}, {:class => 'form-control campaign-select', required: true } %>
@@ -14,7 +13,7 @@
 	</div>
 </div>
 <div class = 'row'>
-	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6'>
 		<div class = 'row'>
 			<div class = 'col-xs-12 col-sm-6 col-md-4 col-lg-4'>
 				<%= f.input :salutation, collection: ["Mr.", "Ms.", "Mrs.", "Dr.", "Prof."] %>
@@ -43,7 +42,7 @@
 			</div>
 		</div>
 	</div>
-	<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-6 col-lg-6'>
 		<%= f.input :email, required: true %>
 		<%= f.input :preferred_contact, collection: @preferred_phone_values, label: 'Preferred contact', value_method: :value, label_method: :label, required: true %>
 		<%= f.input :contact_number, required: false %>
@@ -53,46 +52,46 @@
 </div>
 <br />
 
-<div class = 'Summer course-options'>
+<div class = 'course-options' id = "Summer">
 	<div class = 'row'>
-		<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6'>
 			<%= f.input :car_reg, label: 'Car Registration (optional)', required: false %>
 		</div>
 	</div>
-	<div class = 'row summer-section'>
-		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+	<div class = 'row booking-sections'>
+		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12'>
 			<h2>Summer School Options</h2>
 		</div>
-		<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6'>
 			<%= f.input :course_stream_summer, collection: find_soap_field(@opportunity, 'Course__c'), label_method: :label, value_method: :value, include_blank: 'Select a course', label: 'Course Stream', input_html: { :id => 'summer-course-select'}, required: false %>
 		</div>
 
 
 	</div>
 	<div class = 'row course-booking Solo Crossover'>
-		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12'>
 			<h3 class = 'inline-title'>Solo Classes</h3><span class = 'instruction'> (All students enrolled on the SOLO course should select Solo Vocal Techniuqe class and up to 3 additional options)</span>
 		</div>
 		<br />
 		<br />
-		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12'>
 			<%= f.collection_check_boxes :solo_classes, find_soap_field(@opportunity, 'Solo_classes__c'), :value, :label, :include_hidden => false, item_wrapper_class: 'solo-select', required: false %>
 		</div>
-		<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6'>
 			<%= f.input :notes_for_class_selection, label: 'Choice 4 (optional)', hint: '(Replace with this option if any of my selections are not availble)', required: false %>
 		</div>
-		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12' id = 'add-on'>
+		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12' id = 'add-on'>
 			(optional) I would like to supplement my Solo classes with <%= link_to 'Choral or Ensemble Classes', '#', :class => 'supplement btn btn-success btn-xs' %>
 		</div>
 	</div>
 
 	<div class = 'row course-booking Choral Crossover'>
-		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12'>
 			<h3 class = 'inline-title'>Choral and Ensemble Classes</h3><span class = 'instruction'> (please select 1 from each session)</span>
 		</div>
 		<br />
 		<br />
-		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
+		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-3 col-md-3 col-lg-3 session'>
 			<%= f.input :session_1, collection: find_soap_field(@opportunity, 'Session_1__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
 			<% find_soap_field(@opportunity, 'Session_1__c').each do |selection| %>
 				<% if sf_session_options(@opportunity.fields, selection.value, 'Session_1__c', @client).present? %>
@@ -103,7 +102,7 @@
 				<% end %>
 			<% end %>
 		</div>
-		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
+		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-3 col-md-3 col-lg-3 session'>
 			<%= f.input :session_2, collection: find_soap_field(@opportunity, 'Session_2__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
 			<% find_soap_field(@opportunity, 'Session_2__c').each do |selection| %>
 				<% if sf_session_options(@opportunity.fields, selection.value, 'Session_2__c', @client).present? %>
@@ -114,7 +113,7 @@
 				<% end %>
 			<% end %>
 		</div>
-		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
+		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-3 col-md-3 col-lg-3 session'>
 			<%= f.input :session_3, collection: find_soap_field(@opportunity, 'Session_3__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
 			<% find_soap_field(@opportunity, 'Session_3__c').each do |selection| %>
 				<% if sf_session_options(@opportunity.fields, selection.value, 'Session_3__c', @client).present? %>
@@ -125,7 +124,7 @@
 				<% end %>
 			<% end %>
 		</div>
-		<div class = 'col-xs-12 col-sm-3 col-md-3 col-lg-3 session'>
+		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-3 col-md-3 col-lg-3 session'>
 			<%= f.input :session_4, collection: find_soap_field(@opportunity, 'Session_4__c'), label_method: :label, value_method: :value, input_html: { :class => 'session-select'}, required: false %>
 			<% find_soap_field(@opportunity, 'Session_4__c').each do |selection| %>
 				<% if sf_session_options(@opportunity.fields, selection.value, 'Session_4__c', @client).present? %>
@@ -139,7 +138,7 @@
 	</div>
 
 	<div class = 'row'>
-		<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6 audition'>
+		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6 audition'>
 			<h3>Audition</h3>
 			<span>I would like to be considered for (please tick all that apply):</span><br />
 			<br />
@@ -149,18 +148,17 @@
 			<br />
 			<%= f.input :audition, collection: find_soap_field(@opportunity, 'Audition_requested__c'), label_method: :label, value_method: :value, label: false, include_blank: 'Select an audition time', required: false %>
 		</div>
-		<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6 audition-notes'>
+		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6 audition-notes'>
 			<h3>Audition Recording/Notes</h3>
 			<span>If you would like to be considered for Solo, Masterclass, or Bursary but cannot audition in person, please send us recordings, either via email or paste the links below:</span> <br />
 			<%= f.input :audition_notes, as: :text, label: false, required: false %>
 		</div>
 	</div>
-	<br />
-	<div class = 'row bottom-div'>
-		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+	<div class = 'row'>
+		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12'>
 			<h3>Accommodation/Visitor Options</h3>
 		</div>
-		<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12'>
 			<%= f.input :summer_product_code, required: false, label: false do %>
 				<%= f.select :summer_product_code, @summer_fees.map { |sf| [sf.full_description, sf.product_code, {'data-amount' => sf.amount}]}, {include_blank: 'Select an option'}, {:class => 'form-control fee-select', :id => 'Summer-fee'} %>
 			<% end %>
@@ -168,36 +166,29 @@
 	</div>
 </div>
 
-<div class = 'row course-options Taster'>
-	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+<div class = 'row course-options booking-sections' id = 'Taster'>
+	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12'>
 		<h2>Mini-Aims Course Options</h2>
 	</div>
-	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6'>
 			<%= f.input :course_stream_mini, collection: ['Solo', 'Choral'], include_blank: 'Select a course', label: 'Course Stream', input_html: { :class => 'course-select'}, required: true %>
 	</div>
-	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6'>
 		<%= f.input :days, collection: ['Saturday', 'Sunday'], as: :check_boxes, label: 'I would like to attend...', required: true %>
 	</div>
-	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12'>
 		<%= f.input :taster_product_code, label: 'Fee', required: false do %>
 			<%= f.select :taster_product_code, @mini_fees.map { |sf| [sf.full_description, sf.product_code, {'data-amount' => sf.amount}]}, {include_blank: 'Select an option'}, {:class => 'form-control fee-select', :id => 'Taster-fee'} %>
 		<% end %>
 	</div>
 </div>
-<div class = 'row'>
-	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+<div class = 'row booking-sections'>
+	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12'>
 		<h3>Payment</h3>
 	</div>
-	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6'>
 		<div id = 'little-warning'></div>
 		<%= f.input :stage, collection: ['Full Amount', 'Deposit'], as: :radio_buttons, label: 'I would like to pay...', input_html: { :class => 'payment-stage btn-primary'}, required: true %>
-		<div class = 'agreement'>
-			<%= f.input :agreement, as: :boolean, label: "I enclose my deposit of £75 (non-refundable) and I understand to pay the remainder of 50% of my fees by 1 May 2016 and the blance by 30 June 2016." %>
-		</div>
-	</div>
-</div>
-<div class = 'row'>
-	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
 		<b>Pay by...</b><br />
 		<br />
 		<div class="btn-group payment-type-buttons" data-toggle="buttons">
@@ -208,35 +199,59 @@
 		    <input type="radio" name="options" id="option2" autocomplete="off" value='bank'> Bank Transfer
 		  </label>
 		</div>
+		<br />
 	</div>
-	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
-		<div id = 'course-cost' class = 'text-holder'></div>
-		<div id = 'service-charge' class = 'text-holder'></div>
-		<%= f.input :service_fee, as: :hidden, label: false, required: false %>
-		<div class = 'total'>
-			<div class = 'col-xs-4 col-sm-4 col-md-4 col-lg-4 amount-header'%>
-				<b>Amount due: </b>
-			</div>
-			<div class = 'col-xs-8 col-sm-8 col-md-8 col-lg-8'%>
-				<span class = 'payment-amount amount'></span>
-			<%= f.input :payment_amount, as: :hidden, label: false, required: false %>
+	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6'>
+		<div class = 'agreement'>
+			<%= f.input :agreement, as: :boolean, label: "I enclose my deposit of £75 (non-refundable) and I understand to pay the remainder of 50% of my fees by 1 May 2016 and the blance by 30 June 2016." %>
+		</div>
+		<div class = 'bill'>
+			<div class = "line-item"><div class = 'amount-header'>Sub Total:</div><span class = 'amount' id = 'sub-total'></span></div>
+			<div class = "line-item"><div class = 'amount-header'>Service Charge:</div><span class = 'amount'  id = 'service-charge-input'></span></div>
+			<%= f.input :service_fee, as: :hidden, label: false, input_html: { "id" => 'service-fee'} %>
+			<div class = 'grand-total'>
+				<div class = "amount-header" id = "grand-total-header">Amount due:</div>
+				<span class = 'payment-amount amount' id = 'total-amount'></span>
+					<%= f.input :payment_amount, as: :hidden, label: false, required: false, input_html: { "id" => 'payment-amount-input'} %>
 			</div>
 		</div>
 	</div>
-	<br />
 </div>
 <br />
 <div class = 'row pay-stripe'>
-	<div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6'>
 		<i>We accept...</i><%= image_tag 'card_visa.png', :class => 'img-responsive card' %> <%= image_tag 'card_master.png', :class => 'img-responsive card' %> <%= image_tag 'card_amex.png', :class => 'img-responsive card' %>
-		<%= image_tag 'stripe-solid.png' %>
+		<%= image_tag 'stripe-solid.png' %><br />
+		<br />
+		<span class = 'payment-errors'></span>
+		Credit Card Information<br />
+		<div class = 'row'>
+			<div class = 'col-xs-9 col-sm-9 col-md-9'>
+				<%= f.input :card_number, input_html: { "data-stripe" => "number" } %>
+			</div>
+			<div class = 'col-xs-3 col-sm-3 col-md-3'>
+			<%= f.input :cvc, label: "cvc", input_html: { "data-stripe" => "cvc" } %>
+			</div>
+		</div>
+		<div class = 'row'>
+			<div class = 'col-xs-4 col-sm-4 col-md-4'>
+			<b>Expiration (MM/YYYY)<b>
+			</div>
+			<div class = 'col-xs-2 col-sm-1 col-md-1'>
+				<%= f.input :expiration_month, as: :date, label: false, :use_two_digit_numbers => true, discard_day: true, discard_year: true, input_html: { "data-stripe" => "exp-month"} %>
+			</div>
+			<div class = 'col-xs-2 col-sm-1 col-md-1'>
+				<%= f.input :year, as: :date, start_year: Date.today.year, end_year: Date.today.year + 25, discard_day: true, discard_month: true, label: false, input_html: { "data-stripe" => "exp-year"} %>
+			</div>
+		</div>
 	</div>
-	<div class = "col-xs-12 col-sm-6 col-md-6 col-lg-6">
-		<%= f.submit 'Pay and Submit Booking', name: 'stripe_booking', :class => 'btn btn-primary', :id => 'stripeButton' %>
+	<div class = "col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6">
+		<%= link_to 'Calculate Service Charge', "#", :class => 'btn btn-success', :id => 'calculate' %>
+		<%= f.submit 'Pay and Submit Booking', name: 'stripe_booking', :class => 'btn btn-primary', :id => 'stripeButton', :disabled => true %>
 	</div>
 </div>
 <div class = "row pay-bank">
-	<div class = 'col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12'>
 		By cheque (made payable to <b>AIMS International Music School</b>) or Bank transfer (details below)
 		<div class = 'bank-detail row'>
 			<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
@@ -256,19 +271,56 @@
 		Note: When sending bank payments, please make sure that you send the full amount to the AIMS account and that any bank charges are compensate for at your end. Any payments that have had deductions made will have to be paid up in full at the beginning of the course.
 		</div>
 	</div>
-	<div class = "col-xs-12 col-sm-6 col-md-6 col-lg-6">
+	<div class = "col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6">
 		<br />
 		Pressing the 'Submit Booking' button will make a <i><b>tentative booking</b></i>. Booking will be confirmed once your payment has been received.
 	</div>
-	<div class = "col-xs-12 col-sm-6 col-md-6 col-lg-6">
+	<div class = "col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6">
 		<br />
 		<%= f.submit "Submit Booking", name: 'bank_booking', :class => 'btn btn-primary' %>
 	</div>
 </div>
 <% end %>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script>
+	Stripe.setPublishableKey("<%= Rails.configuration.stripe[:publishable_key] %>")
 	$(function() {
+		function isInEU(country) {
+			return $.inArray(country, ["AT", "BE", "DE", "DK", "ES", "FI", "FR", "GB", "IE", "IT", "LU", "NL", "NO", "SE"]) > -1;
+		};
+		function stripeResponseHandler(status, response) {
+		  var $form = $('#payment-form');
 
+		  if (response.error) {
+		    // Show the errors on the form
+		    $form.find('.payment-errors').text(response.error.message);
+		    $form.find('button').prop('disabled', false);
+		  } else {
+		    // response contains id and card, which contains additional card details
+		    var token = response.id;
+		    console.log(response.card.country);
+		    var tokenCountry = response.card.country;
+		    var amount = parseFloat($('#sub-total').text());
+		    set_amount_due_with_service(amount, tokenCountry);
+
+		    // Insert the token into the form so it gets submitted to the server
+		    // Disable the submit button to prevent repeated clicks
+			
+			$('#stripeButton').prop('disabled', false);
+		    $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+		    // and submit
+		    // $form.get(0).submit();
+		  }
+		};
+
+		function calculate() {
+			var $form = $('#booking-form');
+			Stripe.card.createToken($form, stripeResponseHandler);
+
+			// Prevent the form from submitting with the default action
+			return false;
+
+		};
 		function resetSummerClasses() {
 			// $('#summer-course-select').val("");
 			$('.solo-select input:checked').removeAttr('checked');
@@ -284,44 +336,59 @@
 			$('#Summer-fee').val("");
 		};
 
-		function set_amount_due_with_service(amount) {
-			$('#service-charge').empty();
-			var chargeAmount = (amount + 0.2) / (1 - 0.014)
-			var service = chargeAmount - amount
-			$('#course-cost').text("Sub-total: £" + amount);
-			$('.payment-amount').text("£" + (chargeAmount).toFixed(2));
-			$('#booking_payment_amount').val((chargeAmount).toFixed(2));
-			$('#service-charge').text("Stripe Service charge: £" + (service).toFixed(2));	
-			$('#booking_service_fee').val((service).toFixed(2));
+		function resetBill() {
+			$('#service-fee').empty();
+			$('#service-charge-input').empty();
+			$('#total-amount').empty();
+			$('#payment-amount-input').empty();
+		};
+		
+		function set_amount_due_with_service(amount, country) {
+			if(isInEU(country)) {
+				var chargeAmount = (amount + 0.2) / (1 - 0.014)
+				var service = chargeAmount - amount
+			} else {
+				var chargeAmount = (amount + 0.2) / (1 - 0.029)
+				var service = chargeAmount - amount
+			}
+
+			$('#sub-total').text(amount);
+			$('#service-charge-input').text((service).toFixed(2));
+			$('#service-fee').val((service).toFixed(2));
+			$('#total-amount').text("£" + (chargeAmount).toFixed(2));
+			$('#payment-amount-input').val((chargeAmount).toFixed(2));
 		};
 
 		function set_amount_due_no_service(amount) {
-			$('#service-charge').empty();
-			$('#course-cost').text("Sub-total £" + amount);
-			$('#booking_payment_amount').val(amount);
-			$('.payment-amount').text("£" + amount);
-		}
+			$('#sub-total').text(amount);
+			$('#payment-amount-input').val(amount);
+			$('#total-amount').text("£" + amount);
+		};
 
+		// show choral class options if "and or" options are selected
 		if($(".session-select").val()) {
 			$("div[data-selection='" + $(".session-select").val() + "']").show('slow');
 		};
 
+		// reset "and or" options if choral class options are changed
 		$(".session-select").change(function() {
 			$(this).closest('.session').find('.input:checked').removeAttr('checked');
 			$(this).closest('.session').children('.session-options').hide('slow');
 			$("div[data-selection='" + $(this).val() + "']").show('slow');
 		})
 
+		// show Summer or Taster section of the booking form based on Booking Campaign Id
 		$("#booking_campaign_id").change(function() {
 			$(".course-options").hide('slow');
-			$("." + $(this).find(':selected').data("type")).show('slow');
-			$('.payment-amount').empty();
+			$("#" + $(this).find(':selected').data("type")).show('slow');
+			$('#total-amount').empty();
+			$('#payment-amount-input').empty();
 			$('.payment-stage').prop('checked', false);
 			$('#booking_course').val("");
 			resetSummerClasses();
 			resetSummerOptions();
-			$('.Taster select').val("");
-			$('.Taster input:checked').removeAttr('checked');
+			$('#Taster select').val("");
+			$('#Taster input:checked').removeAttr('checked');
 			if($(this).find(':selected').data("type") == 'Taster') {
 				$('#booking_stage_full_amount').prop('checked', true)
 				$('.payment-stage').prop('disabled', true);
@@ -331,6 +398,7 @@
 
 		})
 
+		// limit 4 selections only
 		$('.solo-select input[type=checkbox]').change(function(e){
 		   if ($('.solo-select input[type=checkbox]:checked').length > 4) {
 		        $(this).prop('checked', false)
@@ -338,6 +406,7 @@
 		   }
 		})
 
+		// reset all options if summer course stream (solo, choral, cross offer...etc) options changed
 		$('#summer-course-select').change(function() {
 			resetSummerClasses();
 			$('.course-booking').hide('slow');
@@ -345,13 +414,15 @@
 			$("." + $(this).val()).show('slow');
 		})
 
+		// show choral options
 		$('.supplement').click(function(event) {
 			$('.Choral').show('slow');
 			event.preventDefault();
 		})
 
+		// when 'Full Amount' or 'Deposit' is selected on Payment-Stage, set amount based on payment type
 		$('.payment-stage').click(function() {
-			$('.payment-amount').empty();
+			resetBill();
 			$('#little-warning').empty();
 			if ($(this).val() ==  'Full Amount') { 
 				var campaign = $('#booking_campaign_id').val();
@@ -359,10 +430,9 @@
 				$('.agreement').hide('slow');
 
 				// console.log ($('.campaign-select').find(':selected').data("type") );
-
 				if (validator.element('#booking_campaign_id')) {
 					if ($('#booking_campaign_id').find(':selected').data("type") == 'Summer') {
-						console.log($('#Summer-fee').find(':selected').val());
+						// console.log($('#Summer-fee').find(':selected').val());
 						if (!$('#Summer-fee').find(':selected').val()) {
 							$("#Summer-fee").addClass('warning-box');
 							$("#Summer-fee").before("<span class = 'warning'>Please select an option first</div>");
@@ -372,7 +442,7 @@
 							console.log(amount);
 							if($('.payment-type-buttons input:radio:checked').val() == 'credit') {
 								// console.log(amount);
-								set_amount_due_with_service(amount);
+								$('#sub-total').text(amount);
 							} else {
 								// console.log(amount);
 								set_amount_due_no_service(amount);
@@ -389,7 +459,7 @@
 							var amount = $('#Taster-fee').find(':selected').data('amount');
 							if($('.payment-type-buttons input:radio:checked').val() == 'credit') {
 								// console.log(amount);
-								set_amount_due_with_service(amount);
+								$('#sub-total').text(amount);
 							} else {
 								// console.log(amount);
 								set_amount_due_no_service(amount);
@@ -407,24 +477,25 @@
 
 				if($('.payment-type-buttons input:radio:checked').val() == 'credit') {
 						// console.log(amount);
-						set_amount_due_with_service(amount);
+						$('#sub-total').text(amount);
 					} else {
 						// console.log(amount);
 						set_amount_due_no_service(amount);
-							}				
+					};				
 				$('.agreement').show('slow');
 			};
 		})
 		
+		// set amount in 'bill' if fee-select is changed based on Payment Stage ("Full Amount", "Deposit")
 		$('.fee-select').change(function() {
-			console.log($('.booking_stage').find(':checked').val());
+			// console.log($('.booking_stage').find(':checked').val());
 			if ($('.booking_stage').find(':checked').val() == 'Full Amount') {
 				var amount = $(this).find(':selected').data("amount");
-				console.log(amount);
-				$('.payment-amount').empty();
+				// console.log(amount);
+				resetBill();
 				if($('.payment-type-buttons input:radio:checked').val() == 'credit') {
 						// console.log(amount);
-						set_amount_due_with_service(amount);
+						$('#sub-total').text(amount);
 					} else {
 						// console.log(amount);
 						set_amount_due_no_service(amount);
@@ -434,14 +505,16 @@
 			}
 		});
 
+		// if Payment Type options ("Credit Cards or Bank Transfer") changed, reset amount
 		$('.payment-type-buttons').change(function() {
-			console.log($('.payment-type-buttons input:radio:checked').val());
+			// console.log($('.payment-type-buttons input:radio:checked').val());
+			resetBill();
 			var amount = $('.fee-select').find(':selected').data("amount");
 			if($('.payment-type-buttons input:radio:checked').val() == 'credit') {
 				$('.pay-stripe').slideDown("slow");
 				$('.pay-bank').slideUp("slow");
 				if(amount) {
-					set_amount_due_with_service(amount);
+					$('#sub-total').text(amount);
 				}
 				
 			} else {
@@ -453,6 +526,7 @@
 			}
 		});
 
+		// validate booking form on submit
 		$('#booking_form').validate({
 			errorClass: 'invalid',
 			errorPlacement: function(error, element) {
@@ -460,48 +534,16 @@
 			}
 		});
 
-		var handler = StripeCheckout.configure({
-		    key: "<%= Rails.configuration.stripe[:publishable_key] %>",
-		    locale: 'auto',
-		    token: function(token) {
-		      // Use the token to create the charge with a server-side script.
-		      // You can access the token ID with `token.id`
-		      var form = $('#booking_form');
-        		form.append($('<input type="hidden" name="stripeToken" />').val(token.id));
-        		form.submit();
-		    }
-		  });
+		// calculate service charge based on country
+		$('#calculate').click(function(event) {
+			event.preventDefault();
+			var $form = $('#booking_form');
 
-		$('#stripeButton').on('click', function(e) {
-		  	var validator = $('#booking_form').validate({
-				errorClass: 'invalid',
-				errorPlacement: function(error, element) {
-					error.appendTo($("label[for='" + element.attr('id') + "']"));
-					}
-			});
-		  	if(validator.form()) {
-		  		if ($('#booking_campaign_id').find(':selected').data("type") == 'Summer') {
-		  			var productDescription = $('#Summer-fee').find(':selected').text();
-		  		} else {
-		  			var productDescription = $('#Taster-fee').find(':selected').text();
-		  		}
-		  		var customerEmail = $('#booking_email').val().trim();
-		  		// Open Checkout with further options
-			    handler.open({
-			      name: 'AIMS International',
-			      description: productDescription,
-			      email: customerEmail,
-			      currency: "gbp",
-			      amount: $('#booking_payment_amount').val() * 100
-			    });
-			    e.preventDefault();
-		  	}
-		});
+			Stripe.card.createToken($form, stripeResponseHandler);
 
-		  // Close Checkout on page navigation
-		  $(window).on('popstate', function() {
-		    handler.close();
-		  });
+			// Prevent the form from submitting with the default action
+			return false;
+		})
 
 
 	})
