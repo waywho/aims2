@@ -79,6 +79,8 @@ gem 'acts_as_xlsx'
 
 gem 'stripe'
 
+gem 'jquery_payment-rails'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
