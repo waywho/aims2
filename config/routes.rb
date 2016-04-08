@@ -124,6 +124,7 @@ Rails.application.routes.draw do
     collection do
       get :payment
       post :whats_next
+      post :charge
     end
   end
 

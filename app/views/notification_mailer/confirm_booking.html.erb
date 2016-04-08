@@ -2,7 +2,9 @@
 
 <p>This email is to confirm that you have submitted a booking for <%= @campaign %></p>
 
-<span class='note'>Your booking confirmation number: <%= @opp_uid %></span> Please retain this for future reference.
+<span class='note'>Your booking confirmation number: <%= @opp_uid %></span><br />
+Please retain this for future reference.
+
 <h3>Payment Information</h3>
 <br />
 <% if @payment_method == 'bank' %>
@@ -16,12 +18,12 @@
 <% if @half_amount_remain || @half_amount_remain > 0 %>
 	<b>2nd Installment due by ... :</b> <%= @half_amount_remain %><br />
 	<b>Final Installment due by ...:</b> <%= @half_amount_remain %><br />
+	<br />
+	<br />
 <% end %>
-<br />
-<br />
-<b>You can make your payment(s) by:</b><br />
-	Stripe payment link<br />
-	or...<br />
-	<%= @bank_details_page.content.html_safe if @bank_dertails_page %>
-<br />
+	<b>You can make your payment(s) by:</b><br />
+		<b>Credit cards:</b> <%= link_to "Stripe Payment Page", payment_bookings_url(:email => @email, :confirmation => @opp_uid, :description => @product_description, :amount => @half_amount_remain || @amount_due) %><br />
+		or...<br />
+		<%= @bank_details_page.content.html_safe if @bank_dertails_page %>
+	<br />
 <%= @page.content.html_safe if @page %>

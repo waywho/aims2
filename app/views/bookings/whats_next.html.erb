@@ -1,11 +1,14 @@
 <% meta title: "What's Next",
 	keywords: "#w{booking next step}" %>
-<h1 class = 'page-heading'>What's Next</h2>
+<h1 class = 'page-heading'>Thank You</h2>
 
 Dear <%= @salutation %> <%= @name %>,<br />
-
-<span class='cheer'>Thank you for submitting your booking for <%= @campaign.Name %>!</span>
-<span class='note'>Your booking confirmation number: <%= @opp_uid %></span> Please retain this for future reference.
+<p>
+<span class='cheer'>Thank you for submitting your booking for <%= @campaign.Name %>!</span><br />
+<br />
+<span class='note'>Your booking confirmation number: <%= @opp_uid %></span> <br />
+Please retain this for future reference.
+<p>
 <br />
 <h3>Payment Information</h3>
 <% if @payment_method == 'bank' %>
@@ -22,9 +25,9 @@ Dear <%= @salutation %> <%= @name %>,<br />
 <% end %>
 <br />
 <b>You can make your payment(s) by:</b><br />
-	Stripe payment link<br />
+	<b>Credit cards:</b> <%= link_to "Stripe Payment Page", payment_bookings_url(:email => @email, :confirmation => @opp_uid, :description => @product_description) %><br />
 	or...<br />
 	<%= @bank_details_page.content.html_safe if @bank_dertails_page %>
 <br />
-<br />
+<h2>What's Next</h2>
 <%= @page.content.html_safe if @page %>

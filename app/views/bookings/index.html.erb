@@ -187,86 +187,54 @@
 		<h3>Payment</h3>
 	</div>
 	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6'>
-		<div id = 'little-warning'></div>
-		<%= f.input :stage, collection: ['Full Amount', 'Deposit'], as: :radio_buttons, label: 'I would like to pay...', input_html: { :class => 'payment-stage btn-primary'}, required: true %>
-	</div>
-	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6'>
-	<b>Pay by...</b>
-		<div class="btn-group payment-type-buttons" data-toggle="buttons">
-		  <label class="btn btn-default active">
-		    <input type="radio" name="options" id="option1" autocomplete="off" value='credit' checked = 'checked'> Credit Cards
-		  </label>
-		  <label class="btn btn-default">
-		    <input type="radio" name="options" id="option2" autocomplete="off" value='bank'> Bank Transfer
-		  </label>
+		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12'>
+			<div id = 'little-warning'></div>
+			<%= f.input :stage, collection: ['Full Amount', 'Deposit'], as: :radio_buttons, label: 'I would like to pay...', input_html: { :class => 'payment-stage btn-primary'}, required: true %>
 		</div>
-		<br />
-	</div>
-</div>
-<div class = "row">
-	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6'>
-		<div class = 'agreement'>
-			<%= f.input :agreement, as: :boolean, label: "I enclose my deposit of £75 (non-refundable) and I understand to pay the remainder of 50% of my fees by 1 May 2016 and the blance by 30 June 2016." %>
-		</div>
-		<div class = 'bill'>
-			<div class = "line-item"><div class = 'amount-header'>Sub Total:</div><span class = 'amount' id = 'sub-total'></span></div>
-			<div class = "line-item"><div class = 'amount-header'>Service Charge:</div><span class = 'amount'  id = 'service-charge-input'></span></div>
-			<%= f.input :service_fee, as: :hidden, label: false, input_html: { "id" => 'service-fee'} %>
-			<div class = 'grand-total'>
-				<div class = "amount-header" id = "grand-total-header">Amount due:</div>
-				<span class = 'payment-amount amount' id = 'total-amount'></span>
-					<%= f.input :payment_amount, as: :hidden, label: false, required: false, input_html: { "id" => 'payment-amount-input'} %>
+		<div class = 'col-xs-12 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12'>
+			<div class = 'agreement'>
+				<%= f.input :agreement, as: :boolean, label: "I enclose my deposit of £75 (non-refundable) and I understand to pay the remainder of 50% of my fees by 1 May 2016 and the blance by 30 June 2016." %>
 			</div>
-		</div>
-	</div>
-	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6 pay-stripe'>
-		<i>We accept...</i><%= image_tag 'card_visa.png', :class => 'img-responsive card' %> <%= image_tag 'card_master.png', :class => 'img-responsive card' %> <%= image_tag 'card_amex.png', :class => 'img-responsive card' %>
-		<%= image_tag 'stripe-solid.png' %><br />
-		<br />
-		<span class = 'payment-errors'></span>
-		<h4>Credit Card Information</h4>
-		<div class = 'row'>
-			<div class = 'col-xs-9 col-sm-9 col-md-9'>
-				<%= f.input :card_number, required: false, input_html: { "data-stripe" => "number" } %>
+			<div class = 'bill'>
+				<div class = "line-item"><div class = 'amount-header'>Sub Total:</div><span class = 'amount' id = 'sub-total'></span></div>
+				<div class = "line-item"><div class = 'amount-header'>Service Charge:</div><span class = 'amount'  id = 'service-fee'></span></div>
+				<%= f.input :service_fee, as: :hidden, label: false, input_html: { "id" => 'service-charge-input'} %>
+				<div class = 'grand-total'>
+					<div class = "amount-header" id = "grand-total-header">Amount due:</div>
+					<span class = 'payment-amount amount' id = 'total-amount'></span>
+						<%= f.input :payment_amount, as: :hidden, label: false, required: false, input_html: { "id" => 'payment-amount-input'} %>
+				</div>
 			</div>
-			<div class = 'col-xs-3 col-sm-3 col-md-3'>
-			<%= f.input :cvc, label: "cvc", required: false, input_html: { "data-stripe" => "cvc" } %>
-			</div>
-		</div>
-		<div class = 'row'>
-			<div class = "col-xs-6 col-sm-6">
-				<label class = "string optional control-label" for = "booking_month">Expiration(MM/YYYY)</label>
-			<div class = 'input-group'>
-				<%= f.input_field :month, label: false, required: false, maxlength: 2, "data-stripe" => "exp-month", :class => 'form-control' %>
-				<span class = 'input-group-addon'> / </span>
-				<%= f.input_field :year, label: false, required: false, maxlength: 4, "data-stripe" => "exp-year", :class => 'form-control' %>
-			</div>
-			</div>
-		</div>
-		<br />
-		<%= link_to 'Calculate Service Charge', "#", :class => 'btn btn-success', :id => 'calculate' %>
-		<%= f.submit 'Pay and Submit Booking', name: 'stripe_booking', :class => 'btn btn-primary', :id => 'stripeButton', :disabled => true %>
-	</div>
-	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6 pay-bank'>
-		By cheque (made payable to <b>AIMS International Music School</b>) or Bank transfer (details below)
-		<div class = 'bank-detail row'>
-			<div class = 'col-xs-12 col-sm-12 col-md-6 col-lg-6'>
-				<b>SORT CODE:</b> 40 25 06
-				<b>IBAN:</b> GB37MIDL40250681383132
-				<b>ACCOUNT NUMBER:</b> 81383132
-				<b>BIC:</b> MIDLGB2113U
-			</div>
-		</div>
-		<div class = "col-xs-12 col-sm-12 col-md-12 col-lg-12 pay-bank-note">
-		Note: When sending bank payments, please make sure that you send the full amount to the AIMS account and that any bank charges are compensate for at your end. Any payments that have had deductions made will have to be paid up in full at the beginning of the course.
-		<br />
-		<p>
-		Pressing the 'Submit Booking' button will make a <i><b>tentative booking</b></i>. Booking will be confirmed once your payment has been received.
-		</p>
 		</div>
 		<br />
 		<br />
-		<%= f.submit "Submit Booking", name: 'bank_booking', :class => 'btn btn-primary pull-right' %>
+	</div>
+	<div class = 'col-xs-12 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6'>
+		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12'>
+		<b>Pay by...</b>
+			<div class="btn-group payment-type-buttons" data-toggle="buttons">
+			  <label class="btn btn-default active">
+			    <input type="radio" name="options" id="option1" autocomplete="off" value='credit' checked = 'checked'> Credit Cards
+			  </label>
+			  <label class="btn btn-default">
+			    <input type="radio" name="options" id="option2" autocomplete="off" value='bank'> Bank Transfer
+			  </label>
+			</div>
+			<br />
+			<br />
+		</div>
+		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12 pay-stripe'>
+			<%= render :partial => "bookings/creditcard_form", :locals => { :f => f } %>
+		</div>
+		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12 pay-bank'>
+			<%= @bank_details_page.content.html_safe if @bank_dertails_page %>
+			<br />
+			<p>
+			Pressing the 'Submit Booking' button will make a <i><b>tentative booking</b></i>. Booking will be confirmed once your payment has been received.
+			</p>
+			<br />
+				<%= f.submit "Submit Booking", name: 'bank_booking', :class => 'btn btn-primary pull-right', :id => 'bankSubmit', :disabled => true %>
+		</div>
 	</div>
 </div>
 <% end %>
@@ -278,7 +246,7 @@
 			return $.inArray(country, ["AT", "BE", "DE", "DK", "ES", "FI", "FR", "GB", "IE", "IT", "LU", "NL", "NO", "SE"]) > -1;
 		};
 		function stripeResponseHandler(status, response) {
-		  var $form = $('#payment-form');
+		  var $form = $('#booking_form');
 
 		  if (response.error) {
 		    // Show the errors on the form
@@ -303,7 +271,7 @@
 		};
 
 		function calculate() {
-			var $form = $('#booking-form');
+			var $form = $('#booking_form');
 			Stripe.card.createToken($form, stripeResponseHandler);
 
 			// Prevent the form from submitting with the default action
@@ -341,9 +309,9 @@
 				var service = chargeAmount - amount
 			}
 
-			$('#sub-total').text(amount);
-			$('#service-charge-input').text((service).toFixed(2));
-			$('#service-fee').val((service).toFixed(2));
+			// $('#sub-total').text(amount);
+			$('#service-fee').text((service).toFixed(2));
+			$('#service-charge-input').val((service).toFixed(2));
 			$('#total-amount').text("£" + (chargeAmount).toFixed(2));
 			$('#payment-amount-input').val((chargeAmount).toFixed(2));
 		};
@@ -354,6 +322,8 @@
 			$('#total-amount').text("£" + amount);
 		};
 
+		// disable calculate button
+		$('#calculate').prop('disabled', true);
 		// show choral class options if "and or" options are selected
 		if($(".session-select").val()) {
 			$("div[data-selection='" + $(".session-select").val() + "']").show('slow');
@@ -422,8 +392,10 @@
 				if (validator.element('#booking_campaign_id')) {
 					if ($('#booking_campaign_id').find(':selected').data("type") == 'Summer') {
 						// console.log($('#Summer-fee').find(':selected').val());
+
 						if (!$('#Summer-fee').find(':selected').val()) {
 							$("#Summer-fee").addClass('warning-box');
+							$('#little-warning').text('Please select an Accommodation/Vistor option first.');
 							$("#Summer-fee").before("<span class = 'warning'>Please select an option first</div>");
 							$("#Summer-fee").focus();
 						} else {
@@ -432,9 +404,11 @@
 							if($('.payment-type-buttons input:radio:checked').val() == 'credit') {
 								// console.log(amount);
 								$('#sub-total').text(amount);
+								$('#calculate').prop('disabled', false);
 							} else {
 								// console.log(amount);
 								set_amount_due_no_service(amount);
+								$('#bankSubmit').prop('disabled', false);
 							}
 						}
 
@@ -442,6 +416,7 @@
 						console.log($('#Taster-fee').find(':selected').val());
 						if (!$('#Taster-fee').find(':selected').val()) {
 							$("#Taster-fee").addClass('warning-box');
+							$('#little-warning').text('Please select a Fee option first.');
 							$("#Taster-fee").before("<span class = 'warning'>Please select an option first</div>");
 							$('#Taster-fee').focus();
 						} else {
@@ -449,14 +424,16 @@
 							if($('.payment-type-buttons input:radio:checked').val() == 'credit') {
 								// console.log(amount);
 								$('#sub-total').text(amount);
+								$('#calculate').prop('disabled', false);
 							} else {
 								// console.log(amount);
 								set_amount_due_no_service(amount);
+								$('#bankSubmit').prop('disabled', false);
 							}						
 						}
 					}
 				} else {
-					$('#little-warning').text('Please select an amount');
+					$('#little-warning').text('Please select a Summer or Mini-AIMS course first.');
 					$('#booking_campaign_id').focus;
 				}
 			} else if ($(this).val() == 'Deposit') {
@@ -467,9 +444,11 @@
 				if($('.payment-type-buttons input:radio:checked').val() == 'credit') {
 						// console.log(amount);
 						$('#sub-total').text(amount);
+						$('#calculate').prop('disabled', false);
 					} else {
 						// console.log(amount);
 						set_amount_due_no_service(amount);
+						$('#bankSubmit').prop('disabled', false);
 					};				
 				$('.agreement').show('slow');
 			};
@@ -485,9 +464,11 @@
 				if($('.payment-type-buttons input:radio:checked').val() == 'credit') {
 						// console.log(amount);
 						$('#sub-total').text(amount);
+						$('#calculate').prop('disabled', false);
 					} else {
 						// console.log(amount);
 						set_amount_due_no_service(amount);
+						$('#bankSubmit').prop('disabled', false);
 					}
 				$('.warning').remove();
 				$(this).removeClass('.warning-box');
@@ -504,6 +485,7 @@
 				$('.pay-bank').slideUp("slow");
 				if(amount) {
 					$('#sub-total').text(amount);
+					$('#calculate').prop('disabled', false);
 				}
 				
 			} else {
@@ -511,6 +493,7 @@
 				$('.pay-bank').slideDown("slow");
 				if(amount) {
 					set_amount_due_no_service(amount);
+					$('#bankSubmit').prop('disabled', false);
 				}
 			}
 		});
@@ -534,10 +517,19 @@
 			var year = $("#booking_year").val();
 			var cvc = $("#booking_cvc").val();
 			var cardNumber = $("#booking_card_number").val();
-			if($.payment.validateCardNumber(cardNumber) && $.payment.validateCardExpiry(month, year) && $.payment.validateCardCVC(cvc)) {
-				Stripe.card.createToken($form, stripeResponseHandler);
+			if (!$.payment.validateCardNumber(cardNumber)) {
+				$("#booking_card_number").addClass('warning-box');
+				$("#booking_card_number").before("<span class = 'warning'>Please enter a valid number</div>");
+				$('#booking_card_number').focus();
+			} else if (!$.payment.validateCardCVC(cvc)) {
+				$("#booking_cvc").addClass('warning-box');
+				$("#booking_cvc").before("<span class = 'warning'>Invalid</div>");
+				$('#booking_cvc').focus();
+			} else if (!$.payment.validateCardExpiry(month, year)) {
+				$("#booking_year").addClass('warning-box');
+				$("#valid-date").text("Please enter a valid date");
 			} else {
-				alert("please enter a valid credit card")
+				Stripe.card.createToken($form, stripeResponseHandler);
 			}
 
 			// Prevent the form from submitting with the default action

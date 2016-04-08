@@ -12,7 +12,7 @@ class NotificationMailer < ApplicationMailer
 			subject: "A new booking for #{@campaign} has been submitted")
 	end
 
-	def confirm_booking(name, booking_email, campaign, opp_uid, service_fee, payment_after_service, payment, payment_method, amount_due, half_amount_remain)
+	def confirm_booking(name, booking_email, campaign, opp_uid, service_fee, payment_after_service, payment, payment_method, amount_due, half_amount_remain, product_description)
 		@name = @name
 		@email = booking_email
 		@campaign = campaign.Name
@@ -25,6 +25,7 @@ class NotificationMailer < ApplicationMailer
 		@half_amount_remain = half_amount_remain
 		@page = Page.where(title: whats_next_page_title(campaign.Sub_Type__c)).first
 		@bank_details_page = Page.where(title: "Bank Transfer Details").first
+		@product_description = product_description
 		mail(to: @email,
 			subject: "Booking Submitted: #{@campaign}")
 	end

@@ -1,28 +1,22 @@
 
 <h1>Payment</h1>
 
-<%= simple_form_for :stripe_payment, :url => payment_bookings_path, :method => 'post', html: {:id => 'payment-form'} do |f| %>
+<%= simple_form_for :stripe_payment, :url => charge_bookings_path, :method => 'post', html: {:id => 'payment-form'} do |f| %>
 <div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6 payment-amount' %>
-	<%= f.input :product_description, as: :text %>
-	<%= f.input :amount, as: :float %>
-	<div id = 'sub-total' class = 'text-holder'></div>
-	<div id = 'service-charge' class = 'text-holder'></div>
-	<%= f.input :service_fee, as: :hidden, label: false %>
-	<hr id = "grand-total" />
-	<div id = 'total' class = 'text-holder'></div>
-	<%= f.input :total_amount, as: :hidden, label: false %>
-</div>
+		<%= f.input :email, label: "Email (required)", input_html: {value: @email} %>
+		<%= f.input :confirmation_number, label: "Booking confirmation number (optional)", input_html: {value: @confirmation} %>
+	<%= f.input :product_description, as: :text, input_html: {value: @description} %>
+	<%= f.input :amount, as: :float, input_html: {value: @amount} %>
+		<div class = "line-item"><div class = 'amount-header'>Service Charge:</div><span class = 'amount'  id = 'service-charge-input'></span></div>
+				<%= f.input :service_fee, as: :hidden, label: false, input_html: { "id" => 'service-fee'} %>
+	<div class = 'grandTotal'>
+		<div class = "amount-header" id = "total-header">Amount due:</div>
+		<span class = 'payment-amount amount' id = 'total-amount'></span>
+			<%= f.input :payment_amount, as: :hidden, label: false, required: false, input_html: { "id" => 'payment-amount-input'} %>
+		</div>
+	</div>
 <div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6' %>
-Credit Card Information<br />
-		<i>We accept...</i><%= image_tag 'card_visa.png', :class => 'img-responsive card' %> <%= image_tag 'card_master.png', :class => 'img-responsive card' %> <%= image_tag 'card_amex.png', :class => 'img-responsive card' %>
-		<%= image_tag 'stripe-solid.png' %>
-
-	<%= f.input :card_number, input_html: { "data-stripe" => "number" } %>
-	<%= f.input :cvc, label: "cvc", input_html: { "data-stripe" => "cvc" } %>
-	<%= f.input :expiration_month, as: :date, label: "Expiration (MM/YYYY)", :use_two_digit_numbers => true, discard_day: true, discard_year: true, input_html: { "data-stripe" => "exp-month"} %>
-	<%= f.input :year, as: :date, start_year: Date.today.year, end_year: Date.today.year + 25, discard_day: true, discard_month: true, label: false, input_html: { "data-stripe" => "exp-year"} %>
-	<%= link_to 'Calculate Service Charge', "", :class => 'btn btn-success', :id => 'calculate' %>
-	<%= f.submit "Submit Payment",  :class => 'btn btn-primary', :disabled => true %>
+	<%= render :partial => "bookings/creditcard_form", :locals => { :f => f } %>
 </div>
 <% end %>
 
@@ -30,8 +24,11 @@ Credit Card Information<br />
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script>
 	Stripe.setPublishableKey("<%= Rails.configuration.stripe[:publishable_key] %>")
+		function isInEU(country) {
+			return $.inArray(country, ["AT", "BE", "DE", "DK", "ES", "FI", "FR", "GB", "IE", "IT", "LU", "NL", "NO", "SE"]) > -1;
+		};
 		function stripeResponseHandler(status, response) {
-		  var $form = $('#payment-form');
+		  var $form = $('#booking_form');
 
 		  if (response.error) {
 		    // Show the errors on the form
@@ -42,46 +39,74 @@ Credit Card Information<br />
 		    var token = response.id;
 		    console.log(response.card.country);
 		    var tokenCountry = response.card.country;
-		    set_amount_due_with_service(tokenCountry);
+		    var amount = parseFloat($('#sub-total').text());
+		    set_amount_due_with_service(amount, tokenCountry);
 
 		    // Insert the token into the form so it gets submitted to the server
 		    // Disable the submit button to prevent repeated clicks
 			
-			$form.find('button').prop('disabled', false);
+			$('#stripeButton').prop('disabled', false);
 		    $form.append($('<input type="hidden" name="stripeToken" />').val(token));
 		    // and submit
 		    // $form.get(0).submit();
 		  }
 		};
 
-		function set_amount_due_with_service(country) {
-			var amount = parseInt($("#stripe_payment_amount").val());
-			$('#service-charge').empty();
-			if(country == "US") {
-				var chargeAmount = (amount + 0.2) / (1 - 0.029)
-				var service = chargeAmount - amount
-			} else {
-				var chargeAmount = (amount + 0.2) / (1 - 0.014)
-				var service = chargeAmount - amount
-			}
-
-			$('#sub-total').text("Sub-total: £" + amount);
-			$('#service-charge').text("Stripe Service charge: £" + (service).toFixed(2));
-			$('#stripe_payment_service_fee').val((service).toFixed(2));
-			$('#total').text("£" + (chargeAmount).toFixed(2));
-			$('#stripe_payment_total_amount').val((chargeAmount).toFixed(2));
-		};
-
-	$(document).ready(function() {
-
-
-		$('#calculate').click(function(event) {
-			var $form = $('#payment-form');
-
+		function calculate() {
+			var $form = $('#booking_form');
 			Stripe.card.createToken($form, stripeResponseHandler);
 
 			// Prevent the form from submitting with the default action
 			return false;
-		})
+
+		};
+
+		function set_amount_due_with_service(country) {
+			var amount = parseInt($("#stripe_payment_amount").val());
+			$('#service-charge').empty();
+			if(isInEU(country)) {
+				var chargeAmount = (amount + 0.2) / (1 - 0.014)
+				var service = chargeAmount - amount
+			} else {
+				var chargeAmount = (amount + 0.2) / (1 - 0.029)
+				var service = chargeAmount - amount
+			}
+
+			$('#service-charge-input').text("£" + (service).toFixed(2));
+			$('#service-fee').val((service).toFixed(2));
+			$('#total-amount').text("£" + (chargeAmount).toFixed(2));
+			$('#payment-amount-input').val((chargeAmount).toFixed(2));
+		};
+
+	$(document).ready(function() {
+
+		$("#stripe_payment_card_number").payment('formatCardNumber');
+		$("#stripe_payment_cvc").payment('formatCardCVC');
+
+		$('#calculate').click(function(event) {
+			event.preventDefault();
+			var $form = $('#payment-form');
+			var month = $("#stripe_payment_month").val();
+			var year = $("#stripe_payment_year").val();
+			var cvc = $("#stripe_payment_cvc").val();
+			var cardNumber = $("#stripe_payment_card_number").val();
+			if (!$.payment.validateCardNumber(cardNumber)) {
+				$("#stripe_payment_card_number").addClass('warning-box');
+				$("#stripe_payment_card_number").before("<span class = 'warning'>Please enter a valid number</div>");
+				$('#stripe_payment_card_number').focus();
+			} else if (!$.payment.validateCardCVC(cvc)) {
+				$("#stripe_payment_cvc").addClass('warning-box');
+				$("#stripe_payment_cvc").before("<span class = 'warning'>Invalid</div>");
+				$('#stripe_payment_cvc').focus();
+			} else if (!$.payment.validateCardExpiry(month, year)) {
+				$("#stripe_payment_year").addClass('warning-box');
+				$("#valid-date").text("Please enter a valid date");
+			} else {
+				Stripe.card.createToken($form, stripeResponseHandler);
+			}
+
+			// Prevent the form from submitting with the default action
+			return false;
+		});
 	})
 </script>

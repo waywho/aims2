@@ -32,22 +32,29 @@ class BookingsController < ApplicationController
     booking_params = params[:booking].reject { |k, v| v.blank? }
     @campaign = find_campaign(booking_params[:campaign_id])
     product = select_product(@campaign)
+    @product_description = "#{@campaign}: #{product.Description}"
 
     if params[:stripeToken] 
 
       @amount = (booking_params[:payment_amount].to_f * 100).to_i
 
-      customer = Stripe::Customer.create(
-          :email => booking_params[:email],
-          :source  => params[:stripeToken]
-        )
+      begin
+        customer = Stripe::Customer.create(
+            :email => booking_params[:email],
+            :source  => params[:stripeToken]
+          )
 
-      charge = Stripe::Charge.create(
-          :customer    => customer.id,
-          :amount      => @amount,
-          :description => product.Description,
-          :currency    => 'gbp'
-        )
+        charge = Stripe::Charge.create(
+            :customer    => customer.id,
+            :amount      => @amount,
+            :description => @product_description,
+            :currency    => 'gbp'
+          )
+
+      rescue Stripe::CardError => e
+        flash[:alert] = e.message
+        redirect_to bookings_path
+      end
 
       account = SalesforceClient.new.find_create_update_contact(booking_params)
       @opp_uid = create_opp_uid(account.Name, @campaign)
@@ -75,26 +82,25 @@ class BookingsController < ApplicationController
     @payment_after_service = (booking_params[:payment_amount].to_f - @service_fee).to_s
     @payment = @amount.to_f / 100
     @payment_method = params[:options]
+    @bank_details_page = Page.where(title: "Bank Transfer Details").first
     if @payment_method == 'bank'
-      @bank_details_page = Page.where(title: "Bank Transfer Details").first
       @amount_due = booking_params[:payment_amount]
-    end 
+    else
+      @half_amount_remain = (((product.UnitPrice).to_f - @payment_after_service.to_f))/2
+    end
     
     @name =  "#{booking_params[:first_name]} #{booking_params[:last_name]}"
     @salutation = booking_params[:salutation]
     @page = Page.where(title: whats_next_page_title(@campaign.Sub_Type__c)).first
-    @half_amount_remain = (((product.UnitPrice).to_f - @payment_after_service.to_f))/2
+    @email = booking_params[:email]
     
-    send_notification_emails(@name, booking_params[:email], @campaign, account.Web_uid__c, @opp_uid, @service_fee, 
-      @payment_after_service, @payment, @payment_method, @amount_due, @half_amount_remain)
+    send_notification_emails(@name, @email, @campaign, account.Web_uid__c, @opp_uid, @service_fee, 
+      @payment_after_service, @payment, @payment_method, @amount_due, @half_amount_remain, @product_description)
     
     render :whats_next
 
     # redirect_to whats_next_path(type: @campaign.Sub_Type__c, salutation: booking_params[:salutation], name: account.Name, campaign: @campaign.Name, opp_uid: opp_uid)
 
-    rescue Stripe::CardError => e
-        flash[:error] = e.message
-        redirect_to bookings_path
   end
 
   def whats_next
@@ -106,6 +112,33 @@ class BookingsController < ApplicationController
   end
 
   def payment
+    @email = params[:email] if params[:email]
+    @confirmation = params[:confirmation_number] if params[:confirmation_number]
+    @description = params[:product_description] if params[:product_description]
+    @amount = params[:payment_amount] if params[:payment_amount]
+  end
+
+  def charge
+    @amount = (payment_params[:payment_amount].to_f * 100).to_i
+    @product_description = params[:product_description]
+
+      begin
+        customer = Stripe::Customer.create(
+            :email => payment_params[:email],
+            :source  => params[:stripeToken]
+          )
+
+        charge = Stripe::Charge.create(
+            :customer    => customer.id,
+            :amount      => @amount,
+            :description => @product_description,
+            :currency    => 'gbp'
+          )
+
+      rescue Stripe::CardError => e
+        flash[:alert] = e.message
+        redirect_to bookings_path
+      end
   end
 
   private
@@ -125,6 +158,10 @@ class BookingsController < ApplicationController
       :summer_product_code, :taster_product_code, :service_fee, :payment_amount)
   end
 
+  def payment_params
+    params.require(:stripe_payment).permit(:email, :confirmation_number, :product_description, :amount, :service_fee, :payment_amount)
+  end
+
   # def create_web_uid(firstname, lastname)
   #   unique = ('a'..'z').to_a.shuffle[0,2].join
   #   "#{firstname.chr}#{lastname.chr}#{Time.now.to_formatted_s(:number)}#{unique}"
@@ -140,9 +177,9 @@ class BookingsController < ApplicationController
   end
 
   def send_notification_emails(name, email, campaign, web_uid, opp_uid, service_fee, payment_after_service, 
-    payment, payment_method, amount_due, half_amount_remain)
+    payment, payment_method, amount_due, half_amount_remain, product_description)
     NotificationMailer.booking_added(name, email, campaign, web_uid, opp_uid, payment_method).deliver_now
-    NotificationMailer.confirm_booking(name, email, campaign, opp_uid, service_fee, payment_after_service, payment, payment_method, amount_due, half_amount_remain).deliver_now
+    NotificationMailer.confirm_booking(name, email, campaign, opp_uid, service_fee, payment_after_service, payment, payment_method, amount_due, half_amount_remain, product_description).deliver_now
   end
 
   def select_product(campaign)
