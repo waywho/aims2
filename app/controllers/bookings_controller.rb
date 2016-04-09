@@ -119,18 +119,18 @@ class BookingsController < ApplicationController
   end
 
   def charge
-    @amount = (payment_params[:payment_amount].to_f * 100).to_i
+    @payment_amount = (payment_params[:payment_amount].to_f * 100).to_i
     @product_description = params[:product_description]
-
+    @email = payment_params[:email]
       begin
         customer = Stripe::Customer.create(
             :email => payment_params[:email],
             :source  => params[:stripeToken]
           )
 
-        charge = Stripe::Charge.create(
+        @charge = Stripe::Charge.create(
             :customer    => customer.id,
-            :amount      => @amount,
+            :amount      => @payment_amount,
             :description => @product_description,
             :currency    => 'gbp'
           )
@@ -139,6 +139,13 @@ class BookingsController < ApplicationController
         flash[:alert] = e.message
         redirect_to bookings_path
       end
+    if payment_params[:payment_for] == "Course fee"
+    end
+    @service_fee = payment_params[:service_fee]
+    @amount = payment_params[:amount]
+
+    NotificationMailer.confirm_payment(@email, @charge.id, @product_description,  @amount, @service_fee, @payment_amount)
+
   end
 
   private
@@ -159,7 +166,7 @@ class BookingsController < ApplicationController
   end
 
   def payment_params
-    params.require(:stripe_payment).permit(:email, :confirmation_number, :product_description, :amount, :service_fee, :payment_amount)
+    params.require(:stripe_payment).permit(:email, :confirmation_number, :product_description, :amount, :service_fee, :payment_amount, :payment_for)
   end
 
   # def create_web_uid(firstname, lastname)
