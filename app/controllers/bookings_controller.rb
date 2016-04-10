@@ -116,19 +116,20 @@ class BookingsController < ApplicationController
     @confirmation = params[:confirmation_number] if params[:confirmation_number]
     @description = params[:product_description] if params[:product_description]
     @amount = params[:payment_amount] if params[:payment_amount]
+    @payment_for = params[:payment_for] if params[:payment_for]
   end
 
   def charge
     @payment_amount = (payment_params[:payment_amount].to_f * 100).to_i
-    @product_description = params[:product_description]
+    @product_description = payment_params[:product_description]
     @email = payment_params[:email]
       begin
         customer = Stripe::Customer.create(
-            :email => payment_params[:email],
+            :email => @email,
             :source  => params[:stripeToken]
           )
 
-        @charge = Stripe::Charge.create(
+        charge = Stripe::Charge.create(
             :customer    => customer.id,
             :amount      => @payment_amount,
             :description => @product_description,
@@ -143,9 +144,15 @@ class BookingsController < ApplicationController
     end
     @service_fee = payment_params[:service_fee]
     @amount = payment_params[:amount]
+    @stripe_id = charge.id
+    @total_paid = payment_params[:payment_amount]
 
-    NotificationMailer.confirm_payment(@email, @charge.id, @product_description,  @amount, @service_fee, @payment_amount)
+    NotificationMailer.confirm_payment(@email, charge.id, @product_description,  @amount, @service_fee, @total_paid).deliver_now
 
+    render :confirm_payment
+  end
+
+  def confirm_payment
   end
 
   private

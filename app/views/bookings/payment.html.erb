@@ -1,11 +1,13 @@
-
-<h1>Payment</h1>
+<% meta title: "Payment Page",
+	keywords: "#w{booking payment}" %>
+<h1 class = 'page-heading'>Payment</h1>
 
 <%= simple_form_for :stripe_payment, :url => charge_bookings_path, :method => 'post', html: {:id => 'payment-form'} do |f| %>
+<div class = "payment-errors"></div>
 <div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6 payment-amount' %>
 		<%= f.input :email, label: "Email (required)", input_html: {value: @email} %>
-		<%= f.input :payment_for, collection: ["Course fee", "Other"], {include_blank: 'paying for...'} %>
-		<%= f.input :confirmation_number, label: "Booking confirmation number (optional)", input_html: {value: @confirmation} %>
+		<%= f.input :payment_for, collection: ["Course fee", "Other"], include_blank: 'paying for...',input_html: {value: @payment_for} %>
+		<%= f.input :confirmation_number, label: "Booking confirmation number (optional)", input_html: {value: @confirmation}, required: false %>
 	<%= f.input :product_description, as: :text, input_html: {value: @description} %>
 	<%= f.input :amount, as: :float, input_html: {value: @amount} %>
 		<div class = "line-item"><div class = 'amount-header'>Service Charge:</div><span class = 'amount'  id = 'service-charge-input'></span></div>
@@ -29,12 +31,12 @@
 			return $.inArray(country, ["AT", "BE", "DE", "DK", "ES", "FI", "FR", "GB", "IE", "IT", "LU", "NL", "NO", "SE"]) > -1;
 		};
 		function stripeResponseHandler(status, response) {
-		  var $form = $('#booking_form');
+		  var $form = $('#payment-form');
 
 		  if (response.error) {
 		    // Show the errors on the form
 		    $form.find('.payment-errors').text(response.error.message);
-		    $form.find('button').prop('disabled', false);
+		    // $form.find('#stripeButton').prop('disabled', false);
 		  } else {
 		    // response contains id and card, which contains additional card details
 		    var token = response.id;
@@ -51,15 +53,6 @@
 		    // and submit
 		    // $form.get(0).submit();
 		  }
-		};
-
-		function calculate() {
-			var $form = $('#booking_form');
-			Stripe.card.createToken($form, stripeResponseHandler);
-
-			// Prevent the form from submitting with the default action
-			return false;
-
 		};
 
 		function set_amount_due_with_service(country) {

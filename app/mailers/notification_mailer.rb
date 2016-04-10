@@ -35,7 +35,7 @@ class NotificationMailer < ApplicationMailer
 		@product_description = product_description
 		@amount = amount
 		@service_fee = service_fee
-		@total = total_payment
+		@total_paid = total_payment
 		@stripe_id = stripe_id
 		mail(to: @email,
 			subject: "AIMS - Payment confirmation")
