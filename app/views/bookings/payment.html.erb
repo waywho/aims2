@@ -4,6 +4,7 @@
 <%= simple_form_for :stripe_payment, :url => charge_bookings_path, :method => 'post', html: {:id => 'payment-form'} do |f| %>
 <div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6 payment-amount' %>
 		<%= f.input :email, label: "Email (required)", input_html: {value: @email} %>
+		<%= f.input :payment_for, collection: ["Course fee", "Other"], {include_blank: 'paying for...'} %>
 		<%= f.input :confirmation_number, label: "Booking confirmation number (optional)", input_html: {value: @confirmation} %>
 	<%= f.input :product_description, as: :text, input_html: {value: @description} %>
 	<%= f.input :amount, as: :float, input_html: {value: @amount} %>

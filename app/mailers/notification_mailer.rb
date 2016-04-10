@@ -30,6 +30,17 @@ class NotificationMailer < ApplicationMailer
 			subject: "Booking Submitted: #{@campaign}")
 	end
 
+	def confirm_payment(email, stripe_id, product_description, amount, service_fee, total_payment)
+		@email = email
+		@product_description = product_description
+		@amount = amount
+		@service_fee = service_fee
+		@total = total_payment
+		@stripe_id = stripe_id
+		mail(to: @email,
+			subject: "AIMS - Payment confirmation")
+	end
+
 	private
 
 	def whats_next_page_title(campaign_type)

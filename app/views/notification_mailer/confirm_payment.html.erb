@@ -1,0 +1,16 @@
+<b>Hello,</b>
+
+<p>Thank you for your payment. This is your email confirmation.</p>
+
+<span class='note'>Your payment reference number: <%= @stripe_id %></span><br />
+Please retain this for future reference.
+
+<h3>Payment Information</h3>
+<br />
+	<b>Description:</b> <%= @product_description %>
+	<b>Payment Method:</b> Credit/Debit Card via <i>Stripe</i><br />
+	<b>Sub-total:</b> <%= @amount %>
+	<b>Serice Charge:</b> <%= @service_fee %>
+	<b>Amount paid:</b> <%= @total %><br />
+
+AIMS International Music School
