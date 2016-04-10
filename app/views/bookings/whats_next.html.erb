@@ -17,7 +17,7 @@ Please retain this for future reference.
 <% elsif @payment_method == 'credit' %>
 	<b>Payment Method:</b> Creditcards via Stripe<br />
 	<b>Service charge:</b> <%= @service_fee %><br />
-	<b>Total amount paid:</b> <%= @payment %><br />
+	<b>Total amount paid:</b> <%= @total_paid %><br />
 <% end %>
 <% if @half_amount_remain || @half_amount_remain > 0 %>
 	<b>2nd Installment due by ... :</b> <%= @half_amount_remain %><br />

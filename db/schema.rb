@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160322123501) do
+ActiveRecord::Schema.define(version: 20160410211144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,11 +53,15 @@ ActiveRecord::Schema.define(version: 20160322123501) do
     t.string   "county"
     t.string   "country"
     t.string   "post_code"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.datetime "published_at"
     t.boolean  "feature"
     t.integer  "row_order"
+    t.datetime "application_deadline"
+    t.datetime "first_payment_date"
+    t.datetime "second_payment_date"
+    t.datetime "audition_date"
   end
 
   add_index "courseformats", ["row_order"], name: "index_courseformats_on_row_order", using: :btree

@@ -7,6 +7,7 @@ class BookingsController < ApplicationController
     @campaigns = @client.query("select Id, Name, Sub_Type__c from Campaign where IsActive = true and Type = 'Conference'")
     @summer_fees = @courseformats.where('title like ?', '%Summer School%').first.fees.order(:fee_type)
     @mini_fees = @courseformats.where('title like ?', '%Mini%').first.fees.order(:category)
+    @audition_date = @courseformats.where('title like ?', '%Summer School%').first.audition_date
     @preferred_phone_values = @client.picklist_values('Contact', 'npe01__PreferredPhone__c')
     # @bookings = @client.query('select Amount, CloseDate, Name, Campaign_Name__c, Course__c from Opportunity')
     # @email = 'grant.access@logic.com'
@@ -80,13 +81,15 @@ class BookingsController < ApplicationController
     
     @service_fee = booking_params[:service_fee].to_f
     @payment_after_service = (booking_params[:payment_amount].to_f - @service_fee).to_s
-    @payment = @amount.to_f / 100
+    @total_paid = @amount.to_f / 100
     @payment_method = params[:options]
     @bank_details_page = Page.where(title: "Bank Transfer Details").first
     if @payment_method == 'bank'
       @amount_due = booking_params[:payment_amount]
     else
       @half_amount_remain = (((product.UnitPrice).to_f - @payment_after_service.to_f))/2
+      @first_payment_date = @courseformats.where('title like ?', '%Summer School%').first.first_payment_date
+      @second_payment_date = @courseformats.where('title like ?', '%Summer School%').first.second_payment_date
     end
     
     @name =  "#{booking_params[:first_name]} #{booking_params[:last_name]}"
@@ -95,7 +98,7 @@ class BookingsController < ApplicationController
     @email = booking_params[:email]
     
     send_notification_emails(@name, @email, @campaign, account.Web_uid__c, @opp_uid, @service_fee, 
-      @payment_after_service, @payment, @payment_method, @amount_due, @half_amount_remain, @product_description)
+      @payment_after_service, @total_paid, @payment_method, @amount_due, @half_amount_remain, @first_payment_date, @second_payment_date, @product_description)
     
     render :whats_next
 
@@ -191,9 +194,10 @@ class BookingsController < ApplicationController
   end
 
   def send_notification_emails(name, email, campaign, web_uid, opp_uid, service_fee, payment_after_service, 
-    payment, payment_method, amount_due, half_amount_remain, product_description)
+    payment, payment_method, amount_due, half_amount_remain = nil, first_payment_date = nil, second_payment_date = nil, product_description)
     NotificationMailer.booking_added(name, email, campaign, web_uid, opp_uid, payment_method).deliver_now
-    NotificationMailer.confirm_booking(name, email, campaign, opp_uid, service_fee, payment_after_service, payment, payment_method, amount_due, half_amount_remain, product_description).deliver_now
+    NotificationMailer.confirm_booking(name, email, campaign, opp_uid, service_fee, payment_after_service, payment, payment_method, 
+      amount_due, half_amount_remain, first_payment_date, second_payment_date, product_description).deliver_now
   end
 
   def select_product(campaign)
