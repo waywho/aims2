@@ -125,6 +125,7 @@ Rails.application.routes.draw do
       get :payment
       post :whats_next
       post :charge
+      get :confirm_payment
     end
   end
 

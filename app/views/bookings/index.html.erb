@@ -1,5 +1,5 @@
 <% meta title: "Booking",
-	keywords: #w{booking course} %>
+	keywords: "#w{booking course}" %>
 <h1>Bookings</h1>
 
 <%= simple_form_for :booking, :url => bookings_path, :method => 'post', html: {:id => 'booking_form'} do |f| %>
@@ -144,7 +144,7 @@
 			<br />
 			<%= f.collection_check_boxes :audition_for, find_soap_field(@opportunity, 'Auditioning_for__c'), :value, :label, required: false %><br />
 			<br />
-			<span>I would like to attend the audiiton on Saturday 9 April, 2016: </span> <br />
+			<span>I would like to attend the audition on @audition_date.strftime("%A, %d %B, %Y"): </span> <br />
 			<br />
 			<%= f.input :audition, collection: find_soap_field(@opportunity, 'Audition_requested__c'), label_method: :label, value_method: :value, label: false, include_blank: 'Select an audition time', required: false %>
 		</div>
@@ -270,14 +270,14 @@
 		  }
 		};
 
-		function calculate() {
-			var $form = $('#booking_form');
-			Stripe.card.createToken($form, stripeResponseHandler);
+		// function calculate() {
+		// 	var $form = $('#booking_form');
+		// 	Stripe.card.createToken($form, stripeResponseHandler);
 
-			// Prevent the form from submitting with the default action
-			return false;
+		// 	// Prevent the form from submitting with the default action
+		// 	return false;
 
-		};
+		// };
 		function resetSummerClasses() {
 			// $('#summer-course-select').val("");
 			$('.solo-select input:checked').removeAttr('checked');

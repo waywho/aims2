@@ -1,0 +1,16 @@
+<% meta title: "Confirm payment",
+	keywords: "#w{booking payment confirmation}" %>
+<h1 class = 'page-heading'>Confirm Payment</h1>
+
+<p>Thank you for your payment.</p>
+
+<span class='note'>Your payment reference number: <%= @stripe_id %></span><br />
+Please retain this for future reference.
+
+<h3>Payment Information</h3>
+<br />
+	<b>Description:</b> <%= @product_description %><br />
+	<b>Payment Method:</b> Credit/Debit Card via <i>Stripe</i><br />
+	<b>Sub-total:</b> <%= @amount %><br/>
+	<b>Serice Charge:</b> <%= @service_fee %> <br />
+	<b>Amount paid:</b> <%= @total_paid %><br />

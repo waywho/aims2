@@ -22,7 +22,7 @@ Please retain this for future reference.
 	<br />
 <% end %>
 	<b>You can make your payment(s) by:</b><br />
-		<b>Credit cards:</b> <%= link_to "Stripe Payment Page", payment_bookings_url(:email => @email, :confirmation => @opp_uid, :description => @product_description, :amount => @half_amount_remain || @amount_due) %><br />
+		<b>Credit cards:</b> <%= link_to "Stripe Payment Page", payment_bookings_url(:email => @email, :confirmation => @opp_uid, :description => @product_description, :amount => @half_amount_remain || @amount_due, :payment_for => "Course fee") %><br />
 		or...<br />
 		<%= @bank_details_page.content.html_safe if @bank_dertails_page %>
 	<br />

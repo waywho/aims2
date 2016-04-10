@@ -12,7 +12,8 @@ class NotificationMailer < ApplicationMailer
 			subject: "A new booking for #{@campaign} has been submitted")
 	end
 
-	def confirm_booking(name, booking_email, campaign, opp_uid, service_fee, payment_after_service, payment, payment_method, amount_due, half_amount_remain, product_description)
+	def confirm_booking(name, booking_email, campaign, opp_uid, service_fee, payment_after_service, 
+		payment, payment_method, amount_due, half_amount_remain = nil, first_payment_date = nil , second_payment_date = nil, product_description)
 		@name = @name
 		@email = booking_email
 		@campaign = campaign.Name
@@ -26,6 +27,8 @@ class NotificationMailer < ApplicationMailer
 		@page = Page.where(title: whats_next_page_title(campaign.Sub_Type__c)).first
 		@bank_details_page = Page.where(title: "Bank Transfer Details").first
 		@product_description = product_description
+		@first_payment_date = first_payment_date
+		@second_payment_date = second_payment_date,
 		mail(to: @email,
 			subject: "Booking Submitted: #{@campaign}")
 	end
@@ -35,7 +38,7 @@ class NotificationMailer < ApplicationMailer
 		@product_description = product_description
 		@amount = amount
 		@service_fee = service_fee
-		@total = total_payment
+		@total_paid = total_payment
 		@stripe_id = stripe_id
 		mail(to: @email,
 			subject: "AIMS - Payment confirmation")
