@@ -3,6 +3,7 @@
 <h4>Credit Card Information</h4>
 <i>We accept...</i><%= image_tag 'card_visa.png', :class => 'img-responsive card' %> <%= image_tag 'card_master.png', :class => 'img-responsive card' %> <%= image_tag 'card_amex.png', :class => 'img-responsive card' %>
 <%= image_tag 'stripe-solid.png' %><br />
+<div class = "payment-errors"></div>
 <br />
 <div class = 'row'>
 	<div class = 'col-xs-9 col-sm-9 col-md-9'>
@@ -14,13 +15,12 @@
 </div>
 <div class = 'row'>
 	<div class = "col-xs-6 col-sm-6">
-		<label class = "string optional control-label" for = "booking_month">Expiration(MM/YYYY)</label>
 		<span id = "valid-date" class = "warning"></span>
-	<div class = 'input-group'>
-		<%= f.input_field :month, label: false, required: false, maxlength: 2, "data-stripe" => "exp-month", :class => 'form-control' %>
-		<span class = 'input-group-addon'> / </span>
-		<%= f.input_field :year, label: false, required: false, maxlength: 4, "data-stripe" => "exp-year", :class => 'form-control' %>
-	</div>
+		<%= f.input :expiration_date, label: "Expiration (MM/YYYY)", wrapper: :vertical_input_group do %>
+			<%= f.input_field :month, label: false, required: false, maxlength: 2, "data-stripe" => "exp-month", :class => 'form-control' %>
+			<span class = 'input-group-addon'> / </span>
+			<%= f.input_field :year, label: false, required: false, maxlength: 4, "data-stripe" => "exp-year", :class => 'form-control' %>
+		<% end %>
 	</div>
 </div>
 <br />

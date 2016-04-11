@@ -41,7 +41,6 @@ $aims-bg-color: #F6E8E9;
 	border-radius: 10px;
 	border: 4px solid $aims-color;
 	padding: 0px;
-	height: 150px;
 	width: 100%;
 }
 
@@ -51,7 +50,7 @@ $aims-bg-color: #F6E8E9;
 	height: 45px;
 }
 
-.grand-total {
+/*.grand-total {
 	position: absolute;
 	top: 92px;
 	background-color: $aims-bg-color;
@@ -62,40 +61,75 @@ $aims-bg-color: #F6E8E9;
 	height: 50px;
 	width: 100%;
 }
+*/
 
-.amount-header {
+#grand-total-line {
+	margin-bottom: 0px;
+}
+
+/*.amount-header {
 	display: inline-block;
 	height: 100%;
 	padding: 10px 0px;
 	padding-right: 5%;
 	text-align: right;
 	min-width: 40%;
-}
+}*/
 
-#grand-total-header {
+/*#grand-total-header {
 	background-color: $aims-color;
 	color: white;
 	border-bottom-left-radius: 5px;
 	border: 4px solid $aims-color;
 }
-
+*/
 #total-header {
 	background-color: $aims-color;
 	color: white;
 	border: 4px solid $aims-color;
 }
-
+/*
 .amount {
 	margin: 10px auto;
 	font-weight: 900;
 	text-align: right;
 	padding-right: 5%;
 	width: 50%;
-}
+}*/
 
-#service-charge {
+/*#service-charge {
 	font-style: italic;
 	font-weight: 900;
+}*/
+
+#service-charge-input {
+	text-align: right;
+	background-color: #fff;
+	border-top: 0px;
+	border-right: 0px;
+	border-left: 0px;
+	border-bottom: 0px 0px 1px 0px solid, #ccc;
+	box-shadow: none;
+}
+
+#sub-total {
+	text-align: right;
+	background-color: #fff;
+	border-top: 0px;
+	border-right: 0px;
+	border-left: 0px;
+	border-bottom: 0px 0px 1px 0px solid, #ccc;
+	box-shadow: none;
+}
+
+#payment-amount-input {
+	text-align: right;
+	background-color: #fff;
+	border-top: 0px;
+	border-right: 0px;
+	border-left: 0px;
+	border-bottom: 0px 0px 1px 0px solid, #ccc;
+	box-shadow: none;
 }
 
 .invalid {
@@ -175,4 +209,7 @@ $aims-bg-color: #F6E8E9;
   font-weight: 900;
 }
 
+.amount-input {
+	text-align: right;
+}
 

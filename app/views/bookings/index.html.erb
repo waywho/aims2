@@ -13,7 +13,7 @@
 	</div>
 </div>
 <div class = 'row'>
-	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6'>
+	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-6 col-lg-6'>
 		<div class = 'row'>
 			<div class = 'col-xs-12 col-sm-6 col-md-4 col-lg-4'>
 				<%= f.input :salutation, collection: ["Mr.", "Ms.", "Mrs.", "Dr.", "Prof."] %>
@@ -144,7 +144,7 @@
 			<br />
 			<%= f.collection_check_boxes :audition_for, find_soap_field(@opportunity, 'Auditioning_for__c'), :value, :label, required: false %><br />
 			<br />
-			<span>I would like to attend the audition on @audition_date.strftime("%A, %d %B, %Y"): </span> <br />
+			<span>I would like to attend the audition on <%= @audition_date.strftime("%A, %d %B, %Y") if @audition_date %>: </span> <br />
 			<br />
 			<%= f.input :audition, collection: find_soap_field(@opportunity, 'Audition_requested__c'), label_method: :label, value_method: :value, label: false, include_blank: 'Select an audition time', required: false %>
 		</div>
@@ -170,7 +170,7 @@
 	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12'>
 		<h2>Mini-Aims Course Options</h2>
 	</div>
-	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6'>
+	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-6 col-lg-6'>
 			<%= f.input :course_stream_mini, collection: ['Solo', 'Choral'], include_blank: 'Select a course', label: 'Course Stream', input_html: { :class => 'course-select'}, required: true %>
 	</div>
 	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6'>
@@ -186,31 +186,35 @@
 	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12'>
 		<h3>Payment</h3>
 	</div>
-	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6'>
-		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12'>
+	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-6 col-lg-6'>
 			<div id = 'little-warning'></div>
 			<%= f.input :stage, collection: ['Full Amount', 'Deposit'], as: :radio_buttons, label: 'I would like to pay...', input_html: { :class => 'payment-stage btn-primary'}, required: true %>
-		</div>
-		<div class = 'col-xs-12 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12'>
 			<div class = 'agreement'>
 				<%= f.input :agreement, as: :boolean, label: "I enclose my deposit of £75 (non-refundable) and I understand to pay the remainder of 50% of my fees by 1 May 2016 and the blance by 30 June 2016." %>
 			</div>
 			<div class = 'bill'>
-				<div class = "line-item"><div class = 'amount-header'>Sub Total:</div><span class = 'amount' id = 'sub-total'></span></div>
-				<div class = "line-item"><div class = 'amount-header'>Service Charge:</div><span class = 'amount'  id = 'service-fee'></span></div>
-				<%= f.input :service_fee, as: :hidden, label: false, input_html: { "id" => 'service-charge-input'} %>
-				<div class = 'grand-total'>
-					<div class = "amount-header" id = "grand-total-header">Amount due:</div>
-					<span class = 'payment-amount amount' id = 'total-amount'></span>
-						<%= f.input :payment_amount, as: :hidden, label: false, required: false, input_html: { "id" => 'payment-amount-input'} %>
-				</div>
+				<%= f.input :sub_total, label: false, wrapper_html: {:class => 'line-item'}, wrapper: :vertical_input_group do %>
+					<span class="input-group-addon line-header" id = "sub-total-addon">Sub Total:</span>
+					<span class="input-group-addon">£</span>
+					<%= f.input_field :sub_total, required: false, as: :float, id: 'sub-total', :class => 'form-control', :readonly => true %>
+				<% end %>
+
+				<%= f.input :service_fee, label: false, wrapper_html: {:class => 'line-item'}, wrapper: :vertical_input_group do %>
+					<span class="input-group-addon line-header" id = "service-charge-addon">Service Charge:</span>
+					<span class="input-group-addon">£</span>
+					<%= f.input_field :service_fee, required: false, as: :float, id: 'service-charge-input', :class => 'form-control', :readonly => true %>
+				<% end %>
+
+				<%= f.input :payment_amount, label: false, wrapper_html: {:id => 'grand-total-line'}, wrapper: :vertical_input_group do %>
+					<span class="input-group-addon line-header" id = "total-header">Amount due:</span>
+					<span class="input-group-addon">£</span>
+					<%= f.input_field :payment_amount, required: false, as: :float, id: 'payment-amount-input', :class => 'form-control', :readonly => true %>
+				<% end %>
 			</div>
-		</div>
-		<br />
-		<br />
+			<br />
+			<br />
 	</div>
-	<div class = 'col-xs-12 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6'>
-		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12'>
+	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-6 col-lg-6'>
 		<b>Pay by...</b>
 			<div class="btn-group payment-type-buttons" data-toggle="buttons">
 			  <label class="btn btn-default active">
@@ -222,11 +226,10 @@
 			</div>
 			<br />
 			<br />
-		</div>
-		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12 pay-stripe'>
+		<div class = 'pay-stripe'>
 			<%= render :partial => "bookings/creditcard_form", :locals => { :f => f } %>
 		</div>
-		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12 pay-bank'>
+		<div class = 'pay-bank'>
 			<%= @bank_details_page.content.html_safe if @bank_dertails_page %>
 			<br />
 			<p>
@@ -257,7 +260,7 @@
 		    var token = response.id;
 		    console.log(response.card.country);
 		    var tokenCountry = response.card.country;
-		    var amount = parseFloat($('#sub-total').text());
+		    var amount = parseFloat($('#sub-total').val());
 		    set_amount_due_with_service(amount, tokenCountry);
 
 		    // Insert the token into the form so it gets submitted to the server
@@ -294,9 +297,8 @@
 		};
 
 		function resetBill() {
-			$('#service-fee').empty();
+			$('#sub-total').empty();
 			$('#service-charge-input').empty();
-			$('#total-amount').empty();
 			$('#payment-amount-input').empty();
 		};
 		
@@ -310,16 +312,13 @@
 			}
 
 			// $('#sub-total').text(amount);
-			$('#service-fee').text((service).toFixed(2));
 			$('#service-charge-input').val((service).toFixed(2));
-			$('#total-amount').text("£" + (chargeAmount).toFixed(2));
 			$('#payment-amount-input').val((chargeAmount).toFixed(2));
 		};
 
 		function set_amount_due_no_service(amount) {
-			$('#sub-total').text(amount);
+			$('#sub-total').val(amount);
 			$('#payment-amount-input').val(amount);
-			$('#total-amount').text("£" + amount);
 		};
 
 		// disable calculate button
@@ -340,8 +339,7 @@
 		$("#booking_campaign_id").change(function() {
 			$(".course-options").hide('slow');
 			$("#" + $(this).find(':selected').data("type")).show('slow');
-			$('#total-amount').empty();
-			$('#payment-amount-input').empty();
+			resetBill();
 			$('.payment-stage').prop('checked', false);
 			$('#booking_course').val("");
 			resetSummerClasses();
@@ -403,7 +401,7 @@
 							console.log(amount);
 							if($('.payment-type-buttons input:radio:checked').val() == 'credit') {
 								// console.log(amount);
-								$('#sub-total').text(amount);
+								$('#sub-total').val(amount);
 								$('#calculate').prop('disabled', false);
 							} else {
 								// console.log(amount);
@@ -423,7 +421,7 @@
 							var amount = $('#Taster-fee').find(':selected').data('amount');
 							if($('.payment-type-buttons input:radio:checked').val() == 'credit') {
 								// console.log(amount);
-								$('#sub-total').text(amount);
+								$('#sub-total').val(amount);
 								$('#calculate').prop('disabled', false);
 							} else {
 								// console.log(amount);
@@ -443,7 +441,7 @@
 
 				if($('.payment-type-buttons input:radio:checked').val() == 'credit') {
 						// console.log(amount);
-						$('#sub-total').text(amount);
+						$('#sub-total').val(amount);
 						$('#calculate').prop('disabled', false);
 					} else {
 						// console.log(amount);
@@ -463,7 +461,7 @@
 				resetBill();
 				if($('.payment-type-buttons input:radio:checked').val() == 'credit') {
 						// console.log(amount);
-						$('#sub-total').text(amount);
+						$('#sub-total').val(amount);
 						$('#calculate').prop('disabled', false);
 					} else {
 						// console.log(amount);
@@ -484,7 +482,7 @@
 				$('.pay-stripe').slideDown("slow");
 				$('.pay-bank').slideUp("slow");
 				if(amount) {
-					$('#sub-total').text(amount);
+					$('#sub-total').val(amount);
 					$('#calculate').prop('disabled', false);
 				}
 				

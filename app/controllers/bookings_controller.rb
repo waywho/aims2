@@ -79,15 +79,15 @@ class BookingsController < ApplicationController
       SalesforceClient.new.create_product(opportunity.Id, product.Id, product.UnitPrice)
     end
     
-    @service_fee = booking_params[:service_fee].to_f
-    @payment_after_service = (booking_params[:payment_amount].to_f - @service_fee).to_s
-    @total_paid = @amount.to_f / 100
+    @service_fee = booking_params[:service_fee].to_f.number_to_currency(:unit => '£')
+    @payment_after_service = (booking_params[:payment_amount].to_f - @service_fee).number_to_currency(:unit => '£')
+    @total_paid = (@amount.to_f / 100).number_to_currency(:unit => '£')
     @payment_method = params[:options]
     @bank_details_page = Page.where(title: "Bank Transfer Details").first
     if @payment_method == 'bank'
-      @amount_due = booking_params[:payment_amount]
+      @amount_due = booking_params[:payment_amount].to_f.number_to_currency(:unit => '£')
     else
-      @half_amount_remain = (((product.UnitPrice).to_f - @payment_after_service.to_f))/2
+      @half_amount_remain = ((((product.UnitPrice).to_f - @payment_after_service.to_f))/2).number_to_currency(:unit => '£')
       @first_payment_date = @courseformats.where('title like ?', '%Summer School%').first.first_payment_date
       @second_payment_date = @courseformats.where('title like ?', '%Summer School%').first.second_payment_date
     end
@@ -145,10 +145,10 @@ class BookingsController < ApplicationController
       end
     if payment_params[:payment_for] == "Course fee"
     end
-    @service_fee = payment_params[:service_fee]
-    @amount = payment_params[:amount]
+    @service_fee = payment_params[:service_fee].to_f.number_to_currency(:unit => '£')
+    @amount = payment_params[:amount].to_f.number_to_currency(:unit => '£')
     @stripe_id = charge.id
-    @total_paid = payment_params[:payment_amount]
+    @total_paid = payment_params[:payment_amount].to_f.number_to_currency(:unit => '£')
 
     NotificationMailer.confirm_payment(@email, charge.id, @product_description,  @amount, @service_fee, @total_paid).deliver_now
 

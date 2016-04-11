@@ -3,21 +3,28 @@
 <h1 class = 'page-heading'>Payment</h1>
 
 <%= simple_form_for :stripe_payment, :url => charge_bookings_path, :method => 'post', html: {:id => 'payment-form'} do |f| %>
-<div class = "payment-errors"></div>
 <div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6 payment-amount' %>
 		<%= f.input :email, label: "Email (required)", input_html: {value: @email} %>
 		<%= f.input :payment_for, collection: ["Course fee", "Other"], include_blank: 'paying for...',input_html: {value: @payment_for} %>
 		<%= f.input :confirmation_number, label: "Booking confirmation number (optional)", input_html: {value: @confirmation}, required: false %>
 	<%= f.input :product_description, as: :text, input_html: {value: @description} %>
-	<%= f.input :amount, as: :float, input_html: {value: @amount} %>
-		<div class = "line-item"><div class = 'amount-header'>Service Charge:</div><span class = 'amount'  id = 'service-charge-input'></span></div>
-				<%= f.input :service_fee, as: :hidden, label: false, input_html: { "id" => 'service-fee'} %>
-	<div class = 'grandTotal'>
-		<div class = "amount-header" id = "total-header">Amount due:</div>
-		<span class = 'payment-amount amount' id = 'total-amount'></span>
-			<%= f.input :payment_amount, as: :hidden, label: false, required: false, input_html: { "id" => 'payment-amount-input'} %>
-		</div>
-	</div>
+	<%= f.input :amount, wrapper: :vertical_input_group do %>
+		<span class="input-group-addon">£</span>
+		<%= f.input_field :amount, as: :float, value: @amount, :class => "amount-input form-control" %>
+	<% end %>
+
+		<%= f.input :service_fee, label: false, wrapper: :vertical_input_group do %>
+			<span class="input-group-addon" id = "service-charge-addon">Service Charge:</span>
+			<span class="input-group-addon">£</span>
+			<%= f.input_field :service_fee, as: :float, id: 'service-charge-input', :class => 'form-control', :readonly => true %>
+		<% end %>
+
+		<%= f.input :payment_amount, label: false, wrapper: :vertical_input_group do %>
+			<span class="input-group-addon" id = "total-header">Amount due:</span>
+			<span class="input-group-addon">£</span>
+			<%= f.input_field :payment_amount, as: :float, id: 'payment-amount-input', :class => 'form-control', :readonly => true %>
+		<% end %>
+</div>
 <div class = 'col-xs-12 col-sm-6 col-md-6 col-lg-6' %>
 	<%= render :partial => "bookings/creditcard_form", :locals => { :f => f } %>
 </div>
@@ -57,7 +64,7 @@
 
 		function set_amount_due_with_service(country) {
 			var amount = parseInt($("#stripe_payment_amount").val());
-			$('#service-charge').empty();
+			$('#service-charge-input').empty();
 			if(isInEU(country)) {
 				var chargeAmount = (amount + 0.2) / (1 - 0.014)
 				var service = chargeAmount - amount
@@ -66,9 +73,7 @@
 				var service = chargeAmount - amount
 			}
 
-			$('#service-charge-input').text("£" + (service).toFixed(2));
-			$('#service-fee').val((service).toFixed(2));
-			$('#total-amount').text("£" + (chargeAmount).toFixed(2));
+			$('#service-charge-input').val((service).toFixed(2));
 			$('#payment-amount-input').val((chargeAmount).toFixed(2));
 		};
 
