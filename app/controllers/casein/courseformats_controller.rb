@@ -19,6 +19,8 @@ module Casein
 
     def import
       Courseformat.import(params[:file])
+      expire_fragment("footer")
+      expire_fragment("header")
       flash[:notice] = 'File has been imported'
       redirect_to casein_courseformats_path
     end
@@ -42,6 +44,8 @@ module Casein
       @courseformat = Courseformat.new courseformat_params
     
       if @courseformat.save
+        expire_fragment("footer")
+        expire_fragment("header")
         if params[:publish]
             @courseformat.publish!
         end
@@ -125,6 +129,8 @@ module Casein
       @courseformat.photos.each do |photo|
         photo.update_attributes(imageable_id: nil, imageable_type: nil)
       end
+      expire_fragment("footer")
+      expire_fragment("header")
       flash[:notice] = "Course format has been deleted. #{undo_link}"
       redirect_to casein_courseformats_path
     end

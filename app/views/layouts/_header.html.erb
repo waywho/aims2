@@ -25,6 +25,7 @@
 		         	</li>
 		         <% end %>
 	        <% end %>
+	        <li><%= link_to 'FAQ', faqs_path %></li>
 	        <li><%= link_to image_tag('twitter-icon.png', :class => 'header-social-icon social-icon'), 'https://twitter.com/aims_singing', :id => 'social-icon-link-twitter' %></li>
 	        <li><%= link_to image_tag('facebook-icon.png', :class => 'header-social-icon social-icon'), 'https://www.facebook.com/groups/5182097482', :id => 'social-icon-link-facebook' %></li>
 	        <li><%= link_to image_tag('youtube-icon2.png', :class => 'header-social-icon social-icon'), 'https://www.youtube.com/user/neiljenkinstenor/videos', :id => 'social-icon-link-youtube' %></li>
@@ -80,10 +81,12 @@
 		    <div class="collapse navbar-collapse" id="navbar-collapse-2">
 			    <ul class="nav navbar-nav">
 			      	<% @courseformats.each do |courseformat| %>
+			      		<% cache ["header", courseformat] do %>
 			        	<li>
 				         	<%= link_to courseformat.title, courseformat %>
 					         	<span class="sr-only">(current)</span>
 			         	</li>
+			         	<% end %>
 			         <% end %>
 			         <% @menus.main.roots.rank(:row_order).each do |menu| %>
 				        <% if menu.has_children? %>
@@ -131,7 +134,9 @@
 
 			<ul class = "nav navbar-nav">
 				<% @courses.rank(:row_order).each do |course| %>
+					<% cache ["header", course] do %>
 					<li class='hidden-xs hidden-sm'><%= link_to course.title, course_path(course) %></li>
+					<% end %>
 				<% end %>
 			</ul>
 		</div>
@@ -142,8 +147,8 @@
 <div class="modal fade" id="booking_warning" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-body">
-        Loading. <div class='loading'>This may take a few seconds</div>
+      <div class="modal-body loading-warning">
+      Loading. This may take a few seconds.<div class='loader'></div>
       </div>
   </div>
 </div>

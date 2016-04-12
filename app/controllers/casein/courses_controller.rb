@@ -20,6 +20,8 @@ module Casein
 
     def import
       Course.import(params[:file])
+      expire_fragment("footer")
+      expire_fragment("header")
       flash[:notice] = 'File has been imported'
       redirect_to casein_courses_path
     end
@@ -40,6 +42,8 @@ module Casein
       @course = Course.new course_params
     
       if @course.save
+        expire_fragment("footer")
+        expire_fragment("header")
           if params[:publish]
             @course.publish!
           end
@@ -62,7 +66,6 @@ module Casein
       respond_to do |format|
 
       if @course.update_attributes course_params
-        
           if params[:submit]
             @course.submit!
           elsif params[:approve]
@@ -123,7 +126,8 @@ module Casein
       @course.photos.each do |photo|
         photo.update_attributes(imageable_id: nil, imageable_type: nil)
       end
-      
+      expire_fragment("footer")
+      expire_fragment("header")
       flash[:notice] = "Course has been deleted. #{undo_link}"
       redirect_to casein_courses_path
     end

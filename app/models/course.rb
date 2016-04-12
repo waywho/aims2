@@ -7,7 +7,7 @@ class Course < ActiveRecord::Base
 	scope :feature_courses, -> { self.published_now.where(feature: true)}
 	scope :bookables, -> { self.published_now.where(bookable: true)}
 
-	belongs_to :courseformat
+	belongs_to :courseformat, touch: true
 	has_many :klasses
 	has_many :photos, as: :imageable
 	accepts_nested_attributes_for :photos, allow_destroy: true

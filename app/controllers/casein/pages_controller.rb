@@ -20,6 +20,8 @@ module Casein
 
     def import
       Page.import(params[:file])
+      expire_fragment("footer")
+      expire_fragment("header")
       flash[:notice] = 'File has been imported'
       redirect_to casein_pages_path
     end

@@ -26,6 +26,7 @@
 	    		</a>
 	    		<ul class="nav nav-pills nav-stacked collapse" id='course-collapse'>
 	    			<% @courseformats.rank(:row_order).each do |courseformat| %>
+	    				<% cache ["footer", courseformat] do %>
 	    				<li class='mini-footer-item'><%= link_to courseformat.title, courseformat %>
 		    				<% if courseformat.courses.present? %>
 					    		<ul class="nav nav-pills nav-stacked">
@@ -35,6 +36,7 @@
 					    		</ul>
 					    	<% end %>
 					    </li>
+					    <% end %>
 				    <% end %>
 				</ul>
 	  		</li>
