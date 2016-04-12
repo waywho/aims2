@@ -3,7 +3,7 @@ class Staff < ActiveRecord::Base
 	friendly_id :full_name, use: :slugged
 	scope :tutors, -> { where(role: "tutor") }
 	scope :house_pianists, -> { where(role: "house pianist") }
-	scope :admin, -> { where("role = ?", ["Artistic Director", "General Manager", "Admin"]) }
+	scope :admin, -> { where(:role => ["Artistic Director", "General Manager", "Admin"]) }
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
 	has_paper_trail :on => [:update, :create, :destroy]
 	acts_as_xlsx
