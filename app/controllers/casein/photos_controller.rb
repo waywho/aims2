@@ -74,7 +74,6 @@ module Casein
     
       if @photo.update_attributes photo_params
         flash[:notice] = 'Photo has been updated'
-        redirect_to casein_photos_path
       else
         flash.now[:warning] = 'There were problems when trying to update this photo'
         render :action => :show
