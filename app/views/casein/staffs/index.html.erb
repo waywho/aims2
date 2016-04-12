@@ -16,7 +16,10 @@
 
 	<li><%= link_to "#{casein_show_icon "plus-sign"}Add a new staff".html_safe, new_casein_staff_path %></li>
 	Download Data: <%= link_to 'CSV', casein_staffs_path(format: 'csv') %> | 
-	<%= link_to 'Excel', casein_staffs_path(format: 'xlsx') %>
+	<%= link_to 'Excel', casein_staffs_path(format: 'xlsx') %><br />
+	<br />
+	Filter: <%= link_to 'Tutors', casein_staffs_path(role: 'tutors') %> | 
+	<%= link_to 'House Pianists', casein_staffs_path(role: 'house pianists') %><br />
 	<br />
 	<br />
 	Import Data with CSV file:

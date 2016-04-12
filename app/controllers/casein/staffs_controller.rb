@@ -9,7 +9,13 @@ module Casein
   
     def index
       @casein_page_title = 'Staffs'
-      @staffs = Staff.order(sort_order(:last_name)).paginate :page => params[:page]
+      if params[:role] == "tutors"
+        @staffs = Staff.tutors.order(sort_order(:last_name)).paginate :page => params[:page]
+      elsif params[:role] == "house pianists"
+        @staffs = Staff.house_pianists.order(sort_order(:last_name)).paginate :page => params[:page]
+      else
+        @staffs = Staff.order(sort_order(:last_name)).paginate :page => params[:page]
+      end
       respond_to do |format|
         format.html
         format.csv { send_data Staff.all.to_csv, filename: "staffs-#{Date.today}.csv"}
