@@ -82,7 +82,7 @@ class Staff < ActiveRecord::Base
 			item.attributes = row.to_hash.slice(*self.column_names)
 			item.save!
 
-			item.specialty_list.add(row["specialty"])
+			item.speciality_list.add(row["specialty"])
 		end
 	end
 
