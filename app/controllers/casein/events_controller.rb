@@ -12,7 +12,7 @@ module Casein
       @events = Event.order(sort_order(:title)).paginate :page => params[:page]
       respond_to do |format|
         format.html
-        format.csv { send_data @events.to_csv, filename: "events-#{Date.today}.csv"}
+        format.csv { send_data Event.all.to_csv, filename: "events-#{Date.today}.csv"}
         format.xlsx
       end
     end

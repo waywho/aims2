@@ -12,7 +12,7 @@ module Casein
       @staffs = Staff.order(sort_order(:last_name)).paginate :page => params[:page]
       respond_to do |format|
         format.html
-        format.csv { send_data @staffs.to_csv, filename: "staffs-#{Date.today}.csv"}
+        format.csv { send_data Staff.all.to_csv, filename: "staffs-#{Date.today}.csv"}
         format.xlsx
       end
     end

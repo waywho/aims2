@@ -12,7 +12,7 @@ module Casein
       @quotes = Quote.order(sort_order(:saying)).paginate :page => params[:page]
       respond_to do |format|
         format.html
-        format.csv { send_data @quotes.to_csv, filename: "quotes-#{Date.today}.csv"}
+        format.csv { send_data Quote.all.to_csv, filename: "quotes-#{Date.today}.csv"}
         format.xlsx
       end
     end

@@ -12,7 +12,7 @@ module Casein
       @fees = Fee.order(sort_order(:courseformat_id)).paginate :page => params[:page]
       respond_to do |format|
         format.html
-        format.csv { send_data @fees.to_csv, filename: "fees-#{Date.today}.csv"}
+        format.csv { send_data Fee.all.to_csv, filename: "fees-#{Date.today}.csv"}
         format.xlsx
       end
     end

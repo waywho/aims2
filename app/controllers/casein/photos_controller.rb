@@ -15,7 +15,7 @@ module Casein
       respond_to do |format|
         format.html
         format.json
-        format.csv { send_data @photos.to_csv, filename: "photos-#{Date.today}.csv"}
+        format.csv { send_data Photo.all.to_csv, filename: "photos-#{Date.today}.csv"}
         format.xlsx
       end
     end
