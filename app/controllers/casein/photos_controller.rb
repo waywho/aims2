@@ -11,7 +11,7 @@ module Casein
     def index
       @casein_page_title = 'Photos'
   		@photo = Photo.new
-      @photos = Photo.order(:caption)
+      @photos = Photo.order(sort_order(:caption)).paginate :page => params[:page]
       respond_to do |format|
         format.html
         format.json
