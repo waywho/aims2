@@ -107,9 +107,9 @@ module Casein
     def destroy
 
       @fee.destroy
-      @fee.photos.each do |photo|
-        photo.update_attributes(imageable_id: nil, imageable_type: nil)
-      end
+      # @fee.photos.each do |photo|
+      #   photo.update_attributes(imageable_id: nil, imageable_type: nil)
+      # end
       flash[:notice] = "Fee has been deleted. #{undo_link}"
       redirect_to casein_fees_path
     end

@@ -112,7 +112,7 @@ module Casein
     def destroy
 
       @event.destroy
-      @event.photo.destroy
+      # @event.photo.destroy
       flash[:notice] = "Event has been deleted. #{undo_link}"
       redirect_to casein_events_path
     end

@@ -126,9 +126,9 @@ module Casein
     def destroy
 
       @courseformat.destroy
-      @courseformat.photos.each do |photo|
-        photo.update_attributes(imageable_id: nil, imageable_type: nil)
-      end
+      # @courseformat.photos.each do |photo|
+      #   photo.update_attributes(imageable_id: nil, imageable_type: nil)
+      # end
       expire_fragment("footer")
       expire_fragment("header")
       flash[:notice] = "Course format has been deleted. #{undo_link}"

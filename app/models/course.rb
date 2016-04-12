@@ -9,7 +9,7 @@ class Course < ActiveRecord::Base
 
 	belongs_to :courseformat, touch: true
 	has_many :klasses
-	has_many :photos, as: :imageable
+	has_many :photos, as: :imageable, dependent: :destroy
 	accepts_nested_attributes_for :photos, allow_destroy: true
 	has_many :menus, as: :navigation
 	has_many :recordfies, as: :entriable

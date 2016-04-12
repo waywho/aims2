@@ -3,7 +3,7 @@ class Courseformat < ActiveRecord::Base
 	friendly_id :title, use: :slugged
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
 	has_many :courses
-	has_many :photos, as: :imageable
+	has_many :photos, as: :imageable, dependent: :destroy
 	accepts_nested_attributes_for :photos, allow_destroy: true
 	has_many :fees
 	has_many :menus, as: :navigation

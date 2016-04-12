@@ -10,7 +10,7 @@ class Staff < ActiveRecord::Base
 	
 	ROLES = ["tutor", "house pianist", "Artistic Director", "General Manager", "Admin"]
 
-	has_one :photo, as: :imageable
+	has_one :photo, as: :imageable, dependent: :destroy
 	accepts_nested_attributes_for :photo, allow_destroy: true
 	has_many :recordfies, as: :entriable
 	has_many :pages, through: :recordfies

@@ -2,7 +2,7 @@ class Event < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :title, use: :slugged
 	has_paper_trail :on => [:update, :create, :destroy]
-	has_one :photo, as: :imageable
+	has_one :photo, as: :imageable, dependent: :destroy
 	accepts_nested_attributes_for :photo, allow_destroy: true
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
 	scope :future, -> { published_now.where('date >= ?', Date.today)}

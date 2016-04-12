@@ -5,7 +5,7 @@ class NewsItem < ActiveRecord::Base
 	has_paper_trail :on => [:update, :create, :destroy]
 	scope :published_now, -> { self.with_published_state.where('published_at <= ?', Time.zone.now)}
 	has_many :menus, as: :navigation
-	has_one :photo, as: :imageable
+	has_one :photo, as: :imageable, dependent: :destroy
 
 	include Workflow
 	

@@ -123,9 +123,9 @@ module Casein
 
     def destroy
       @course.destroy
-      @course.photos.each do |photo|
-        photo.update_attributes(imageable_id: nil, imageable_type: nil)
-      end
+      # @course.photos.each do |photo|
+      #   photo.update_attributes(imageable_id: nil, imageable_type: nil)
+      # end
       expire_fragment("footer")
       expire_fragment("header")
       flash[:notice] = "Course has been deleted. #{undo_link}"
