@@ -19,3 +19,5 @@
 //= require social-share-button
 //= require google_analytics
 //= require jquery.payment
+//= require cookieconsent
+//= require_directory .
