@@ -25,7 +25,7 @@
 			<td><%= casein_table_cell_link fee.fee_type, casein_fee_path(fee) %></td>
 			<td><%= casein_table_cell_link fee.category, casein_fee_path(fee) %></td>
 			<td><%= casein_table_cell_link fee.description, casein_fee_path(fee), :casein_truncate => 160 %></td>
-			<td><%= casein_table_cell_link fee.amount, casein_fee_path(fee) %></td>
+			<td><%= casein_table_cell_link fee.amount, casein_fee_path(fee), as: :float %></td>
 			<td><%= casein_table_cell_link fee.courseformat.title, casein_fee_path(fee) if fee.courseformat.present? %></td>
 			<td><%= casein_table_cell_link d_m_y(fee.published_at), casein_fee_path(fee) %></td>
 			<td><%= casein_table_cell_link d_m_y(fee.updated_at), casein_fee_path(fee) %></td>
