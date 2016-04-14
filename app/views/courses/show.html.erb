@@ -6,21 +6,18 @@
 <% if @course.photos.present? %>
 	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 	  <!-- Indicators -->
-	  <ol class="carousel-indicators">
-	    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-	    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-	    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+	   <ol class="carousel-indicators">
+	  	<% @course.photos.each_with_index do |photo, index| %>
+	    	<li data-target="#carousel-example-generic" data-slide-to="<%= index %>" <%= "class = active" if index == 0 %>></li>
+	    <% end %>
 	  </ol>
 
 	  <!-- Wrapper for slides -->
 	  <div class="carousel-inner" role="listbox">
-	    <div class="item active">
-	      <%= image_tag @course.photos.order('RANDOM()').first.image_url, :class => 'img-responsive' %>
-	    </div>
-	    <% @course.photos.each do |photo| %>
-	    <div class="item">
-	      <%= image_tag photo.image_url, :class => 'img-responsive' %>
-	    </div>
+	  	<% @course.photos.each_with_index do |photo, index| %>
+		    <div class="item <%= 'active' if index == 0 %>">
+		      <%= image_tag photo.image_url, :class => 'img-responsive' %>
+		    </div>
 	    <% end %>
 	  </div>
 	</div>
