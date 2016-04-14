@@ -21,7 +21,9 @@
 			<td><%= casein_table_cell_link faq.answer, casein_faq_path(faq), :casein_truncate => 150 %></td>
 			<td><%= casein_table_cell_link faq.published_at, casein_faq_path(faq) %></td>
 			<td><%= casein_table_cell_link faq.updated_at, casein_faq_path(faq) %></td>
-			<td><%= casein_table_cell_link faq.workflow_state, casein_faq_path(faq) %></td>
+			<td><%= link_to casein_faq_path(faq) do %>
+				<%= image_tag state_icon(faq.workflow_state) %>
+				<% end %></td>
 			<td class="delete">
 				<%= link_to(casein_show_row_icon("trash"), casein_faq_path(faq), :method => :delete, :data => { :confirm => "Are you sure you want to delete this faq?" }) %>
 			</td>
