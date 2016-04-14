@@ -19,7 +19,7 @@
 					<% @photos.unassigned.each do |photo| %>
 						<div class = 'col-xs-6 col-md-4 container thumb'>
 							<%= check_box_tag "photo[photo_ids[]", photo.id, checked = false, {:class => 'cbox', id: dom_id(photo)} %>
-							<%= image_tag photo.image_url(:thumb).to_s, :class => 'thumbnail image-select' %>
+							<%= image_tag photo.image_url(:thumb).to_s, :class => 'thumbnail img-responsive image-select' %>
 						</div>
 					<% end %>
 				</div>
