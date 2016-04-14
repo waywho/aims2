@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       collection do
         post :edit_multiple
         post :update_multiple
+        post :import
       end
     end
 		resources :courseformats do

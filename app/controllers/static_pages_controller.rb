@@ -37,7 +37,11 @@ class StaticPagesController < ApplicationController
 	end
 
 	def load_event_dates
-		@date = params[:date] ? Date.parse(params[:date]) : Date.parse(Event.published_now.first.date.to_s)
+		if Event.published_now.present?
+			@date = params[:date] ? Date.parse(params[:date]) : Date.parse(Event.published_now.first.date.to_s)
+		else
+			@date = params[:date] ? Date.parse(params[:date]) : Date.today
+		end
   		if Event.published_now.where(date: @date.beginning_of_day..@date.end_of_day).present?
 	  		@day_events = Event.published_now.where(date: @date.beginning_of_day..@date.end_of_day).order(:date)
 	  		@events = @future_events.where("date >= ?", @date.tomorrow).order(:date)
