@@ -16,7 +16,13 @@ module Casein
         format.xlsx
       end
     end
-  
+
+    def import
+      Faq.import(params[:file])
+      flash[:notice] = 'File has been imported'
+      redirect_to casein_faqs_path
+    end
+
     def show
       @casein_page_title = 'View faq'
     end
