@@ -110,7 +110,7 @@ module Casein
     private
       
       def faq_params
-        params.require(:faq).permit(:question, :answer, :published_at, :updated_at, :workflow_state)
+        params.require(:faq).permit(:question, :answer, :published_at, :updated_at, :workflow_state, :faqs, {:faq_ids => []})
       end
       
       def undo_link
