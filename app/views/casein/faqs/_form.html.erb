@@ -6,16 +6,14 @@
 		<%= casein_text_area f, f.object, :question %>
 	</div>
 	<div class="col-lg-6 col-md-6">
-		<%= casein_text_area f, f.object, :answer %>
+		<%= casein_date_field f, f.object, :published_at %>
 	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-lg-6 col-md-6">
-		<%= casein_date_field f, f.object, :published_at %>
-	</div>
-	<div class="col-lg-6 col-md-6">
-		<%= casein_date_field f, f.object, :updated_at %>
+	<div class="col-lg-12 col-md-12">
+		<%= casein_text_area f, f.object, :answer, :class => "description-box" %>
 	</div>
 </div>
 
