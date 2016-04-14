@@ -191,14 +191,12 @@ $(document).ready(function() {
 	  	var regexp = new RegExp($(this).data('id'), "g");
 	  	$(this).before($(this).data('fields').replace(regexp, time));
 	  	$('#courseformat_highlights_attributes_'+time+"_description").froalaEditor({
-	      	toolbar: {
-	      		"font-style": false,
-	      		"lists": false,
-	      		"html": true,
-	      		"image": false,
-	      		"color": false,
-	      		"blockquote": false
-	      	}
+	      	inlineMode: false,
+	      	charCounterCount: true,
+	      	heightMin: 100, 
+	      	toolbarButtons: ['bold', 'italic', 'underline', 
+	      	'strikeThrough', '|', 'color', 'formatOL', 'formatUL', 'quote', 'insertLink', 'undo', 'redo', 
+	      	'clearFormatting', 'selectAll', 'html']
 	      });
 
 	});
