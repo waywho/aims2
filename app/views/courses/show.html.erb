@@ -36,7 +36,7 @@
 
 
 			<ul>
-			<% @course.klasses.each do |klass| %>
+			<% @course.klasses.rank(:row_order).each do |klass| %>
 				<li><h4 class = 'class-title'><%= klass.title %> </h4>
 					<% if klass.number_of_sessions.present? %>
 						(<%= klass.number_of_sessions %> sessions)
