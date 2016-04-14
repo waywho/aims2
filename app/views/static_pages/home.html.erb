@@ -90,16 +90,15 @@
 	<section class="course-highlights container-fluid">
 		<h2><%= @feature_format.title %> Highlights</h2>
 				<% @feature_format.highlights.each do |highlight| %>
-					<%= link_to courseformat_path(@feature_format) do %>
-
 						<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 							<div class="highlight">
+								<%= link_to courseformat_path(@feature_format) do %>
 								<h4><%= highlight.title %></h4>
+								<% end %>
 								<hr />
 								<%= highlight.description.html_safe %>
 							</div>
 						</div>
-					<% end %>
 				<% end %>
 	</section>
 <% end %>
