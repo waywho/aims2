@@ -107,7 +107,7 @@
 <% if !@news.present? && !@future_events.present? %>
 	<div class="col-xs-offset-1 col-xs-10 quote quote-section">
 		<p><%= image_tag 'icon-quote.png', :class => "quote-icon-left img-responsive" %>
-				<%= @quotes.order("RANDOM()").first.saying %>
+				<%= @quotes.order("RANDOM()").last.saying %>
 			<%= image_tag 'icon-quote.png', :class => "quote-icon-right img-responsive" %></p>
 	</div>
 <% else %>
@@ -181,7 +181,7 @@
 			</div>
 			<div class="quote">
 				<p><%= image_tag 'icon-quote.png', :class => "quote-icon-left img-responsive" %>
-						<%= @quotes.order("RANDOM()").first.saying %>
+						<%= @quotes.order("RANDOM()").second.saying %>
 					<%= image_tag 'icon-quote.png', :class => "quote-icon-right img-responsive" %></p>
 			</div>
 		</div>

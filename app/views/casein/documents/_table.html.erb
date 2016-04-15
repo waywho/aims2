@@ -17,7 +17,7 @@
 				</td>
 			<td><%= casein_table_cell_link document.caption, casein_document_path(document) %></td>
 			<td><%= casein_table_cell_link document.description, casein_document_path(document) %></td>
-			<td><%= casein_table_cell_link document.file, casein_document_path(document) %></td>
+			<td><%= casein_table_cell_link document.file_path, casein_document_path(document) %></td>
 			<td class="delete">
 				<%= link_to(casein_show_row_icon("trash"), casein_document_path(document), :method => :delete, :data => { :confirm => "Are you sure you want to delete this document?" }) %>
 			</td>
