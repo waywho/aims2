@@ -1,0 +1,16 @@
+Dear Admin,
+<p>
+	The following message has been sent through the website on <b><%= Date.today.strftime("%A, %d %B, %Y") %></b>
+</p>
+<p>
+
+<b>Name:<b/> <%= @name %>
+<b>Email:<b/> <%= @email %>
+<b>Subject:<b/> <%= @subject %>
+<b>Message:<b/><br />
+<%= @message %>
+</p>
+
+Sincerely,<br />
+
+Your website
