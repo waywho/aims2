@@ -105,7 +105,7 @@ Rails.application.routes.draw do
   post 'get_calendar', :to => 'static_pages#get_calendar'
   get 'speciality/:speciality', :to => 'staffs#index', as: :speciality
   get 'contact', :to => 'static_pages#contact'
-  get 'send_contact', :to => 'static_pages#send_contact'
+  post 'send_contact', :to => 'static_pages#send_contact'
 
   resources :courseformats, :only => [:index, :show] do
       resource :photos, :only => [:index, :show]
