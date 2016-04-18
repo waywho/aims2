@@ -18,7 +18,7 @@ You can send us your query via this contact form.
 <div class = "col-xs-offset-1 col-xs-10 col-md-offset-0 col-md-6">
 	<b><i>Alternatively</i></b>, you can contact us at:<br />
 	<br />
-	<% @contact_info.present? %>
+	<% if @contact_info.present? %>
 		<%= @contact_info.content.html_safe %>
 	<% else %>
 		webmaster, please include a page titled "Footer Contact"
