@@ -19,7 +19,7 @@
 			  <!-- Indicators -->
 			  <ol class="carousel-indicators" id="hero-indicators">
 			  	<% @feature_pages.each_with_index do |page, index| %>
-				    <li data-target="#hero-carousel" style="background-image: url('<%= page.feature_image %>'); background-position: center center; background-repeat: no-repeat; background-size: cover;" data-slide-to="<%= index %>" <%= "class = active" if index == 0 %>>
+				    <li data-target="#hero-carousel" style="background-image: url('<%= page.feature_image %>'); background-position: center center; background-repeat: no-repeat; background-size: cover; height: <%= (1.0/@feature_pages.size)*100 %>%" data-slide-to="<%= index %>" <%= "class = active" if index == 0 %>>
 				    	<span class='thumb-caption'><%= page.title %></span>
 				    </li>
 			    <% end %>

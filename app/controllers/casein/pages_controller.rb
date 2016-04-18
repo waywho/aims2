@@ -121,7 +121,7 @@ module Casein
     end
  
     def destroy
-
+      @page.menus.reload
       @page.destroy
       expire_fragment("footer")
       expire_fragment("header")

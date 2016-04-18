@@ -1,0 +1,22 @@
+<h1 class = "page-heading">Contact Us</h1>
+
+<div class = "col-xs-offset-1 col-xs-10 col-md-offset-0 col-md-6">
+You can send us your query via this contact form.
+<br />
+<br />
+<%= simple_form_for :contact, :url => send_contact_path, :method => 'post' do |f| %>
+	<%= f.input :name, place_holder: "Your Name" %>
+	<%= f.input :email, place_holder: "Your Email Address" %>
+	<%= f.input :subject, place_holder: "Subject" %>
+	<%= f.input :message, as: :text, place_holder: "Your message here", input_html: {"id" => "message-box"} %>
+	<%= recaptcha_tags %>
+	<br />
+	<br />
+	<%= f.submit :submit, :class => 'btn btn-primary' %>
+<% end %>
+</div>
+<div class = "col-xs-offset-1 col-xs-10 col-md-offset-0 col-md-6">
+	<b><i>Alternatively</i></b>, you can contact us at:<br />
+	<br />
+	<%= @contact_info.content.html_safe %>
+</div>

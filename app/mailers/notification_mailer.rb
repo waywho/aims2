@@ -44,6 +44,15 @@ class NotificationMailer < ApplicationMailer
 			subject: "AIMS - Payment confirmation")
 	end
 
+	def contact(name, email, subject, message)
+		@name = name
+		@email = email
+		@subject = subject
+		@message = message
+		mail(to: "walzerfan@yahoo.com",
+			subject: @subject)
+	end
+
 	private
 
 	def whats_next_page_title(campaign_type)

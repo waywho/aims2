@@ -25,7 +25,25 @@ class StaticPagesController < ApplicationController
 	def privacy_policy
 	end
 
+	def contact
+		@contact_info = Page.where(title: 'Footer Contact').first
+	end
+
+	def send_contact
+		if verify_recaptcha
+			NotificationMailer.contact(contact_params[:name], contact_params[:email], contact_params[:subject], contact_params[:message])
+			flash[:notice] = "Thank you. Your message has been sent."
+			redirect contact_path
+		else
+			flash[:error] = "Are you sure you are not a robot? Make sure you verify your human status."
+			redirect contact_path
+		end
+	end 
+
 	private
+	def contact_params
+		params.require(:contact).permit(:name, :email, :subject, :message)
+	end
 
 	def load_news_list
 		news = NewsItem.published_now.limit(5)
