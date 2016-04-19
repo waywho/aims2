@@ -44,7 +44,9 @@ module Casein
       @photo = Photo.new photo_params
      
       if @photo.save
-        render json: @photo
+        respond_to do |format|
+          format.json {render json: { :photo => @photo, :link => @photo.image_url}}
+        end
       else
         flash.now[:warning] = 'There were problems when trying to add a new photo'
         render :action => :new

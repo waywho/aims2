@@ -56,6 +56,8 @@ $(document).ready(function() {
 	      	fileUploadParam: "document[file]",
 	      	linkConvertEmailAddress: true,
 	      	imageManagerLoadURL: "/casein/photos.json",
+	      	imageUploadURL: '/casein/photos',
+	      	imageUploadParam: 'photo[image]',
 	      	toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 
 	      	'strikeThrough','fontSize', '|', 'color', 'paragraphStyle', 
 	      	'|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 
@@ -139,8 +141,8 @@ $(document).ready(function() {
 		uploadMultiple: false,
 		clickable: true,
 		acceptedFiles: 'image/*',
-		thumbnailWidth: '160',
-		thumbnailHeight: '160'
+		thumbnailWidth: '200',
+		thumbnailHeight: '200'
 	};
 
 	var $currentState = $('#current-state')
