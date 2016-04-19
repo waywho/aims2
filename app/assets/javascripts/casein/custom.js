@@ -66,7 +66,7 @@ $(document).ready(function() {
 	      		'menuitem', 'meter', 'nav', 'noscript', 'object', 'ol', 'optgroup', 'option', 'output', 'p', 'param', 
 	      		'pre', 'progress', 'queue', 'rp', 'rt', 'ruby', 's', 'samp', 'script', 'style', 'section', 'select', 
 	      		'small', 'source', 'span', 'strike', 'strong', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'textarea', 
-	      		'tfoot', 'th', 'thead', 'time', 'title', 'tr', 'track', 'u', 'ul', 'var', 'video', 'wbr', 'class']
+	      		'tfoot', 'th', 'thead', 'time', 'title', 'tr', 'track', 'u', 'ul', 'var', 'video', 'wbr', 'class'],
 	      	toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 
 	      	'strikeThrough','fontSize', '|', 'color', 'paragraphStyle', 
 	      	'|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 
