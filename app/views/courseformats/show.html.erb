@@ -43,7 +43,7 @@
 <% end%>
 
 
-<% @courseformat.courses.rank(:row_order).each do |course| %>
+<% @courseformat.courses.rank(:row_order).each_with_index do |course, index| %>
 <div class='course container-fluid'>
 	<% if course.photos.present? %>
 		<div class='image col-xs-8 col-sm-8 col-md-4 col-lg-4 pull-<%= cycle("left", "right") %>' >
@@ -57,7 +57,7 @@
 		</div>
 		<br />
 		<div class="col-xs-offset-1 col-xs-10 quote">
-			<%= image_tag 'icon-quote.png', :class => "quote-icon-left img-responsive" %><%= @quotes.order("RANDOM()").first.saying %><%= image_tag 'icon-quote.png', :class => "quote-icon-right img-responsive" %>
+			<%= image_tag 'icon-quote.png', :class => "quote-icon-left img-responsive" %><%= @quotes.order("RANDOM()")[index].saying %><%= image_tag 'icon-quote.png', :class => "quote-icon-right img-responsive" %>
 		</div>
 	<% else %>
 		<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' %>
@@ -68,7 +68,7 @@
 		</div>
 		<br />
 		<div class="col-xs-offset-1 col-xs-10 quote">
-			<%= image_tag 'icon-quote.png', :class => "quote-icon-left img-responsive" %><%= @quotes.order("RANDOM()").first.saying %><%= image_tag 'icon-quote.png', :class => "quote-icon-right img-responsive" %>
+			<%= image_tag 'icon-quote.png', :class => "quote-icon-left img-responsive" %><%= @quotes.order("RANDOM()")[index].saying %><%= image_tag 'icon-quote.png', :class => "quote-icon-right img-responsive" %>
 		</div>
 	<% end %>
 </div>
