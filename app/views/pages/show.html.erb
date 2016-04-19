@@ -60,6 +60,7 @@
 		</ul>
 	<% end %>
 	<% if @page.fees.present? %>
+	<h4>Fee</h4>
 			<% @page.fees.group_by(&:fee_type).each_pair do |fee_type, fees| %>
 				<b><%= fee_type %></b>
 				<ul>
