@@ -11,6 +11,7 @@ class CourseformatsController < ApplicationController
 	  # GET /courseformats/1.json
 	  def show
 	  	@courses = @courseformat.courses.published_now.rank(:row_order)
+	  	@quotes = Quote.all
 	  end
 
 	  # GET /courseformats/new

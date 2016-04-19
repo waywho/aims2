@@ -3,10 +3,12 @@ class CoursesController < ApplicationController
 
   def index
     @courses = Course.published_now
+    @quotes = Quote.all
   end
 
   def show
   	@course = Course.published_now.friendly.find(params[:id])
+    @quotes = Quote.all
   end
 
   private

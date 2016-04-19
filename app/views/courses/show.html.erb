@@ -29,6 +29,12 @@
 	<p><%= @course.description.html_safe %></p>
 </section>
 
+<section class="quote-section container-fluid">
+	<div class="col-xs-offset-1 col-xs-10 quote">
+		<%= image_tag 'icon-quote.png', :class => "quote-icon-left img-responsive" %><%= @quotes.order("RANDOM()").first.saying %><%= image_tag 'icon-quote.png', :class => "quote-icon-right img-responsive" %>
+	</div>
+</section>
+
 <% if @course.klasses.present? %>
 	<section class='klasses'>
 			<h2>Classes</h2>
