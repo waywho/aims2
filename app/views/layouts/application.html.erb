@@ -21,8 +21,8 @@
 			<p class="alert alert-info"><%= notice %></p>
 			<% end %>
 
-			<% if alert.present? %>
-			<p class="alert alert-danger"><%= alert %></p>
+			<% if alert.present? || flash[:error] %>
+			<p class="alert alert-danger"><%= alert || flash[:error] %></p>
 			<% end %>
 
 			<%= yield %>

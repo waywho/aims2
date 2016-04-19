@@ -26,7 +26,7 @@ class StaticPagesController < ApplicationController
 	end
 
 	def contact
-		@contact_info = Page.where(title: 'Footer Contact').first
+		@aims_address = Page.where(title: 'Footer Contact').first
 	end
 
 	def send_contact
@@ -35,7 +35,7 @@ class StaticPagesController < ApplicationController
 			flash[:notice] = "Thank you. Your message has been sent."
 			redirect_to contact_path
 		else
-			flash[:error] = "Are you sure you are not a robot? Make sure you verify your human status."
+			flash[:alert] = "Are you sure you are not a robot?  Please check the reCAPTCHA box before submit your message."
 			redirect_to contact_path
 		end
 	end 

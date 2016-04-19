@@ -1,5 +1,6 @@
 class NotificationMailer < ApplicationMailer
 	default from: "no-reply@aims.uk.com"
+	before_action :set_admin_email
 
 	def booking_added(name, booking_email, campaign, web_uid, opp_uid, payment_method)
 		@name = name
@@ -8,7 +9,7 @@ class NotificationMailer < ApplicationMailer
 		@web_uid = web_uid
 		@opp_uid = opp_uid
 		@payment_method = payment_method
-		mail(to: "walzerfan@yahoo.com",
+		mail(to: @admin_email,
 			subject: "A new booking for #{@campaign} has been submitted")
 	end
 
@@ -49,7 +50,7 @@ class NotificationMailer < ApplicationMailer
 		@email = email
 		@subject = subject
 		@message = message
-		mail(to: "walzerfan@yahoo.com",
+		mail(to: @admin_email,
 			subject: @subject)
 	end
 
@@ -57,5 +58,9 @@ class NotificationMailer < ApplicationMailer
 
 	def whats_next_page_title(campaign_type)
 		"Whats Next #{campaign_type}"
+	end
+
+	def set_admin_email
+		@admin_email = Casein::AdminUser.find_by(login: 'contact')
 	end
 end
