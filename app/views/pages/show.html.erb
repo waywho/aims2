@@ -60,12 +60,14 @@
 		</ul>
 	<% end %>
 	<% if @page.fees.present? %>
-	<h4>Fee</h4>
-		<ul>
-			<% @page.fees.each do |fee| %>
-				<li><%= link_to fee.title, fee_path(fee) %></li>
+			<% @page.fees.group_by(&:fee_type).each_pair do |fee_type, fees| %>
+				<b><%= fee_type %></b>
+				<ul>
+					<% fees.each do |fee| %>
+					<li><%= fee.title %>: <%= fee.description %>, <%= number_to_currency fee.amount, :unit => '£' %></li>
+					<% end %>
+				</ul>
 			<% end %>
-		</ul>
 	<% end %>
 	<% if @page.klasses.rank(:row_order).present? %>
 	<h4>Classes</h4>
