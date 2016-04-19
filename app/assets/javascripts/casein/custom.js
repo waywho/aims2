@@ -54,6 +54,7 @@ $(document).ready(function() {
 	      	heightMin: 400,
 	      	fileUploadURL: "/casein/documents/insert_file",
 	      	fileUploadParam: "document[file]",
+	      	linkConvertEmailAddress: true,
 	      	imageManagerLoadURL: "/casein/photos.json",
 	      	toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 
 	      	'strikeThrough','fontSize', '|', 'color', 'paragraphStyle', 
@@ -193,6 +194,7 @@ $(document).ready(function() {
 	  	$('#courseformat_highlights_attributes_'+time+"_description").froalaEditor({
 	      	inlineMode: false,
 	      	charCounterCount: true,
+	      	linkConvertEmailAddress: true,
 	      	heightMin: 100, 
 	      	toolbarButtons: ['bold', 'italic', 'underline', 
 	      	'strikeThrough', '|', 'color', 'formatOL', 'formatUL', 'quote', 'insertLink', 'undo', 'redo', 

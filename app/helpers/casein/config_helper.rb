@@ -42,7 +42,7 @@ module Casein
     def casein_config_javascript_includes
       %w[casein/casein casein/custom casein/dropzone jquery-ui froala_editor.min plugins/image.min plugins/image_manager.min plugins/code_view.min 
         plugins/paragraph_format.min plugins/paragraph_style.min plugins/fullscreen.min plugins/link.min plugins/colors.min plugins/font_size.min plugins/align.min
-        plugins/char_counter.min plugins/quote.min plugins/file.min]
+        plugins/char_counter.min plugins/quote.min plugins/file.min plugins/lists.min]
     end
   end
 end
