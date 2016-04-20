@@ -60,10 +60,6 @@ a:hover {
   color: #fff;
 }
 
-.inline-heading {
-	display: inline;
-}
-
 .logo-title {
 	display: inline-block;
 }
@@ -316,12 +312,23 @@ nav.navbar.navbar-third li a:hover,
 	text-align: right;
 }
 
-.highlight-list h5 {
-	display: inline;
+.highlight-list h4 {
+	display: block;
 }
 
 .highlight-list ul li {
 	list-style-type: none;
+}
+
+.highlight-list-item {
+	text-align: center;
+}
+
+.highlight-list hr {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	border-top: 1px solid #A21D21;
+	width: 50%;
 }
 
 .course {

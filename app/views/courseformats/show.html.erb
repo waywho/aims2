@@ -35,7 +35,7 @@
 			<h3>Highlights</h3>
 			<ul>
 				<% @courseformat.highlights.each do |highlight| %>
-					<li><h5 class="inline-heading"><%= highlight.title %></h5> - <%= highlight.description.html_safe %></li>
+					<li class="highlight-list-item"><h4 class="inline-heading"><%= highlight.title %></h4><hr /><%= highlight.description.html_safe %></li>
 				<% end %>
 			</ul>
 		</div>
