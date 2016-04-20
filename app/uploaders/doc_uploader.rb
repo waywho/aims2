@@ -13,7 +13,7 @@ class DocUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    "downloads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
   def download_url(filename)
@@ -36,7 +36,7 @@ class DocUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :thumb do
+  version :thumb if => :pdf? do
     process :cover
     process :resize_to_fit => [200, 282.8]
     process :convert => :jpg
