@@ -36,7 +36,7 @@ class DocUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :thumb if => :pdf? do
+  version :thumb, :if => :pdf? do
     process :cover
     process :resize_to_fit => [200, 282.8]
     process :convert => :jpg
