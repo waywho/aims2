@@ -33,8 +33,11 @@ class SalesforceClient
           MailingState: params[:county], 
           MailingPostalCode: params[:post_code], 
           MailingCountry: params[:country],
-          Birthdate: date_string(params[:date_of_birth]), 
+          Birthdate: date_string(params[:date_of_birth]),
           npe01__HomeEmail__c: params[:email],
+          Dietary_Requirements__c: params[:dietary_requirement],
+	      Dietary_Requirement_Details__c: params[:dietary_requirement_details],
+	      First_Aid_Trained__c: first_aid_check(params[:first_aid]),
           LeadSource: 'Web' )
 
 		update_phone(params[:preferred_contact], params[:contact_number], uid)
@@ -51,6 +54,9 @@ class SalesforceClient
 	        MailingState: params[:county], 
 	        MailingPostalCode: params[:post_code], 
 	        MailingCountry: params[:country],
+	        Dietary_Requirements__c: params[:dietary_requirement],
+	        Dietary_Requirement_Details__c: params[:dietary_requirement_details],
+	        First_Aid_Trained__c: first_aid_check(params[:first_aid]),
 	        LeadSource: 'Web' )
 
 		update_phone(params[:preferred_contact], params[:contact_number], uid)
@@ -153,6 +159,14 @@ class SalesforceClient
 			"Deposit Received"
 		elsif stage == "Full Amount"
 			"Fully Paid"
+		end
+	end
+
+	def first_aid_check(param)
+		if param == true
+			'Checked'
+		else
+			'Unchecked'
 		end
 	end
 

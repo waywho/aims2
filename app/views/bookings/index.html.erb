@@ -75,7 +75,7 @@
 		<br />
 		<br />
 		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12'>
-			<%= f.collection_check_boxes :solo_classes, find_soap_field(@opportunity, 'Solo_classes__c'), :value, :label, :include_hidden => false, item_wrapper_class: 'solo-select', required: false %>
+			<%= f.collection_check_boxes :solo_classes, find_soap_field(@opportunity, 'Solo_classes__c'), :value, :label, :include_hidden => false, item_wrapper_class: 'solo-select', checked: 'Solo Vocal Technique', required: false %>
 		</div>
 		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6'>
 			<%= f.input :notes_for_class_selection, label: 'Choice 4 (optional)', hint: '(Replace with this option if any of my selections are not availble)', required: false %>
@@ -147,11 +147,16 @@
 			<span>I would like to attend the audition on <%= @audition_date.strftime("%A, %d %B, %Y") if @audition_date %>: </span> <br />
 			<br />
 			<%= f.input :audition, collection: find_soap_field(@opportunity, 'Audition_requested__c'), label_method: :label, value_method: :value, label: false, include_blank: 'Select an audition time', required: false %>
-		</div>
-		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6 audition-notes'>
-			<h3>Audition Recording/Notes</h3>
 			<span>If you would like to be considered for Solo, Masterclass, or Bursary but cannot audition in person, please send us recordings, either via email or paste the links below:</span> <br />
 			<%= f.input :audition_notes, as: :text, label: false, required: false %>
+		</div>
+		<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6'>
+			<h3>Other</h3>
+			<%= f.input :dietary_requirement, collection: find_soap_field(@opportunity, 'Dietary_Requirements__c'), label_method: :label, value_method: :value, include_blank: 'Select requirement', required: false %>
+			<span>Any other specific dietary or health requirements that we need to be aware of? Please add details here:</span><br />
+			<%= f.input :dietary_requirement_details, as: :text, label: false, required: false %>
+			<br />
+			<%= f.input :first_aid, as: :boolean, label: "I am first-aid trained", required: false %>
 		</div>
 	</div>
 	<div class = 'row'>
@@ -162,6 +167,8 @@
 			<%= f.input :summer_product_code, required: false, label: false do %>
 				<%= f.select :summer_product_code, @summer_fees.map { |sf| [sf.full_description, sf.product_code, {'data-amount' => sf.amount}]}, {include_blank: 'Select an option'}, {:class => 'form-control fee-select', :id => 'Summer-fee'} %>
 			<% end %>
+			<i>NB Extra meals and entry to concerts can be purchased by Category B students during the week, from the AIMS Office (for meals) or on the Door (for evening concerts).</i>
+			<br />
 		</div>
 	</div>
 </div>
