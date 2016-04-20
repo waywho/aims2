@@ -63,6 +63,12 @@ class DocUploader < CarrierWave::Uploader::Base
     %w(docx doc pdf)
   end
 
+  protected
+
+  def pdf?(file)
+    file.content_type.start_with? 'application/pdf'
+  end
+
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   # def filename
