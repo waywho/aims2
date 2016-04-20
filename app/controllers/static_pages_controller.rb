@@ -1,17 +1,15 @@
 class StaticPagesController < ApplicationController
-	before_filter :load_news_list
+	before_filter :load_news_list, :only => [:home]
+	before_filter :load_event_dates, :only => [:home, :get_calendar]
 
 	def home
 		@feature_pages = Page.where(feature: true).limit(3)
 		@feature_format = Courseformat.find_by(feature: true)
 		@feature_courses = @feature_format.courses.feature_courses
 		@quotes = Quote.all
-
-		load_event_dates
 	end
 
 	def get_calendar
-		load_event_dates
 
   		respond_to do |format|
   			format.js

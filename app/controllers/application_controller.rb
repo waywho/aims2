@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :load_menus
   before_filter :load_courseformats
-  before_filter :load_news
+  # before_filter :load_news
   before_filter :load_events
   before_filter :load_footer_contact
   protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format.json? }
@@ -18,9 +18,9 @@ class ApplicationController < ActionController::Base
 	 		@courseformats = Courseformat.published_now.rank(:row_order).includes(:courses, :fees)
 	 	end
 
-	 	def load_news
-	 		@news = NewsItem.published_now
-	 	end
+	 	# def load_news
+	 	# 	@news = NewsItem.published_now
+	 	# end
 
 	 	def load_events
 	 		@future_events = Event.future.order(:date)

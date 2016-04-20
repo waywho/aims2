@@ -20,6 +20,8 @@ module Casein
 
     def import
       Event.import(params[:file])
+      expire_fragment("footer")
+      expire_fragment("header")
       flash[:notice] = 'File has been imported'
       redirect_to casein_events_path
     end
@@ -42,6 +44,8 @@ module Casein
       if @event.save
         if params[:publish]
             @event.publish!
+            expire_fragment("footer")
+            expire_fragment("header")
         end
         flash[:notice] = 'Event created'
         redirect_to casein_events_path
@@ -56,7 +60,6 @@ module Casein
       
       respond_to do |format|
        if @event.update_attributes event_params
-
           if params[:submit]
             @event.submit!
           elsif params[:approve]
@@ -68,6 +71,8 @@ module Casein
           elsif params[:unpublish]
             @event.unpublish!
           end
+          expire_fragment("footer")
+          expire_fragment("header")
 
           format.html { redirect_to casein_event_path(@event), notice: "Event has been updated. #{undo_link}" }
           format.js
@@ -101,6 +106,8 @@ module Casein
 
     def update_multiple
      @events = Event.friendly.update(params[:events].keys, params[:events].values)
+      expire_fragment("footer")
+      expire_fragment("header")
       @events.reject! { |event| event.errors.empty? }
       if @events.empty?
         redirect_to casein_events_path
@@ -112,6 +119,8 @@ module Casein
     def destroy
 
       @event.destroy
+      expire_fragment("footer")
+      expire_fragment("header")
       # @event.photo.destroy
       flash[:notice] = "Event has been deleted. #{undo_link}"
       redirect_to casein_events_path

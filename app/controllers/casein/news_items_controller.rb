@@ -19,6 +19,8 @@ module Casein
 
     def import
       NewsItem.import(params[:file])
+      expire_fragment("footer")
+      expire_fragment("header")
       flash[:notice] = 'File has been imported'
       redirect_to casein_news_items_path
     end
@@ -38,6 +40,8 @@ module Casein
       if @news_item.save
         if params[:publish]
             @news_item.publish!
+            expire_fragment("footer")
+            expire_fragment("header")
         end
         flash[:notice] = 'News item created'
         redirect_to casein_news_items_path
@@ -63,7 +67,8 @@ module Casein
           elsif params[:unpublish]
             @news_item.unpublish!
           end
-        
+          expire_fragment("footer")
+          expire_fragment("header")
           format.html { redirect_to casein_news_item_path(@news_item), notice: "News item has been updated. #{undo_link}" }
           format.js
         else
@@ -96,6 +101,8 @@ module Casein
 
     def update_multiple
      @news_items = NewsItem.friendly.update(params[:news_items].keys, params[:news_items].values)
+      expire_fragment("footer")
+      expire_fragment("header")
       @news_items.reject! { |news_item| news_item.errors.empty? }
       if @news_items.empty?
         redirect_to casein_news_items_path
@@ -107,6 +114,8 @@ module Casein
     def destroy
 
       @news_item.destroy
+      expire_fragment("footer")
+      expire_fragment("header")
       # @news_item.photos.each do |photo|
       #   photo.update_attributes(imageable_id: nil, imageable_type: nil)
       # end

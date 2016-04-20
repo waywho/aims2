@@ -85,7 +85,6 @@
 			      		<% cache ["header", courseformat] do %>
 			        	<li>
 				         	<%= link_to courseformat.title, courseformat %>
-					         	<span class="sr-only">(current)</span>
 			         	</li>
 			         	<% end %>
 			         <% end %>
@@ -95,7 +94,7 @@
 					         	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= menu.name %>&nbsp;<span class="caret"></span></a>
 						        	<ul class="dropdown-menu">
 							          		<% menu.children.each do |child| %>
-							          		<li><%= link_to child.name, child.navigation %>
+							          		<li><%= link_to child.name, child.navigation %></li>
 							          		<% end %>
 
 						        	</ul>
@@ -107,10 +106,10 @@
 				        <% end %>
 				     <% end %>
 			        <li><%= link_to 'Staff', staffs_path %></li>
-			        <% if @news.present? %>
+			        <% if published_news? %>
 			        	<li><%= link_to 'News', news_items_path %></li>
 			        <% end %>
-			        <% if @future_events.present? %>
+			        <% if @future_events.length > 0 %>
 			        	<li><%= link_to 'Events', events_path %></li>
 			        <% end %>
 			    </ul>

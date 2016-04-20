@@ -51,6 +51,9 @@ module ApplicationHelper
     	end
  	end
 
+ 	def published_news?
+ 		NewsItem.published_now.size > 0
+ 	end
   
   	def link_to_add_fields(name, f, association)
 	    new_object = f.object.send(association).klass.new
@@ -64,5 +67,13 @@ module ApplicationHelper
   	def current_user
  		@current_user ||= User.find(session[:user_id]) if sesson[:user_id]
  	end
+
+ 	def nav_link(link_text, link_path)
+  		class_name = current_page?(link_path) ? 'active' : ''
+
+  		content_tag(:li, :class => class_name) do
+    		link_to link_text, link_path
+  		end
+	end
 
 end
