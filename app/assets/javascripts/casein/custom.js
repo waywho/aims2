@@ -68,11 +68,11 @@ $(document).ready(function() {
 	      		'small', 'source', 'span', 'strike', 'strong', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'textarea', 
 	      		'tfoot', 'th', 'thead', 'time', 'title', 'tr', 'track', 'u', 'ul', 'var', 'video', 'wbr', 'class'],
 	      	toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 
-	      	'strikeThrough','fontSize', '|', 'color', 'paragraphStyle', 
-	      	'|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 
-	      	'indent', 'quote', 'insertHR', '-', 'insertLink', 'insertImage', 
-	      	'insertFile', 'insertTable', 'undo', 'redo', 
-	      	'clearFormatting', 'selectAll', 'html']
+	      		'strikeThrough','fontSize', '|', 'color', 'paragraphStyle', 
+	      		'|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 
+	      		'indent', 'quote', 'insertHR', '-', 'insertLink', 'insertImage', 
+	      		'insertFile', 'insertTable', 'undo', 'redo', 
+	      		'clearFormatting', 'selectAll', 'html']
 	      });
 	 });
 
