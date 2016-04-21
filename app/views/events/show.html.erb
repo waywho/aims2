@@ -2,9 +2,9 @@
 	keywords: @event.keyword_list %>
 <h1 class="page-heading"><%= @event.title %></h1>
 
-<div class='event-list col-xs-12 col-sm-12 col-md-4 col-lg-4 pull-right'>
+<div class='event-list col-xs-12 col-sm-12 col-md-4 col-lg-4 pull-right' id = 'events-nav-list'>
 	<% if @future_events.present? %>
-		<h2>Other Events</h2>
+		<h3>List of Events</h3>
 		<ul>
 			<% @future_events.each do |event| %>
 				<li>

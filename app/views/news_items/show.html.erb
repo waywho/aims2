@@ -1,14 +1,10 @@
-<% meta title: @event.title,
-	keywords: @event.keyword_list %>
-<h1 class="page-heading"><%= @news.title %></h1>
+<% meta title: @news.title,
+	keywords: @news.keyword_list %>
 
-<%= d_m_y(@news.published_at) %><br />
-<br />
-<br />
-
-<div class='news-list col-xs-12 col-sm-12 col-md-4 col-lg-4 pull-right'>
+<div class='news-list col-xs-12 col-sm-12 col-md-4 col-lg-4'>
+	<div class = 'spacer' ></div>
 	<% if @newsies.present? %>
-		<h2>Other News</h2>
+		<h3>Other News</h3>
 		<ul>
 			<% @newsies.each do |news| %>
 			<li>
@@ -23,6 +19,10 @@
 	<% end %>
 </div>
 <div class='col-xs-12 col-sm-12 col-md-8 col-lg-8'>
+<h1 class="page-heading"><%= @news.title %></h1>
+
+<%= d_m_y(@news.published_at) %><br />
+<div class = 'spacer' ></div>
 	<% if @news.photo.present? %>
 	<section class ='feature-image col-xs-12 col-sm-12 col-md-offset-1 col-md-10'>
 		<%= image_tag @news.photo_url, :class => 'img-responsive' %>

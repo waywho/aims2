@@ -13,8 +13,11 @@
 	</div>
 </div>
 <div class = 'row'>
-	<div class="col-lg-12 col-md-12">
+	<div class="col-lg-6 col-md-6">
 		<%= casein_text_field f, f.object, :keyword_list, casein_label: "Keywords (separated by commas)", value: f.object.keyword_list.to_s, id: 'keywords', data: {autocomplete_source: ActsAsTaggableOn::Tag.all.map(&:name)} %>
+	</div>
+	<div class="col-lg-6 col-md-6">
+		<%= casein_collection_select f, f.object, :page, :parent_id, @pages, :id, :title, casein_label: "Parent page", include_blank: true %>
 	</div>
 </div>
 <div class="row">

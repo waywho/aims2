@@ -6,6 +6,7 @@
 			<th><%= check_box_tag 'multi' %></th>
 			<th><%= casein_sort_link "Title", :title %></th>
 			<th><%= casein_sort_link "Content", :content %></th>
+			<th><%= casein_sort_link "Parent", :parent %></th>
 			<th><%= casein_sort_link "Feature", :feature %></th>
 			<th><%= casein_sort_link "Publish Date", :published_at %></th>
 			<th><%= casein_sort_link "Updated at", :updated_at %></th>
@@ -19,7 +20,8 @@
 			<td><%= check_box_tag 'page[page_ids][]', page.id, checked = false, { id: dom_id(page), :class => 'index-check' } %>
 				</td>
 			<td><%= casein_table_cell_link page.title, casein_page_path(page) %></td>
-			<td><%= casein_table_cell_link page.content, casein_page_path(page), :casein_truncate => 150 %></td>
+			<td><%= casein_table_cell_link page.content, casein_page_path(page), :casein_truncate => 100 %></td>
+			<td><%= casein_table_cell_link page.parent.title, casein_page_path(page) if page.parent.present? %></td>
 			<td><%= link_to casein_page_path(page) do %>
 			<%= image_tag 'check.png', :class=>'true-check img-responsive' if page.feature %>
 			<% end %></td>

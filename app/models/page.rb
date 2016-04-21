@@ -2,7 +2,8 @@ class Page < ActiveRecord::Base
 	extend FriendlyId
 	mount_uploader :feature_image, ImageUploader
 	# before_save :falsify_all_others
-
+	has_ancestry
+	
 	belongs_to :user
 	friendly_id :title, use: :slugged
 	has_paper_trail :on => [:update, :create, :destroy]

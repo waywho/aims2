@@ -14,19 +14,19 @@
 			         	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= menu.name %>&nbsp;<span class="caret"></span></a>
 				        	<ul class="dropdown-menu">
 					          		<% menu.children.each do |child| %>
-					          		<li><%= link_to child.name, child.navigation %></li>
+					          		<li><%= link_to_unless_current child.name, child.navigation %></li>
 					          		<% end %>
 
 				        	</ul>
 			        </li>
 			    <% else %>
 		        	<li>
-		         		<%= link_to menu.name, menu.navigation %>
+		         		<%= link_to_unless_current menu.name, menu.navigation %>
 		         	</li>
 		         <% end %>
 	        <% end %>
-	        <li><%= link_to 'Contact Us', contact_path %></li>
-	        <li><%= link_to 'FAQ', faqs_path %></li>
+	        <li><%= link_to_unless_current 'Contact Us', contact_path %></li>
+	        <li><%= link_to_unless_current 'FAQ', faqs_path %></li>
 	        <li><%= link_to image_tag('twitter-icon.png', :class => 'header-social-icon social-icon'), 'https://twitter.com/aims_singing', :id => 'social-icon-link-twitter' %></li>
 	        <li><%= link_to image_tag('facebook-icon.png', :class => 'header-social-icon social-icon'), 'https://www.facebook.com/groups/5182097482', :id => 'social-icon-link-facebook' %></li>
 	        <li><%= link_to image_tag('youtube-icon2.png', :class => 'header-social-icon social-icon'), 'https://www.youtube.com/user/neiljenkinstenor/videos', :id => 'social-icon-link-youtube' %></li>
@@ -84,7 +84,7 @@
 			      	<% @courseformats.each do |courseformat| %>
 			      		<% cache ["header", courseformat] do %>
 			        	<li>
-				         	<%= link_to courseformat.title, courseformat %>
+				         	<%= link_to_unless_current courseformat.title, courseformat %>
 			         	</li>
 			         	<% end %>
 			         <% end %>
@@ -94,27 +94,27 @@
 					         	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= menu.name %>&nbsp;<span class="caret"></span></a>
 						        	<ul class="dropdown-menu">
 							          		<% menu.children.each do |child| %>
-							          		<li><%= link_to child.name, child.navigation %></li>
+							          		<li><%= link_to_unless_current child.name, child.navigation %></li>
 							          		<% end %>
 
 						        	</ul>
 					        </li>
 					    <% else %>
 				        	<li>
-				         		<%= link_to menu.name, menu.navigation %>
+				         		<%= link_to_unless_current menu.name, menu.navigation %>
 				         	</li>
 				        <% end %>
 				     <% end %>
-			        <li><%= link_to 'Staff', staffs_path %></li>
+			        <li><%= link_to_unless_current 'Staff', staffs_path %></li>
 			        <% if published_news? %>
-			        	<li><%= link_to 'News', news_items_path %></li>
+			        	<li><%= link_to_unless_current 'News', news_items_path %></li>
 			        <% end %>
 			        <% if @future_events.length > 0 %>
-			        	<li><%= link_to 'Events', events_path %></li>
+			        	<li><%= link_to_unless_current 'Events', events_path %></li>
 			        <% end %>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
-			    	<li><%= link_to 'Booking', bookings_path, :id => 'booking' %></a></li>
+			    	<li><%= link_to_unless_current 'Booking', bookings_path, :id => 'booking' %></li>
 			    </ul>  
 		    </div><!-- /.navbar-collapse -->
 		</div><!-- /.container-fluid -->
@@ -135,7 +135,7 @@
 			<ul class = "nav navbar-nav">
 				<% @courses.rank(:row_order).each do |course| %>
 					<% cache ["header", course] do %>
-					<li class='hidden-xs hidden-sm'><%= link_to course.title, course_path(course) %></li>
+					<li class='hidden-xs hidden-sm'><%= link_to_unless_current course.title, course_path(course) %></li>
 					<% end %>
 				<% end %>
 			</ul>
