@@ -40,90 +40,37 @@
 		</section>
 		<section class = 'page-record col-xs-12 col-sm-12 col-md-12'>
 			<% if @page.staffs.present? %>
-					<% @page.staffs.group_by(&:role).each_pair do |role, staffs| %>
-						
-							<% if Staff::ADMIN_ROLES.include?(role) %>
-								<h4>Admin Staff</h4>
-								<div class = 'row'>
-									<% staffs.each do |staff| %>
-										<% if staff.photo %>
-								  			<div class = "col-sm-6 col-md-3 col-lg-3">
-								  				<%= link_to staff_path(staff) do %>
-								    			<div class = "thumbnail staff-thumb">
-								     			<%= image_tag staff.photo.image_url %>
-								      				<div class = "caption">
-								        			<h4><%= staff.full_name %></h4>
-								        			<%= staff.role %>
-								      				</div>
-								   				</div>
-								   				<% end %>
-								   			</div>
-								   		<% else %>
-								   			<div class = "col-sm-6 col-md-3 col-lg-3">
-								  				<%= link_to staff_path(staff) do %>
-								    			<div class = "thumbnail staff-thumb">
-								     			<%= image_tag 'person_holder.png' %>
-								      				<div class = "caption">
-								        			<h4><%= staff.full_name %></h4>
-								        			<%= staff.role %>
-								      				</div>
-								   				</div>
-								   				<% end %>
-								   			</div>
-							   			<% end %>
-							   		<% end %>
-							   	<div>
-							<% else %>
-								<div class = 'row'>		
-									<h4><%= role.capitalize %></h4>
-									<% staffs.each do |staff| %>
-										<% if staff.photo %>
-								  			<div class = "col-sm-6 col-md-3 col-lg-3">
-								  				<%= link_to staff_path(staff) do %>
-								    			<div class = "thumbnail staff-thumb">
-								     			<%= image_tag staff.photo.image_url %>
-								      				<div class = "caption">
-								        			<h4><%= staff.full_name %></h4>
-								        			<%= staff.role %>
-								      				</div>
-								   				</div>
-								   				<% end %>
-								   			</div>
-								   		<% else %>
-								   			<div class = "col-sm-6 col-md-3 col-lg-3">
-								  				<%= link_to staff_path(staff) do %>
-								    			<div class = "thumbnail staff-thumb">
-								     			<%= image_tag 'person_holder.png' %>
-								      				<div class = "caption">
-								        			<h4><%= staff.full_name %></h4>
-								        			<%= staff.role %>
-								      				</div>
-								   				</div>
-								   				<% end %>
-								   			</div>
-							   			<% end %>
-							   		<% end %>
-							   	</div>
-				   			<% end %>
+					<% regrouped_staffs(@page.staffs).each_pair do |role, staffs| %>
+						<h4><%= role %></h4>
+						<div class = 'row'>
+							<% staffs.each do |staff| %>
+							 <%= render :partial => 'staffs/staff_thumbnail', :locals => { :staff => staff } %>
+							 <% end %>
+						</div>
 					<% end %>
 			<% end %>
 			<% if @page.courses.present? %>
+			<div class = 'row'>
 				<h4>Courses</h4>
 					<ul>
 						<% @page.courses.rank(:row_order).each do |course| %>
 							<li><%= link_to course.title, course_path(course) %></li>
 						<% end %>
 					</ul>
+			</div>
 			<% end %>
 			<% if @page.events.present? %>
+			<div class = 'row'>
 				<h4>Events</h4>
 				<ul>
 					<% @page.events.order(date: :desc).each do |event| %>
 						<li><%= link_to event.title, event_path(event) %></li>
 					<% end %>
 				</ul>
+			</div>
 			<% end %>
 			<% if @page.fees.present? %>
+			<div class = 'row'>
 				<h4>Fee</h4>
 					<% @page.fees.group_by(&:fee_type).each_pair do |fee_type, fees| %>
 						<b><%= fee_type %></b>
@@ -133,22 +80,27 @@
 							<% end %>
 						</ul>
 					<% end %>
+			</div>
 			<% end %>
 			<% if @page.klasses.present? %>
+			<div class = 'row'>
 				<h4>Classes</h4>
 				<ul>
 					<% @page.klasses.rank(:row_order).each do |klass| %>
 						<li><%= link_to klass.title, klass_path(klass) %></li>
 					<% end %>
 				</ul>
+			</div>
 			<% end %>
 			<% if @page.quotes.present? %>
+			<div class = 'row'>
 				<h4>What People Say...</h4>
 				<ul>
 					<% @page.quotes.each do |quote| %>
 						<li><%= link_to quote.saying, quote_path(quote) %></li>
 					<% end %>
 				</ul>
+			</div>
 			<% end %>
 		</section>
 </div>

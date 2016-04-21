@@ -41,6 +41,7 @@ module Casein
     def new
       @casein_page_title = 'Add a new page'
       @page = Page.new
+      @pages = Page.published_now.order(:title)
     end
 
     def create

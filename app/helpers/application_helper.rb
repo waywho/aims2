@@ -76,4 +76,16 @@ module ApplicationHelper
   		end
 	end
 
+	def regrouped_staffs(staffs)
+		@regrouped_staffs = Hash.new
+		staffs.group_by(&:role).each_pair do |role, staffs|
+			if !Staff::ADMIN_ROLES.include?(role)
+				@regrouped_staffs.merge!(:"Admin Staff" => staffs){ |k, nv, ov| nv + ov}
+			else
+				@regrouped_staffs.merge!(role => staffs){ |k, nv, ov| nv + ov}
+			end
+		
+		end
+		@regrouped_staffs
+	end
 end
