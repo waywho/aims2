@@ -6,7 +6,8 @@
 	<thead>
 		<tr>
 			<th><%= casein_sort_link "Title", :title %></th>
-			<th><%= casein_sort_link "Feature", :feature_page %></th>
+			<th><%= casein_sort_link "Parent", :parent %></th>
+			<th><%= casein_sort_link "Feature", :feature %></th>
 			<th><%= casein_sort_link "Publish Date", :published_at %></th>
 			<th><%= casein_sort_link "Status", :workflow_state %></th>
 			<th>&nbsp;</th>
@@ -17,8 +18,9 @@
 		<%= simple_fields_for "pages[]", page do |f| %> 
 		<tr>
 			<td><%= casein_table_cell_link page.title, casein_page_path(page) %></td>
+			<td><%= f.input :parent_id, collection: Page.published_now.order(:title), label: false %></td>
 			<td><%= f.input :published_at, as: :date, html5: true, label: false  %></td>
-			<td><%= f.input :feature_page, label: false %></td>
+			<td><%= f.input :feature, label: false %></td>
 			<td><%= f.input :workflow_state, label: false, :collection => Page.states %>
 					</td>
 				</td>

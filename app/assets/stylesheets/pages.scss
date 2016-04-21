@@ -1,3 +1,15 @@
 // Place all the styles related to the pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.page-nav {
+	list-style-type: none;
+	padding: 0px 20px 0px 0px;
+	margin-top: 5px;
+	border-right: 2px solid #F6E8E9;
+	text-align: right;
+}
+
+.page-nav li {
+	margin-top: 15px;
+}

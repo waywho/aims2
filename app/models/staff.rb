@@ -17,6 +17,7 @@ class Staff < ActiveRecord::Base
 
 	acts_as_taggable_on :speciality
 	
+	ADMIN_ROLES = ["Artistic Director", "General Manager", "Admin"]
 	include Workflow
 
 	workflow do

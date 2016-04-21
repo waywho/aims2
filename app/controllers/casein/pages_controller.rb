@@ -28,6 +28,7 @@ module Casein
   
     def show
       @casein_page_title = 'View page'
+      @pages = Page.published_now.order(:title)
       @courseformats = Courseformat.published_now
       @courses = Course.published_now
       @events = Event.published_now
@@ -132,7 +133,7 @@ module Casein
     private
       
       def page_params
-        params.require(:page).permit(:title, :content, :published_at, :feature, :keyword_list,
+        params.require(:page).permit(:title, :content, :published_at, :feature, :keyword_list, :parent_id,
           :workflow_state, :feature_image, :pages, {:page_ids => []}, {:courseformat_ids => []}, {:course_ids =>[]}, 
             {:event_ids =>[]}, {:fee_ids =>[]}, {:klass_ids =>[]}, 
               {:quote_ids =>[]}, {:staff_ids =>[]})
