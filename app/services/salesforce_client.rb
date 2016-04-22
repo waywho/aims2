@@ -37,7 +37,7 @@ class SalesforceClient
           npe01__HomeEmail__c: params[:email],
           Dietary_Requirements__c: params[:dietary_requirement],
 	      Dietary_Requirement_Details__c: params[:dietary_requirement_details],
-	      First_Aid_Trained__c: first_aid_check(params[:first_aid]),
+	      First_Aider__c: first_aid_check(params[:first_aid]),
           LeadSource: 'Web' )
 
 		update_phone(params[:preferred_contact], params[:contact_number], uid)
@@ -56,7 +56,7 @@ class SalesforceClient
 	        MailingCountry: params[:country],
 	        Dietary_Requirements__c: params[:dietary_requirement],
 	        Dietary_Requirement_Details__c: params[:dietary_requirement_details],
-	        First_Aid_Trained__c: first_aid_check(params[:first_aid]),
+	        First_Aider__c: first_aid_check(params[:first_aid]),
 	        LeadSource: 'Web' )
 
 		update_phone(params[:preferred_contact], params[:contact_number], uid)
@@ -89,7 +89,9 @@ class SalesforceClient
 		    Session_4_Options__c: join_array(params[:session_4_options]),
 		    Audition_requested__c: params[:audition],
 		    Auditioning_for__c: join_array(params[:audition_for]),
-		    Audition_request_notes__c: params[:audition_notes] )
+		    Audition_request_notes__c: params[:audition_notes],
+		    Saturday_Course__c: params[:saturday_course_stream_taster],
+		    Sunday_Course__c: params[:sunday_course_stream_taster] )
 	end
 
 	def create_product(opp_id, product_id, price)

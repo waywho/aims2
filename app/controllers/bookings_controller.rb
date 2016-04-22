@@ -167,9 +167,9 @@ class BookingsController < ApplicationController
 
   def booking_params
     params.require(:booking).permit(:salutation, :first_name, :last_name, :street_address, :campaign_id,
-      :recordtype, :street_address, :city, :county, :country, :post_code, :email, :preferred_contact,
-      :contact_number, :date_of_birth, :car_reg, :voice_type, :course_stream_summer, :course_stream_mini,  
-      {:days => []}, {:solo_classes => []}, :notes_for_class_selection, :dietary_requirement, :dietary_requirement_details, :first_aid,
+      :recordtype, :street_address, :city, :county, :country, :post_code, :email, :preferred_contact, :car_reg, :voice_type, 
+      :course_stream_summer, :saturday_course_stream_taster, :sunday_course_stream_taster, :contact_number, :date_of_birth, {:days => []},
+      {:solo_classes => []}, :notes_for_class_selection, :dietary_requirement, :dietary_requirement_details, :first_aid,
       :session_1, {:session_1_options => []}, :session_2, {:session_2_options => []}, :session_3, {:session_3_options => []},
       :session_4, {:session_4_options => []}, :stage, :agreement, :audition, {:audition_for => []}, :audition_notes, 
       :summer_product_code, :taster_product_code, :service_fee, :payment_amount)

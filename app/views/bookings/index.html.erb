@@ -177,16 +177,20 @@
 	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12'>
 		<h2>Mini-Aims Course Options</h2>
 	</div>
+	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12'>
+		You have the option to attend either or both days. You are also welcome to mix and match your course stream selections.<br /><br/>
+	</div>
 	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-6 col-lg-6'>
-			<%= f.input :course_stream_mini, collection: ['Solo', 'Choral'], include_blank: 'Select a course', label: 'Course Stream', input_html: { :class => 'course-select'}, required: true %>
+		<%= f.input :saturday_course_stream_taster, collection: find_soap_field(@opportunity, 'Saturday_Course__c'), as: :check_boxes, label: 'Satuday Course Stream', label_method: :label, value_method: :value, input_html: { :class => 'taster-course-select'}, required: false %>
 	</div>
 	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6 col-md-6 col-lg-6'>
-		<%= f.input :days, collection: ['Saturday', 'Sunday'], as: :check_boxes, label: 'I would like to attend...', required: true %>
+		<%= f.input :sunday_course_stream_taster, collection: find_soap_field(@opportunity, 'Sunday_Course__c'), as: :check_boxes, label: 'Sunday Course Stream', label_method: :label, value_method: :value, input_html: { :class => 'taster-course-select'}, required: false %>
 	</div>
 	<div class = 'col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-12 col-md-12 col-lg-12'>
 		<%= f.input :taster_product_code, label: 'Fee', required: false do %>
 			<%= f.select :taster_product_code, @mini_fees.map { |sf| [sf.full_description, sf.product_code, {'data-amount' => sf.amount}]}, {include_blank: 'Select an option'}, {:class => 'form-control fee-select', :id => 'Taster-fee'} %>
 		<% end %>
+		If you mix and match your course streams over two days, you should select from the 'Crossover' fee options.<br /><br />
 	</div>
 </div>
 <div class = 'row booking-sections'>
@@ -243,7 +247,7 @@
 			Pressing the 'Submit Booking' button will make a <i><b>tentative booking</b></i>. Booking will be confirmed once your payment has been received.
 			</p>
 			<br />
-				<%= f.submit "Submit Booking", name: 'bank_booking', :class => 'btn btn-primary pull-right', :id => 'bankSubmit', :disabled => true %>
+				<%= f.submit "Submit Booking", name: 'bank_booking', :class => 'btn btn-primary', :id => 'bankSubmit', :disabled => true %>
 		</div>
 	</div>
 </div>
@@ -302,6 +306,11 @@
 			$('#Summer-fee').val("");
 		};
 
+		function resetTasterOptions() {
+			$('.taster-course-select').removeAttr('checked');
+			$('#Taster-fee').val("");
+		}
+
 		function resetBill() {
 			$('#sub-total').empty();
 			$('#service-charge-input').empty();
@@ -350,6 +359,7 @@
 			$('#booking_course').val("");
 			resetSummerClasses();
 			resetSummerOptions();
+			resetTasterOptions();
 			$('#Taster select').val("");
 			$('#Taster input:checked').removeAttr('checked');
 			if($(this).find(':selected').data("type") == 'Taster') {
@@ -375,6 +385,12 @@
 			$('.course-booking').hide('slow');
 
 			$("." + $(this).val()).show('slow');
+			if($(this).val() == "Crossover") {
+				$('#add-on').hide();
+			};
+			if($(this).val() == "Solo") {
+				$('#add-on').show();
+			};
 		})
 
 		// show choral options
