@@ -10,9 +10,9 @@
 		<ul class="nav navbar-nav navbar-right">
 			<% @menus.secondary.roots.rank(:row_order).each do |menu| %>
 		        <% if menu.has_children? %>
-			    	<li class="dropdown">
+			    	<li class="dropdown" id="secondary-dropdown">
 			         	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= menu.name %>&nbsp;<span class="caret"></span></a>
-				        	<ul class="dropdown-menu">
+				        	<ul class="secondary-dropdown-menu">
 					          		<% menu.children.each do |child| %>
 					          		<li><%= link_to child.name, child.navigation %></li>
 					          		<% end %>
@@ -27,9 +27,9 @@
 	        <% end %>
 	        <li><%= link_to 'Contact Us', contact_path %></li>
 	        <li><%= link_to 'FAQ', faqs_path %></li>
-	        <li><%= link_to image_tag('twitter-icon.png', :class => 'header-social-icon social-icon'), 'https://twitter.com/aims_singing', :id => 'social-icon-link-twitter' %></li>
-	        <li><%= link_to image_tag('facebook-icon.png', :class => 'header-social-icon social-icon'), 'https://www.facebook.com/groups/5182097482', :id => 'social-icon-link-facebook' %></li>
-	        <li><%= link_to image_tag('youtube-icon2.png', :class => 'header-social-icon social-icon'), 'https://www.youtube.com/user/neiljenkinstenor/videos', :id => 'social-icon-link-youtube' %></li>
+	        <li class = 'social-header-list'><%= link_to image_tag('twitter-icon.png', :class => 'header-social-icon social-icon'), 'https://twitter.com/aims_singing', :id => 'social-icon-link-twitter' %></li>
+	        <li class = 'social-header-list'><%= link_to image_tag('facebook-icon.png', :class => 'header-social-icon social-icon'), 'https://www.facebook.com/groups/5182097482', :id => 'social-icon-link-facebook' %></li>
+	        <li class = 'social-header-list'><%= link_to image_tag('youtube-icon2.png', :class => 'header-social-icon social-icon'), 'https://www.youtube.com/user/neiljenkinstenor/videos', :id => 'social-icon-link-youtube' %></li>
 		</ul>
 		</div>
 
