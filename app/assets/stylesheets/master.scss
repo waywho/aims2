@@ -545,6 +545,10 @@ nav.navbar.navbar-third li a:hover,
 }
 
 @media (max-width: 767px) {
+	.navbar-secondary {
+		padding-right: 0px;
+	}
+
 	.navbar-nav .open .secondary-dropdown-menu {
 		position: static;
     	float: none;
@@ -557,6 +561,10 @@ nav.navbar.navbar-third li a:hover,
 
 	.dropdown-menu > li > a {
 		display: block;
+	}
+
+	.dropdown-menu {
+		padding-left: 0px;
 	}
 
 	.navbar-nav .open .dropdown-menu {
