@@ -98,7 +98,7 @@ class SalesforceClient
 		load_client
 		@client.create!('OpportunityLineItem',
 		    OpportunityId: opp_id,
-		    PricebookEntryId: product_id, 
+		    Product_Code__c: product_id, 
 		    Quantity: "1.00",
 		    TotalPrice: price)
 	end
