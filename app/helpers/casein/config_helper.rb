@@ -14,7 +14,7 @@ module Casein
     # The server hostname where Casein will run
     def casein_config_hostname
       if Rails.env.production?
-        'http://www.caseincms.com'
+        'http://aims-international.herokuapp.com'
       else
         'http://0.0.0.0:3000'
       end
@@ -22,7 +22,7 @@ module Casein
 
     # The sender address used for email notifications
     def casein_config_email_from_address
-      'donotreply@caseincms.com'
+      'donotreply@aims.uk.com'
     end
   
     # The initial page the user is shown after they sign in or click the logo. Probably this should be set to the first tab.

@@ -211,7 +211,6 @@ $(document).ready(function() {
 	      	'strikeThrough', '|', 'color', 'formatOL', 'formatUL', 'quote', 'insertLink', 'undo', 'redo', 
 	      	'clearFormatting', 'selectAll', 'html']
 	      });
-
 	});
 
 		
