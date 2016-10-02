@@ -159,8 +159,8 @@ ActiveRecord::Schema.define(version: 20160421072214) do
     t.integer  "course_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
-    t.string   "workflow_state"
     t.datetime "published_at"
+    t.string   "workflow_state"
     t.integer  "row_order"
   end
 
@@ -201,10 +201,10 @@ ActiveRecord::Schema.define(version: 20160421072214) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.string   "slug"
+    t.datetime "published_at"
     t.string   "workflow_state"
     t.integer  "leader_id"
     t.integer  "leader_type"
-    t.datetime "published_at"
     t.boolean  "feature"
     t.string   "feature_image"
     t.string   "ancestry"
@@ -253,10 +253,10 @@ ActiveRecord::Schema.define(version: 20160421072214) do
     t.text     "biography"
     t.string   "role"
     t.string   "slug"
+    t.datetime "published_at"
     t.string   "workflow_state"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-    t.datetime "published_at"
     t.string   "last_name"
   end
 
