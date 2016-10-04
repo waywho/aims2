@@ -19,7 +19,7 @@
 			  <!-- Indicators -->
 			  <ol class="carousel-indicators" id="hero-indicators">
 			  	<% @feature_pages.each_with_index do |page, index| %>
-				    <li data-target="#hero-carousel" style="background-image: url('<%= page.feature_image %>'); background-position: center center; background-repeat: no-repeat; background-size: cover; height: <%= (1.0/@feature_pages.size)*100 %>%" data-slide-to="<%= index %>" <%= "class = active" if index == 0 %>>
+				    <li data-target="#hero-carousel" style="background-image: url('<%= page.feature_image.url %>'); background-position: center center; background-repeat: no-repeat; background-size: cover; height: <%= (1.0/@feature_pages.size)*100 %>%" data-slide-to="<%= index %>" <%= "class = active" if index == 0 %>>
 				    	<span class='thumb-caption'><%= page.title %></span>
 				    </li>
 			    <% end %>
@@ -28,7 +28,7 @@
 			  <!-- Wrapper for slides -->
 			  <div class="carousel-inner" role="listbox" id="hero-inner">
 			  	<% @feature_pages.each_with_index do |page, index| %>
-				    <div class="item <%= 'active' if index == 0 %>" style="background-image: url('<%= page.feature_image %>'); background-position: center center; background-repeat: no-repeat; background-size: cover;" >
+				    <div class="item <%= 'active' if index == 0 %>" style="background-image: url('<%= page.feature_image.url %>'); background-position: center center; background-repeat: no-repeat; background-size: cover;" >
 
 					      <div class="intro">
 						    	<h1><%= page.title %></h1>
@@ -49,7 +49,7 @@
 	<% cache @feature_pages.first do %>
 		<% meta title: "International Music School",
 			keywords: @feature_pages.first.keyword_list %>
-		<section class="hero" style="background: url('<%= @feature_pages.first.feature_image %>'); background-position: center center; background-repeat: no-repeat; background-size: cover;">
+		<section class="hero" style="background: url('<%= @feature_pages.first.feature_image.url %>'); background-position: center center; background-repeat: no-repeat; background-size: cover;">
 			 	<div class="intro">
 			    	<h1><%= @feature_pages.first.title %></h1>
 			   		<p><%= truncated_feature(@feature_pages.first.content, page_path(@feature_pages.first)).html_safe %></p>
