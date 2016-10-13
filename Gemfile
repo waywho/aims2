@@ -37,7 +37,7 @@ gem 'carrierwave-aws'
 
 gem 'rmagick', '~> 2.15.3'
 
-gem 'wysiwyg-rails', '~> 2.2.3'
+gem 'wysiwyg-rails', '>= 2.3.4'
 
 gem 'paper_trail', '~> 4.0.0'
 
