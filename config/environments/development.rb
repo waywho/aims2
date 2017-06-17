@@ -11,7 +11,7 @@ Rails.application.configure do
     password: ENV['GMAIL_PASSWORD']
   }
 
-  config.action_mailer.default_url_options = { host: 'localhost:3030'}
+  config.action_mailer.default_url_options = { host: 'localhost:3000'}
   config.web_console.whitelisted_ips = '10.0.2.2'
   # Settings specified here will take precedence over those in config/application.rb.
 
